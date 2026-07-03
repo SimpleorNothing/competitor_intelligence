@@ -1106,6 +1106,57 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "auto"
+    },
+    {
+      "id": 83,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2024-03",
+      "event": "엔비디아 Blackwell GB200 NVL72 랙 발표, 액체냉각(direct liquid cooling) 필수 탑재 아키텍처",
+      "interpretation": "AI 데이터센터 냉각 수요 본격화. LG·삼성이 HVAC/냉각 역량으로 진입 시 B2B 인프라 확장 기회이나, 현재 Vertiv·Super Micro 등 전문 IT infra 업체가 선점. 삼성 DA는 가전 브랜드 레버리지만으론 진입 어려움.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "NVIDIA Official News",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 84,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2024-Q4",
+      "event": "Vertiv 2024 Q4 어닝콜에서 GB200 냉각 솔루션 주요 공급사 지위 확인, 2025년 매출 기여 전망",
+      "interpretation": "Vertiv는 데이터센터 인프라 전문 기업으로 GB200 런칭 초기부터 공급 확보. LG·삼성이 후발 진입 시 installed base·레퍼런스 격차 극복 필요. 삼성 DA는 냉각 기술 보유하나 hyperscaler 채널 부재.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "Vertiv Investor Relations",
+        "url": "https://investors.vertiv.com/",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 85,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2024-11",
+      "event": "Super Micro Computer, GB200 NVL72 탑재 DLC 냉각 시스템 공급 개시 발표",
+      "interpretation": "Super Micro는 서버 OEM으로 엔비디아와 긴밀 협업, 냉각·랙 통합 공급. LG·삼성이 컴포넌트(열교환기 등) 공급은 가능하나 시스템 통합 역량 부족. 삼성 DA는 B2B 냉각 모듈 ODM 검토 가능.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "Super Micro Official",
+        "url": "https://www.supermicro.com/",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
     }
   ],
   "inbox": [
@@ -1123,7 +1174,7 @@
     },
     {
       "id": "inbox-5",
-      "note": "엔비디아 GB200 액체냉각 확정(2024~), 주요 공급사 Vertiv·Super Micro. LG ES/삼성 DA 인증 여부는 공식 출처 미확인. 분기 실적발표·IR자료·엔비디아 파트너 업데이트 재점검 필요 (next check: 2026-Q3 어닝콜)",
+      "note": "LG전자·삼성전자의 GB200 냉각 공급 또는 인증은 2026-07-03 기준 공식 출처 미확인. 다음 체크포인트: 2026 Q3 어닝콜(LG전자 H&A 사업본부, 삼성전자 DA), 엔비디아 GTC 2027 파트너 발표, Vertiv/Super Micro IR 업데이트. 삼성 DA 대응: ①hyperscaler 직접 접촉(냉각 모듈 RFQ), ②Vertiv 등 Tier1과 2nd source 협상, ③자체 DLC 기술 IP 확보 검토.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
       "createdAt": "2026-07-03"
     }
