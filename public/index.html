@@ -130,6 +130,8 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 /* ── 인박스 ── */
 .inbox{border:1px dashed var(--line-strong);background:transparent;padding:16px 20px;margin:34px 0 50px}
 .inbox h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);font-weight:500;margin-bottom:10px}
+.inbox .rule{font-size:12px;color:var(--muted);line-height:1.6;margin:-4px 0 12px;padding-bottom:10px;border-bottom:1px dotted var(--line)}
+.inbox .rule b{color:var(--ink);font-weight:600}
 .inbox .it{font-size:13px;padding:7px 0;border-bottom:1px dotted var(--line);display:flex;gap:12px;flex-wrap:wrap}
 .inbox .it:last-child{border-bottom:none}
 .inbox .to{font-family:var(--mono);font-size:11px;color:var(--insight);white-space:nowrap}
@@ -337,7 +339,8 @@ function render(){
   <section class="tl" id="tl" aria-live="polite"></section>
 
   <section class="inbox">
-    <h3>미분류 인박스 · 추가 센싱 요청</h3>
+    <h3>검증 대기 인박스 · 추가 센싱 요청</h3>
+    <p class="rule"><b>승격 조건</b> — ① 1차 출처(공시·회사 공식 발표)로 사실 확인 ② 출처 간 수치 불일치 해소(확정치 확보) ③ 대기 중 이벤트 발생·실적 확정. 충족 시 신뢰도 라벨(사실/추론)을 달아 해당 축의 실행 증거 타임라인에 반영하고 인박스에서 제거합니다.</p>
     ${E.inbox.map(i=>`
       <div class="inbox-entry" id="ib-${i.id}">
         <div class="it">
