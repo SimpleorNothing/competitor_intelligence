@@ -12,6 +12,13 @@
 // wrangler.jsonc의 assets.run_worker_first:true 가 있어야 이 Worker가
 // 정적 자산보다 먼저 모든 요청을 가로챈다.
 
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { "content-type": "application/json; charset=utf-8" },
+  });
+}
+
 const AUTH_COOKIE = "da_portal_session";
 const AUTH_MSG = "da-portal-auth-v1";
 const AUTH_MAX_AGE = 60 * 60 * 24 * 180; // 약 180일
@@ -90,6 +97,72 @@ function loginPage(next, isError) {
 </body></html>`;
 }
 
+// ── 업데이트 내역(/version.json) — 커밋 이력에서 자동 생성 ─────────────────
+// 포탈(samsungda-portal)과 동일한 방식: index.html을 손으로 고칠 필요 없이,
+// GitHub 커밋 메시지의 첫 줄이 그대로 "업데이트 내역"이 된다
+// (public/update-badge.js가 이 JSON을 읽어 footer의 #ub-footer에 렌더링).
+//  - 제외: Merge/chore 커밋, 메시지에 [skip-log]가 포함된 커밋
+//  - 표시 정리: "type(scope):" 접두어와 "(#PR번호)" 꼬리표 제거
+//  - 엣지 캐시 5분(GitHub API 무인증 한도 보호). GITHUB_TOKEN 시크릿이 있으면 사용.
+const LOG_REPO = "SimpleorNothing/competitor_intelligence";
+const LOG_LIMIT = 40;
+
+function cleanCommitSummary(line) {
+  let s = (line || "").trim();
+  s = s.replace(/^[a-z]+(\([^)]*\))?!?:\s*/i, ""); // conventional commit 접두어
+  s = s.replace(/\s*\(#\d+\)\s*$/, "");            // PR 번호 꼬리표
+  return s.trim();
+}
+
+async function handleVersionJson(request, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request("https://competitor-intelligence.internal/version.json");
+  const hit = await cache.match(cacheKey);
+  if (hit) return hit;
+
+  let log = [];
+  try {
+    const headers = {
+      "user-agent": "ci-board-update-badge",
+      accept: "application/vnd.github+json",
+    };
+    if (env.GITHUB_TOKEN) headers.authorization = "Bearer " + env.GITHUB_TOKEN;
+    const r = await fetch(
+      `https://api.github.com/repos/${LOG_REPO}/commits?per_page=60`,
+      { headers }
+    );
+    if (r.ok) {
+      const commits = await r.json();
+      log = commits
+        .filter((c) => !(c.parents && c.parents.length > 1)) // merge 커밋 제외
+        .map((c) => ({
+          at: (c.commit && c.commit.author && c.commit.author.date) || "",
+          raw: ((c.commit && c.commit.message) || "").split("\n")[0].trim(),
+        }))
+        .filter(
+          (it) =>
+            it.at &&
+            it.raw &&
+            !/^(merge|chore)\b/i.test(it.raw) &&
+            !it.raw.includes("[skip-log]")
+        )
+        .map((it) => ({ at: it.at, summary: cleanCommitSummary(it.raw) }))
+        .filter((it) => it.summary)
+        .slice(0, LOG_LIMIT);
+    }
+  } catch (e) {
+    // GitHub 장애/한도 초과 시 빈 log → 배지는 meta(배포 시각) 기반으로 폴백
+  }
+
+  const vm = env.CF_VERSION_METADATA;
+  const updatedAt =
+    (vm && vm.timestamp) || (log[0] && log[0].at) || new Date().toISOString();
+  const res = json({ updated_at: updatedAt, log });
+  res.headers.set("cache-control", "public, max-age=60, s-maxage=300");
+  if (log.length) ctx.waitUntil(cache.put(cacheKey, res.clone()));
+  return res;
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -122,8 +195,11 @@ export default {
       });
     }
 
-    // 인증된 세션 → 정적 자산(public/) 서빙
+    // 인증된 세션 → 업데이트 내역 JSON(커밋 이력 자동 생성) 또는 정적 자산(public/) 서빙
     if (await isAuthed(request, env)) {
+      if (url.pathname === "/version.json") {
+        return handleVersionJson(request, env, ctx);
+      }
       return env.ASSETS.fetch(request);
     }
 
