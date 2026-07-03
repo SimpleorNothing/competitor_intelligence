@@ -134,6 +134,27 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .inbox .it:last-child{border-bottom:none}
 .inbox .to{font-family:var(--mono);font-size:11px;color:var(--insight);white-space:nowrap}
 .inbox .dt{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:auto}
+.inbox .note{flex:1;min-width:220px}
+.btn-sense{font-family:var(--mono);font-size:11px;border:1px solid var(--new);color:var(--new);background:none;padding:3px 10px;cursor:pointer;white-space:nowrap;transition:all .12s}
+.btn-sense:hover{background:var(--new);color:#fff}
+.btn-sense:disabled{opacity:.5;cursor:default}
+.btn-sense:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
+.inbox-entry{border-bottom:1px dotted var(--line)}
+.inbox-entry:last-child{border-bottom:none}
+.inbox-entry .it{border-bottom:none}
+.sense-result{margin:0 0 12px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);font-size:13px;line-height:1.65}
+.sense-result h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);font-weight:600;margin:0 0 7px;text-transform:uppercase}
+.sense-result .sec+.sec{margin-top:14px;padding-top:12px;border-top:1px dotted var(--line)}
+.sense-result .mi-item{padding:6px 0;border-bottom:1px dotted var(--line)}
+.sense-result .mi-item:last-child{border-bottom:none}
+.sense-result .mi-hl{font-weight:600;font-size:12.5px}
+.sense-result .mi-sm{color:var(--muted);font-size:12px;margin-top:2px;line-height:1.55}
+.sense-result .mi-meta{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:3px}
+.sense-result .web-sum{white-space:pre-wrap}
+.sense-result a{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new)}
+.sense-result a:hover{border-bottom-style:solid}
+.sense-result .muted{color:var(--muted)}
+.sense-result.err{border-color:var(--insight);color:var(--insight)}
 
 footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 footer #ub-btn{font-size:11.5px!important}
@@ -318,10 +339,14 @@ function render(){
   <section class="inbox">
     <h3>미분류 인박스 · 추가 센싱 요청</h3>
     ${E.inbox.map(i=>`
-      <div class="it">
-        <span class="to">→ ${i.requestedTo}</span>
-        <span>${i.note}</span>
-        <span class="dt">${fmtDate(i.createdAt)}</span>
+      <div class="inbox-entry" id="ib-${i.id}">
+        <div class="it">
+          <span class="to">→ ${i.requestedTo}</span>
+          <span class="note">${i.note}</span>
+          <button type="button" class="btn-sense" onclick="senseInbox('${i.id}', this)">추가 센싱하기</button>
+          <span class="dt">${fmtDate(i.createdAt)}</span>
+        </div>
+        <div class="sense-result" id="sr-${i.id}" hidden></div>
       </div>`).join('')}
   </section>`;
 
@@ -399,6 +424,70 @@ function openTimeline(axisId){
     </article>`).join('')}
   `;
   tl.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ── 추가 센싱 ─────────────────────────────────────────────────────────
+// 인박스 항목의 "추가 센싱하기" → Worker /api/sense 호출
+//   응답: { mi:[MI DB 매칭], web:{summary} 또는 null }
+function senseEsc(s){
+  return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+}
+function senseLinkify(s){
+  return senseEsc(s).replace(/(https?:\/\/[^\s()<>]+)/g,
+    '<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+function renderSense(d){
+  let h = '';
+  const miN = (d.mi && d.mi.length) ? d.mi.length : 0;
+  h += '<div class="sec"><h4>MI DB 매칭 · ' + (miN ? miN + '건' : '없음') + '</h4>';
+  if(miN){
+    h += d.mi.map(m => `
+      <div class="mi-item">
+        <div class="mi-hl">${m.url ? `<a href="${senseEsc(m.url)}" target="_blank" rel="noopener">${senseEsc(m.headline)}</a>` : senseEsc(m.headline)}</div>
+        <div class="mi-sm">${senseEsc(m.summary||'')}</div>
+        <div class="mi-meta">${senseEsc(m.source||'')}${m.publishedAt ? ' · ' + senseEsc(String(m.publishedAt).slice(0,10)) : ''}</div>
+      </div>`).join('');
+  } else {
+    h += '<div class="muted">MI 뉴스 DB에서 매칭되는 항목이 없습니다.</div>';
+  }
+  h += '</div>';
+  h += '<div class="sec"><h4>웹 추가 센싱</h4>';
+  if(d.web && d.web.summary){
+    h += '<div class="web-sum">' + senseLinkify(d.web.summary) + '</div>';
+  } else if(d.web && d.web.error){
+    h += '<div class="muted">웹 센싱 사용 불가 — ' + senseEsc(d.web.error) + '</div>';
+  } else {
+    h += '<div class="muted">웹 센싱이 설정되지 않았습니다. Worker에 ANTHROPIC_API_KEY 시크릿을 추가하면 활성화됩니다.</div>';
+  }
+  h += '</div>';
+  return h;
+}
+async function senseInbox(id, btn){
+  const entry = E.inbox.find(x => x.id === id);
+  if(!entry) return;
+  const box = document.getElementById('sr-' + id);
+  if(!box) return;
+  // 이미 로드되어 열려있으면 토글로 닫기
+  if(!box.hidden && box.dataset.loaded === '1'){ box.hidden = true; return; }
+  box.hidden = false; box.className = 'sense-result'; box.dataset.loaded = '';
+  box.innerHTML = '<span class="muted">센싱 중… (MI DB 조회 + 웹 검색)</span>';
+  if(btn){ btn.disabled = true; btn.textContent = '센싱 중…'; }
+  try{
+    const r = await fetch('/api/sense', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ id: entry.id, note: entry.note })
+    });
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    box.innerHTML = renderSense(d);
+    box.dataset.loaded = '1';
+  }catch(err){
+    box.className = 'sense-result err';
+    box.innerHTML = '센싱 실패 — ' + (err && err.message ? err.message : err) + '. 잠시 후 다시 시도하세요.';
+  }finally{
+    if(btn){ btn.disabled = false; btn.textContent = '추가 센싱하기'; }
+  }
 }
 
 boot();
