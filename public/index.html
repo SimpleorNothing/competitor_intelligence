@@ -61,6 +61,7 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .frame-actions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
 .btn-ghost{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:none;padding:6px 14px;cursor:pointer;color:var(--ink)}
 a.btn-ghost{display:inline-block;text-decoration:none}
+.frame-actions .org-link{margin-left:auto}
 .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper)}
 .btn-ghost:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
 
@@ -193,6 +194,7 @@ footer #ub-btn{font-size:11.5px!important}
   .ev .body{padding-top:6px}
   .frame{padding:20px 18px}
   .hd .upd{width:100%;margin-left:0}
+  .frame-actions .org-link{margin-left:0}
 }
 
 /* ── KPI 진척 패널 (프레임 내 접이식) ── */
@@ -382,7 +384,7 @@ function render(){
     <div class="frame-actions">
       <button class="btn-ghost" onclick="openTimeline('lg-frame')">프레임 연혁 보기 (${frameEvCount}건)</button>
       <button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>
-      <a class="btn-ghost" href="/org.html" target="_blank" rel="noopener" style="margin-left:auto">조직도 보기 ↗</a>
+      <a class="btn-ghost org-link" href="/org.html" target="_blank" rel="noopener">조직도 보기 ↗</a>
     </div>
     ${kpiPanelHTML()}
   </section>
