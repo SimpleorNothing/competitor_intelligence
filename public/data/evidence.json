@@ -987,18 +987,63 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
+    },
+    {
+      "id": 76,
+      "companyId": "lg",
+      "axisId": "lg-a5",
+      "date": "2025-10-14",
+      "event": "LG전자 인도법인 NSE·BSE 상장, 1.8조원 조달(15% 지분 구주매출), 공모가 기준 기업가치 12조원+",
+      "interpretation": "LG 현지법인 상장으로 '인도 국민기업' 정치적 자산 확보, 1.8조 현금은 VS·B2B·로봇 신성장 투자 재원. 인도를 글로벌 사우스 거점으로 육성(2030년 매출 2배), 당사는 동일 지역서 시장점유율 2위권에 머물러 전략 재검토 필요.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "KED Global",
+        "url": "https://www.kedglobal.com/ipos/newsView/ked202510130008",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 77,
+      "companyId": "lg",
+      "axisId": "lg-a5",
+      "date": "2026-01",
+      "event": "류재철 CEO 신년사: 인도·사우디·브라질 2030년까지 매출 2배 목표 공표, 인도 IPO 성공으로 집중 육성 의지 재확인",
+      "interpretation": "LG 지역 포트폴리오 건전화 최우선 과제화. 인도 연 8~12% 성장 가전시장에서 냉장고 30%·TV 28% 점유율 유지, 스리시티 제3공장 8,700억 투자로 2029년 완공. 당사 신흥시장 대응 속도 열위 극복 필요.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "톱데일리",
+        "url": "https://www.topdaily.kr/articles/107751",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 78,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-01",
+      "event": "인도 스리시티 제3공장 8,700억원 투자, 2026년 말 에어컨 초도생산·2029년 순차 가동, 연 생산능력 TV 200만대·냉장고 360만대·세탁기 375만대·에어컨 470만대 확대",
+      "interpretation": "LG HVAC·B2B 인프라 확대 전략의 인도 거점화. 제3공장은 인도·중동·남아시아 공급 허브로 활용. 당사 북미·중동 HVAC 대응에서 경쟁 심화 예상.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "톱데일리",
+        "url": "https://www.topdaily.kr/articles/107751",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
     }
   ],
   "inbox": [
     {
       "id": "inbox-1",
       "note": "2026.07.03 재조사 - Q9 TV 모델 공식 발표 미확인. Q9은 2019 스마트폰·2024 로봇 허브 프로젝트명. ThinQ ON 호주·태국 2026 출시 예정, Smart Home AI Agent에 Azure OpenAI Service 활용 중이나 Q9 TV 특정 연계 정보 없음. 추가 공식 발표 대기 필요.",
-      "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-03"
-    },
-    {
-      "id": "inbox-2",
-      "note": "인도 IPO 조달액(1.8조원)·기업가치(12조원+) — 1차 출처(NSE 공시·LG 뉴스룸)로 재검증 필요, 확장 리서치 인용치로만 확인된 상태",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
       "createdAt": "2026-07-03"
     },
