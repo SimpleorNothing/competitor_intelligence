@@ -193,6 +193,58 @@ footer #ub-btn{font-size:11.5px!important}
   .frame{padding:20px 18px}
   .hd .upd{width:100%;margin-left:0}
 }
+
+/* ── KPI 진척 패널 (프레임 내 접이식) ── */
+.btn-ghost.on{background:var(--ink);color:var(--paper)}
+.kpi-panel{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);animation:kpiIn .2s ease}
+@keyframes kpiIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.kpi-lead{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:16px;max-width:820px}
+.kpi-lead b{color:var(--ink)}
+.kpi-verdicts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:6px}
+.kpi-vcard{border:1px solid var(--line-strong);padding:12px 14px;background:var(--paper)}
+.kpi-vcard .vl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.kpi-vcard .vs{font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px}
+.kpi-vcard .vs .d{width:9px;height:9px;flex:none}
+.kpi-vcard .vsub{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+.kpi-seclabel{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);margin:22px 0 8px;padding-top:14px;border-top:1px solid var(--line)}
+.kpi-row{display:grid;grid-template-columns:190px 1fr 140px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px dotted var(--line)}
+.kpi-row:last-child{border-bottom:none}
+.kpi-idc{display:flex;flex-direction:column;gap:3px}
+.kpi-idc .c{font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--muted);letter-spacing:.05em}
+.kpi-idc .n{font-size:13.5px;font-weight:700;letter-spacing:-.01em;line-height:1.35}
+.kpi-idc .nt{font-size:11px;color:var(--muted);line-height:1.45}
+.kpi-barw{display:flex;flex-direction:column;gap:6px}
+.kpi-track{position:relative;height:20px;background:var(--paper);border:1px solid var(--line)}
+.kpi-fill{position:absolute;top:0;left:0;height:100%;width:0;transition:width 1s cubic-bezier(.22,.61,.36,1)}
+.kpi-fill.s-behind{background:var(--amber)}
+.kpi-fill.s-near{background:var(--new)}
+.kpi-fill.s-ontrack{background:var(--deep)}
+.kpi-fill.s-watch{background:var(--line-strong)}
+.kpi-base{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.55}
+.kpi-base::after{content:attr(data-label);position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;color:var(--muted);white-space:nowrap}
+.kpi-alt{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--deep)}
+.kpi-alt::after{content:attr(data-label);position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;color:var(--deep);white-space:nowrap}
+.kpi-pct{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10.5px;font-weight:600;color:#fff;left:7px;pointer-events:none}
+.kpi-pct.out{color:var(--ink)}
+.kpi-scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--muted)}
+.kpi-val{text-align:right}
+.kpi-val .cur{font-family:var(--mono);font-size:14px;font-weight:700}
+.kpi-val .tgt{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:2px}
+.kpi-badge{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;padding:2px 7px;margin-top:6px;color:#fff}
+.kpi-badge.s-behind{background:var(--amber)}
+.kpi-badge.s-near{background:var(--new)}
+.kpi-badge.s-ontrack{background:var(--deep)}
+.kpi-badge.s-watch{background:transparent;color:var(--muted);border:1px solid var(--line-strong)}
+.kpi-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);margin-top:14px;font-family:var(--mono);padding-top:12px;border-top:1px solid var(--line)}
+.kpi-legend span{display:inline-flex;align-items:center;gap:5px}
+.kpi-legend .d{width:8px;height:8px}
+.kpi-notes{margin-top:16px;font-size:10.5px;color:var(--muted);line-height:1.65;font-family:var(--mono)}
+.kpi-notes b{color:var(--ink)}
+@media(max-width:760px){
+  .kpi-verdicts{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:1fr;gap:9px}
+  .kpi-val{text-align:left}
+}
 </style>
 </head>
 <body>
@@ -328,7 +380,9 @@ function render(){
     </div>
     <div class="frame-actions">
       <button class="btn-ghost" onclick="openTimeline('lg-frame')">프레임 연혁 보기 (${frameEvCount}건)</button>
+      <button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>
     </div>
+    ${kpiPanelHTML()}
   </section>
 
   <div class="legend">
@@ -405,6 +459,79 @@ if (document.fonts && document.fonts.ready) {
 function toggleTlSort(){
   tlSortAsc = !tlSortAsc;
   if (currentAxis) openTimeline(currentAxis);
+}
+
+// ── 2030 KPI 진척현황 ─────────────────────────────────────────────────
+// pct: 목표=100% 대비 도달률 / base·alt: 마커(%) / status: behind|near|ontrack|watch
+const KPI_A = [
+  { code:'7-1 · OPM', name:'영업이익률 7%', note:"'25 연간 2.8% → '26 1Q 7.1%",
+    cur:'2.8%', tgt:'목표 7.0%', pct:40, status:'behind', alt:{ pos:100, label:"1Q 7.1%" } },
+  { code:'7-2 · CAGR', name:'연평균성장률 7%', note:'이노텍 제외 22→25 실질 ≈1.5%/yr',
+    cur:'≈1.5%', tgt:'목표 7.0%', pct:21, status:'behind' },
+  { code:'7-3 · EV/EBITDA', name:'기업가치 7배', note:'저평가 지속 ≈4.5배',
+    cur:'≈4.5x', tgt:'목표 7.0x', pct:64, status:'behind' },
+];
+const KPI_B = [
+  { code:'R · REVENUE', name:'매출 100조원', note:'이노텍 제외 · 연결은 89.2조',
+    cur:'≈67조', tgt:'목표 100조', pct:67, status:'behind', base:{ pos:65, label:"'22 65조" } },
+  { code:'B · B2B', name:'B2B 40조 · 비중 45%', note:"'26 1Q 6.5조 · 비중 36%",
+    cur:'36%', tgt:'목표 45%', pct:80, status:'near' },
+  { code:'T · 매출', name:'3대 전환영역 매출 50%', note:"'25 질적성장 비중 절반 육박",
+    cur:'≈48%', tgt:'목표 50%', pct:96, status:'ontrack' },
+  { code:'T · 이익', name:'3대 전환영역 영업이익 75%', note:'세부 정량 미공개 · 전장/webOS/구독 견인',
+    cur:'—', tgt:'목표 75%', pct:0, status:'watch' },
+];
+function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
+function kpiBar(k){
+  let p = `<div class="kpi-fill s-${k.status}" data-w="${k.pct}"></div>`;
+  if(k.base) p += `<span class="kpi-base" style="left:${k.base.pos}%" data-label="${k.base.label}"></span>`;
+  if(k.alt)  p += `<span class="kpi-alt" style="left:${k.alt.pos}%" data-label="${k.alt.label}"></span>`;
+  const out = k.pct < 18;
+  const t = k.status==='watch' ? 'N/A' : k.pct + '%';
+  p += `<span class="kpi-pct${out?' out':''}" style="${out?`left:${k.pct}%;margin-left:6px`:''}">${t}</span>`;
+  return `<div class="kpi-track">${p}</div><div class="kpi-scale"><span>0</span><span>목표 100%</span></div>`;
+}
+function kpiRow(k){
+  return `<div class="kpi-row">
+    <div class="kpi-idc"><span class="c">${k.code}</span><span class="n">${k.name}</span><span class="nt">${k.note}</span></div>
+    <div class="kpi-barw">${kpiBar(k)}</div>
+    <div class="kpi-val"><div class="cur">${k.cur}</div><div class="tgt">${k.tgt}</div><span class="kpi-badge s-${k.status}">${kpiBadgeTxt(k.status)}</span></div>
+  </div>`;
+}
+function kpiPanelHTML(){
+  return `<div class="kpi-panel" id="kpiPanel" hidden>
+    <div class="kpi-lead">2023.07 선포 <b>트리플 7</b> + <b>매출 100조</b>를 baseline(2022 이노텍 제외 65조)·최신 실적(2025 연간·2026 1Q)에 대조. 게이지 = <b>목표 100%</b> 대비 도달률.</div>
+    <div class="kpi-verdicts">
+      <div class="kpi-vcard"><div class="vl">트리플 7 · 수익성·가치</div><div class="vs"><span class="d" style="background:var(--amber)"></span>BEHIND</div><div class="vsub">3개 지표 모두 목표 하회. 단 '26 1Q OPM 7.1%로 목표선 첫 터치.</div></div>
+      <div class="kpi-vcard"><div class="vl">매출 100조 · 이노텍 제외</div><div class="vs"><span class="d" style="background:var(--amber)"></span>BEHIND</div><div class="vsub">연결 89.2조 성장했으나 목표 기준선은 65→약 67조 정체.</div></div>
+      <div class="kpi-vcard"><div class="vl">포트폴리오 전환 · B2B·3대영역</div><div class="vs"><span class="d" style="background:var(--deep)"></span>ON-TRACK 근접</div><div class="vsub">3대 전환영역 비중 절반 육박, B2B 36% 상승세. 질적성장축 궤도.</div></div>
+    </div>
+    <div class="kpi-seclabel">GROUP A · 트리플 7 — 수익성·성장성·기업가치</div>
+    ${KPI_A.map(kpiRow).join('')}
+    <div class="kpi-seclabel">GROUP B · 규모·포트폴리오 전환</div>
+    ${KPI_B.map(kpiRow).join('')}
+    <div class="kpi-legend">
+      <span><span class="d" style="background:var(--amber)"></span>Behind·목표 하회</span>
+      <span><span class="d" style="background:var(--new)"></span>근접·궤도 진입중</span>
+      <span><span class="d" style="background:var(--deep)"></span>On-track·사실상 도달</span>
+      <span><span class="d" style="background:var(--line-strong)"></span>Watch·정량 미공개</span>
+    </div>
+    <div class="kpi-notes"><b>기준</b> '25 연결 잠정(매출 89.2조·OP 2.48조·OPM 2.8%), '26 1Q(매출 23.73조·OP 1.67조·OPM 7.1%). <b>이노텍 제외 매출</b>은 연결−이노텍 추정(약 22조) 차감 <b>추정 약 67조</b>. B2B='26 1Q 비중 36%. 전장 '25 매출 11.1조·수주 100조. CAGR은 이노텍 제외 실질(연결 5년 CAGR 9%). EV/EBITDA 약 4~5배 근사. 확정 공시 시 보정.</div>
+  </div>`;
+}
+function toggleKpi(btn){
+  const p = document.getElementById('kpiPanel');
+  if(!p) return;
+  const willOpen = p.hidden;
+  p.hidden = !willOpen;
+  btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  btn.classList.toggle('on', willOpen);
+  if(willOpen){
+    p.querySelectorAll('.kpi-fill').forEach(el => { el.style.width = '0'; });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      p.querySelectorAll('.kpi-fill').forEach(el => { el.style.width = (+el.dataset.w || 0) + '%'; });
+    }));
+  }
 }
 
 function openTimeline(axisId){
