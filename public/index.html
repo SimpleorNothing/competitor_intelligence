@@ -103,7 +103,9 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .tl-hd{display:flex;align-items:baseline;gap:12px;padding:16px 22px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
 .tl-hd .code{font-family:var(--mono);font-weight:600;font-size:14px;background:var(--ink);color:var(--paper);padding:2px 9px}
 .tl-hd h3{font-size:18px;font-weight:700}
-.tl-hd .cnt{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.tl-hd .cnt{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted);background:none;border:none;padding:2px 4px;cursor:pointer}
+.tl-hd .cnt:hover{color:var(--ink)}
+.tl-hd .cnt:focus-visible{outline:2px solid var(--insight);outline-offset:1px}
 .ev{display:grid;grid-template-columns:112px 1fr;gap:0;border-bottom:1px solid var(--line)}
 .ev:last-child{border-bottom:none}
 .ev .when{font-family:var(--mono);font-size:12px;padding:16px 0 16px 22px;color:var(--ink);font-weight:500;border-right:1px solid var(--line)}
@@ -183,6 +185,7 @@ footer #ub-btn{font-size:11.5px!important}
 <script>
 const SIG_ORDER = { "Insight": 3, "Deep": 2, "New": 1 };
 let S = null, E = null, currentAxis = null;
+let tlSortAsc = true; // 타임라인 기본 정렬: 오래된순
 
 async function boot(){
   try{
@@ -218,9 +221,10 @@ function quarterRange(){
   return out;
 }
 
-function evidenceFor(axisId){
+function evidenceFor(axisId, ascending){
+  const dir = ascending ? 1 : -1;
   return E.items.filter(i => i.axisId === axisId)
-    .sort((a,b) => b.date.localeCompare(a.date) || (SIG_ORDER[b.signalType]-SIG_ORDER[a.signalType]));
+    .sort((a,b) => dir*a.date.localeCompare(b.date) || (SIG_ORDER[b.signalType]-SIG_ORDER[a.signalType]));
 }
 
 function sparkHTML(axisId){
@@ -322,6 +326,35 @@ function render(){
   </section>`;
 
   document.getElementById('main').innerHTML = html;
+  alignKpiDividers();
+}
+
+// 시그니처 카드 정렬: 같은 행(2열)의 카드끼리 KPI 목록 줄 수가 달라도
+// 구분선(kpi 상단 점선)과 그 아래 스파크 차트가 같은 높이에서 시작하도록
+// KPI 블록 높이를 행 단위로 맞춘다.
+function alignKpiDividers(){
+  const cards = Array.from(document.querySelectorAll('.axis'));
+  cards.forEach(c => { const k = c.querySelector('.kpi'); if (k) k.style.minHeight = ''; });
+  if (window.matchMedia('(max-width:760px)').matches) return; // 모바일은 1열이라 정렬 불필요
+  for (let i = 0; i < cards.length; i += 2){
+    const pair = cards.slice(i, i + 2).map(c => c.querySelector('.kpi')).filter(Boolean);
+    if (pair.length < 2) continue;
+    const max = Math.max(...pair.map(k => k.offsetHeight));
+    pair.forEach(k => { k.style.minHeight = max + 'px'; });
+  }
+}
+let kpiAlignResizeT = null;
+window.addEventListener('resize', () => {
+  clearTimeout(kpiAlignResizeT);
+  kpiAlignResizeT = setTimeout(alignKpiDividers, 120);
+});
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(alignKpiDividers).catch(() => {});
+}
+
+function toggleTlSort(){
+  tlSortAsc = !tlSortAsc;
+  if (currentAxis) openTimeline(currentAxis);
 }
 
 function openTimeline(axisId){
@@ -330,7 +363,7 @@ function openTimeline(axisId){
   const axis = isFrame
     ? { code:'F0', title:'전략 프레임 연혁' }
     : co.axes.find(a => a.id === axisId);
-  const evs = evidenceFor(axisId);
+  const evs = evidenceFor(axisId, tlSortAsc);
   currentAxis = axisId;
 
   document.querySelectorAll('.axis').forEach(el => {
@@ -344,7 +377,7 @@ function openTimeline(axisId){
     <div class="tl-hd">
       <span class="code">${axis.code}</span>
       <h3>${axis.title} — 실행 증거 타임라인</h3>
-      <span class="cnt">${evs.length}건 · 최신순</span>
+      <button type="button" class="cnt" onclick="toggleTlSort()">${evs.length}건 · ${tlSortAsc ? '오래된순' : '최신순'} ⇅</button>
     </div>
     ${evs.map(e => `
     <article class="ev">
