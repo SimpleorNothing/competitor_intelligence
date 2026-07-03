@@ -1,5 +1,5 @@
 {
-  "name": "competitor_intelligence",
+  "name": "competitor-intelligence",
   "compatibility_date": "2026-05-23",
   "main": "src/index.js",
   "assets": {
