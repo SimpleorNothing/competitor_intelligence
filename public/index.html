@@ -91,7 +91,7 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .axis .kpi li::before{content:"▸ ";color:var(--muted)}
 /* 시그니처: 증거 밀도 스파크 스트립 */
 .spark{display:flex;align-items:flex-end;gap:3px;height:26px;margin-top:2px}
-.spark .bar{width:9px;background:var(--line);position:relative}
+.spark .bar{flex:1;min-width:2px;background:var(--line);position:relative}
 .spark .bar.has{background:var(--line-strong)}
 .spark .bar.ins{background:var(--insight)}
 .spark-cap{font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;margin-top:3px}
