@@ -163,6 +163,113 @@ async function handleVersionJson(request, env, ctx) {
   return res;
 }
 
+// ── 추가 센싱(/api/sense) ─────────────────────────────────────────────
+// 미분류 인박스 항목의 "추가 센싱하기" 버튼이 호출한다.
+//   1) MI DB: market-insight 뉴스 저장소(news.json)에서 note 키워드 매칭
+//   2) 웹 센싱: ANTHROPIC_API_KEY 시크릿이 있으면 Claude + web_search로 최신 조사
+// 결과는 검토용 후보로 반환할 뿐, evidence.json에 자동 반영하지 않는다(운영 규율).
+const MI_NEWS_URL =
+  "https://raw.githubusercontent.com/SimpleorNothing/market-insight/main/data/news.json";
+
+// note에서 매칭용 키워드 추출 (2자 이상, 요청 상용어 제거)
+const SENSE_STOP = new Set(
+  ("추가 센싱 요청 필요 확인 상태 관련 대비 여부 최신 진척 후속 재검증 재확인 통과 시점 즉시 " +
+   "포착 출처 공시 기반 확정치 인용치 표현 목표 실적 발표 최대 변곡점 불일치 그리고 또는 " +
+   "가능 여부를 대한 위한 통해 등의 등이 이후 현재 관측 정리").split(/\s+/)
+);
+function senseKeywords(note) {
+  return Array.from(new Set(
+    String(note || "")
+      .replace(/[·—\-,()%'"“”‘’\/\[\]|]/g, " ")
+      .split(/\s+/)
+      .map((w) => w.trim())
+      .filter((w) => w.length >= 2 && !SENSE_STOP.has(w))
+  )).slice(0, 14);
+}
+
+async function senseMiMatch(note) {
+  try {
+    const r = await fetch(MI_NEWS_URL, { headers: { "user-agent": "ci-sense" } });
+    if (!r.ok) return [];
+    const data = await r.json();
+    const items = Array.isArray(data) ? data : (data.items || data.news || []);
+    const kws = senseKeywords(note).map((k) => k.toLowerCase());
+    if (!kws.length) return [];
+    return items
+      .map((it) => {
+        const hay = [
+          it.headline, it.summary,
+          Array.isArray(it.tags) ? it.tags.join(" ") : "",
+          Array.isArray(it.competitors) ? it.competitors.join(" ") : "",
+        ].join(" ").toLowerCase();
+        let score = 0;
+        kws.forEach((k) => { if (hay.includes(k)) score++; });
+        return { it, score };
+      })
+      .filter((x) => x.score > 0)
+      .sort((a, b) =>
+        b.score - a.score ||
+        String(b.it.publishedAt || "").localeCompare(String(a.it.publishedAt || ""))
+      )
+      .slice(0, 6)
+      .map((x) => ({
+        headline: x.it.headline || "",
+        summary: x.it.summary || "",
+        url: x.it.url || (x.it.source && x.it.source.url) || "",
+        source: (x.it.source && x.it.source.name) || "",
+        publishedAt: x.it.publishedAt || "",
+        score: x.score,
+      }));
+  } catch (e) {
+    return [];
+  }
+}
+
+async function senseWeb(note, env) {
+  if (!env.ANTHROPIC_API_KEY) return null; // 미설정 → 웹 센싱 생략
+  try {
+    const prompt =
+      "너는 삼성 DA 기획팀의 경쟁사 동향 센싱 에이전트다. 다음 \"추가 센싱 요청\"에 대해 " +
+      "웹에서 최신·1차 출처(거래소 공시·Tier1 매체) 위주로 사실을 조사하라. " +
+      "한국어로 5줄 이내, 각 핵심 사실 끝에 출처 URL을 괄호로 붙이고, 확인 불가한 항목은 " +
+      "\"미확인\"으로 명시하라. 사실과 추정을 구분하라.\n\n요청: " + note;
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": env.ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-5",
+        max_tokens: 1024,
+        messages: [{ role: "user", content: prompt }],
+        tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 4 }],
+      }),
+    });
+    if (!r.ok) return { error: "API " + r.status };
+    const data = await r.json();
+    const summary = (data.content || [])
+      .filter((b) => b.type === "text")
+      .map((b) => b.text)
+      .join("\n")
+      .trim();
+    return { summary: summary || "(웹 결과 없음)" };
+  } catch (e) {
+    return { error: String(e && e.message ? e.message : e) };
+  }
+}
+
+async function handleSense(request, env, ctx) {
+  let body = {};
+  try { body = await request.json(); } catch (e) {}
+  const note = String(body.note || "").slice(0, 600);
+  const id = String(body.id || "");
+  if (!note) return json({ error: "note required" }, 400);
+  const [mi, web] = await Promise.all([senseMiMatch(note), senseWeb(note, env)]);
+  return json({ id, note, mi, web, ts: new Date().toISOString() });
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -199,6 +306,9 @@ export default {
     if (await isAuthed(request, env)) {
       if (url.pathname === "/version.json") {
         return handleVersionJson(request, env, ctx);
+      }
+      if (url.pathname === "/api/sense" && request.method === "POST") {
+        return handleSense(request, env, ctx);
       }
       // 루트 페이지: /version.json 이 GitHub API 순간 장애 등으로 빈 log를
       // 반환해도 update-badge.js가 배포 시각 기준으로는 최소한 폴백하도록
