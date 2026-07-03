@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CI — 경쟁사 전략 추적 보드 | DA 2030</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEFEC; --panel:#FFFFFF; --ink:#17222D; --muted:#5C6B79;
+  --line:#D3D9D6; --line-strong:#9AA6A0;
+  --new:#46647E; --deep:#2F614D; --insight:#B02E24;
+  --amber:#A9790F; --purple:#6B4E9B;
+  --mono:'IBM Plex Mono',monospace; --sans:'IBM Plex Sans KR',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ── 헤더 ── */
+header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+.hd{display:flex;align-items:baseline;gap:14px;padding:14px 0;flex-wrap:wrap}
+.hd .mark{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.08em;background:var(--ink);color:var(--paper);padding:3px 8px}
+.hd h1{font-size:17px;font-weight:700;letter-spacing:-.01em}
+.hd .sub{font-size:12.5px;color:var(--muted)}
+.hd .upd{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+/* ── 회사 탭 ── */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 14px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-size:12.5px;padding:5px 12px;border:1px solid var(--line-strong);background:transparent;color:var(--muted);white-space:nowrap;cursor:default;font-family:var(--sans)}
+.tab.on{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:600}
+.tab.off{opacity:.45;border-style:dashed}
+
+/* ── L1 프레임 패널 ── */
+.frame{background:var(--panel);border:1px solid var(--line-strong);border-top:4px solid var(--ink);margin:26px 0;padding:26px 28px}
+.frame .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
+.frame h2{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.35}
+.frame .redef{margin-top:10px;padding:10px 14px;background:var(--paper);border-left:3px solid var(--insight);font-size:13.5px}
+.frame .redef b{color:var(--insight)}
+.stamps{display:flex;gap:0;margin:18px 0 4px;flex-wrap:wrap}
+.stamp{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line-strong);padding:5px 12px;position:relative}
+.stamp+.stamp{border-left:none}
+.stamp b{font-weight:600}
+.stamp.redefined{border-color:var(--insight);color:var(--insight);border-left:1px solid var(--insight)}
+.fgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;margin-top:16px}
+.fcol h3{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);margin-bottom:8px;font-weight:500}
+.fcol ul{list-style:none}
+.fcol li{font-size:13.5px;padding:5px 0;border-bottom:1px dotted var(--line)}
+.fcol li:last-child{border-bottom:none}
+.ppl{font-size:13px}
+.ppl .r{font-family:var(--mono);font-size:11px;color:var(--muted);display:inline-block;min-width:96px}
+.frame-actions{margin-top:16px}
+.btn-ghost{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:none;padding:6px 14px;cursor:pointer;color:var(--ink)}
+.btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper)}
+.btn-ghost:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
+
+/* ── 범례 ── */
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin:0 0 12px;font-family:var(--mono)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:8px;height:8px;display:inline-block}
+
+/* ── 축 카드 그리드 ── */
+.sec-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);margin:30px 0 10px}
+.axes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.axis{background:var(--panel);border:1px solid var(--line-strong);padding:18px 20px 16px;cursor:pointer;text-align:left;font-family:var(--sans);display:flex;flex-direction:column;gap:10px;transition:border-color .12s}
+.axis:hover{border-color:var(--ink)}
+.axis:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
+.axis.sel{border:2px solid var(--ink);padding:17px 19px 15px}
+.axis .top{display:flex;align-items:center;gap:10px}
+.axis .code{font-family:var(--mono);font-weight:600;font-size:13px;background:var(--paper);border:1px solid var(--line-strong);padding:1px 7px}
+.axis h3{font-size:16px;font-weight:700;letter-spacing:-.01em;flex:1;color:var(--ink)}
+.chip{font-family:var(--mono);font-size:10.5px;padding:2px 8px;white-space:nowrap}
+.chip.basis{border:1px solid var(--ink)}
+.chip.basis.inferred{border-style:dashed;color:var(--muted);border-color:var(--muted)}
+.chip.st-가속{background:var(--insight);color:#fff}
+.chip.st-순항{background:var(--new);color:#fff}
+.chip.st-지연{background:var(--amber);color:#fff}
+.chip.st-방향전환{background:var(--purple);color:#fff}
+.axis .sum{font-size:13px;color:var(--muted);line-height:1.55}
+.axis .kpi{font-size:12.5px;border-top:1px dotted var(--line);padding-top:8px}
+.axis .kpi li{list-style:none;padding:1.5px 0;font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+.axis .kpi li::before{content:"▸ ";color:var(--muted)}
+/* 시그니처: 증거 밀도 스파크 스트립 */
+.spark{display:flex;align-items:flex-end;gap:3px;height:26px;margin-top:2px}
+.spark .bar{width:9px;background:var(--line);position:relative}
+.spark .bar.has{background:var(--line-strong)}
+.spark .bar.ins{background:var(--insight)}
+.spark-cap{font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;margin-top:3px}
+.axis .foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* ── 타임라인 ── */
+.tl{background:var(--panel);border:1px solid var(--line-strong);margin:26px 0 40px;display:none}
+.tl.open{display:block}
+.tl-hd{display:flex;align-items:baseline;gap:12px;padding:16px 22px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.tl-hd .code{font-family:var(--mono);font-weight:600;font-size:14px;background:var(--ink);color:var(--paper);padding:2px 9px}
+.tl-hd h3{font-size:18px;font-weight:700}
+.tl-hd .cnt{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.ev{display:grid;grid-template-columns:112px 1fr;gap:0;border-bottom:1px solid var(--line)}
+.ev:last-child{border-bottom:none}
+.ev .when{font-family:var(--mono);font-size:12px;padding:16px 0 16px 22px;color:var(--ink);font-weight:500;border-right:1px solid var(--line)}
+.ev .body{padding:14px 22px 16px}
+.ev .badges{display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap}
+.b{font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:2px 7px}
+.b.sig-New{background:var(--new);color:#fff}
+.b.sig-Deep{background:var(--deep);color:#fff}
+.b.sig-Insight{background:var(--insight);color:#fff}
+.b.cf-사실{border:1px solid var(--deep);color:var(--deep)}
+.b.cf-추론{border:1px dashed var(--new);color:var(--new)}
+.b.cf-가설{border:1px dashed var(--amber);color:var(--amber)}
+.b.rv{border:1px solid var(--line-strong);color:var(--muted)}
+.b.rv.auto{border-color:var(--amber);color:var(--amber)}
+.ev .fact{font-size:14px;font-weight:600;line-height:1.55}
+.ev .interp{font-size:13px;color:var(--muted);margin-top:6px;padding-left:12px;border-left:2px solid var(--line);line-height:1.6}
+.ev .interp::before{content:"해석 — ";font-family:var(--mono);font-size:10.5px;color:var(--line-strong)}
+.ev .src{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
+.ev .src a{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new)}
+.ev .src a:hover{border-bottom-style:solid}
+
+/* ── 인박스 ── */
+.inbox{border:1px dashed var(--line-strong);background:transparent;padding:16px 20px;margin:0 0 50px}
+.inbox h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);font-weight:500;margin-bottom:10px}
+.inbox .it{font-size:13px;padding:7px 0;border-bottom:1px dotted var(--line);display:flex;gap:12px;flex-wrap:wrap}
+.inbox .it:last-child{border-bottom:none}
+.inbox .to{font-family:var(--mono);font-size:11px;color:var(--insight);white-space:nowrap}
+.inbox .dt{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:auto}
+
+footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+.err{padding:60px 20px;text-align:center;color:var(--muted);font-size:14px}
+
+@media(max-width:760px){
+  .axes{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .ev{grid-template-columns:1fr}
+  .ev .when{border-right:none;padding:14px 22px 0}
+  .ev .body{padding-top:6px}
+  .frame{padding:20px 18px}
+  .hd .upd{width:100%;margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hd">
+      <span class="mark">CI</span>
+      <h1>경쟁사 전략 추적 보드</h1>
+      <span class="sub">선언된 전략 ↔ 실행 증거의 정합성 검증</span>
+      <span class="upd" id="updatedAt"></span>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="경쟁사 선택"></nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div class="err" id="loading">데이터를 불러오는 중…</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    DA 2030 · Competitor Intelligence · 증거 라벨: <b>사실</b>=1차 출처 확인 / <b>추론</b>=관측 기반 / <b>가설</b>=검증 필요 ·
+    해석문은 AI 생성 후 주간 검토로 승격됩니다.
+  </div>
+</footer>
+
+<script>
+const SIG_ORDER = { "Insight": 3, "Deep": 2, "New": 1 };
+let S = null, E = null, currentAxis = null;
+
+async function boot(){
+  try{
+    const [s, e] = await Promise.all([
+      fetch('data/strategies.json').then(r=>{if(!r.ok)throw 0;return r.json()}),
+      fetch('data/evidence.json').then(r=>{if(!r.ok)throw 0;return r.json()})
+    ]);
+    S = s; E = e;
+    render();
+  }catch(err){
+    document.getElementById('loading').innerHTML =
+      '데이터 파일을 불러오지 못했습니다.<br>로컬에서는 <span style="font-family:var(--mono)">python3 -m http.server</span> 로 실행해 주세요.';
+  }
+}
+
+function fmtDate(d){
+  // "2026-04-29" → '26.04.29 / "2026-01" → '26.01
+  const p = d.split('-');
+  return "'" + p[0].slice(2) + '.' + p.slice(1).join('.');
+}
+function quarterKey(d){
+  const p = d.split('-'); const y = +p[0], m = +(p[1]||1);
+  return y + 'Q' + Math.ceil(m/3);
+}
+function quarterRange(){
+  // '23Q3 ~ 현재 분기
+  const out = []; let y = 2023, q = 3;
+  const now = new Date(), ny = now.getFullYear(), nq = Math.ceil((now.getMonth()+1)/3);
+  while (y < ny || (y === ny && q <= nq)){
+    out.push(y + 'Q' + q);
+    q++; if(q > 4){ q = 1; y++; }
+  }
+  return out;
+}
+
+function evidenceFor(axisId){
+  return E.items.filter(i => i.axisId === axisId)
+    .sort((a,b) => b.date.localeCompare(a.date) || (SIG_ORDER[b.signalType]-SIG_ORDER[a.signalType]));
+}
+
+function sparkHTML(axisId){
+  const qs = quarterRange();
+  const evs = E.items.filter(i => i.axisId === axisId);
+  const byQ = {};
+  evs.forEach(e => {
+    const k = quarterKey(e.date);
+    if(!byQ[k]) byQ[k] = { n:0, ins:false };
+    byQ[k].n++;
+    if(e.signalType === 'Insight') byQ[k].ins = true;
+  });
+  const max = Math.max(1, ...Object.values(byQ).map(v=>v.n));
+  const bars = qs.map(q => {
+    const v = byQ[q];
+    const h = v ? Math.max(4, Math.round(v.n / max * 26)) : 2;
+    const cls = v ? (v.ins ? 'bar has ins' : 'bar has') : 'bar';
+    return `<span class="${cls}" style="height:${h}px" title="${q}: ${v ? v.n : 0}건"></span>`;
+  }).join('');
+  return `<div class="spark" role="img" aria-label="분기별 증거 밀도">${bars}</div>
+    <div class="spark-cap"><span>'23Q3</span><span>증거 밀도(분기) · 빨강=Insight 포함</span><span>현재</span></div>`;
+}
+
+function render(){
+  const co = S.companies.find(c => c.active);
+  document.getElementById('updatedAt').textContent =
+    'updated ' + S.updatedAt.slice(0,10) + ' KST';
+
+  // 탭
+  document.getElementById('tabs').innerHTML = S.companies.map(c =>
+    `<span class="tab ${c.active ? 'on':'off'}" title="${c.active ? c.scopeNote : '커버리지 확장 예정'}">${c.shortName}</span>`
+  ).join('');
+
+  const f = co.frame;
+  const frameEvCount = evidenceFor('lg-frame').length;
+
+  let html = `
+  <section class="frame">
+    <div class="eyebrow">L1 · 전략 프레임 — ${co.name}</div>
+    <h2>${f.statement}</h2>
+    <div class="redef"><b>실행 재정의</b> · ${f.redefinition}</div>
+    <div class="stamps">
+      <span class="stamp"><b>선포</b> ${fmtDate(f.declaredAt)}</span>
+      <span class="stamp redefined"><b>재정의</b> ${fmtDate(f.redefinedAt)}</span>
+      <span class="stamp"><b>최종 검증</b> ${fmtDate(f.lastVerified)}</span>
+    </div>
+    <div class="fgrid">
+      <div class="fcol">
+        <h3>공표 목표</h3>
+        <ul>${f.targets.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+      <div class="fcol">
+        <h3>핵심 인물</h3>
+        <ul class="ppl">${f.keyPeople.map(p=>`<li><span class="r">${p.role}</span><b>${p.name}</b> <span style="color:var(--muted)">· ${p.note} (${fmtDate(p.since)}~)</span></li>`).join('')}</ul>
+      </div>
+    </div>
+    <div class="frame-actions">
+      <button class="btn-ghost" onclick="openTimeline('lg-frame')">프레임 연혁 보기 (${frameEvCount}건)</button>
+    </div>
+  </section>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--insight)"></span>Insight 분수령</span>
+    <span><span class="dot" style="background:var(--deep)"></span>Deep 구조 동인</span>
+    <span><span class="dot" style="background:var(--new)"></span>New 변곡 신호</span>
+    <span style="margin-left:auto">이행도: 가속 / 순항 / 지연 / 방향전환</span>
+  </div>
+
+  <div class="sec-label">L2 · 추진전략 축 — 클릭하면 실행 증거 타임라인</div>
+  <div class="axes">
+    ${co.axes.map(a => {
+      const n = evidenceFor(a.id).length;
+      return `
+      <button class="axis" id="card-${a.id}" onclick="openTimeline('${a.id}')" aria-expanded="false">
+        <div class="top">
+          <span class="code">${a.code}</span>
+          <h3>${a.title}</h3>
+          <span class="chip basis ${a.basis.includes('추론')||a.basis.includes('가설')?'inferred':''}">${a.basis}</span>
+          <span class="chip st-${a.execStatus}">${a.execStatus}</span>
+        </div>
+        <div class="sum">${a.summary}</div>
+        <ul class="kpi">${a.kpi.map(k=>`<li>${k}</li>`).join('')}</ul>
+        ${sparkHTML(a.id)}
+        <div class="foot"><span>${a.org}</span><span>증거 ${n}건 →</span></div>
+      </button>`;
+    }).join('')}
+  </div>
+
+  <section class="tl" id="tl" aria-live="polite"></section>
+
+  <section class="inbox">
+    <h3>미분류 인박스 · 추가 센싱 요청</h3>
+    ${E.inbox.map(i=>`
+      <div class="it">
+        <span class="to">→ ${i.requestedTo}</span>
+        <span>${i.note}</span>
+        <span class="dt">${fmtDate(i.createdAt)}</span>
+      </div>`).join('')}
+  </section>`;
+
+  document.getElementById('main').innerHTML = html;
+}
+
+function openTimeline(axisId){
+  const co = S.companies.find(c => c.active);
+  const isFrame = axisId === 'lg-frame';
+  const axis = isFrame
+    ? { code:'F0', title:'전략 프레임 연혁' }
+    : co.axes.find(a => a.id === axisId);
+  const evs = evidenceFor(axisId);
+  currentAxis = axisId;
+
+  document.querySelectorAll('.axis').forEach(el => {
+    el.classList.toggle('sel', el.id === 'card-' + axisId);
+    el.setAttribute('aria-expanded', el.id === 'card-' + axisId ? 'true' : 'false');
+  });
+
+  const tl = document.getElementById('tl');
+  tl.className = 'tl open';
+  tl.innerHTML = `
+    <div class="tl-hd">
+      <span class="code">${axis.code}</span>
+      <h3>${axis.title} — 실행 증거 타임라인</h3>
+      <span class="cnt">${evs.length}건 · 최신순</span>
+    </div>
+    ${evs.map(e => `
+    <article class="ev">
+      <div class="when">${fmtDate(e.date)}</div>
+      <div class="body">
+        <div class="badges">
+          <span class="b sig-${e.signalType}">${e.signalType.toUpperCase()}</span>
+          <span class="b cf-${e.confidence}">${e.confidence}</span>
+          <span class="b rv ${e.reviewStatus==='auto'?'auto':''}">${
+            e.reviewStatus==='seeded' ? '시딩 · 대화검증' :
+            e.reviewStatus==='auto'   ? 'AI자동 · 검토전' : '검토완료'}</span>
+        </div>
+        <div class="fact">${e.event}</div>
+        <div class="interp">${e.interpretation}</div>
+        <div class="src">출처 · ${e.source.url
+          ? `<a href="${e.source.url}" target="_blank" rel="noopener">${e.source.name}</a>`
+          : e.source.name} ${e.source.tier ? `· T${e.source.tier}` : ''}</div>
+      </div>
+    </article>`).join('')}
+  `;
+  tl.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+boot();
+</script>
+</body>
+</html>
