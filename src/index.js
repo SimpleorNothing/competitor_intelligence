@@ -200,6 +200,25 @@ export default {
       if (url.pathname === "/version.json") {
         return handleVersionJson(request, env, ctx);
       }
+      // 루트 페이지: /version.json 이 GitHub API 순간 장애 등으로 빈 log를
+      // 반환해도 update-badge.js가 배포 시각 기준으로는 최소한 폴백하도록
+      // <meta app-updated>를 주입한다(포탈과 동일한 이중 안전장치).
+      if (url.pathname === "/" || url.pathname === "/index.html") {
+        const assetRes = await env.ASSETS.fetch(request);
+        const vm = env.CF_VERSION_METADATA;
+        const ct = assetRes.headers.get("content-type") || "";
+        if (vm && vm.timestamp && ct.includes("text/html")) {
+          const ts = escAttr(vm.timestamp);
+          return new HTMLRewriter()
+            .on("head", {
+              element(el) {
+                el.append(`\n<meta name="app-updated" content="${ts}">`, { html: true });
+              },
+            })
+            .transform(assetRes);
+        }
+        return assetRes;
+      }
       return env.ASSETS.fetch(request);
     }
 
