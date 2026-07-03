@@ -157,6 +157,17 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .sense-result a:hover{border-bottom-style:solid}
 .sense-result .muted{color:var(--muted)}
 .sense-result.err{border-color:var(--insight);color:var(--insight)}
+.sense-result .verdict{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:2px 8px;margin-right:8px}
+.sense-result .verdict.v-승격{background:var(--deep);color:#fff}
+.sense-result .verdict.v-부분승격{background:var(--amber);color:#fff}
+.sense-result .verdict.v-대기{border:1px solid var(--line-strong);color:var(--muted)}
+.sense-result .prop{margin-top:10px;padding:10px 12px;background:var(--paper);border-left:2px solid var(--line-strong);font-size:12.5px;line-height:1.6}
+.sense-result .prop .px{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.btn-promote{font-family:var(--mono);font-size:11px;border:1px solid var(--deep);background:var(--deep);color:#fff;padding:4px 12px;cursor:pointer;margin-top:10px}
+.btn-promote:hover{opacity:.85}
+.btn-promote:disabled{opacity:.5;cursor:default}
+.sense-result .done{margin-top:8px;font-size:12.5px;color:var(--deep)}
+.sense-result .done a{color:var(--deep)}
 
 footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 footer #ub-btn{font-size:11.5px!important}
@@ -439,6 +450,9 @@ function senseLinkify(s){
   return senseEsc(s).replace(/(https?:\/\/[^\s()<>]+)/g,
     '<a href="$1" target="_blank" rel="noopener">$1</a>');
 }
+function sensePlain(s){
+  return String(s||'').replace(/^#{1,6}\s*/gm,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/\*([^*]+)\*/g,'$1');
+}
 function renderSense(d){
   let h = '';
   const miN = (d.mi && d.mi.length) ? d.mi.length : 0;
@@ -456,7 +470,18 @@ function renderSense(d){
   h += '</div>';
   h += '<div class="sec"><h4>웹 추가 센싱</h4>';
   if(d.web && d.web.summary){
-    h += '<div class="web-sum">' + senseLinkify(d.web.summary) + '</div>';
+    h += '<div class="web-sum">' + senseLinkify(sensePlain(d.web.summary)) + '</div>';
+    if(d.web.verdict){
+      h += '<div class="prop"><span class="verdict v-' + senseEsc(d.web.verdict) + '">' + senseEsc(d.web.verdict) + '</span>' + senseEsc(d.web.reason||'');
+      (d.web.items||[]).forEach(it=>{
+        h += '<div style="margin-top:7px"><span class="px">[' + senseEsc(it.axisId||'') + '] ' + senseEsc(it.date||'') + ' · ' + senseEsc(it.confidence||'') + ' · ' + senseEsc((it.source&&it.source.name)||'') + '</span><br>' + senseEsc(it.event||'') + '</div>';
+      });
+      if(d.web.noteUpdate) h += '<div style="margin-top:7px"><span class="px">인박스 노트 갱신안</span><br>' + senseEsc(d.web.noteUpdate) + '</div>';
+      if((d.web.items&&d.web.items.length) || d.web.noteUpdate || d.web.removeFromInbox){
+        h += '<div><button type="button" class="btn-promote" onclick="promoteSense(\'' + senseEsc(d.id) + '\', this)">판정대로 반영하기</button></div>';
+      }
+      h += '</div>';
+    }
   } else if(d.web && d.web.error){
     h += '<div class="muted">웹 센싱 사용 불가 — ' + senseEsc(d.web.error) + '</div>';
   } else {
@@ -483,6 +508,7 @@ async function senseInbox(id, btn){
     });
     if(!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
+    (window.__sense = window.__sense || {})[id] = d;
     box.innerHTML = renderSense(d);
     box.dataset.loaded = '1';
   }catch(err){
@@ -490,6 +516,47 @@ async function senseInbox(id, btn){
     box.innerHTML = '센싱 실패 — ' + (err && err.message ? err.message : err) + '. 잠시 후 다시 시도하세요.';
   }finally{
     if(btn){ btn.disabled = false; btn.textContent = '추가 센싱하기'; }
+  }
+}
+
+// "판정대로 반영하기" → /api/promote — evidence.json을 main에 커밋(자동 재배포)
+async function promoteSense(id, btn){
+  const d = (window.__sense||{})[id];
+  if(!d || !d.web) return;
+  btn.disabled = true; btn.textContent = '반영 중…';
+  try{
+    const r = await fetch('/api/promote', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        id: id,
+        items: d.web.items || [],
+        noteUpdate: d.web.noteUpdate || null,
+        removeFromInbox: d.web.removeFromInbox === true
+      })
+    });
+    const res = await r.json().catch(()=>({}));
+    if(!r.ok || res.error) throw new Error(res.error || ('HTTP ' + r.status));
+    btn.textContent = '반영 완료';
+    const box = document.getElementById('sr-' + id);
+    if(box){
+      const pEl = document.createElement('div'); pEl.className = 'done';
+      pEl.innerHTML = '커밋 완료 — 증거 +' + (res.added||0) + '건'
+        + (res.removed ? ' · 인박스 제거' : '')
+        + (res.noteUpdated ? ' · 노트 갱신' : '')
+        + '. 1~2분 내 자동 재배포 후 새로고침하면 보드에 반영됩니다.'
+        + (res.commit ? ' <a href="' + res.commit + '" target="_blank" rel="noopener">커밋 보기</a>' : '');
+      box.appendChild(pEl);
+    }
+  }catch(err){
+    btn.disabled = false; btn.textContent = '판정대로 반영하기';
+    const box = document.getElementById('sr-' + id);
+    if(box){
+      const eEl = document.createElement('div'); eEl.className = 'done';
+      eEl.style.color = 'var(--insight)';
+      eEl.textContent = '반영 실패 — ' + (err && err.message ? err.message : err);
+      box.appendChild(eEl);
+    }
   }
 }
 
