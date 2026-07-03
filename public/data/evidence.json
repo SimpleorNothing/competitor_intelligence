@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T00:00:00+09:00",
+  "updatedAt": "2026-07-04T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -11,7 +11,11 @@
       "interpretation": "가전 제조사 정체성을 공식 폐기하고 공간·경험 기업으로 재정의한 출발점. 이후 모든 사업 재편의 준거 프레임.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "디일렉", "url": "https://www.thelec.kr/news/articleView.html?idxno=21991", "tier": 2 },
+      "source": {
+        "name": "디일렉",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=21991",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -24,7 +28,11 @@
       "interpretation": "선언에 그치지 않고 경영진이 직접 진척을 계량 공개하는 IR 체계로 전환 — 비전의 실행 구속력을 시장에 자기 부과.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "LG전자 뉴스룸", "url": "https://live.lge.co.kr/2408-lg-ceo/", "tier": 1 },
+      "source": {
+        "name": "LG전자 뉴스룸",
+        "url": "https://live.lge.co.kr/2408-lg-ceo/",
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -37,7 +45,11 @@
       "interpretation": "미래비전을 자본시장 언어(ROE·주주환원)로 번역. 전략과 밸류에이션을 결합해 이행 압력을 상시화.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "서울경제TV", "url": "https://www.sentv.co.kr/article/view/sentv202410220103", "tier": 3 },
+      "source": {
+        "name": "서울경제TV",
+        "url": "https://www.sentv.co.kr/article/view/sentv202410220103",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -50,7 +62,11 @@
       "interpretation": "비전 프레임은 유지하되 실행 주체와 강조점이 교체된 변곡점. 승진이 B2B 양대 축(전장·HVAC)에 집중된 것 자체가 자원배분 선언.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "LG전자 뉴스룸", "url": "https://live.lge.co.kr/2511-lg-reinvent-2026/", "tier": 1 },
+      "source": {
+        "name": "LG전자 뉴스룸",
+        "url": "https://live.lge.co.kr/2511-lg-reinvent-2026/",
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -63,7 +79,11 @@
       "interpretation": "2030 비전의 실행 재정의. '공간·경험' 서사가 'B2B·인프라' 서사로 무게중심 이동 — 당사 HVAC·B2B 전환 축과 정면 경합 구도.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "한경비즈니스", "url": "https://magazine.hankyung.com/business/article/202606168068b", "tier": 2 },
+      "source": {
+        "name": "한경비즈니스",
+        "url": "https://magazine.hankyung.com/business/article/202606168068b",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -76,7 +96,11 @@
       "interpretation": "CEO 교체 첫 분기에 이익률 급개선 — 희망퇴직 등 '25년 구조조정 비용이 걷히며 질적 성장 서사에 실적 근거가 붙기 시작.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "디일렉 (컨콜 전문)", "url": "https://www.thelec.kr/news/articleView.html?idxno=55846", "tier": 2 },
+      "source": {
+        "name": "디일렉 (컨콜 전문)",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=55846",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -89,7 +113,11 @@
       "interpretation": "구독을 실험이 아닌 전사 수익 축으로 격상한 공식 좌표. 이후 모든 구독 증거의 이행도 판정 기준선.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "톱데일리", "url": "https://www.topdaily.kr/articles/108629", "tier": 3 },
+      "source": {
+        "name": "톱데일리",
+        "url": "https://www.topdaily.kr/articles/108629",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -102,7 +130,11 @@
       "interpretation": "해외 구독의 첫 규모화 신호. 정수기 렌털이 아닌 대형가전+케어 모델의 해외 이식 가능성 입증.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "톱데일리", "url": "https://www.topdaily.kr/articles/108629", "tier": 3 },
+      "source": {
+        "name": "톱데일리",
+        "url": "https://www.topdaily.kr/articles/108629",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -115,7 +147,11 @@
       "interpretation": "말레이시아에 이어 2번째 시장 검증 — 단일국 성공이 아니라 재현 가능한 해외 플레이북임을 시사.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "톱데일리", "url": "https://www.topdaily.kr/articles/108629", "tier": 3 },
+      "source": {
+        "name": "톱데일리",
+        "url": "https://www.topdaily.kr/articles/108629",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -128,7 +164,11 @@
       "interpretation": "구독·D2C가 승진 사유로 명시된 인사 — 수익모델 전환이 평가·보상 체계에 내재화됐다는 조직 증거.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "LG(주) 공식 보도자료", "url": "https://www.lg.co.kr/media/release/29639", "tier": 1 },
+      "source": {
+        "name": "LG(주) 공식 보도자료",
+        "url": "https://www.lg.co.kr/media/release/29639",
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -141,7 +181,11 @@
       "interpretation": "'30년 6조 경로(CAGR 20%)를 상회하는 성장 속도 유지 — 이행도 '가속' 판정의 핵심 근거.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "톱데일리·메리츠증권(컨콜 인용)", "url": "http://home.imeritz.com/include/resource/research/WorkFlow/20260130172733362K_02.pdf", "tier": 2 },
+      "source": {
+        "name": "톱데일리·메리츠증권(컨콜 인용)",
+        "url": "http://home.imeritz.com/include/resource/research/WorkFlow/20260130172733362K_02.pdf",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -154,7 +198,11 @@
       "interpretation": "동남아 5개국 체제 완성 수순. 사용 전 과정 수익화 구조로 설계 — 당사 AI구독클럽의 해외 부재와 대비되는 지점.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "톱데일리", "url": "https://www.topdaily.kr/articles/108629", "tier": 3 },
+      "source": {
+        "name": "톱데일리",
+        "url": "https://www.topdaily.kr/articles/108629",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -167,7 +215,11 @@
       "interpretation": "외부 추정치는 성장률 둔화를 전제 — '3조 시대' 보도와 회사 공식 목표(6조/'30)를 구분해 추적할 필요. 로봇×구독 결합은 A6와의 교차 신호.",
       "signalType": "New",
       "confidence": "추론",
-      "source": { "name": "대신증권·키움증권 리포트", "url": "http://money2.daishin.co.kr/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56463_4Q25_Review_LGE_260202.pdf", "tier": 2 },
+      "source": {
+        "name": "대신증권·키움증권 리포트",
+        "url": "http://money2.daishin.co.kr/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56463_4Q25_Review_LGE_260202.pdf",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -180,7 +232,11 @@
       "interpretation": "HVAC를 가전의 하위 카테고리에서 독립 P&L로 격상. 'B2B 핵심 동력화'를 위한 전략적 결정이라고 회사가 공식 확인.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "헤럴드경제 (JARN 인터뷰 인용)", "url": "https://biz.heraldcorp.com/article/10585359", "tier": 2 },
+      "source": {
+        "name": "헤럴드경제 (JARN 인터뷰 인용)",
+        "url": "https://biz.heraldcorp.com/article/10585359",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -193,7 +249,11 @@
       "interpretation": "히트펌프·히팅 영역의 유럽 현지 완결형 밸류체인 보강 — '3대 전략 중 M&A' 축의 첫 실행 증거.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "EBN", "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1677144", "tier": 3 },
+      "source": {
+        "name": "EBN",
+        "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1677144",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -206,7 +266,11 @@
       "interpretation": "축의 좌표를 확정한 분수령. '시장보다 2배 빠른 압축성장' 선언은 유기 성장만으로는 불가 — 추가 M&A 예고로 읽어야 함.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "전자신문", "url": "https://www.etnews.com/20250708000124", "tier": 2 },
+      "source": {
+        "name": "전자신문",
+        "url": "https://www.etnews.com/20250708000124",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -219,7 +283,11 @@
       "interpretation": "20조 목표를 뒷받침하는 고정자산 투자 — 선언 2개월 만에 CAPEX 증거가 붙은 빠른 이행 속도.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "EBN", "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1677144", "tier": 3 },
+      "source": {
+        "name": "EBN",
+        "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1677144",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -232,7 +300,11 @@
       "interpretation": "글로벌 공조 업계 매체를 통한 대외 커밋 — 다이킨 홈그라운드 매체에 목표를 재천명한 것 자체가 경쟁 선언.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "헤럴드경제", "url": "https://biz.heraldcorp.com/article/10585359", "tier": 2 },
+      "source": {
+        "name": "헤럴드경제",
+        "url": "https://biz.heraldcorp.com/article/10585359",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -245,7 +317,11 @@
       "interpretation": "선언(20조)과 실행(수주·인증)의 간극이 좁혀지는 국면. 벤더 등록 완료는 하이퍼스케일러 공급망 진입 장벽을 넘었다는 의미 — 당사 데이터센터 냉각 전략의 시간 여유가 줄고 있음.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "디일렉 (컨콜 전문)", "url": "https://www.thelec.kr/news/articleView.html?idxno=55846", "tier": 2 },
+      "source": {
+        "name": "디일렉 (컨콜 전문)",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=55846",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -258,7 +334,11 @@
       "interpretation": "전사 축소 속 단독 확장 — 자원 재배분의 방향이 인력 데이터로 확인됨. MS 논의가 사실이면 CSP 직공급의 첫 관문.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "CEO스코어데일리", "url": "https://m.ceoscoredaily.com/page/view/2026041717211702675", "tier": 3 },
+      "source": {
+        "name": "CEO스코어데일리",
+        "url": "https://m.ceoscoredaily.com/page/view/2026041717211702675",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -271,7 +351,11 @@
       "interpretation": "장비 판매가 아닌 '엔지니어 생태계 선점' 전략 — 현지 시공·유지보수 인력을 LG 규격으로 훈련시켜 스위칭 비용을 구조화. Non-HW 20% 목표의 실행 인프라.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "허핑턴포스트코리아", "url": "https://www.huffingtonpost.kr/article/258404", "tier": 3 },
+      "source": {
+        "name": "허핑턴포스트코리아",
+        "url": "https://www.huffingtonpost.kr/article/258404",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -284,7 +368,11 @@
       "interpretation": "CEO 교체 후에도 AI홈의 전략 지위 유지. 단, 로봇·AIDC 대비 최근 실행 증거 밀도가 낮아 우선순위 후퇴 여부 관찰 필요.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "한경비즈니스·기업모니터", "url": "https://magazine.hankyung.com/business/article/202606168068b", "tier": 2 },
+      "source": {
+        "name": "한경비즈니스·기업모니터",
+        "url": "https://magazine.hankyung.com/business/article/202606168068b",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -297,7 +385,11 @@
       "interpretation": "질적 성장 전환의 비용 측 선행 조치. '25년 실적 부진(3Q 누적 영업이익 -21%)이 CEO 교체와 구조조정을 동시에 촉발한 것으로 추정.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "CEO스코어데일리·디일렉", "url": "https://m.ceoscoredaily.com/page/view/2026041717211702675", "tier": 3 },
+      "source": {
+        "name": "CEO스코어데일리·디일렉",
+        "url": "https://m.ceoscoredaily.com/page/view/2026041717211702675",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -310,7 +402,11 @@
       "interpretation": "'저원가국 제조 생태계 활용'은 당사 중국 생태계 활용 축과 동일한 수 — 원가 구조에서 한·중 하이브리드 모델로의 수렴이 업계 공통 경로가 되고 있다는 신호.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "메리츠·대신증권 (컨콜 인용)", "url": "http://home.imeritz.com/include/resource/research/WorkFlow/20260130172733362K_02.pdf", "tier": 2 },
+      "source": {
+        "name": "메리츠·대신증권 (컨콜 인용)",
+        "url": "http://home.imeritz.com/include/resource/research/WorkFlow/20260130172733362K_02.pdf",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -323,7 +419,11 @@
       "interpretation": "구조조정 일회성 비용 소멸 + 원가 개선이 이익률 반등으로 연결 — 볼륨존 확대가 마진 훼손 없이 진행되는지가 향후 관전 포인트.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "디일렉 (컨콜 전문)", "url": "https://www.thelec.kr/news/articleView.html?idxno=55846", "tier": 2 },
+      "source": {
+        "name": "디일렉 (컨콜 전문)",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=55846",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -336,7 +436,11 @@
       "interpretation": "글로벌 사우스 최대 시장에서 현지 자본시장 상장 — 조달 자금은 M&A·B2B 등 미래성장 투자에 활용 예정으로 명시됨(id72 스리시티 3공장 투자와 직결). 청약 54배는 인도 소비자·기관 신뢰도가 이례적으로 높다는 뜻.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 1차 거래소 공시 대조 권장)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 1차 거래소 공시 대조 권장)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -349,7 +453,11 @@
       "interpretation": "판매 현지화를 넘어 R&D 현지화 — '현지 완결형' 전략이 글로벌 사우스에 실제 적용되는 첫 사례.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "전자신문", "url": "https://www.etnews.com/20250708000124", "tier": 2 },
+      "source": {
+        "name": "전자신문",
+        "url": "https://www.etnews.com/20250708000124",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -362,7 +470,11 @@
       "interpretation": "인사 데이터로 확인되는 인도 중시 — IPO 이후 현지 리더십을 본사 임원 트랙에 편입해 원심력을 관리하는 수순.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "LG(주) 공식 보도자료", "url": "https://www.lg.co.kr/media/release/29639", "tier": 1 },
+      "source": {
+        "name": "LG(주) 공식 보도자료",
+        "url": "https://www.lg.co.kr/media/release/29639",
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -375,7 +487,11 @@
       "interpretation": "가정용 로봇 R&D를 선행연구에서 사업본부 직속으로 이동 — 상업화 시계가 당겨졌다는 조직 신호. 가전×로봇 융합의 주도권을 HS가 확보.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "LG전자 뉴스룸", "url": "https://live.lge.co.kr/2511-lg-reinvent-2026/", "tier": 1 },
+      "source": {
+        "name": "LG전자 뉴스룸",
+        "url": "https://live.lge.co.kr/2511-lg-reinvent-2026/",
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -388,7 +504,11 @@
       "interpretation": "완제품(홈로봇)과 부품(액추에이터) 투트랙 — 로봇 시장이 안 열려도 부품으로 수익화하는 헤지 구조. 당사 로봇 전략과의 경로 차이 분석 필요.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "한경비즈니스", "url": "https://magazine.hankyung.com/business/article/202606168068b", "tier": 2 },
+      "source": {
+        "name": "한경비즈니스",
+        "url": "https://magazine.hankyung.com/business/article/202606168068b",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -401,7 +521,11 @@
       "interpretation": "부품–산업–서비스 로봇 밸류체인을 지분으로 선점 — 자체 개발과 인수 옵션을 동시에 여는 build+buy 하이브리드.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "대신증권 리포트", "url": "http://money2.daishin.co.kr/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56463_4Q25_Review_LGE_260202.pdf", "tier": 2 },
+      "source": {
+        "name": "대신증권 리포트",
+        "url": "http://money2.daishin.co.kr/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56463_4Q25_Review_LGE_260202.pdf",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -414,7 +538,11 @@
       "interpretation": "홈로봇이 컨셉 단계를 지나 디자인 완성도 평가 단계에 진입 — 상업화 전 단계의 통상적 마일스톤.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "LG전자 뉴스룸", "url": "https://live.lge.co.kr/", "tier": 1 },
+      "source": {
+        "name": "LG전자 뉴스룸",
+        "url": "https://live.lge.co.kr/",
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -427,7 +555,11 @@
       "interpretation": "로봇×구독(A1)×AI홈(A3) 3축 교차 시나리오 — 성사 시 가전 데이터가 로봇 학습 자산으로 전환되는 구조. 단, 증권사 분석 기반이므로 회사 공표와 구분.",
       "signalType": "Deep",
       "confidence": "추론",
-      "source": { "name": "유진투자증권 (씽크풀 인용)", "url": "https://m.thinkpool.com/stockDiscuss/066570/cont/11883308", "tier": 3 },
+      "source": {
+        "name": "유진투자증권 (씽크풀 인용)",
+        "url": "https://m.thinkpool.com/stockDiscuss/066570/cont/11883308",
+        "tier": 3
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -440,7 +572,11 @@
       "interpretation": "AI홈 플랫폼 전략의 첫 해외 M&A — 자체 개발이 아닌 인수로 개방형 생태계·글로벌 커버리지를 단숨에 확보한 조치. 2025~26년 ThinQ ON·Microsoft 협업보다 1년 앞선 포석으로, A3 축의 실질적 기점.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "경향신문", "url": "https://www.khan.co.kr/article/202407032021005", "tier": 2 },
+      "source": {
+        "name": "경향신문",
+        "url": "https://www.khan.co.kr/article/202407032021005",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -453,7 +589,11 @@
       "interpretation": "저원가국 생태계 활용이 히트펌프·칠러 같은 B2B 품목이 아니라 소비자 가전 4개 카테고리(로봇청소기·사이니지·제습기·공기청정기)로 이미 확산된 상태 — CEO 발언(5월)에서 실제 인증(7월)까지 2개월 만에 집행된 빠른 실행 속도. 삼성도 동일 방향(중저가 ODM 확대) 공표 중이라는 업계 코멘트까지 확인돼, 원가구조 재편이 양사 공통 경로임을 보여줌.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "전자신문", "url": "https://www.etnews.com/20260701000157", "tier": 2 },
+      "source": {
+        "name": "전자신문",
+        "url": "https://www.etnews.com/20260701000157",
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -466,7 +606,11 @@
       "interpretation": "가전(B2C·성숙)과 공조(B2B·수주기반)를 의도적으로 분리해 서로 다른 KPI·투자논리·조직문화로 운영하겠다는 구조적 선언 — 당사가 에어컨·시스템에어컨을 생활가전과 통합 운영하는 것과 정면 대비되는 지점. lg-a2(HVAC 20조)·lg-a6(로봇 HS 이관)의 조직적 뿌리가 되는 원점 사건.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "LG전자 뉴스룸(확장 리서치 인용)", "url": null, "tier": 1 },
+      "source": {
+        "name": "LG전자 뉴스룸(확장 리서치 인용)",
+        "url": null,
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -479,7 +623,11 @@
       "interpretation": "2025.12 HS로보틱스연구소 신설(A6 id45)보다 1년 앞서 가정용 로봇 소유권이 이미 HS로 넘어와 있었다는 뜻 — '26년 로봇 원년 선언은 급조가 아니라 2년에 걸친 조직 이관의 완결판.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "LG전자 뉴스룸(확장 리서치 인용)", "url": null, "tier": 1 },
+      "source": {
+        "name": "LG전자 뉴스룸(확장 리서치 인용)",
+        "url": null,
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -492,7 +640,11 @@
       "interpretation": "AI홈이 R&D 산하 프로젝트가 아니라 사업본부 직할 조직으로 격상된 시점. 같은 해 7월 앳홈 인수(A3 id50)와 결합해, 2024년 하반기에 'AI홈 자체 개발+글로벌 플랫폼 인수'를 동시에 실행한 것으로 해석 가능.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "LG전자 뉴스룸(확장 리서치 인용)", "url": null, "tier": 1 },
+      "source": {
+        "name": "LG전자 뉴스룸(확장 리서치 인용)",
+        "url": null,
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -505,7 +657,11 @@
       "interpretation": "2025.12 HS로보틱스연구소·'26.1 로봇 원년 선언보다 훨씬 앞선 최초 베팅 — 로봇 전략이 류재철 체제의 신규 기획이 아니라 조주완 체제 말기부터 이어진 연속 프로젝트임을 보여주는 증거.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -518,7 +674,11 @@
       "interpretation": "1년 만에 소수지분→과반→사실상 완전자회사로 빠르게 확대 — 상업용 서비스로봇(클로이 통합)의 주도권을 지분으로 직접 확보하는 전략. 단, 최초 지분(21% vs 25%)·최종 지분(51% vs 61.1%) 수치가 출처마다 달라 정확한 확대 시점·지분율은 추가 확인 필요.",
       "signalType": "Deep",
       "confidence": "추론",
-      "source": { "name": "thebell 등 업계보도(확장 리서치 인용, 수치 출처 간 불일치)", "url": null, "tier": 2 },
+      "source": {
+        "name": "thebell 등 업계보도(확장 리서치 인용, 수치 출처 간 불일치)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -531,7 +691,11 @@
       "interpretation": "'30년 6조 목표(id10)의 실제 출발선. 2023년에 이미 1조원을 넘겨 '유니콘'으로 공식 명명됐다는 점에서, 구독은 2025년에 갑자기 부상한 게 아니라 최소 3년 전부터 전사가 관리해온 핵심 지표였음을 보여줌.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 발표월 추정)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 발표월 추정)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -544,7 +708,11 @@
       "interpretation": "전년 +33%에서 +75%로 성장률이 2배 이상 가속. 2025년 이후(+29~30%)보다 오히려 2024년이 성장률 정점이었다는 뜻 — '30년 6조 경로가 최근 다소 둔화 중인 것으로 재해석될 여지.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 발표월 추정)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 발표월 추정)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -557,7 +725,11 @@
       "interpretation": "동남아 2번째 진출국. 말레이시아(2019년 출시)보다 훨씬 빠른 9개월 만에 1만 규모에 도달 — 초기 진출 학습효과로 후발 국가의 스케일업 속도가 빨라지고 있다는 신호.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -570,7 +742,11 @@
       "interpretation": "동남아 진출과 별도로 대만을 3번째 국가로 추가, 신규 법인 설립 없이 기존 인프라로 확장하는 저비용 스케일업 패턴 확인.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -583,7 +759,11 @@
       "interpretation": "온라인·기존 매장 결합이 아니라 '구독 전용' 오프라인 매장을 낸 첫 사례 — 구독을 부가 채널이 아닌 독립 소매 포맷으로 격상시킨 조치.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -596,7 +776,11 @@
       "interpretation": "품목 확대 경로가 정수기(2009)→대형가전(2022)→초프리미엄(2025~)으로 이어짐 — 구독이 저가 진입 상품에서 최고가 라인까지 전 가격대를 커버하는 유일한 채널로 완성되고 있음.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 정확 시점 확인 필요)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 정확 시점 확인 필요)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -609,7 +793,11 @@
       "interpretation": "구독의 진짜 해자는 요금제가 아니라 이 케어 조직 — 삼성이 단기간에 복제하기 가장 어려운 자산. 다만 정확한 인원은 회사 공식 확정치가 아닌 언론 통용 수치라 확인 필요.",
       "signalType": "Insight",
       "confidence": "추론",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 인원수 미확정)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 인원수 미확정)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -622,7 +810,11 @@
       "interpretation": "회사가 직접 시장 규모를 정량 제시했다는 것 자체가 이 사업을 IR 핵심 스토리로 밀기 시작했다는 신호. 20조 목표(id22)의 시장 근거를 역산하면 LG가 2030년 이 시장에서 상당한 점유율을 가정하고 있다는 뜻.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "데일리안(단독, 확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "데일리안(단독, 확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -635,7 +827,11 @@
       "interpretation": "'26.4월 컨콜에서 재확인된 'MS 논의'(id26)의 실제 출발점. 확정 매출이 아니라 인증 단계라는 점에서 낙관은 이르나, CSP 최상위 티어와 공식 파트너십을 맺은 것 자체가 신뢰도 검증을 통과했다는 의미.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -648,7 +844,11 @@
       "interpretation": "중동 국가급 메가 프로젝트에 이름을 올린 첫 사례 — 확정 수주는 아니지만 사우디 국부펀드급 프로젝트 벤더 리스트 진입은 향후 유사 중동 프로젝트 수주의 레퍼런스가 됨.",
       "signalType": "Insight",
       "confidence": "추론",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, MOU 단계)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, MOU 단계)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -661,7 +861,11 @@
       "interpretation": "엔비디아 밴더 인증 통과 여부가 ES 밸류에이션의 최대 변곡점 — 통과 시 데이터센터 냉각 서사가 'MOU 단계'에서 '확정 공급망'으로 격상. 아직 미통과 단계이므로 과신 금지.",
       "signalType": "Insight",
       "confidence": "추론",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 인증 미통과 단계 명시)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 인증 미통과 단계 명시)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -674,7 +878,11 @@
       "interpretation": "국내 정유·화학 기반 기업과의 협력으로 냉각액 공급망까지 확보하려는 수직계열화 시도 — 데이터센터 냉각을 장비 판매를 넘어 소모품(냉각액) 비즈니스로 확장할 포석.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -687,7 +895,11 @@
       "interpretation": "자사 통신 계열사(LG U+)를 첫 실증 고객으로 활용 — 외부 레퍼런스가 부족한 초기 단계에서 그룹 내부 데이터센터를 실적 증명 무대로 쓰는 전형적 스케일업 전략.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -700,7 +912,11 @@
       "interpretation": "'26.7월 ECM 확대(id51)의 CEO 차원 사전 정당화 발언. 류재철 체제의 실행(공기청정기·로봇청소기 외주)이 아니라 조주완 체제 말기에 이미 전략 승인이 내려져 있었다는 뜻 — CEO 교체와 무관하게 이어지는 연속 전략임을 확인.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -713,7 +929,11 @@
       "interpretation": "IPO 조달금(약 1.8조원)의 실사용처가 바로 이 공장 증설로 확인됨. 3년에 걸친 품목별 단계 가동은 인도를 단순 조립기지가 아닌 중장기 생산 허브로 설계했다는 뜻.",
       "signalType": "Deep",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 발표 시점 IPO 전후 추정)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 발표 시점 IPO 전후 추정)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -726,7 +946,11 @@
       "interpretation": "LG 자체 전략이 아닌 외부 규제 변곡점이지만 A5(지역 재편) 해석의 핵심 변수 — 관세 리스크가 일부 해소되며 북미 생산 재편의 긴급성이 낮아졌을 가능성. 다음 항목(동남아 증설 보류)과 연결해서 봐야 함.",
       "signalType": "Insight",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 사법부 판결)", "url": null, "tier": 1 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 사법부 판결)",
+        "url": null,
+        "tier": 1
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -739,7 +963,11 @@
       "interpretation": "대법원 판결(id73) 직후 시점과 겹침 — 관세 불확실성이 오히려 '동남아 분산' 대신 '북미 집중'을 택하게 만든 역설적 결과로 해석 가능. 단, 정확한 인과관계는 추가 검증 필요.",
       "signalType": "Deep",
       "confidence": "추론",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 시점 추정)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 시점 추정)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     },
@@ -752,7 +980,11 @@
       "interpretation": "북미 관세 대응의 구체적 CAPEX 집행 사례. 완공 목표가 '26.3분기라 올해 하반기가 실제 가동 여부를 확인할 다음 체크포인트.",
       "signalType": "New",
       "confidence": "사실",
-      "source": { "name": "업계보도 종합(확장 리서치 인용, 발표 시점 추정)", "url": null, "tier": 2 },
+      "source": {
+        "name": "업계보도 종합(확장 리서치 인용, 발표 시점 추정)",
+        "url": null,
+        "tier": 2
+      },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
     }
@@ -760,7 +992,7 @@
   "inbox": [
     {
       "id": "inbox-1",
-      "note": "A3 AI홈 — ThinQ ON 후속, Microsoft·Azure OpenAI 기반 Q9 최신 진척 추가 센싱 요청",
+      "note": "2026.07.03 재조사 - Q9 TV 모델 공식 발표 미확인. Q9은 2019 스마트폰·2024 로봇 허브 프로젝트명. ThinQ ON 호주·태국 2026 출시 예정, Smart Home AI Agent에 Azure OpenAI Service 활용 중이나 Q9 TV 특정 연계 정보 없음. 추가 공식 발표 대기 필요.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
       "createdAt": "2026-07-03"
     },
