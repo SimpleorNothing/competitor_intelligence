@@ -167,7 +167,7 @@ async function handleVersionJson(request, env, ctx) {
 // 미분류 인박스 항목의 "추가 센싱하기" 버튼이 호출한다.
 //   1) MI DB: market-insight 뉴스 저장소(news.json)에서 note 키워드 매칭
 //   2) 웹 센싱: ANTHROPIC_API_KEY 시크릿이 있으면 Claude + web_search로 최신 조사
-// 결과는 검토용 후보로 반환할 뿐, evidence.json에 자동 반영하지 않는다(운영 규율).
+// 결과는 검토용 후보만 반환하고, 반영은 별도 /api/promote(버튼 확인)로만 수행.
 const MI_NEWS_URL =
   "https://raw.githubusercontent.com/SimpleorNothing/market-insight/main/data/news.json";
 
@@ -225,14 +225,50 @@ async function senseMiMatch(note) {
   }
 }
 
-async function senseWeb(note, env) {
+// 전략축 카탈로그 — 자체 정적 자산(strategies.json)에서 로드
+async function loadAxisCatalog(env) {
+  try {
+    const r = await env.ASSETS.fetch(new Request("https://ci.internal/data/strategies.json"));
+    if (!r.ok) return [];
+    const s = await r.json();
+    const co = (s.companies || []).find((c) => c.active) || (s.companies || [])[0];
+    if (!co) return [];
+    const axes = (co.axes || []).map((a) => ({ id: a.id, code: a.code, title: a.title }));
+    if (co.id) axes.unshift({ id: co.id + "-frame", code: "F0", title: "전략 프레임" });
+    return axes;
+  } catch (e) {
+    return [];
+  }
+}
+
+function extractJson(text) {
+  const t = String(text || "").replace(/```json|```/g, "").trim();
+  try { return JSON.parse(t); } catch (e) {}
+  const a = t.indexOf("{"), b = t.lastIndexOf("}");
+  if (a > -1 && b > a) {
+    try { return JSON.parse(t.slice(a, b + 1)); } catch (e) {}
+  }
+  return null;
+}
+
+async function senseWeb(note, env, axes) {
   if (!env.ANTHROPIC_API_KEY) return null; // 미설정 → 웹 센싱 생략
   try {
+    const axisList = (axes || []).map((a) => a.id + "(" + (a.code || "") + " " + (a.title || "") + ")").join(", ");
     const prompt =
-      "너는 삼성 DA 기획팀의 경쟁사 동향 센싱 에이전트다. 다음 \"추가 센싱 요청\"에 대해 " +
-      "웹에서 최신·1차 출처(거래소 공시·Tier1 매체) 위주로 사실을 조사하라. " +
-      "한국어로 5줄 이내, 각 핵심 사실 끝에 출처 URL을 괄호로 붙이고, 확인 불가한 항목은 " +
-      "\"미확인\"으로 명시하라. 사실과 추정을 구분하라.\n\n요청: " + note;
+      "너는 삼성 DA 기획팀의 경쟁사 동향 센싱 에이전트다. 아래 '검증 대기' 항목을 웹에서 " +
+      "최신·1차 출처(거래소 공시·회사 공식 발표·Tier1 매체) 위주로 조사하고, 승격 조건에 따라 판정하라.\n" +
+      "승격 조건: ①1차 출처로 사실 확인 ②출처 간 수치 불일치 해소(확정치 확보) ③대기 중 이벤트 발생·실적 확정.\n" +
+      "가능한 전략축(axisId): " + axisList + "\n\n" +
+      "반드시 아래 JSON 객체 하나만 출력하라. 마크다운·코드펜스·설명문 금지. summary는 평문(#, ** 등 마크다운 기호 금지).\n" +
+      '{"summary":"5줄 이내 조사 요약, 각 사실 끝에 (출처URL)","verdict":"승격|부분승격|대기",' +
+      '"reason":"판정 근거 1~2문장","items":[{"axisId":"...","date":"YYYY-MM-DD 또는 YYYY-MM",' +
+      '"event":"확정된 사실","interpretation":"당사(삼성 DA) 관점 해석","signalType":"New|Deep|Insight",' +
+      '"confidence":"사실|추론","source":{"name":"출처명","url":"https://...","tier":1}}],' +
+      '"noteUpdate":"대기·부분승격 시 인박스에 남길 갱신 노트(없으면 null)","removeFromInbox":false}\n' +
+      "규칙: items에는 출처로 확인된 사실만 넣는다. confidence '사실'은 1차 출처(공시·회사 발표)가 있을 때만. " +
+      "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n\n" +
+      "요청: " + note;
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -242,22 +278,145 @@ async function senseWeb(note, env) {
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-5",
-        max_tokens: 1024,
+        max_tokens: 2048,
         messages: [{ role: "user", content: prompt }],
-        tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 4 }],
+        tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 5 }],
       }),
     });
     if (!r.ok) return { error: "API " + r.status };
     const data = await r.json();
-    const summary = (data.content || [])
+    const text = (data.content || [])
       .filter((b) => b.type === "text")
       .map((b) => b.text)
       .join("\n")
       .trim();
-    return { summary: summary || "(웹 결과 없음)" };
+    const p = extractJson(text);
+    if (p && typeof p === "object" && p.summary) {
+      return {
+        summary: String(p.summary).trim(),
+        verdict: ["승격", "부분승격", "대기"].includes(p.verdict) ? p.verdict : "대기",
+        reason: String(p.reason || "").slice(0, 300),
+        items: Array.isArray(p.items) ? p.items.slice(0, 5) : [],
+        noteUpdate: typeof p.noteUpdate === "string" && p.noteUpdate.trim() ? p.noteUpdate.trim().slice(0, 600) : null,
+        removeFromInbox: p.removeFromInbox === true,
+      };
+    }
+    return { summary: text || "(웹 결과 없음)" };
   } catch (e) {
     return { error: String(e && e.message ? e.message : e) };
   }
+}
+
+// ── 판정 반영(/api/promote) ───────────────────────────────────────────
+// "판정대로 반영하기" 버튼이 호출. GitHub Contents API로 evidence.json을
+// main에 직접 커밋 → Cloudflare 자동 재배포로 보드에 반영.
+// GITHUB_TOKEN 시크릿(repo contents 쓰기 권한) 필요. 승격 항목은
+// reviewStatus "auto"(AI자동·검토전 배지)로 들어가 주간 검토 대상이 된다.
+const DATA_REPO = "SimpleorNothing/competitor_intelligence";
+const DATA_PATH = "public/data/evidence.json";
+
+function b64EncodeUtf8(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = "";
+  const CH = 0x8000;
+  for (let i = 0; i < bytes.length; i += CH) {
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
+  }
+  return btoa(bin);
+}
+function b64DecodeUtf8(b64) {
+  const bin = atob(String(b64 || "").replace(/\n/g, ""));
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+async function handlePromote(request, env, ctx) {
+  if (!env.GITHUB_TOKEN) {
+    return json({ error: "GITHUB_TOKEN 시크릿 필요 — repo contents 쓰기 권한 토큰을 Worker에 등록하세요" }, 501);
+  }
+  let body = {};
+  try { body = await request.json(); } catch (e) {}
+  const inboxId = String(body.id || "");
+  const items = Array.isArray(body.items) ? body.items : [];
+  const noteUpdate = typeof body.noteUpdate === "string" && body.noteUpdate.trim() ? body.noteUpdate.trim().slice(0, 600) : null;
+  const removeFromInbox = body.removeFromInbox === true;
+  if (!inboxId) return json({ error: "id required" }, 400);
+  if (!items.length && !noteUpdate && !removeFromInbox) return json({ error: "반영할 변경이 없습니다" }, 400);
+
+  const gh = {
+    "user-agent": "ci-sense-promote",
+    accept: "application/vnd.github+json",
+    authorization: "Bearer " + env.GITHUB_TOKEN,
+  };
+  const getRes = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + DATA_PATH + "?ref=main",
+    { headers: gh }
+  );
+  if (!getRes.ok) return json({ error: "evidence.json 조회 실패 " + getRes.status }, 502);
+  const meta = await getRes.json();
+  let data;
+  try { data = JSON.parse(b64DecodeUtf8(meta.content)); }
+  catch (e) { return json({ error: "evidence.json 파싱 실패" }, 502); }
+
+  const entry = (data.inbox || []).find((x) => x.id === inboxId);
+  let nextId = Math.max(0, ...(data.items || []).map((i) => Number(i.id) || 0)) + 1;
+  const added = [];
+  for (const it of items.slice(0, 5)) {
+    if (!it || !it.axisId || !it.event) continue;
+    added.push({
+      id: nextId++,
+      companyId: "lg",
+      axisId: String(it.axisId),
+      date: String(it.date || new Date().toISOString().slice(0, 10)),
+      event: String(it.event).slice(0, 600),
+      interpretation: String(it.interpretation || "").slice(0, 600),
+      signalType: ["New", "Deep", "Insight"].includes(it.signalType) ? it.signalType : "New",
+      confidence: ["사실", "추론", "가설"].includes(it.confidence) ? it.confidence : "추론",
+      source: {
+        name: String((it.source && it.source.name) || "웹 센싱").slice(0, 120),
+        url: it.source && it.source.url ? String(it.source.url).slice(0, 300) : null,
+        tier: [1, 2, 3].includes(Number(it.source && it.source.tier)) ? Number(it.source.tier) : 2,
+      },
+      interpretationBy: "claude",
+      reviewStatus: "auto",
+    });
+  }
+  data.items = (data.items || []).concat(added);
+  if (entry) {
+    if (removeFromInbox) data.inbox = data.inbox.filter((x) => x.id !== inboxId);
+    else if (noteUpdate) entry.note = noteUpdate;
+  }
+  data.updatedAt = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10) + "T00:00:00+09:00";
+
+  const msg = "data: 센싱 반영 — " + inboxId +
+    (removeFromInbox ? " 승격·인박스 제거" : noteUpdate ? " 노트 갱신" : " 증거 추가") +
+    " (+" + added.length + "건)";
+  const putRes = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + DATA_PATH,
+    {
+      method: "PUT",
+      headers: { ...gh, "content-type": "application/json" },
+      body: JSON.stringify({
+        message: msg,
+        content: b64EncodeUtf8(JSON.stringify(data, null, 2) + "\n"),
+        sha: meta.sha,
+        branch: "main",
+      }),
+    }
+  );
+  if (!putRes.ok) {
+    const t = await putRes.text();
+    return json({ error: "커밋 실패 " + putRes.status, detail: t.slice(0, 200) }, 502);
+  }
+  const out = await putRes.json();
+  return json({
+    ok: true,
+    added: added.length,
+    removed: removeFromInbox,
+    noteUpdated: !!(noteUpdate && !removeFromInbox),
+    commit: (out.commit && out.commit.html_url) || null,
+  });
 }
 
 async function handleSense(request, env, ctx) {
@@ -266,7 +425,8 @@ async function handleSense(request, env, ctx) {
   const note = String(body.note || "").slice(0, 600);
   const id = String(body.id || "");
   if (!note) return json({ error: "note required" }, 400);
-  const [mi, web] = await Promise.all([senseMiMatch(note), senseWeb(note, env)]);
+  const axes = await loadAxisCatalog(env);
+  const [mi, web] = await Promise.all([senseMiMatch(note), senseWeb(note, env, axes)]);
   return json({ id, note, mi, web, ts: new Date().toISOString() });
 }
 
@@ -309,6 +469,9 @@ export default {
       }
       if (url.pathname === "/api/sense" && request.method === "POST") {
         return handleSense(request, env, ctx);
+      }
+      if (url.pathname === "/api/promote" && request.method === "POST") {
+        return handlePromote(request, env, ctx);
       }
       // 루트 페이지: /version.json 이 GitHub API 순간 장애 등으로 빈 log를
       // 반환해도 update-badge.js가 배포 시각 기준으로는 최소한 폴백하도록
