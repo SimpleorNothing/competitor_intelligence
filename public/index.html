@@ -60,6 +60,7 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .ppl .r{font-family:var(--mono);font-size:11px;color:var(--muted);display:inline-block;min-width:96px}
 .frame-actions{margin-top:16px}
 .btn-ghost{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:none;padding:6px 14px;cursor:pointer;color:var(--ink)}
+a.btn-ghost{display:inline-block;text-decoration:none}
 .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper)}
 .btn-ghost:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
 
@@ -324,6 +325,7 @@ function render(){
       <div class="fcol">
         <h3>핵심 인물</h3>
         <ul class="ppl">${f.keyPeople.map(p=>`<li><span class="r">${p.role}</span><b>${p.name}</b> <span style="color:var(--muted)">· ${p.note} (${fmtDate(p.since)}~)</span></li>`).join('')}</ul>
+        <div style="margin-top:12px"><a class="btn-ghost" href="/org.html" target="_blank" rel="noopener">조직도 보기 ↗</a></div>
       </div>
     </div>
     <div class="frame-actions">
