@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>LG전자 조직도 — 연도별 변화 · 승진 추적</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --paper:#EDEFEC; --panel:#FFFFFF; --ink:#17222D; --muted:#5C6B79;
+  --line:#D3D9D6; --line-strong:#9AA6A0;
+  --new:#46647E; --deep:#2F614D; --insight:#B02E24; --amber:#A9790F; --purple:#6B4E9B;
+  --sans:'Pretendard',system-ui,-apple-system,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.mark,.upd,.tab,.cnt,.b,.legend,.rkh,.sub,.note{font-variant-numeric:tabular-nums}
+
+header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+.hd{display:flex;align-items:baseline;gap:14px;padding:14px 0;flex-wrap:wrap}
+.hd .mark{font-weight:600;font-size:13px;letter-spacing:.08em;background:var(--ink);color:var(--paper);padding:3px 8px}
+.hd h1{font-size:17px;font-weight:700}
+.hd .sub{font-size:12.5px;color:var(--muted)}
+.hd .upd{margin-left:auto;font-size:11.5px;color:var(--muted)}
+
+.tabs{display:flex;gap:6px;padding:12px 0 0;flex-wrap:wrap}
+.tab{font-size:12.5px;padding:6px 14px;border:1px solid var(--line-strong);background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans)}
+.tab.on{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:600}
+.psum{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:10px 0 4px}
+.psum b{color:var(--ink)}
+.psum .pr{color:var(--insight)} .psum .nw{color:var(--deep)}
+.legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);padding:2px 0 14px;flex-wrap:wrap}
+.b{font-size:10px;letter-spacing:.05em;padding:1px 6px;font-weight:600}
+.b.pr{background:var(--insight);color:#fff}
+.b.nw{border:1px solid var(--deep);color:var(--deep)}
+.b.born{color:#fff;border:none}
+.b.born.y24{background:var(--new)}
+.b.born.y25{background:var(--amber)}
+.b.born.y26{background:var(--purple)}
+
+/* ── 트리 ── */
+.tree{padding:6px 0 4px}
+.root{background:var(--new);color:#fff;text-align:center;padding:12px 26px;max-width:340px;margin:0 auto;position:relative}
+.root .r{font-size:10.5px;letter-spacing:.12em;opacity:.75;display:block}
+.root .nm{font-size:18px;font-weight:700}
+.root .nt{font-size:11.5px;opacity:.85}
+.root::after{content:'';position:absolute;left:50%;bottom:-18px;width:2px;height:18px;background:var(--line-strong)}
+.branches{display:flex;justify-content:center;gap:10px;margin-top:36px;flex-wrap:wrap;position:relative;padding-top:18px}
+.branches::before{content:'';position:absolute;top:0;left:5%;right:5%;height:2px;background:var(--line-strong)}
+.dv{background:var(--new);color:#fff;border:none;width:118px;padding:10px 8px 9px;text-align:center;cursor:pointer;position:relative;font-family:var(--sans);transition:filter .12s}
+.dv::before{content:'';position:absolute;top:-18px;left:50%;width:2px;height:18px;background:var(--line-strong)}
+.dv:hover{filter:brightness(1.12)}
+.dv:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
+.dv.on{outline:3px solid var(--ink);outline-offset:0}
+.dv h3{font-size:13px;font-weight:700;line-height:1.3}
+.dv .ld{font-size:11px;opacity:.9;margin-top:3px;min-height:15px}
+.dv .cnt{display:inline-block;margin-top:5px;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.18);padding:1px 8px}
+.dv .pm{position:absolute;top:-8px;right:-6px;background:var(--insight);color:#fff;font-size:10px;font-weight:700;padding:1px 6px}
+.dv.staff{background:var(--ink)} .dv.growth{background:var(--deep)} .dv.etc{background:var(--line-strong)}
+
+/* ── 상세 ── */
+.detail{background:var(--panel);border:1px solid var(--line-strong);margin:24px 0 40px;display:none}
+.detail.open{display:block}
+.dhd{display:flex;align-items:baseline;gap:12px;padding:14px 20px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.dhd h3{font-size:17px;font-weight:700}
+.dhd .sub{font-size:12px;color:var(--muted)}
+.dhd .close{margin-left:auto;font-size:11.5px;color:var(--muted);background:none;border:1px solid var(--line-strong);padding:3px 10px;cursor:pointer}
+.dhd .close:hover{border-color:var(--ink);color:var(--ink)}
+.dlead{padding:14px 20px 4px}
+.leadbox{display:inline-block;background:var(--ink);color:#fff;padding:9px 18px}
+.leadbox .r{font-size:10px;letter-spacing:.1em;opacity:.7;display:block}
+.leadbox .nm{font-size:15px;font-weight:700}
+.rkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;padding:12px 20px 20px}
+.rkcol{border:1px solid var(--line);margin:-1px 0 0 -1px;padding:10px 12px}
+.rkh{font-size:11px;letter-spacing:.1em;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:7px}
+.mem{font-size:12.5px;padding:4px 0;border-bottom:1px dotted var(--line);display:flex;gap:7px;align-items:baseline;flex-wrap:wrap}
+.mem:last-child{border-bottom:none}
+.mem .dp{font-weight:600;flex:1;min-width:120px}
+.mem .nm2{color:var(--muted);font-size:12px;white-space:nowrap}
+.note{font-size:11.5px;color:var(--muted);padding:0 20px 16px}
+
+.tab.tr{border-color:var(--insight);color:var(--insight)}
+.tab.tr.on{background:var(--insight);border-color:var(--insight);color:#fff}
+.trdiv{background:var(--panel);border:1px solid var(--line-strong);border-top:3px solid var(--ink);margin:0 0 18px}
+.trhd{display:flex;gap:12px;align-items:baseline;padding:12px 18px;border-bottom:2px solid var(--ink)}
+.trhd h3{font-size:15px;font-weight:700}
+.trrow{display:grid;grid-template-columns:1fr repeat(4,72px) 150px;align-items:center;padding:6px 18px;border-bottom:1px dotted var(--line);font-size:12.5px}
+.trrow:last-child{border-bottom:none}
+.trhead{font-size:10.5px;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--line)}
+.trrow .o{font-weight:600}
+.trrow .c{text-align:right;font-variant-numeric:tabular-nums;display:flex;justify-content:flex-end;align-items:center;gap:5px}
+.trrow .c i{display:inline-block;height:8px;background:var(--new);opacity:.55}
+.trrow .c em{color:var(--line-strong);font-style:normal}
+.trrow .fl{gap:4px;flex-wrap:wrap}
+.rkcol.anch{border-top:3px solid var(--new)}
+.trmini{font-size:10.5px;color:var(--muted);font-weight:400;margin-top:3px;letter-spacing:.02em}
+.gonebar{margin:0 20px 14px;padding:9px 12px;border:1px dashed var(--line-strong);font-size:12px;color:var(--muted)}
+.gonebar b{color:var(--insight);font-weight:600}
+@media(max-width:760px){.trrow{grid-template-columns:1fr repeat(4,44px) 92px;padding:6px 10px}.trrow .c i{display:none}}
+footer{border-top:1px solid var(--line-strong);padding:16px 0 44px;font-size:11.5px;color:var(--muted);line-height:1.75}
+footer b{color:var(--ink)}
+@media(max-width:760px){.dv{width:calc(33% - 8px)}.branches::before{left:2%;right:2%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="hd">
+      <span class="mark">ORG</span>
+      <h1>LG전자 조직도 — 연도별 변화 추적</h1>
+      <span class="sub">본부별 임원 수 · 리더 · 승진/신규 표시</span>
+      <span class="upd">사업/분기보고서 4개 원문 파싱 · 2026-05-15 기준</span>
+    </div>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="psum" id="psum"></div>
+    <div class="legend">
+      <span><span class="b pr">▲ 승진</span> 직전 보고서 대비 직급 상승</span>
+      <span><span class="b nw">● 신규</span> 직전 보고서에 없던 임원</span>
+      <span>신설: <span class="b born y24">2024말</span> <span class="b born y25">2025말</span> <span class="b born y26">2026</span></span>
+      <span style="margin-left:auto">본부 박스 클릭 → 하위 조직도</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="tree">
+    <div class="root" id="root"></div>
+    <div class="branches" id="branches"></div>
+  </div>
+  <section class="detail" id="detail" aria-live="polite"></section>
+  <section id="trendsec" style="display:none"></section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>데이터</b> DART 사업보고서 2023·2024·2025 연간 + 2026 1분기보고서 「임원 현황」 원문 파싱(임원별 담당업무 키워드로 본부 배속 추정).<br>
+    <b>승진 검증</b> 2026 1Q 승진 배지 13명 = 2026 정기인사 발표(사장 2·부사장 2·전무 9)와 전원 일치. 신규선임 상무는 보고서 반영 시점 차이로 기간 귀속이 ±1기 이동할 수 있음.<br>
+    <b>주의</b> '기타·전사'는 담당업무만으로 본부 특정이 어려운 임원 · 등기 7인은 경영지원 포함 · 공식 영문: HS=Home Appliance Solution / MS=Media Entertainment Solution / VS=Vehicle Solution / ES=Eco Solution · BS 해체 분산: IT/ID→MS, 로봇→HS, EV충전→ES · 부품솔루션사업부는 HS 소속.
+  </div>
+</footer>
+
+<script>
+let DATA=null;
+async function loadData(){
+  const ks=['2023','2024','2025','2026Q1'];
+  const parts=await Promise.all(ks.map(k=>fetch('data/org-'+k+'.json').then(r=>{if(!r.ok)throw new Error('org-'+k);return r.json()})));
+  DATA={}; ks.forEach((k,i)=>DATA[k]=parts[i]);
+}
+const TREND = {"HS (H&A 계보)":{"tot":[45,57,50,52],"items":[{"o":"키친솔루션 계열","seq":[6,5,4,5],"born":null,"gone":null,"a":true},{"o":"리빙솔루션 계열","seq":[4,5,5,5],"born":null,"gone":null,"a":true},{"o":"에어솔루션 계열","seq":[3,0,0,0],"born":null,"gone":"2023","a":true},{"o":"HS플랫폼 계열","seq":[0,0,3,3],"born":"2025","gone":null,"a":true},{"o":"냉장고 계열","seq":[2,2,0,0],"born":null,"gone":"2024","a":true},{"o":"세탁기 계열","seq":[1,2,1,1],"born":null,"gone":null,"a":true},{"o":"부품솔루션 계열","seq":[0,2,2,2],"born":"2024","gone":null,"a":true},{"o":"HS아웃소싱 계열","seq":[0,1,1,2],"born":"2024","gone":null,"a":true},{"o":"본부 직속","seq":[1,1,7,7],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[6,6,8,8],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[3,3,1,2],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[4,6,4,5],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,5,3,5],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[4,5,2,5],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[6,10,7,0],"born":null,"gone":"2025","a":false}]},"MS (HE+BS IT/ID 계보)":{"tot":[30,58,46,43],"items":[{"o":"디스플레이 계열","seq":[0,0,7,8],"born":"2025","gone":null,"a":true},{"o":"TV 계열","seq":[6,7,2,3],"born":null,"gone":null,"a":true},{"o":"ID 계열","seq":[0,5,3,3],"born":"2024","gone":null,"a":true},{"o":"IT 계열","seq":[0,4,4,2],"born":"2024","gone":null,"a":true},{"o":"오디오 계열","seq":[3,1,1,1],"born":null,"gone":null,"a":true},{"o":"LED 계열","seq":[2,1,0,0],"born":null,"gone":"2024","a":true},{"o":"본부 직속","seq":[1,1,5,6],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[2,2,1,1],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[2,6,4,4],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[1,6,4,5],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,4,4,4],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,4,3,3],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[5,13,5,0],"born":null,"gone":"2025","a":false}]},"VS":{"tot":[18,24,22,23],"items":[{"o":"본부 직속","seq":[1,1,3,3],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[4,6,4,5],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[1,1,2,2],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[3,4,3,4],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,4,4,4],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,4,3,3],"born":null,"gone":null,"a":false},{"o":"생산·판매법인","seq":[2,3,2,2],"born":null,"gone":null,"a":false}]},"ES (2024 신설 · HVAC+EV충전)":{"tot":[0,23,24,23],"items":[{"o":"본부 직속","seq":[0,1,5,3],"born":"2024","gone":null,"a":false},{"o":"연구·R&D","seq":[0,5,3,4],"born":"2024","gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[0,6,4,5],"born":"2024","gone":null,"a":false},{"o":"생산·SCM·품질","seq":[0,3,2,4],"born":"2024","gone":null,"a":false},{"o":"경영·스태프","seq":[0,3,2,2],"born":"2024","gone":null,"a":false},{"o":"직속·기타","seq":[0,2,5,2],"born":"2024","gone":null,"a":false}]},"BS (2024 해체: IT/ID→MS·로봇→HS·EV충전→ES)":{"tot":[21,0,0,0],"items":[{"o":"ID 계열","seq":[4,0,0,0],"born":null,"gone":"2023","a":true},{"o":"IT 계열","seq":[4,0,0,0],"born":null,"gone":"2023","a":true},{"o":"연구·R&D","seq":[4,0,0,0],"born":null,"gone":"2023","a":false},{"o":"영업·마케팅·CX","seq":[2,0,0,0],"born":null,"gone":"2023","a":false},{"o":"경영·스태프","seq":[2,0,0,0],"born":null,"gone":"2023","a":false},{"o":"직속·기타","seq":[3,0,0,0],"born":null,"gone":"2023","a":false}]},"한국영업":{"tot":[21,27,23,25],"items":[{"o":"영업·마케팅·CX","seq":[9,11,12,15],"born":null,"gone":null,"a":false},{"o":"생산·판매법인","seq":[2,5,4,4],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[9,11,7,6],"born":null,"gone":null,"a":false}]},"CTO·연구":{"tot":[30,37,34,33],"items":[{"o":"연구·R&D","seq":[16,20,16,17],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[7,5,5,5],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,3,3,2],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[4,8,8,7],"born":null,"gone":null,"a":false}]},"전사센터·생산":{"tot":[22,18,21,23],"items":[{"o":"기술·플랫폼 담당","seq":[9,7,6,8],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[4,2,3,3],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[9,9,11,10],"born":null,"gone":null,"a":false}]}};
+const PERIODS = [
+  {k:'2023', label:'2023말', ceo:{n:'조주완',t:'대표이사 사장 · CEO'},
+   divs:['H&A','HE','VS','BS','한국영업','해외·지역','CTO·연구','전사센터·생산','경영지원','기타'],
+   leaders:{'H&A':'류재철 사장','HE':'박형세 사장','VS':'은석현 부사장','BS':'장익환 부사장','한국영업':'김영락 부사장','경영지원':'김창태 CFO'},
+   note:'H&A/HE/VS/BS 4개 사업본부 체제'},
+  {k:'2024', label:'2024말', ceo:{n:'조주완',t:'대표이사 사장 · CEO'},
+   divs:['HS','MS','VS','ES','한국영업','해외·지역','CTO·연구','전사센터·생산','경영지원','기타'],
+   leaders:{'HS':'류재철 사장','MS':'박형세 사장','VS':'은석현 부사장','ES':'이재성 부사장','한국영업':'김영락 부사장','경영지원':'김창태 CFO'},
+   note:'12월 Re-Grouping — HS/MS/VS/ES 재편 · 총원 +55'},
+  {k:'2025', label:'2025말', ceo:{n:'류재철',t:'대표이사 사장 · CEO (12월 취임)'},
+   divs:['HS','MS','VS','ES','한국영업','해외·지역','CTO·연구','전사센터·생산','경영지원','기타'],
+   leaders:{'HS':'백승태 부사장','MS':'박형세 사장','VS':'은석현 부사장','ES':'이재성 부사장','한국영업':'김영락 사장','경영지원':'김창태 CFO'},
+   note:'조직 효율화 · 총원 −29 · 12월 류재철 체제 출범'},
+  {k:'2026Q1', label:'2026 1Q', ceo:{n:'류재철',t:'대표이사 사장 · CEO'},
+   divs:['HS','MS','VS','ES','한국영업','해외·지역','CTO·연구','전사센터·생산','경영지원','기타'],
+   leaders:{'HS':'백승태 부사장','MS':'박형세 사장','VS':'은석현 사장 ▲','ES':'이재성 사장 ▲','한국영업':'김영락 사장','경영지원':'김창태 CFO'},
+   note:'정기인사 시행 — 승진 배지 13명(사장 2·부사장 2·전무 9) · 보고서 이후: 2026-07-01 로보틱스사업센터 CEO 직속 신설(송시용 센터장)'}
+];
+const DIVCLS={'경영지원':'staff','CTO·연구':'growth','전사센터·생산':'growth','기타':'etc'};
+const RKORD={'부회장':5,'사장':4,'부사장':3,'전무':2,'상무':1,'수석연구위원':1};
+let cur=3, curDiv=null, mode='tree';
+function endTabs(){}
+function setMode(m){mode=m;render();}
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+
+function render(){
+  const P=PERIODS[cur], rows=DATA[P.k];
+  document.getElementById('tabs').innerHTML=PERIODS.map((p,i)=>
+    `<button class="tab ${mode==='tree'&&i===cur?'on':''}" onclick="setPeriod(${i})">${p.label}</button>`).join('')
+    +`<button class="tab tr ${mode==='trend'?'on':''}" onclick="setMode('trend')">조직 변화 매트릭스</button>`;
+  document.querySelector('.tree').style.display = mode==='tree'?'':'none';
+  document.getElementById('detail').style.display = mode==='tree'?'':'none';
+  document.getElementById('trendsec').style.display = mode==='trend'?'':'none';
+  if(mode==='trend'){renderTrend();document.getElementById('psum').innerHTML=
+    '<span>하위 조직 × 4개 기간 · <b>신설/소멸/증감</b> — 사업/분기보고서 파싱 기준</span>';return endTabs();}
+  const promo=rows.filter(r=>r.p).length, nw=rows.filter(r=>r.w).length;
+  document.getElementById('psum').innerHTML=
+    `<span>임원 총원 <b>${rows.length}명</b></span>
+     <span class="pr">▲ 승진 <b>${promo}</b></span>
+     <span class="nw">● 신규 <b>${nw}</b></span>
+     <span>${esc(P.note)}</span>`;
+  document.getElementById('root').innerHTML=
+    `<span class="r">CEO</span><div class="nm">${esc(P.ceo.n)}</div><div class="nt">${esc(P.ceo.t)}</div>`;
+  document.getElementById('branches').innerHTML=P.divs.map(dv=>{
+    const ms=rows.filter(r=>r.div===dv);
+    const pm=ms.filter(r=>r.p).length;
+    return `<button class="dv ${DIVCLS[dv]||''} ${curDiv===dv?'on':''}" onclick="openDiv('${dv}')">
+      ${pm?`<span class="pm">▲${pm}</span>`:''}
+      <h3>${esc(dv)}</h3>
+      <div class="ld">${esc(P.leaders[dv]||'')}</div>
+      <span class="cnt">${ms.length}명</span>
+    </button>`;
+  }).join('');
+  const d=document.getElementById('detail');
+  if(curDiv && P.divs.includes(curDiv)) openDiv(curDiv,true); else {d.className='detail'; curDiv=null;}
+}
+
+const LINEAGE={'HS':{'2023':'H&A','2024':'HS','2025':'HS','2026Q1':'HS'},'H&A':{'2023':'H&A','2024':'HS','2025':'HS','2026Q1':'HS'},'MS':{'2023':'HE','2024':'MS','2025':'MS','2026Q1':'MS'},'HE':{'2023':'HE','2024':'MS','2025':'MS','2026Q1':'MS'},'ES':{'2023':null,'2024':'ES','2025':'ES','2026Q1':'ES'},'BS':{'2023':'BS','2024':null,'2025':null,'2026Q1':null}};
+function lineageOf(dv){ if(LINEAGE[dv]) return LINEAGE[dv]; const m={}; PERIODS.forEach(p=>m[p.k]=dv); return m; }
+const GEN=new Set(['HS','MS','ES','VS','H&A','HE','BS']);
+const BADANCH=new Set(['플랫폼','솔루션','사업','시스템']);
+const BUCKETS=[['본부 직속',/사업본부/],['연구·R&D',/연구|R&D/],['기술·플랫폼 담당',/플랫폼|기술|AX|DX|데이터|제어|SW|개발|디자인|IP/],
+ ['영업·마케팅·CX',/영업|마케팅|D2C|구독|CX|온라인|고객/],['생산·SCM·품질',/생산|SCM|구매|품질|오퍼레이션|Task|장비|검사|안전|SAC|칠러/],
+ ['경영·스태프',/경영|HR|전략|기획|금융|회계|IR|법무|노경|정도|홍보|인사|CFO|CTO|CSO|CHO/],['생산·판매법인',/법인/]];
+const BORDER=['본부 직속','연구·R&D','기술·플랫폼 담당','영업·마케팅·CX','생산·SCM·품질','경영·스태프','생산·판매법인','직속·기타'];
+const normD=d=>d.replace(/\s*산하$/,'').trim();
+const bornCls=s=>String(s).includes('2024')?'y24':String(s).includes('2025')?'y25':'y26';
+
+function clusterTrend(dv){
+  const lin=lineageOf(dv);
+  const rowsBy={}, all=[];
+  PERIODS.forEach(p=>{
+    const rows=lin[p.k]?DATA[p.k].filter(r=>r.div===lin[p.k]):[];
+    rowsBy[p.k]=rows; all.push(...rows);
+  });
+  const st=new Set();
+  all.forEach(r=>{
+    const m=normD(r.d).match(/^(.{2,14}?)(사업부|사업센터|사업담당)/);
+    if(m){const s=m[1].trim(); if(!GEN.has(s)&&!BADANCH.has(s)&&s.length>=2) st.add(s);}
+  });
+  const anchors=[...st].sort((a,b)=>b.length-a.length);
+  const keyOf=d0=>{
+    const d=normD(d0);
+    for(const a of anchors) if(d.includes(a)) return ['A:'+a, a+' 계열'];
+    if(/법인/.test(d)) return ['B:법인','생산·판매법인'];
+    for(const [lb,pat] of BUCKETS) if(pat.test(d)) return ['B:'+lb, lb];
+    return ['B:기타','직속·기타'];
+  };
+  const seq={}, label={};
+  PERIODS.forEach((p,i)=>{rowsBy[p.k].forEach(r=>{
+    const [k,lb]=keyOf(r.d);(seq[k]=seq[k]||[0,0,0,0])[i]++;label[k]=lb;});});
+  return {rowsBy,keyOf,seq,label};
+}
+
+function openDiv(dv,keep){
+  curDiv=dv;
+  const P=PERIODS[cur];
+  const {rowsBy,keyOf,seq,label}=clusterTrend(dv);
+  const rows=rowsBy[P.k];
+  document.querySelectorAll('.dv').forEach(el=>el.classList.toggle('on',el.querySelector('h3').textContent===dv));
+  const groups={};
+  rows.forEach(r=>{const [k]=keyOf(r.d);(groups[k]=groups[k]||[]).push(r);});
+  const clusters=Object.entries(groups)
+    .sort((a,b)=>{
+      const aa=a[0].startsWith('A:'), ba=b[0].startsWith('A:');
+      if(aa!==ba) return aa?-1:1;
+      if(aa) return b[1].length-a[1].length;
+      return BORDER.indexOf(label[a[0]])-BORDER.indexOf(label[b[0]]);
+    })
+    .map(([k,v])=>{
+      const sq=seq[k]||[0,0,0,0];
+      const nz=sq.findIndex(x=>x>0);
+      return {label:label[k], sq, born:nz>0?PERIODS[nz].label:null, anch:k.startsWith('A:'),
+        ms:v.slice().sort((a,b)=>(RKORD[b.r]||0)-(RKORD[a.r]||0)||a.d.localeCompare(b.d,'ko'))};
+    });
+  const gone=Object.entries(seq).filter(([k,sq])=>sq[cur]===0&&Math.max(...sq)>=2)
+    .map(([k,sq])=>({label:label[k],sq})).sort((a,b)=>Math.max(...b.sq)-Math.max(...a.sq));
+  const d=document.getElementById('detail');
+  d.className='detail open';
+  d.innerHTML=`
+    <div class="dhd">
+      <h3>${esc(dv)}</h3>
+      <span class="sub">${P.label} · ${rows.length}명 · 사업부/기능 ${clusters.length} · ▲${rows.filter(r=>r.p).length} ●${rows.filter(r=>r.w).length}</span>
+      <button class="close" onclick="closeDiv()">닫기 ✕</button>
+    </div>
+    <div class="dlead">
+      <div class="leadbox"><span class="r">리더</span><span class="nm">${esc(P.leaders[dv]||'최상위: '+(rows[0]? rows[0].n+' '+rows[0].r:'—'))}</span></div>
+    </div>
+    <div class="rkgrid">
+      ${clusters.map(c=>`
+        <div class="rkcol ${c.anch?'anch':''}">
+          <div class="rkh">${esc(c.label)} · ${c.ms.length}명
+            <div class="trmini">${c.sq.join(' → ')}${c.born?` <span class="b born ${bornCls(c.born)}">신설 ${esc(c.born)}</span>`:''}</div>
+          </div>
+          ${c.ms.map(m=>`
+            <div class="mem"><span class="dp">${esc(m.d)}</span><span class="nm2">${esc(m.n)} ${esc(m.r)}</span>${m.p?'<span class="b pr">▲</span>':''}${m.w?'<span class="b nw">●</span>':''}</div>`).join('')}
+        </div>`).join('')}
+    </div>
+    ${gone.length?`<div class="gonebar"><b>이 시점에 없는 조직</b> — ${gone.map(g=>esc(g.label)+' ('+g.sq.join('→')+')').join(' · ')}</div>`:''}
+    <div class="note">열 = 사업부(담당업무 내 사업부/사업센터/사업담당 앵커 귀속) 및 기능 조직 · 숫자열 = 2023말→2024말→2025말→2026 1Q 인원 · 계보 통합(H&A→HS, HE+BS→MS). 군집·배속은 추정.</div>`;
+  if(!keep) d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderTrend(){
+  const el=document.getElementById('trendsec');
+  const KS=['2023말','2024말','2025말','2026 1Q'];
+  el.innerHTML=Object.entries(TREND).map(([div,t])=>`
+    <div class="trdiv">
+      <div class="trhd"><h3>${esc(div)}</h3><span class="sub">본부 총원 ${t.tot.join(' → ')}</span></div>
+      <div class="trrow trhead"><span>하위 조직</span>${KS.map(k=>`<span class="c">${k}</span>`).join('')}<span class="c">변화</span></div>
+      ${t.items.map(it=>{
+        const mx=Math.max(...it.seq,1);
+        return `<div class="trrow">
+          <span class="o">${esc(it.o)}</span>
+          ${it.seq.map(v=>`<span class="c">${v?`<i style="width:${Math.max(8,v/mx*36)}px"></i>${v}`:'<em>·</em>'}</span>`).join('')}
+          <span class="c fl">${it.born?`<span class="b born ${bornCls(it.born)}">신설 ${esc(it.born)}</span>`:''}${it.gone?`<span class="b pr">소멸 ${esc(it.gone)}~</span>`:''}</span>
+        </div>`;}).join('')}
+    </div>`).join('')
+    +'<div class="note" style="padding:0 2px 20px">군집은 담당업무 접두어 기반 추정 · 표기 변경(예: HS본부→HS사업본부)은 병합 · 담당업무 잘림 행은 제외. 최대 인원 2명 미만 조직 생략.</div>';
+}
+function closeDiv(){curDiv=null;document.getElementById('detail').className='detail';document.querySelectorAll('.dv').forEach(el=>el.classList.remove('on'));}
+function setPeriod(i){cur=i;mode='tree';render();}
+loadData().then(render).catch(()=>{document.body.insertAdjacentHTML('beforeend','<div class="wrap" style="padding:40px 20px;color:var(--muted)">데이터 로드 실패 — 새로고침해 주세요.</div>');});
+</script>
+</body>
+</html>
