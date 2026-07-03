@@ -1,0 +1,156 @@
+{
+  "updatedAt": "2026-07-03T00:00:00+09:00",
+  "schemaVersion": "v1",
+  "companies": [
+    {
+      "id": "lg",
+      "name": "LG전자 (HS·ES)",
+      "shortName": "LG",
+      "active": true,
+      "scopeNote": "HS(생활가전)·ES(냉난방공조) 한정. MS·VS·BS 제외.",
+      "frame": {
+        "statement": "2030 미래비전 — 스마트 라이프 솔루션 기업 전환",
+        "redefinition": "류재철 체제('26.1~) : B2B 중심 '질적 성장' + 4대 미래사업(로봇·AIDC 냉각·스마트팩토리·AI홈)으로 실행 재정의",
+        "declaredAt": "2023-07",
+        "redefinedAt": "2026-01",
+        "lastVerified": "2026-07-03",
+        "targets": [
+          "7·7·7 (연평균성장률·영업이익률 7%, EV/EBITDA 7배)",
+          "'30년 매출 100조원 (LG이노텍 제외)",
+          "'30년 B2B 매출 40조원+ / 비중 45%",
+          "3대 전환영역(플랫폼 서비스·B2B·신사업)에서 '30년 매출 50%·영업이익 75%"
+        ],
+        "keyPeople": [
+          { "role": "CEO", "name": "류재철", "since": "2026-01", "note": "前 HS사업본부장, 기술형 CEO" },
+          { "role": "HS사업본부장", "name": "백승태", "since": "2025-12", "note": "前 키친솔루션사업부장" },
+          { "role": "ES사업본부장", "name": "이재성", "since": "2024-12", "note": "'26.1 사장 승진, 냉난방공조 전문가" }
+        ]
+      },
+      "axes": [
+        {
+          "id": "lg-a1",
+          "code": "A1",
+          "title": "구독/서비스 수익모델 확장",
+          "basis": "공표",
+          "org": "HS",
+          "summary": "일회성 판매를 반복 매출로 전환. 대형가전+케어 결합 구독을 국내 안착 후 아시아(말레이시아·태국·대만·싱가포르·베트남)로 확장. B2B 구독 등 신규 모델 발굴 병행.",
+          "kpi": [
+            "'30년 구독 매출 6조원 (공표)",
+            "'25년 실적 약 2.5조원, 전년비 약 +30% (해외 +40% 이상)",
+            "'26년 증권가 전망 약 2.84조원 (외부 추정)"
+          ],
+          "execStatus": "가속",
+          "statusRationale": "매출 성장률 30% 유지 + 해외 국가 확장 지속 + 구독 임원 승진 등 조직 신호 동반"
+        },
+        {
+          "id": "lg-a2",
+          "code": "A2",
+          "title": "HVAC/B2B 인프라 확장",
+          "basis": "공표",
+          "org": "ES",
+          "summary": "ES사업본부 독립('24말) 후 가정·상업용을 넘어 산업·발전용, AI 데이터센터 냉각(칠러·CDU)으로 확장. 3대 실행전략: 현지 완결형 사업구조, Non-HW 매출 비중 10%→20%, 전략적 M&A.",
+          "kpi": [
+            "'30년 HVAC 매출 20조원 (공표, '25.7.8 간담회)",
+            "칠러 매출 1조원 '27년 목표 → 조기 달성 예상 ('26.1Q 컨콜)",
+            "데이터센터향 수주 '25년 전년비 3배",
+            "'25년 ES 매출 9조3,230억원 (+5.7%)"
+          ],
+          "execStatus": "가속",
+          "statusRationale": "목표 선언 후 채용·R&D센터·아카데미·수주 증거가 분기 단위로 연속 누적, 전사 희망퇴직 중에도 선별 충원"
+        },
+        {
+          "id": "lg-a3",
+          "code": "A3",
+          "title": "AI홈 플랫폼",
+          "basis": "공표",
+          "org": "HS",
+          "summary": "생성형 AI 기반 차세대 AI홈 구현. 류재철 체제 4대 미래사업에 포함되어 지위 유지. 연 4조원+ 선행 R&D 투자 대상 영역.",
+          "kpi": [
+            "정량 KPI 미공표 — 확인 필요"
+          ],
+          "execStatus": "순항",
+          "statusRationale": "4대 미래사업 편입으로 방향 유지 확인. 단, 최근 90일 실행 증거 얇음 — 추가 센싱 필요"
+        },
+        {
+          "id": "lg-a4",
+          "code": "A4",
+          "title": "볼륨존·원가구조 재편",
+          "basis": "공표+추론",
+          "org": "HS",
+          "summary": "프리미엄+보급형 투트랙으로 중국계 공세 대응. 생산지 최적화, 低원가국 제조 생태계 적극 활용, 전사 희망퇴직 등 고정비 구조 재편 병행.",
+          "kpi": [
+            "정량 목표 미공표 — 컨콜 정성 코멘트 기반"
+          ],
+          "execStatus": "순항",
+          "statusRationale": "'25 하반기 희망퇴직 단행 + '26.1Q 원가 개선 성과가 이익률 개선(+32.9% YoY)으로 발현"
+        },
+        {
+          "id": "lg-a5",
+          "code": "A5",
+          "title": "지역 포트폴리오 재편",
+          "basis": "추론",
+          "org": "HS·ES 공통",
+          "summary": "글로벌 사우스(인도 등) 성장시장 중심 재편 + 미국 관세 대응 역내 생산 확대·판가 반영. 인도법인 IPO로 현지 자본·경영 독립성 확보.",
+          "kpi": [
+            "인도법인 IPO 조달 약 1.8조원 ('25.10, 출처 재확인 필요)"
+          ],
+          "execStatus": "순항",
+          "statusRationale": "IPO·인도 임원 승진·현지 개발조직 등 증거 일관되나, LG가 하나의 '축'으로 공표한 것은 아니어서 추론 라벨 유지"
+        },
+        {
+          "id": "lg-a6",
+          "code": "A6",
+          "title": "로봇 사업 본격화",
+          "basis": "공표",
+          "org": "HS + 전사",
+          "summary": "'26년을 로봇 원년으로 선언. HS로보틱스연구소 신설(가정용 로봇 R&D), 로봇 원가 40%+를 차지하는 액추에이터 직접 설계·생산 → 글로벌 로봇 제조사 대상 B2B 부품 사업. 로보티즈·로보스타·베어로보틱스 지분투자 포트폴리오 보유.",
+          "kpi": [
+            "정량 KPI 미공표 — 홈로봇 '28년 상업화 목표 (증권가 인용)"
+          ],
+          "execStatus": "가속",
+          "statusRationale": "파일럿 5축에 없던 신설 축. 조직 신설 → CEO 원년 선언 → 파일럿 라인 구축이 6개월 내 연쇄 발생"
+        }
+      ]
+    },
+    {
+      "id": "whirlpool", "name": "Whirlpool", "shortName": "월풀", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "bsh", "name": "BSH (Bosch·Siemens)", "shortName": "BSH", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "electrolux", "name": "Electrolux", "shortName": "일렉트로룩스", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "midea", "name": "Midea", "shortName": "미디어", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "haier", "name": "Haier (GEA)", "shortName": "하이얼", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "carrier", "name": "Carrier", "shortName": "캐리어", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "trane", "name": "Trane", "shortName": "트레인", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "jci", "name": "JCI (York)", "shortName": "JCI", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "daikin", "name": "Daikin", "shortName": "다이킨", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    },
+    {
+      "id": "lennox", "name": "Lennox", "shortName": "레녹스", "active": false,
+      "frame": null, "axes": [], "scopeNote": "커버리지 확장 예정"
+    }
+  ]
+}
