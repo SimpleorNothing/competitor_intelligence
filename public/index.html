@@ -168,6 +168,15 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .btn-promote:disabled{opacity:.5;cursor:default}
 .sense-result .done{margin-top:8px;font-size:12.5px;color:var(--deep)}
 .sense-result .done a{color:var(--deep)}
+.sense-prog{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.sense-prog .spin{width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--new);border-radius:50%;animation:ciSpin .8s linear infinite;flex:none}
+@keyframes ciSpin{to{transform:rotate(360deg)}}
+.sense-prog .stps{display:flex;flex-wrap:wrap;gap:2px 8px}
+.sense-prog .stp{white-space:nowrap}
+.sense-prog .stp.on{color:var(--new);font-weight:600}
+.sense-prog .stp.ok{color:var(--deep)}
+.sense-prog .stp.ok::after{content:" ✓"}
+.sense-prog .el{margin-left:auto;flex:none}
 
 footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 footer #ub-btn{font-size:11.5px!important}
@@ -453,6 +462,20 @@ function senseLinkify(s){
 function sensePlain(s){
   return String(s||'').replace(/^#{1,6}\s*/gm,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/\*([^*]+)\*/g,'$1');
 }
+// 진행 표시 — 단계별 하이라이트 + 경과 시간 (자판기 스타일)
+const SENSE_STEPS = ['MI 뉴스 DB 조회', '웹 검색·1차 출처 조사', '승격 조건 판정'];
+function senseProgressHTML(){
+  return '<div class="sense-prog"><span class="spin" aria-hidden="true"></span><span class="stps">' +
+    SENSE_STEPS.map((s,i)=>'<span class="stp">' + (i+1) + '. ' + s + '</span>').join('') +
+    '</span><span class="el">0초</span></div>';
+}
+function senseProgressTick(box, t0){
+  const el = box.querySelector('.sense-prog'); if(!el) return;
+  const sec = Math.floor((Date.now() - t0) / 1000);
+  const cur = sec < 2 ? 0 : sec < 18 ? 1 : 2;
+  el.querySelectorAll('.stp').forEach((s,i)=>{ s.className = 'stp' + (i < cur ? ' ok' : i === cur ? ' on' : ''); });
+  const e = el.querySelector('.el'); if(e) e.textContent = sec + '초';
+}
 function renderSense(d){
   let h = '';
   const miN = (d.mi && d.mi.length) ? d.mi.length : 0;
@@ -498,7 +521,10 @@ async function senseInbox(id, btn){
   // 이미 로드되어 열려있으면 토글로 닫기
   if(!box.hidden && box.dataset.loaded === '1'){ box.hidden = true; return; }
   box.hidden = false; box.className = 'sense-result'; box.dataset.loaded = '';
-  box.innerHTML = '<span class="muted">센싱 중… (MI DB 조회 + 웹 검색)</span>';
+  box.innerHTML = senseProgressHTML();
+  const _t0 = Date.now();
+  senseProgressTick(box, _t0);
+  const _timer = setInterval(function(){ senseProgressTick(box, _t0); }, 1000);
   if(btn){ btn.disabled = true; btn.textContent = '센싱 중…'; }
   try{
     const r = await fetch('/api/sense', {
@@ -515,6 +541,7 @@ async function senseInbox(id, btn){
     box.className = 'sense-result err';
     box.innerHTML = '센싱 실패 — ' + (err && err.message ? err.message : err) + '. 잠시 후 다시 시도하세요.';
   }finally{
+    clearInterval(_timer);
     if(btn){ btn.disabled = false; btn.textContent = '추가 센싱하기'; }
   }
 }
