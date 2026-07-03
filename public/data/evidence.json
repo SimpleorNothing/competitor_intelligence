@@ -1089,18 +1089,29 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "auto"
+    },
+    {
+      "id": 82,
+      "companyId": "lg",
+      "axisId": "lg-a6",
+      "date": "2024-12-16",
+      "event": "LG전자, 베어로보틱스 지분 51% 취득 완료(공정위 신고·공식 발표 확인)",
+      "interpretation": "삼성 DA는 로봇 사업 없음. LG는 서빙로봇 베어로보틱스 과반 지분 확보로 외식·hospitality B2B 채널 선점 시도. 당사 스마트홈 생태계와 달리 LG는 로봇 HW+서비스 수직계열화 전략 구사 중.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "PR Newswire (LG Electronics official)",
+        "url": "https://www.prnewswire.com/news-releases/lg-electronics-acquires-majority-stake-in-bear-robotics-302314863.html",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
     }
   ],
   "inbox": [
     {
       "id": "inbox-1",
       "note": "2026.07.03 재조사 완료 - Q9 TV 공식 발표 미확인. LG 제품 라인업(2025~2026 CES, 공식 사이트)에 Q9 TV 없음. ThinQ ON/AI Agent 전략은 진행 중이나 Q9 특정 모델과 무관. 다음 체크: LG 하반기 신제품 발표(예상 2026.08~09) 또는 IFA 2026 이후 재검증.",
-      "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-03"
-    },
-    {
-      "id": "inbox-3",
-      "note": "지분율 61.1% 보도(The Bell, 2025.5 기준)는 공식 공시·회사 발표로 미확인. LG전자 공식 발표·공정위 신고·Tier1 매체(PR Newswire, LG Newsroom)는 모두 '51%'로 일치. 61.1% 확정치 확인 시 재승격 필요. 베어로보틱스 나스닥 상장 준비 중(기업가치 8000억~1조원 추정)이라는 점도 향후 모니터링 대상.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
       "createdAt": "2026-07-03"
     },
