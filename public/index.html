@@ -396,11 +396,16 @@ function kpiChartHTML(axis){
   }
   const pts = ks.points.slice().sort((a,b)=>a.year-b.year);
   const yrs = pts.map(p=>p.year);
-  const yr0 = Math.min(...yrs), yr1 = Math.max(...yrs);
+  // 축 범위: xMin/xMax 지정 시 우선(막대 없는 연도도 축 노출 → '21 시작 보장)
+  const yr0 = ks.xMin != null ? ks.xMin : Math.min(...yrs);
+  const yr1 = ks.xMax != null ? ks.xMax : Math.max(...yrs);
   const unit = ks.unit || '';
   const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
-  const W=300,H=132, x0=30,x1=290, yt=14,yb=104;
-  const xpad = 12; // 첫 막대가 좌측 축라벨과 겹치지 않도록 데이터 영역 왼쪽 여백
+  const W=320,H=142, x0=30,x1=312, yt=16,yb=94;
+  const yG=110;      // 전년비 스트립 y
+  const yYear=128;   // 연도 라벨 y
+  const xpad = 13;   // 좌측 축라벨과 첫 막대 간격
+  const bw = 15;
   const px = y => x0 + xpad + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0-xpad);
   const py = v => yb - (v/yMax)*(yb-yt);
   const lab = p => p.label != null ? p.label : (p.value + unit);
@@ -411,6 +416,7 @@ function kpiChartHTML(axis){
     g += `<text x="${x0-4}" y="${f1(py(gl)+3)}" text-anchor="end" font-size="8" fill="var(--muted)" font-family="var(--mono)">${gl}${unit}</text>`;
   });
   g += `<line x1="${x0}" x2="${x1}" y1="${yb}" y2="${yb}" stroke="var(--line-strong)"/>`;
+  // ── 목표선 CAGR 점선: 마지막 실적·추정 → 목표 ──
   const acts = pts.filter(p=>p.kind==='actual'||p.kind==='estimate');
   const tgt = pts.find(p=>p.kind==='target');
   if(tgt && acts.length){
@@ -423,11 +429,19 @@ function kpiChartHTML(axis){
         d += ` L ${f1(px(y))} ${f1(py(v))}`;
       }
       g += `<path d="${d}" fill="none" stroke="var(--insight)" stroke-width="1.4" stroke-dasharray="4 3" opacity=".85"/>`;
+      // CAGR 라벨 — 점선 중앙 상단, paper 배경칩
+      const my = (base.year+tgt.year)/2;
+      const mv = base.value*Math.pow(1+r, my-base.year);
+      const cagrTxt = `CAGR ${(r*100).toFixed(1)}%`;
+      const cx = px(my), cyv = py(mv)-7;
+      const cw = cagrTxt.length*5.0+8;
+      g += `<rect x="${f1(cx-cw/2)}" y="${f1(cyv-9)}" width="${f1(cw)}" height="12" fill="var(--paper)" opacity=".92"/>`;
+      g += `<text x="${f1(cx)}" y="${f1(cyv)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${cagrTxt}</text>`;
     }
   }
-  const bw = 17;
-  pts.forEach(p => {
-    if(p.kind==='target') return;
+  // ── 막대(target 제외) ──
+  const barPts = pts.filter(p=>p.kind!=='target');
+  barPts.forEach(p => {
     const x = px(p.year)-bw/2, y = py(p.value), h = yb-y;
     const a = `x="${f1(x)}" y="${f1(y)}" width="${bw}" height="${f1(h)}"`;
     if(p.kind==='forecast'){
@@ -439,17 +453,36 @@ function kpiChartHTML(axis){
     }
     g += `<text x="${f1(px(p.year))}" y="${f1(y-4)}" text-anchor="middle" font-size="8.5" fill="var(--ink)" font-family="var(--mono)" font-weight="600">${lab(p)}</text>`;
   });
+  // ── 전년비 스트립: 연속한 막대쌍 사이 하단에 %칩 ──
+  for(let i=1;i<barPts.length;i++){
+    const a=barPts[i-1], b=barPts[i];
+    if(a.value>0 && b.value>0){
+      const span=b.year-a.year;
+      let pct, suf='';
+      if(span>1){ pct=(Math.pow(b.value/a.value,1/span)-1)*100; suf='ᐟ'; } // 연율(gap>1)
+      else pct=(b.value/a.value-1)*100;
+      const sign = pct>0.05?'+':(pct<-0.05?'':'');
+      const col = pct>0.05?'var(--deep)':(pct<-0.05?'var(--insight)':'var(--muted)');
+      const mx=(px(a.year)+px(b.year))/2;
+      const txt=`${sign}${pct.toFixed(1)}%${suf}`;
+      g += `<text x="${f1(mx)}" y="${yG}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
+      // 짧은 연결 tick
+      g += `<line x1="${f1(px(a.year)+bw/2+1)}" x2="${f1(px(b.year)-bw/2-1)}" y1="${yG+3}" y2="${yG+3}" stroke="var(--line)" stroke-width="1"/>`;
+    }
+  }
+  // ── 목표 마커 ──
   if(tgt){
     const tx = px(tgt.year), ty = py(tgt.value);
     g += `<line x1="${f1(tx-11)}" x2="${f1(tx+11)}" y1="${f1(ty)}" y2="${f1(ty)}" stroke="var(--insight)" stroke-width="2.4"/>`;
     g += `<circle cx="${f1(tx)}" cy="${f1(ty)}" r="2.6" fill="var(--insight)"/>`;
     g += `<text x="${f1(tx)}" y="${f1(ty-6)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
   }
+  // ── 연도 라벨 ──
   for(let y=yr0; y<=yr1; y++){
-    g += `<text x="${f1(px(y))}" y="${H-4}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(y).slice(2)}</text>`;
+    g += `<text x="${f1(px(y))}" y="${yYear}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(y).slice(2)}</text>`;
   }
-  const cap = `<span><i class="sw-act"></i>실적</span><span><i class="sw-fc"></i>전망</span><span><i class="sw-tg"></i>목표</span>`;
-  return `<div class="kpi-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${(ks.metric||'KPI')} 연도별 목표·실적">${g}</svg>
+  const cap = `<span><i class="sw-act"></i>실적</span><span><i class="sw-fc"></i>전망</span><span><i class="sw-tg"></i>목표</span><span style="color:var(--deep)">▲</span>/<span style="color:var(--insight)">▼</span> 전년비 · 점선 CAGR`;
+  return `<div class="kpi-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${(ks.metric||'KPI')} 연도별 목표·실적·전년비">${g}</svg>
     <div class="kpi-cap">${cap}<span style="margin-left:auto">${ks.metric||''} · 단위 ${unit}</span></div></div>`;
 }
 
@@ -620,18 +653,21 @@ function toggleTlSort(){
 function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
 const FRAME_TRAJ = [
   { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
-    verdict:"연결은 성장(89.2조)했으나 목표 기준선(이노텍 제외)은 '22 65→'25 약 67조 정체. 100조까지 두 자릿수 성장 필요.",
-    kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], points:[
-      { year:2022, value:65,  kind:'actual',   label:'65조',  note:'기준연도·이노텍 제외' },
-      { year:2024, value:66,  kind:'estimate', label:'≈66조', note:'연결 87.7조−이노텍 21.2조' },
-      { year:2025, value:67,  kind:'estimate', label:'≈67조', note:'연결 89.2조−이노텍 약 22조(추정)' },
-      { year:2030, value:100, kind:'target',   label:'100조', note:'공표·이노텍 제외' }
+    verdict:"이노텍 제외 매출은 '21 60조→'23 62조(소폭 등락)→'25 67조로 완만. 연결(89.2조)은 성장했으나 이노텍 제외 기준선은 정체, '25→'30 연 8.3% 필요. LG공표 기준선은 '22 65조.",
+    kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], xMin:2021, xMax:2030, points:[
+      { year:2021, value:59.8, kind:'estimate', label:'≈60조', note:'연결 74.7조−이노텍 14.9조' },
+      { year:2022, value:62.9, kind:'estimate', label:'≈63조', note:'연결 82.5조−이노텍 19.6조 · LG공표 기준선 65조와 병기' },
+      { year:2023, value:61.7, kind:'estimate', label:'≈62조', note:'연결 82.3조−이노텍 20.6조 · 이노텍 제외론 소폭 감소' },
+      { year:2024, value:66.5, kind:'estimate', label:'≈66조', note:'연결 87.7조−이노텍 21.2조' },
+      { year:2025, value:67.2, kind:'estimate', label:'≈67조', note:'연결 89.2조−이노텍 약 22조(추정)' },
+      { year:2030, value:100,  kind:'target',   label:'100조', note:'공표·이노텍 제외' }
     ] } },
   { metric:'B2B 매출', sub:'40조+ / 비중 45% 목표', status:'near',
-    verdict:"'26 1Q 비중 36%로 상승세, 목표 40~45% 궤도 진입 중. HVAC·전장이 견인축.",
-    kpiSeries:{ metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], points:[
-      { year:2025, value:24.1, kind:'actual', label:'24.1조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
-      { year:2030, value:40,   kind:'target', label:'40조+', note:'공표·비중 40~45%' }
+    verdict:"'26 1Q 비중 36%로 상승세, 목표 40~45% 궤도 진입 중. HVAC·전장이 견인축. '21~'23 별도 B2B 시리즈는 미공표(비중 30%대 중반만 언급).",
+    kpiSeries:{ metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], xMin:2021, xMax:2030, points:[
+      { year:2024, value:23.4, kind:'estimate', label:'23.4조', note:"'25 24.1조·+3% 역산 추정" },
+      { year:2025, value:24.1, kind:'actual',   label:'24.1조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
+      { year:2030, value:40,   kind:'target',   label:'40조+', note:'공표·비중 40~45%' }
     ] } }
 ];
 function frameTrajHTML(){
@@ -652,7 +688,7 @@ function kpiPanelHTML(){
       <span><span class="d" style="background:var(--new)"></span>근접·궤도 진입중</span>
       <span><span class="d" style="background:var(--deep)"></span>On-track·사실상 도달</span>
     </div>
-    <div class="kpi-notes"><b>기준</b> '25 연결 잠정(매출 89.2조·OP 2.48조). <b>이노텍 제외 매출</b>은 연결−이노텍 추정(약 22조) 차감 <b>추정 약 67조</b>. B2B='26 1Q 비중 36%(별도). 목표선은 마지막 실적·추정 기준 CAGR 보간. 확정 공시 시 보정.</div>
+    <div class="kpi-notes"><b>기준</b> 궤적은 '21년부터 표기 — 막대 위 <b>전년비</b>, 향후 점선은 <b>CAGR</b>. <b>이노텍 제외 매출</b>=각 연도 연결−LG이노텍(공시) 일관 산정('21 59.8·'22 62.9·'23 61.7·'24 66.5·'25 67.2조). LG공표 기준선('22 65조·'30 100조)과 '22 약 2조 차이는 산식 차이(공표 65조 병기). B2B '24는 '25 24.1조 +3% 역산이며 '21~'23 별도 B2B, ES '21~'23(HVAC 본부 독립 '24말 이전)은 미공표. 확정 공시 시 보정.</div>
   </div>`;
 }
 function toggleKpi(btn){
