@@ -105,7 +105,7 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .kpi-cap i{display:inline-block;width:8px;height:8px;margin-right:3px;vertical-align:-1px}
 .kpi-cap .sw-act{background:var(--new)}
 .kpi-cap .sw-fc{background:transparent;border:1.3px solid var(--amber)}
-.kpi-cap .sw-tg{background:var(--insight)}
+.kpi-cap .sw-tg{background:color-mix(in srgb,var(--insight) 15%,transparent);border:1.3px solid var(--insight)}
 .kpi-chart.empty{height:26px;display:flex;align-items:center;justify-content:center;border:1px dotted var(--line);margin-top:4px}
 .kpi-chart.empty span{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .axis .foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
@@ -472,12 +472,11 @@ function kpiChartHTML(axis){
       g += `<text x="${f1(mx)}" y="${f1(yP)}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
     }
   }
-  // ── 목표 마커 ──
+  // ── 목표 막대(점선 red 아웃라인 — 아직 미실현 목표) ──
   if(tgt){
-    const tx = px(tgt.year), ty = py(tgt.value);
-    g += `<line x1="${f1(tx-11)}" x2="${f1(tx+11)}" y1="${f1(ty)}" y2="${f1(ty)}" stroke="var(--insight)" stroke-width="2.4"/>`;
-    g += `<circle cx="${f1(tx)}" cy="${f1(ty)}" r="2.6" fill="var(--insight)"/>`;
-    g += `<text x="${f1(tx)}" y="${f1(ty-6)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
+    const tx = px(tgt.year), ty = py(tgt.value), th = yb-ty;
+    g += `<rect x="${f1(tx-bw/2)}" y="${f1(ty)}" width="${bw}" height="${f1(th)}" fill="color-mix(in srgb,var(--insight) 15%,transparent)" stroke="var(--insight)" stroke-width="1.3" stroke-dasharray="3 2"/>`;
+    g += `<text x="${f1(tx)}" y="${f1(ty-4)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
   }
   // ── 연도 라벨 ──
   for(let y=yr0; y<=yr1; y++){
