@@ -402,7 +402,6 @@ function kpiChartHTML(axis){
   const unit = ks.unit || '';
   const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
   const W=320,H=142, x0=30,x1=312, yt=16,yb=94;
-  const yG=110;      // 전년비 스트립 y
   const yYear=128;   // 연도 라벨 y
   const xpad = 13;   // 좌측 축라벨과 첫 막대 간격
   const bw = 15;
@@ -453,7 +452,7 @@ function kpiChartHTML(axis){
     }
     g += `<text x="${f1(px(p.year))}" y="${f1(y-4)}" text-anchor="middle" font-size="8.5" fill="var(--ink)" font-family="var(--mono)" font-weight="600">${lab(p)}</text>`;
   });
-  // ── 전년비 스트립: 연속한 막대쌍 사이 하단에 %칩 ──
+  // ── 전년비: 연속한 막대쌍 사이, 두 막대 상단 위에 %칩(그래프 위로) ──
   for(let i=1;i<barPts.length;i++){
     const a=barPts[i-1], b=barPts[i];
     if(a.value>0 && b.value>0){
@@ -464,10 +463,11 @@ function kpiChartHTML(axis){
       const sign = pct>0.05?'+':(pct<-0.05?'':'');
       const col = pct>0.05?'var(--deep)':(pct<-0.05?'var(--insight)':'var(--muted)');
       const mx=(px(a.year)+px(b.year))/2;
+      // 두 막대 중 더 높은(=y 작은) 쪽 상단보다 위. 값 라벨(top-4·글자)과 겹치지 않게 여유.
+      let ly = Math.min(py(a.value), py(b.value)) - 15;
+      if(ly < yt+2) ly = yt+2;   // 상단 클램프
       const txt=`${sign}${pct.toFixed(1)}%${suf}`;
-      g += `<text x="${f1(mx)}" y="${yG}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
-      // 짧은 연결 tick
-      g += `<line x1="${f1(px(a.year)+bw/2+1)}" x2="${f1(px(b.year)-bw/2-1)}" y1="${yG+3}" y2="${yG+3}" stroke="var(--line)" stroke-width="1"/>`;
+      g += `<text x="${f1(mx)}" y="${f1(ly)}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
     }
   }
   // ── 목표 마커 ──
