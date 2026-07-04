@@ -42,7 +42,19 @@
             "'30년 구독 매출 6조원 (공표)"
           ],
           "execStatus": "가속",
-          "statusRationale": "매출 성장률 30% 유지 + 해외 국가 확장 지속 + 구독 임원 승진 등 조직 신호 동반"
+          "statusRationale": "매출 성장률 30% 유지 + 해외 국가 확장 지속 + 구독 임원 승진 등 조직 신호 동반",
+          "kpiSeries": {
+            "metric": "구독 매출",
+            "unit": "조원",
+            "yMax": 6.5,
+            "gridlines": [3, 6],
+            "points": [
+              { "year": 2024, "value": 1.9, "kind": "estimate", "label": "1.9조", "note": "전년비 +30% 역산·추정" },
+              { "year": 2025, "value": 2.5, "kind": "actual", "label": "2.5조" },
+              { "year": 2026, "value": 2.84, "kind": "forecast", "label": "2.84조", "note": "외부 추정" },
+              { "year": 2030, "value": 6.0, "kind": "target", "label": "6조", "note": "공표" }
+            ]
+          }
         },
         {
           "id": "lg-a2",
