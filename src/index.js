@@ -225,6 +225,73 @@ async function senseMiMatch(note) {
   }
 }
 
+// ── 참고 보고서 매칭(공유 R2: samsungda-research) ─────────────────────────
+// MI DB·웹에 더해, 포털·에이전트 가이드가 올린 워드보고서 예시(RESEARCH 버킷)를
+// note 키워드로 매칭해 상위 항목을 센싱 컨텍스트로 제공한다. 텍스트형(html·txt·md·
+// csv·json)은 본문 일부를 발췌해 Claude가 읽게 하고, 바이너리(docx·pptx 등)는
+// 제목·메타만 넘긴다(Worker에서 바이너리 파싱은 하지 않음 — 안정성 우선). 읽기 전용.
+const REF_TEXT_EXT = /\.(html?|txt|md|markdown|csv|tsv|json)$/i;
+function refIsTextual(name, type) {
+  return REF_TEXT_EXT.test(name || "") || /^(text\/|application\/(json|xml|csv))/i.test(type || "");
+}
+function htmlToText(s) {
+  return String(s || "")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ").trim();
+}
+async function senseReferences(note, env) {
+  const bucket = env.RESEARCH;
+  if (!bucket) return [];
+  try {
+    const kws = senseKeywords(note).map((k) => k.toLowerCase());
+    if (!kws.length) return [];
+    const listed = await bucket.list({ include: ["customMetadata", "httpMetadata"] });
+    const scored = listed.objects
+      .filter((o) => !o.key.startsWith("idea-bank/"))
+      .map((o) => {
+        const title = o.customMetadata?.title ? decodeURIComponent(o.customMetadata.title) : o.key;
+        const name = o.customMetadata?.name ? decodeURIComponent(o.customMetadata.name) : o.key;
+        const hay = (title + " " + name).toLowerCase();
+        let score = 0;
+        kws.forEach((k) => { if (hay.includes(k)) score++; });
+        return { o, title, name, score };
+      })
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score || new Date(b.o.uploaded) - new Date(a.o.uploaded))
+      .slice(0, 4);
+    let budget = 6000; // 발췌 총량 상한(문자)
+    const out = [];
+    for (const x of scored) {
+      const type = x.o.httpMetadata?.contentType || "";
+      const textual = refIsTextual(x.name, type);
+      const ref = {
+        id: x.o.key, title: x.title, name: x.name, type,
+        size: x.o.size, uploaded: x.o.uploaded, score: x.score,
+        textual, excerpt: "",
+      };
+      if (textual && budget > 0) {
+        try {
+          const obj = await bucket.get(x.o.key);
+          if (obj) {
+            let t = await obj.text();
+            t = (/\.html?$/i.test(x.name) || /html/i.test(type)) ? htmlToText(t) : String(t).replace(/\s+/g, " ").trim();
+            const take = Math.min(1500, budget);
+            ref.excerpt = t.slice(0, take);
+            budget -= ref.excerpt.length;
+          }
+        } catch (_) {}
+      }
+      out.push(ref);
+    }
+    return out;
+  } catch (e) {
+    return [];
+  }
+}
+
 // 전략축 카탈로그 — 자체 정적 자산(strategies.json)에서 로드
 async function loadAxisCatalog(env) {
   try {
@@ -251,10 +318,19 @@ function extractJson(text) {
   return null;
 }
 
-async function senseWeb(note, env, axes) {
+async function senseWeb(note, env, axes, refs) {
   if (!env.ANTHROPIC_API_KEY) return null; // 미설정 → 웹 센싱 생략
   try {
     const axisList = (axes || []).map((a) => a.id + "(" + (a.code || "") + " " + (a.title || "") + ")").join(", ");
+    const refBlock = (refs && refs.length)
+      ? "\n[내부 참고 보고서 — 삼성 DA가 보유한 기존 조사물. 당사 관점·이미 정리된 사실의 출발점으로 삼되, 외부에 인용할 사실은 반드시 웹 1차 출처로 재확인하라. 보고서 자체는 1차 출처가 아니다.]\n" +
+        refs.map((r, i) => {
+          const head = (i + 1) + ". " + r.title +
+            (r.name && r.name !== r.title ? " (" + r.name + ")" : "") +
+            (r.uploaded ? " · " + String(r.uploaded).slice(0, 10) : "");
+          return r.excerpt ? head + "\n발췌: " + r.excerpt : head + " [본문 미첨부 · 제목만 참고]";
+        }).join("\n\n") + "\n"
+      : "";
     const prompt =
       "너는 삼성 DA 기획팀의 경쟁사 동향 센싱 에이전트다. 아래 '검증 대기' 항목을 웹에서 " +
       "최신·1차 출처(거래소 공시·회사 공식 발표·Tier1 매체) 위주로 조사하고, 승격 조건에 따라 판정하라.\n" +
@@ -267,8 +343,9 @@ async function senseWeb(note, env, axes) {
       '"confidence":"사실|추론","source":{"name":"출처명","url":"https://...","tier":1}}],' +
       '"noteUpdate":"대기·부분승격 시 인박스에 남길 갱신 노트(없으면 null)","removeFromInbox":false}\n' +
       "규칙: items에는 출처로 확인된 사실만 넣는다. confidence '사실'은 1차 출처(공시·회사 발표)가 있을 때만. " +
-      "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n\n" +
-      "요청: " + note;
+      "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n" +
+      refBlock +
+      "\n요청: " + note;
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -597,9 +674,11 @@ async function handleSense(request, env, ctx) {
   const note = String(body.note || "").slice(0, 600);
   const id = String(body.id || "");
   if (!note) return json({ error: "note required" }, 400);
-  const axes = await loadAxisCatalog(env);
-  const [mi, web] = await Promise.all([senseMiMatch(note), senseWeb(note, env, axes)]);
-  return json({ id, note, mi, web, ts: new Date().toISOString() });
+  const [axes, mi, refs] = await Promise.all([
+    loadAxisCatalog(env), senseMiMatch(note), senseReferences(note, env),
+  ]);
+  const web = await senseWeb(note, env, axes, refs);
+  return json({ id, note, mi, refs, web, ts: new Date().toISOString() });
 }
 
 export default {
