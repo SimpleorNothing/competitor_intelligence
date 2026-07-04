@@ -433,7 +433,7 @@ function kpiChartHTML(axis){
       // CAGR 라벨 — 점선 중앙 상단, paper 배경칩
       const my = (base.year+tgt.year)/2;
       const mv = base.value*Math.pow(1+r, my-base.year);
-      const cagrTxt = `CAGR ${(r*100).toFixed(1)}%`;
+      const cagrTxt = `CAGR ${Math.round(r*100)}%`;
       const cx = px(my), cyv = py(mv)-7;
       const cw = cagrTxt.length*5.0+8;
       g += `<rect x="${f1(cx-cw/2)}" y="${f1(cyv-9)}" width="${f1(cw)}" height="12" fill="var(--paper)" opacity=".92"/>`;
@@ -454,10 +454,7 @@ function kpiChartHTML(axis){
     }
     g += `<text x="${f1(px(p.year))}" y="${f1(y-4)}" text-anchor="middle" font-size="8.5" fill="var(--ink)" font-family="var(--mono)" font-weight="600">${lab(p)}</text>`;
   });
-  // ── 전년비 스트립 y: 가장 높은 막대 바로 위 (플롯 상단 대신 막대에 밀착) ──
-  const _bt = barPts.filter(p=>p.value>0).map(p=>py(p.value));
-  const yG = _bt.length ? Math.max(11, Math.min(..._bt)-15) : 11;
-  // ── 전년비 스트립: 연속한 막대쌍 사이, 막대 상단에 %칩 ──
+  // ── 전년비 %칩: 연속한 막대쌍 사이, 각 쌍의 높은 막대 값라벨 위에 개별 배치(계단식) ──
   for(let i=1;i<barPts.length;i++){
     const a=barPts[i-1], b=barPts[i];
     if(a.value>0 && b.value>0){
@@ -465,13 +462,16 @@ function kpiChartHTML(axis){
       let pct, suf='';
       if(span>1){ pct=(Math.pow(b.value/a.value,1/span)-1)*100; suf='ᐟ'; } // 연율(gap>1)
       else pct=(b.value/a.value-1)*100;
-      const sign = pct>0.05?'+':(pct<-0.05?'':'');
-      const col = pct>0.05?'var(--deep)':(pct<-0.05?'var(--insight)':'var(--muted)');
+      const rpct=Math.round(pct);
+      const sign = rpct>0?'+':'';
+      const col = rpct>0?'var(--deep)':(rpct<0?'var(--insight)':'var(--muted)');
       const mx=(px(a.year)+px(b.year))/2;
-      const txt=`${sign}${pct.toFixed(1)}%${suf}`;
-      g += `<text x="${f1(mx)}" y="${yG}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
+      // 두 막대 중 높은 쪽의 값라벨보다 위(계단식) — 플롯 상단 클램프
+      const yP=Math.max(11, Math.min(py(a.value),py(b.value))-15);
+      const txt=`${sign}${rpct}%${suf}`;
+      g += `<text x="${f1(mx)}" y="${f1(yP)}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
       // 짧은 연결 tick
-      g += `<line x1="${f1(px(a.year)+bw/2+1)}" x2="${f1(px(b.year)-bw/2-1)}" y1="${yG+3}" y2="${yG+3}" stroke="var(--line)" stroke-width="1"/>`;
+      g += `<line x1="${f1(px(a.year)+bw/2+1)}" x2="${f1(px(b.year)-bw/2-1)}" y1="${f1(yP+3)}" y2="${f1(yP+3)}" stroke="var(--line)" stroke-width="1"/>`;
     }
   }
   // ── 목표 마커 ──
