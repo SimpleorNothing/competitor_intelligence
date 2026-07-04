@@ -342,7 +342,8 @@ function kpiChartHTML(axis){
   const unit = ks.unit || '';
   const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
   const W=300,H=132, x0=30,x1=290, yt=14,yb=104;
-  const px = y => x0 + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0);
+  const xpad = 12; // 첫 막대가 좌측 축라벨과 겹치지 않도록 데이터 영역 왼쪽 여백
+  const px = y => x0 + xpad + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0-xpad);
   const py = v => yb - (v/yMax)*(yb-yt);
   const lab = p => p.label != null ? p.label : (p.value + unit);
   const f1 = n => (Math.round(n*10)/10);
