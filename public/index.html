@@ -91,12 +91,16 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .axis .kpi{font-size:12.5px;border-top:1px dotted var(--line);padding-top:8px;margin-top:auto}
 .axis .kpi li{list-style:none;padding:1.5px 0;font-family:var(--mono);font-size:11.5px;color:var(--ink)}
 .axis .kpi li::before{content:"▸ ";color:var(--muted)}
-/* 시그니처: 증거 밀도 스파크 스트립 */
-.spark{display:flex;align-items:flex-end;gap:3px;height:26px;margin-top:2px}
-.spark .bar{flex:1;min-width:2px;background:var(--line);position:relative}
-.spark .bar.has{background:var(--line-strong)}
-.spark .bar.ins{background:var(--insight)}
-.spark-cap{font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;margin-top:3px}
+/* 시그니처: 연도별 KPI 목표·실적 궤적 차트 */
+.kpi-chart{margin-top:4px}
+.kpi-chart svg{display:block;width:100%;height:auto;overflow:visible}
+.kpi-cap{font-family:var(--mono);font-size:9.5px;color:var(--muted);display:flex;gap:11px;flex-wrap:wrap;margin-top:4px}
+.kpi-cap i{display:inline-block;width:8px;height:8px;margin-right:3px;vertical-align:-1px}
+.kpi-cap .sw-act{background:var(--new)}
+.kpi-cap .sw-fc{background:transparent;border:1.3px solid var(--amber)}
+.kpi-cap .sw-tg{background:var(--insight)}
+.kpi-chart.empty{height:26px;display:flex;align-items:center;justify-content:center;border:1px dotted var(--line);margin-top:4px}
+.kpi-chart.empty span{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .axis .foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
 
 /* ── 타임라인 ── */
@@ -327,25 +331,67 @@ function evidenceFor(axisId, ascending){
     .sort((a,b) => dir*a.date.localeCompare(b.date) || (SIG_ORDER[b.signalType]-SIG_ORDER[a.signalType]));
 }
 
-function sparkHTML(axisId){
-  const qs = quarterRange();
-  const evs = E.items.filter(i => i.axisId === axisId);
-  const byQ = {};
-  evs.forEach(e => {
-    const k = quarterKey(e.date);
-    if(!byQ[k]) byQ[k] = { n:0, ins:false };
-    byQ[k].n++;
-    if(e.signalType === 'Insight') byQ[k].ins = true;
+function kpiChartHTML(axis){
+  const ks = axis.kpiSeries;
+  if(!ks || !Array.isArray(ks.points) || !ks.points.length){
+    return `<div class="kpi-chart empty" role="img" aria-label="정량 KPI 미공표"><span>정량 KPI 미공표 · 계열화 대상 아님</span></div>`;
+  }
+  const pts = ks.points.slice().sort((a,b)=>a.year-b.year);
+  const yrs = pts.map(p=>p.year);
+  const yr0 = Math.min(...yrs), yr1 = Math.max(...yrs);
+  const unit = ks.unit || '';
+  const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
+  const W=300,H=132, x0=30,x1=290, yt=14,yb=104;
+  const px = y => x0 + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0);
+  const py = v => yb - (v/yMax)*(yb-yt);
+  const lab = p => p.label != null ? p.label : (p.value + unit);
+  const f1 = n => (Math.round(n*10)/10);
+  let g = '';
+  (ks.gridlines||[]).forEach(gl => {
+    g += `<line x1="${x0}" x2="${x1}" y1="${f1(py(gl))}" y2="${f1(py(gl))}" stroke="var(--line)" stroke-dasharray="1 4"/>`;
+    g += `<text x="${x0-4}" y="${f1(py(gl)+3)}" text-anchor="end" font-size="8" fill="var(--muted)" font-family="var(--mono)">${gl}${unit}</text>`;
   });
-  const max = Math.max(1, ...Object.values(byQ).map(v=>v.n));
-  const bars = qs.map(q => {
-    const v = byQ[q];
-    const h = v ? Math.max(4, Math.round(v.n / max * 26)) : 2;
-    const cls = v ? (v.ins ? 'bar has ins' : 'bar has') : 'bar';
-    return `<span class="${cls}" style="height:${h}px" title="${q}: ${v ? v.n : 0}건"></span>`;
-  }).join('');
-  return `<div class="spark" role="img" aria-label="분기별 증거 밀도">${bars}</div>
-    <div class="spark-cap"><span>'23Q3</span><span>증거 밀도(분기) · 빨강=Insight 포함</span><span>현재</span></div>`;
+  g += `<line x1="${x0}" x2="${x1}" y1="${yb}" y2="${yb}" stroke="var(--line-strong)"/>`;
+  const acts = pts.filter(p=>p.kind==='actual'||p.kind==='estimate');
+  const tgt = pts.find(p=>p.kind==='target');
+  if(tgt && acts.length){
+    const base = acts[acts.length-1];
+    if(tgt.year>base.year && base.value>0){
+      const r = Math.pow(tgt.value/base.value, 1/(tgt.year-base.year))-1;
+      let d = `M ${f1(px(base.year))} ${f1(py(base.value))}`;
+      for(let y=base.year+1; y<=tgt.year; y++){
+        const v = base.value*Math.pow(1+r, y-base.year);
+        d += ` L ${f1(px(y))} ${f1(py(v))}`;
+      }
+      g += `<path d="${d}" fill="none" stroke="var(--insight)" stroke-width="1.4" stroke-dasharray="4 3" opacity=".85"/>`;
+    }
+  }
+  const bw = 17;
+  pts.forEach(p => {
+    if(p.kind==='target') return;
+    const x = px(p.year)-bw/2, y = py(p.value), h = yb-y;
+    const a = `x="${f1(x)}" y="${f1(y)}" width="${bw}" height="${f1(h)}"`;
+    if(p.kind==='forecast'){
+      g += `<rect ${a} fill="color-mix(in srgb,var(--amber) 15%,transparent)" stroke="var(--amber)" stroke-width="1.3" stroke-dasharray="3 2"/>`;
+    } else if(p.kind==='estimate'){
+      g += `<rect ${a} fill="var(--new)" opacity=".34"/>`;
+    } else {
+      g += `<rect ${a} fill="var(--new)"/>`;
+    }
+    g += `<text x="${f1(px(p.year))}" y="${f1(y-4)}" text-anchor="middle" font-size="8.5" fill="var(--ink)" font-family="var(--mono)" font-weight="600">${lab(p)}</text>`;
+  });
+  if(tgt){
+    const tx = px(tgt.year), ty = py(tgt.value);
+    g += `<line x1="${f1(tx-11)}" x2="${f1(tx+11)}" y1="${f1(ty)}" y2="${f1(ty)}" stroke="var(--insight)" stroke-width="2.4"/>`;
+    g += `<circle cx="${f1(tx)}" cy="${f1(ty)}" r="2.6" fill="var(--insight)"/>`;
+    g += `<text x="${f1(tx)}" y="${f1(ty-6)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
+  }
+  pts.forEach(p => {
+    g += `<text x="${f1(px(p.year))}" y="${H-4}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(p.year).slice(2)}</text>`;
+  });
+  const cap = `<span><i class="sw-act"></i>실적</span><span><i class="sw-fc"></i>전망</span><span><i class="sw-tg"></i>목표</span>`;
+  return `<div class="kpi-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${(ks.metric||'KPI')} 연도별 목표·실적">${g}</svg>
+    <div class="kpi-cap">${cap}<span style="margin-left:auto">${ks.metric||''} · 단위 ${unit}</span></div></div>`;
 }
 
 function render(){
@@ -410,7 +456,7 @@ function render(){
         </div>
         <div class="sum">${a.summary}</div>
         <ul class="kpi">${a.kpi.map(k=>`<li>${k}</li>`).join('')}</ul>
-        ${sparkHTML(a.id)}
+        ${kpiChartHTML(a)}
         <div class="foot"><span>${a.org}</span><span>증거 ${n}건 →</span></div>
       </button>`;
     }).join('')}
