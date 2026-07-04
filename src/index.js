@@ -225,6 +225,76 @@ async function senseMiMatch(note) {
   }
 }
 
+// ── 참고 보고서 매칭(추가 센싱 입력) ──────────────────────────────────
+// 공유 R2(samsungda-research)의 워드보고서 예시 중 note 키워드와 제목·파일명이
+// 겹치는 것을 골라 웹 센싱의 '사내 배경 자료'로 넘긴다. 텍스트 계열(html·txt·md
+// 등)만 본문 일부를 발췌하고, docx 등 바이너리는 제목·메타만 넘긴다(Worker에서
+// 언집 파싱하지 않음). idea-bank/ 프리픽스(아이디어 뱅크)는 제외. 읽기 전용.
+const REF_TEXT_RE = /(text\/|json|markdown|html|xml|csv|javascript)/i;
+function stripHtml(s) {
+  return String(s || "")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+async function senseReferenceMatch(note, bucket) {
+  if (!bucket) return [];
+  try {
+    const kws = senseKeywords(note).map((k) => k.toLowerCase());
+    if (!kws.length) return [];
+    const listed = await bucket.list({ include: ["customMetadata", "httpMetadata"] });
+    const scored = listed.objects
+      .filter((o) => !o.key.startsWith("idea-bank/"))
+      .map((o) => {
+        const title = o.customMetadata?.title ? decodeURIComponent(o.customMetadata.title) : o.key;
+        const name = o.customMetadata?.name ? decodeURIComponent(o.customMetadata.name) : o.key;
+        const hay = (title + " " + name).toLowerCase();
+        let score = 0;
+        kws.forEach((k) => { if (hay.includes(k)) score++; });
+        return { o, title, name, score };
+      })
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score || new Date(b.o.uploaded) - new Date(a.o.uploaded))
+      .slice(0, 4);
+
+    const out = [];
+    for (const x of scored) {
+      const type = x.o.httpMetadata?.contentType || "";
+      let excerpt = null;
+      if (REF_TEXT_RE.test(type) || /\.(html?|txt|md|markdown|json|csv)$/i.test(x.name)) {
+        try {
+          const obj = await bucket.get(x.o.key);
+          if (obj) {
+            const raw = await obj.text();
+            const clean = /html/i.test(type) || /\.html?$/i.test(x.name)
+              ? stripHtml(raw)
+              : String(raw).replace(/\s+/g, " ").trim();
+            excerpt = clean.slice(0, 1200);
+          }
+        } catch (e) { /* 발췌 실패 → 제목·메타만 */ }
+      }
+      out.push({
+        id: x.o.key,
+        title: x.title,
+        name: x.name,
+        type,
+        size: x.o.size,
+        uploaded: x.o.uploaded,
+        uploader: x.o.customMetadata?.uploader ? decodeURIComponent(x.o.customMetadata.uploader) : "",
+        score: x.score,
+        excerpt,
+      });
+    }
+    return out;
+  } catch (e) {
+    return [];
+  }
+}
+
 // 전략축 카탈로그 — 자체 정적 자산(strategies.json)에서 로드
 async function loadAxisCatalog(env) {
   try {
@@ -251,10 +321,24 @@ function extractJson(text) {
   return null;
 }
 
-async function senseWeb(note, env, axes) {
+async function senseWeb(note, env, axes, refs) {
   if (!env.ANTHROPIC_API_KEY) return null; // 미설정 → 웹 센싱 생략
   try {
     const axisList = (axes || []).map((a) => a.id + "(" + (a.code || "") + " " + (a.title || "") + ")").join(", ");
+    let refBlock = "";
+    if (refs && refs.length) {
+      const lines = refs.map((r, i) =>
+        (i + 1) + ". \u300c" + r.title + "\u300d" +
+        (r.name && r.name !== r.title ? " (" + r.name + ")" : "") +
+        (r.excerpt ? "\n   발췌: " + r.excerpt : "\n   (본문 미발췌 — 제목·파일명만 참고)")
+      ).join("\n");
+      refBlock =
+        "\n\n[사내 참고 보고서] 팀이 이미 작성한 워드보고서 예시 중 이 항목과 제목이 겹치는 자료다. " +
+        "배경·맥락 파악용으로만 쓰고 절대 1차 출처로 삼지 마라. 이 자료만으로는 승격할 수 없으며, " +
+        "반드시 웹 1차 출처(공시·회사 발표)로 교차검증하라. 사내 자료를 근거로 인용할 때는 " +
+        "source.name을 \"사내: <보고서 제목>\"으로, source.tier를 3, confidence를 '추론' 이하로 둔다.\n" +
+        lines;
+    }
     const prompt =
       "너는 삼성 DA 기획팀의 경쟁사 동향 센싱 에이전트다. 아래 '검증 대기' 항목을 웹에서 " +
       "최신·1차 출처(거래소 공시·회사 공식 발표·Tier1 매체) 위주로 조사하고, 승격 조건에 따라 판정하라.\n" +
@@ -268,7 +352,7 @@ async function senseWeb(note, env, axes) {
       '"noteUpdate":"대기·부분승격 시 인박스에 남길 갱신 노트(없으면 null)","removeFromInbox":false}\n' +
       "규칙: items에는 출처로 확인된 사실만 넣는다. confidence '사실'은 1차 출처(공시·회사 발표)가 있을 때만. " +
       "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n\n" +
-      "요청: " + note;
+      "요청: " + note + refBlock;
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -598,8 +682,9 @@ async function handleSense(request, env, ctx) {
   const id = String(body.id || "");
   if (!note) return json({ error: "note required" }, 400);
   const axes = await loadAxisCatalog(env);
-  const [mi, web] = await Promise.all([senseMiMatch(note), senseWeb(note, env, axes)]);
-  return json({ id, note, mi, web, ts: new Date().toISOString() });
+  const [mi, refs] = await Promise.all([senseMiMatch(note), senseReferenceMatch(note, env.RESEARCH)]);
+  const web = await senseWeb(note, env, axes, refs);
+  return json({ id, note, mi, refs, web, ts: new Date().toISOString() });
 }
 
 export default {
