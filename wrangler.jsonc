@@ -2,6 +2,9 @@
   "name": "competitor-intelligence",
   "compatibility_date": "2026-05-23",
   "main": "src/index.js",
+  "triggers": {
+    "crons": ["50 22 * * *"]
+  },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
