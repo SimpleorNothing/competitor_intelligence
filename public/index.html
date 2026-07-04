@@ -401,9 +401,9 @@ function kpiChartHTML(axis){
   const yr1 = ks.xMax != null ? ks.xMax : Math.max(...yrs);
   const unit = ks.unit || '';
   const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
-  const W=320,H=181, x0=30,x1=312, yt=16,yb=133;
-  const yG=149;      // 전년비 스트립 y
-  const yYear=167;   // 연도 라벨 y
+  const W=320,H=175, x0=30,x1=312, yt=26,yb=143;
+  const yG=11;       // 전년비 스트립 y — 플롯 상단
+  const yYear=161;   // 연도 라벨 y
   const xpad = 13;   // 좌측 축라벨과 첫 막대 간격
   const bw = 15;
   const px = y => x0 + xpad + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0-xpad);
@@ -453,7 +453,7 @@ function kpiChartHTML(axis){
     }
     g += `<text x="${f1(px(p.year))}" y="${f1(y-4)}" text-anchor="middle" font-size="8.5" fill="var(--ink)" font-family="var(--mono)" font-weight="600">${lab(p)}</text>`;
   });
-  // ── 전년비 스트립: 연속한 막대쌍 사이 하단에 %칩 ──
+  // ── 전년비 스트립: 연속한 막대쌍 사이 플롯 상단에 %칩 ──
   for(let i=1;i<barPts.length;i++){
     const a=barPts[i-1], b=barPts[i];
     if(a.value>0 && b.value>0){
@@ -688,7 +688,7 @@ function kpiPanelHTML(){
       <span><span class="d" style="background:var(--new)"></span>근접·궤도 진입중</span>
       <span><span class="d" style="background:var(--deep)"></span>On-track·사실상 도달</span>
     </div>
-    <div class="kpi-notes"><b>기준</b> 궤적은 '21년부터 표기 — 막대 위 <b>전년비</b>, 향후 점선은 <b>CAGR</b>. <b>이노텍 제외 매출</b>=각 연도 연결−LG이노텍(공시) 일관 산정('21 59.8·'22 62.9·'23 61.7·'24 66.5·'25 67.2조). LG공표 기준선('22 65조·'30 100조)과 '22 약 2조 차이는 산식 차이(공표 65조 병기). B2B '24는 '25 24.1조 +3% 역산이며 '21~'23 별도 B2B, ES '21~'23(HVAC 본부 독립 '24말 이전)은 미공표. 확정 공시 시 보정.</div>
+    <div class="kpi-notes"><b>기준</b> 궤적은 '21년부터 표기 — 막대 상단 스트립 <b>전년비</b>, 향후 점선은 <b>CAGR</b>. <b>이노텍 제외 매출</b>=각 연도 연결−LG이노텍(공시) 일관 산정('21 59.8·'22 62.9·'23 61.7·'24 66.5·'25 67.2조). LG공표 기준선('22 65조·'30 100조)과 '22 약 2조 차이는 산식 차이(공표 65조 병기). B2B '24는 '25 24.1조 +3% 역산이며 '21~'23 별도 B2B, ES '21~'23(HVAC 본부 독립 '24말 이전)은 미공표. 확정 공시 시 보정.</div>
   </div>`;
 }
 function toggleKpi(btn){
