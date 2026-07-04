@@ -293,13 +293,25 @@ footer #ub-btn{font-size:11.5px!important}
 let S = null, E = null, currentAxis = null;
 let tlSortAsc = true; // 타임라인 기본 정렬: 오래된순
 
+// 세션 만료(SSO 게이트 401/403) — Worker가 미인증 요청에 로그인 페이지를
+// 반환하므로 data fetch가 401/403을 받는다. 이땐 '데이터 로드 실패'가 아니라
+// 세션 만료이므로, 안내 후 새로고침해 게이트(로그인)로 재진입시킨다.
+function isAuthGate(r){ return r && (r.status === 401 || r.status === 403); }
+function sessionExpired(){
+  const el = document.getElementById('loading');
+  if(el) el.innerHTML = '세션이 만료되었습니다. 로그인 페이지로 이동합니다…';
+  setTimeout(function(){ location.reload(); }, 1500);
+}
+
 async function boot(){
   try{
-    const [s, e] = await Promise.all([
-      fetch('data/strategies.json').then(r=>{if(!r.ok)throw 0;return r.json()}),
-      fetch('data/evidence.json').then(r=>{if(!r.ok)throw 0;return r.json()})
+    const [rs, re] = await Promise.all([
+      fetch('data/strategies.json'),
+      fetch('data/evidence.json')
     ]);
-    S = s; E = e;
+    if(isAuthGate(rs) || isAuthGate(re)) return sessionExpired();
+    if(!rs.ok || !re.ok) throw 0;
+    S = await rs.json(); E = await re.json();
     render();
   }catch(err){
     document.getElementById('loading').innerHTML =
