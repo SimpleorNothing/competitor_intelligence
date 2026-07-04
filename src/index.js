@@ -503,58 +503,6 @@ async function handlePromote(request, env, ctx) {
   });
 }
 
-// ── 참고 보고서(/api/references, /reference/<id>) ───────────────────────
-// 포털·에이전트 가이드와 "같은" R2 버킷(samsungda-research)을 CI에도 직접
-// 바인딩(RESEARCH)해, 한쪽에 올린 워드보고서 예시를 CI에서 그대로 참고한다.
-// CI는 읽기 전용 — 목록 조회·파일 열람만 제공하고 업로드·삭제는 하지 않는다
-// (등록·삭제는 포털/에이전트 가이드에서만). 아이디어 뱅크(idea-bank/ 프리픽스)는
-// 이 목록의 대상이 아니므로 제외한다.
-async function listReferences(bucket) {
-  if (!bucket) return json({ error: "R2 bucket not configured" }, 503);
-  const listed = await bucket.list({ include: ["customMetadata", "httpMetadata"] });
-  const items = listed.objects
-    .filter((o) => !o.key.startsWith("idea-bank/"))
-    .map((o) => ({
-      id: o.key,
-      title: o.customMetadata?.title ? decodeURIComponent(o.customMetadata.title) : o.key,
-      name: o.customMetadata?.name ? decodeURIComponent(o.customMetadata.name) : o.key,
-      size: o.size,
-      type: o.httpMetadata?.contentType || "",
-      uploaded: o.uploaded,
-      uploader: o.customMetadata?.uploader ? decodeURIComponent(o.customMetadata.uploader) : "",
-    }));
-  items.sort((a, b) => new Date(b.uploaded) - new Date(a.uploaded));
-  return json(items);
-}
-
-async function serveResearchFile(bucket, id) {
-  const TEXT = { "content-type": "text/plain; charset=utf-8" };
-  if (!bucket) return new Response("R2 bucket not configured", { status: 503, headers: TEXT });
-  if (!id) return new Response("Not found", { status: 404, headers: TEXT });
-  const obj = await bucket.get(id);
-  if (!obj) return new Response("Not found", { status: 404, headers: TEXT });
-  const headers = new Headers();
-  obj.writeHttpMetadata(headers);
-  headers.set("etag", obj.httpEtag);
-  if (!headers.get("content-type")) headers.set("content-type", "application/octet-stream");
-  headers.set("x-content-type-options", "nosniff");
-  // 다운로드 시 R2 키(랜덤 prefix) 대신 업로드 당시의 원본 파일명을 사용한다.
-  const meta = obj.customMetadata || {};
-  if (meta.name) {
-    const original = decodeURIComponent(meta.name);
-    const encoded = encodeURIComponent(original);
-    const ascii = original.replace(/[^\x20-\x7E]/g, "_").replace(/["\\]/g, "_");
-    headers.set("content-disposition", `attachment; filename="${ascii}"; filename*=UTF-8''${encoded}`);
-  }
-  headers.set("cache-control", "private, max-age=300");
-  // 업로드된 콘텐츠는 불투명 sandbox 오리진에서 렌더링해 포털 저장소/쿠키 접근을 차단.
-  headers.set(
-    "content-security-policy",
-    "sandbox allow-scripts allow-popups allow-forms allow-modals allow-downloads"
-  );
-  return new Response(obj.body, { headers });
-}
-
 // ── 워치리스트 스캔(daily cron) ───────────────────────────────────────
 // public/data/watchlist.json 의 '확인 필요' 항목을 MI news.json 과 키워드
 // 매칭한다. 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에
@@ -733,14 +681,6 @@ export default {
       }
       if (url.pathname === "/api/promote" && request.method === "POST") {
         return handlePromote(request, env, ctx);
-      }
-      // 참고 보고서 — 공유 R2(samsungda-research) 읽기 전용
-      if (url.pathname === "/api/references" && request.method === "GET") {
-        return listReferences(env.RESEARCH);
-      }
-      if (url.pathname.startsWith("/reference/") && request.method === "GET") {
-        const rid = decodeURIComponent(url.pathname.slice("/reference/".length));
-        return serveResearchFile(env.RESEARCH, rid);
       }
       if (url.pathname === "/api/watchlist-scan" && request.method === "POST") {
         return handleWatchlistScan(request, env, ctx);

@@ -174,10 +174,6 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .btn-promote:disabled{opacity:.5;cursor:default}
 .sense-result .done{margin-top:8px;font-size:12.5px;color:var(--deep)}
 .sense-result .done a{color:var(--deep)}
-.sense-result .ref-note{font-size:12px;color:var(--muted);line-height:1.55;margin:0 0 8px;padding-bottom:8px;border-bottom:1px dotted var(--line)}
-.sense-result .ref-note b{color:var(--ink);font-weight:600}
-.sense-result .ref-item .ref-open{font-family:var(--mono);font-size:10px;margin-left:6px;white-space:nowrap}
-.sense-result .ref-ex{max-height:5.2em;overflow:hidden}
 .sense-prog{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
 .sense-prog .spin{width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--new);border-radius:50%;animation:ciSpin .8s linear infinite!important;flex:none}
 @keyframes ciSpin{to{transform:rotate(360deg)}}
@@ -286,56 +282,6 @@ footer #ub-btn{font-size:11.5px!important}
   .kpi-verdicts{grid-template-columns:1fr}
   .kpi-row{grid-template-columns:1fr;gap:9px}
   .kpi-val{text-align:left}
-}
-
-/* ── 참고 보고서 (agentguide R2 연동) ── CI 팔레트 상속 · zero-radius ── */
-.refs{border:1px dashed var(--line-strong);background:transparent;padding:16px 20px;margin:34px 0 50px}
-.refs h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.refs h3 .db{font-size:9.5px;letter-spacing:.06em;color:var(--new);border:1px solid var(--new);padding:1px 6px}
-.refs .rule{font-size:12px;color:var(--muted);line-height:1.6;margin:-4px 0 14px;padding-bottom:10px;border-bottom:1px dotted var(--line)}
-.refs .rule b{color:var(--ink);font-weight:600}
-.refs-toolbar{display:flex;gap:6px;margin-bottom:12px}
-.refs-toolbar button{font-family:var(--mono);font-size:11px;padding:4px 12px;border:1px solid var(--line-strong);background:transparent;color:var(--muted);cursor:pointer}
-.refs-toolbar button.on{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:600}
-.refs-toolbar button:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
-.rel{background:var(--panel);border:1px solid var(--line);padding:14px 12px 10px}
-.rel .relhint{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin:0 6px 8px}
-.rel svg{display:block;width:100%;height:auto;overflow:visible;font-family:var(--mono)}
-.rel .tn rect{fill:var(--panel);stroke:var(--line-strong);stroke-width:1}
-.rel .tn .tt{font-size:11px;font-weight:700;fill:var(--ink)}
-.rel .tn .ts{font-size:8.5px;fill:var(--muted)}
-.rel .tn.focus rect{stroke:var(--ink);stroke-width:2}
-.rel .tn.db rect{fill:color-mix(in srgb,var(--new) 8%,var(--panel));stroke:var(--new);stroke-width:1.4}
-.rel .tn.db .tt{fill:var(--new)}
-.rel .edge{fill:none;stroke:var(--line-strong);stroke-width:1.3}
-.rel .edge.dash{stroke-dasharray:4 3;stroke:var(--muted)}
-.rel .edge.newref{stroke:var(--insight);stroke-width:2.4}
-.rel .elabel{font-size:8.5px;fill:var(--muted)}
-.rel .elabel.hot{fill:var(--insight);font-weight:600}
-.rel #ref-ah path{fill:var(--line-strong)}
-.rel #ref-ahm path{fill:var(--muted)}
-.rel #ref-ahn path{fill:var(--insight)}
-.rel-legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--muted);margin:6px 6px 0}
-.rel-legend span{display:inline-flex;align-items:center;gap:5px}
-.rel-legend i{width:16px;height:0;display:inline-block}
-.rel-legend i.solid{border-top:1.3px solid var(--line-strong)}
-.rel-legend i.new{border-top:2.4px solid var(--insight)}
-.rel-legend i.dash{border-top:1.3px dashed var(--muted)}
-.refs-list{margin-top:14px}
-.rref{display:grid;grid-template-columns:1fr auto;gap:8px 16px;padding:11px 0;border-bottom:1px dotted var(--line);align-items:start}
-.rref:last-child{border-bottom:none}
-.rref .meta-main{min-width:0}
-.rref .rt{font-size:13.5px;font-weight:600;line-height:1.4}
-.rref .rf{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px;word-break:break-all}
-.rref .right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px;white-space:nowrap}
-.rref .rmeta{font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.5}
-.rref .open{font-family:var(--mono);font-size:11px;border:1px solid var(--new);color:var(--new);background:none;padding:3px 10px;text-decoration:none;transition:all .12s}
-.rref .open:hover{background:var(--new);color:#fff}
-.rref .open:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
-.refs-empty{font-size:12.5px;color:var(--muted);padding:14px 2px}
-@media(max-width:760px){
-  .rref{grid-template-columns:1fr}
-  .rref .right{text-align:left;align-items:flex-start}
 }
 </style>
 </head>
@@ -617,52 +563,10 @@ function render(){
         </div>
         <div class="sense-result" id="sr-${i.id}" hidden></div>
       </div>`).join('')}
-  </section>
-
-  <section class="refs" id="refs">
-    <h3>참고 보고서 · 클로드 워드보고서 예시 <span class="db">R2 · agentguide 연동</span></h3>
-    <p class="rule"><b>CI가 에이전트 가이드의 보고서 예시를 참고합니다.</b> 포털·에이전트 가이드와 같은 R2 버킷(samsungda-research)을 CI에 읽기 전용으로 바인딩해, 한쪽에 올린 워드보고서 예시를 CI에서 그대로 열람합니다. 아래 관계도는 도구 간 참조·데이터 흐름을 화살표로 나타냅니다.</p>
-    <div class="refs-toolbar">
-      <button type="button" id="refs-tb-rel" class="on" onclick="setRefsView('rel')">관계도</button>
-      <button type="button" id="refs-tb-list" onclick="setRefsView('list')">보고서 목록</button>
-    </div>
-    <div id="refs-view-rel" class="rel">
-      <div class="relhint">samsungda.net 도구 생태계 · 화살표 = 참조·데이터 흐름 · 굵은 빨강 = 이번 신규 연동</div>
-      <svg viewBox="0 0 760 268" role="img" aria-label="도구 생태계 관계도 — 포털·에이전트 가이드에서 R2를 거쳐 CI가 보고서를 참고">
-        <defs>
-          <marker id="ref-ah" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L7,3 L0,6 Z"></path></marker>
-          <marker id="ref-ahm" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L7,3 L0,6 Z"></path></marker>
-          <marker id="ref-ahn" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L7,3 L0,6 Z"></path></marker>
-        </defs>
-        <path class="edge dash" d="M95,44 C95,10 660,10 668,60" marker-end="url(#ref-ahm)"></path>
-        <text class="elabel" x="380" y="15" text-anchor="middle">SSO 세션 공유 (Domain=.samsungda.net)</text>
-        <path class="edge" d="M170,64 C240,72 250,96 300,104" marker-end="url(#ref-ah)"></path>
-        <text class="elabel" x="232" y="80" text-anchor="middle">등록·공유</text>
-        <path class="edge" d="M170,180 C240,172 250,136 300,126" marker-end="url(#ref-ah)"></path>
-        <text class="elabel" x="230" y="170" text-anchor="middle">보고서 등록·열람</text>
-        <path class="edge newref" d="M470,108 C520,100 545,96 588,92" marker-end="url(#ref-ahn)"></path>
-        <text class="elabel hot" x="528" y="86" text-anchor="middle">참고 보고서 (신규)</text>
-        <path class="edge" d="M668,196 C668,168 668,150 668,120" marker-end="url(#ref-ah)"></path>
-        <text class="elabel" x="676" y="162" text-anchor="start">뉴스 센싱</text>
-        <g class="tn"><rect x="20" y="44" width="150" height="44"></rect><text class="tt" x="32" y="63">포털</text><text class="ts" x="32" y="78">samsungda.net · SSO 허브</text></g>
-        <g class="tn"><rect x="20" y="158" width="150" height="44"></rect><text class="tt" x="32" y="177">에이전트 가이드</text><text class="ts" x="32" y="192">agentguide · 보고서 예시</text></g>
-        <text class="ts" x="20" y="216" fill="var(--muted)">※ report-idea · My Space도 같은 R2 공유</text>
-        <g class="tn db"><rect x="300" y="82" width="170" height="66"></rect><text class="tt" x="315" y="108">R2 · samsungda-research</text><text class="ts" x="315" y="124">공유 보고서 DB (버킷)</text><text class="ts" x="315" y="137">idea-bank/ 프리픽스 제외</text></g>
-        <g class="tn focus"><rect x="588" y="60" width="158" height="56"></rect><text class="tt" x="602" y="83">CI 경쟁사 전략 보드</text><text class="ts" x="602" y="99">ci.samsungda.net</text><text class="ts" x="602" y="110" fill="var(--insight)">R2 읽기전용 바인딩</text></g>
-        <g class="tn"><rect x="588" y="196" width="158" height="44"></rect><text class="tt" x="602" y="215">MI 뉴스 모니터링</text><text class="ts" x="602" y="230">market-insight</text></g>
-      </svg>
-      <div class="rel-legend">
-        <span><i class="new"></i>신규 연동 (CI ← R2 ← 에이전트 가이드)</span>
-        <span><i class="solid"></i>기존 참조·데이터 흐름</span>
-        <span><i class="dash"></i>SSO 세션 공유</span>
-      </div>
-    </div>
-    <div id="refs-view-list" class="refs-list" hidden></div>
   </section>`;
 
   document.getElementById('main').innerHTML = html;
   alignKpiDividers();
-  renderRefs();
 }
 
 // 시그니처 카드 정렬: 같은 행(2열)의 카드끼리 KPI 목록 줄 수가 달라도
@@ -851,25 +755,6 @@ function renderSense(d){
     h += '<div class="muted">MI 뉴스 DB에서 매칭되는 항목이 없습니다.</div>';
   }
   h += '</div>';
-  const refN = (d.refs && d.refs.length) ? d.refs.length : 0;
-  h += '<div class="sec"><h4>사내 참고 보고서 매칭 · ' + (refN ? refN + '건' : '없음') + '</h4>';
-  if(refN){
-    h += '<div class="ref-note">웹 센싱의 <b>배경 자료</b>로만 참고합니다 — 1차 출처가 아니며, 이 자료만으로는 승격되지 않습니다. 인용 시 tier 3 · confidence \'추론\' 이하.</div>';
-    h += d.refs.map(r => {
-      const openId = encodeURIComponent(r.id || '');
-      const nameDiff = r.name && r.name !== r.title;
-      return `
-      <div class="mi-item ref-item">
-        <div class="mi-hl">${senseEsc(r.title)}${r.id ? ` <a class="ref-open" href="/reference/${openId}" target="_blank" rel="noopener">열람 ↗</a>` : ''}</div>
-        ${nameDiff ? `<div class="mi-meta">${senseEsc(r.name)}</div>` : ''}
-        ${r.excerpt ? `<div class="mi-sm ref-ex">${senseEsc(r.excerpt)}</div>` : '<div class="mi-sm muted">본문 미발췌 — 제목·파일명만 참고(docx 등 바이너리)</div>'}
-        <div class="mi-meta">${r.uploader ? senseEsc(r.uploader) + ' · ' : ''}제목 일치 ${senseEsc(String(r.score || 0))}건</div>
-      </div>`;
-    }).join('');
-  } else {
-    h += '<div class="muted">제목·파일명이 겹치는 사내 보고서가 없습니다.</div>';
-  }
-  h += '</div>';
   h += '<div class="sec"><h4>웹 추가 센싱</h4>';
   if(d.web && d.web.summary){
     h += '<div class="web-sum">' + senseLinkify(sensePlain(d.web.summary)) + '</div>';
@@ -963,46 +848,6 @@ async function promoteSense(id, btn){
       eEl.textContent = '반영 실패 — ' + (err && err.message ? err.message : err);
       box.appendChild(eEl);
     }
-  }
-}
-
-// ── 참고 보고서 (agentguide R2 연동, 읽기 전용) ─────────────────────────
-// GET /api/references(공유 R2 목록) → 목록 렌더. 열람은 /reference/<id>(새 탭).
-function refsEsc(s){ return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
-function refsFmtDate(d){ const s=String(d||'').slice(0,10); return /^\d{4}-\d{2}-\d{2}$/.test(s) ? "'"+s.slice(2).replace(/-/g,'.') : s; }
-function refsFmtSize(b){ b=+b||0; return b>=1048576 ? (b/1048576).toFixed(1)+'MB' : Math.max(1,Math.round(b/1024))+'KB'; }
-function setRefsView(v){
-  const tr=document.getElementById('refs-tb-rel'), tl=document.getElementById('refs-tb-list');
-  const vr=document.getElementById('refs-view-rel'), vl=document.getElementById('refs-view-list');
-  if(!tr||!tl||!vr||!vl) return;
-  tr.classList.toggle('on', v==='rel'); tl.classList.toggle('on', v==='list');
-  vr.hidden = v!=='rel'; vl.hidden = v!=='list';
-}
-function refsRow(r){
-  const id=encodeURIComponent(r.id||'');
-  const title=refsEsc(r.title||r.name||'(제목 없음)');
-  const name=refsEsc(r.name||'');
-  const meta=(r.uploader?refsEsc(r.uploader)+' · ':'')+refsFmtDate(r.uploaded)+'<br>'+refsFmtSize(r.size);
-  return '<div class="rref"><div class="meta-main"><div class="rt">'+title+'</div>'+
-    (name?'<div class="rf">'+name+'</div>':'')+'</div>'+
-    '<div class="right"><div class="rmeta">'+meta+'</div>'+
-    '<a class="open" href="/reference/'+id+'" target="_blank" rel="noopener">열람 ↗</a></div></div>';
-}
-async function renderRefs(){
-  const box=document.getElementById('refs-view-list');
-  if(!box) return;
-  box.innerHTML='<div class="refs-empty">참고 보고서 목록을 불러오는 중…</div>';
-  try{
-    const r=await fetch('/api/references');
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const items=await r.json();
-    if(!Array.isArray(items)||!items.length){
-      box.innerHTML='<div class="refs-empty">아직 등록된 참고 보고서가 없습니다. 포털·에이전트 가이드에서 워드보고서 예시를 올리면 여기 표시됩니다.</div>';
-      return;
-    }
-    box.innerHTML=items.map(refsRow).join('');
-  }catch(err){
-    box.innerHTML='<div class="refs-empty">목록을 불러오지 못했습니다 — '+refsEsc(err&&err.message?err.message:err)+'. R2 바인딩·배포 상태를 확인하세요.</div>';
   }
 }
 
