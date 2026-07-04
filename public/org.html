@@ -69,10 +69,14 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .dhd .sub{font-size:12px;color:var(--muted)}
 .dhd .close{margin-left:auto;font-size:11.5px;color:var(--muted);background:none;border:1px solid var(--line-strong);padding:3px 10px;cursor:pointer}
 .dhd .close:hover{border-color:var(--ink);color:var(--ink)}
-.dlead{padding:14px 20px 4px}
+.dlead{padding:14px 20px 4px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .leadbox{display:inline-block;background:var(--ink);color:#fff;padding:9px 18px}
 .leadbox .r{font-size:10px;letter-spacing:.1em;opacity:.7;display:block}
 .leadbox .nm{font-size:15px;font-weight:700}
+.leadnote{text-align:right;font-size:12px;color:var(--muted);line-height:1.7}
+.leadnote .hd{display:flex;align-items:center;justify-content:flex-end;gap:5px;font-weight:700;color:var(--deep);margin-bottom:2px}
+.leadnote .dot{width:5px;height:5px;background:var(--amber);display:inline-block}
+.leadnote b{color:var(--ink);font-weight:600}
 .rkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;padding:12px 20px 20px}
 .rkcol{border:1px solid var(--line);margin:-1px 0 0 -1px;padding:10px 12px}
 .rkh{font-size:11px;letter-spacing:.1em;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:7px}
@@ -278,6 +282,7 @@ function openDiv(dv,keep){
     </div>
     <div class="dlead">
       <div class="leadbox"><span class="r">리더</span><span class="nm">${esc(P.leaders[dv]||'최상위: '+(rows[0]? rows[0].n+' '+rows[0].r:'—'))}</span></div>
+      <div class="leadnote"><div class="hd"><span class="dot"></span>표기 기준</div>직책·이름 <b>사업보고서 기준</b><br>조직 체계 <b>AI 추정</b></div>
     </div>
     <div class="rkgrid">
       ${clusters.map(c=>`
