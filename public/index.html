@@ -278,12 +278,15 @@ footer #ub-btn{font-size:11.5px!important}
 .kpi-legend .d{width:8px;height:8px}
 .kpi-notes{margin-top:16px;font-size:10.5px;color:var(--muted);line-height:1.65;font-family:var(--mono)}
 .kpi-notes b{color:var(--ink)}
-/* KPI 궤적 차트 — L2 축 카드의 A1 차트(kpiChartHTML) 재사용, 3열 그리드 */
-.kpi-charts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
-.kpi-chartcell{border:1px solid var(--line-strong);background:var(--paper);padding:13px 15px 11px}
-.kpi-chartcell .cc-h{font-size:13.5px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
-.kpi-chartcell .cc-s{font-family:var(--mono);font-size:10px;color:var(--muted);margin:2px 0 9px}
-.kpi-chartcell .kpi-chart{margin-top:0}
+/* KPI 궤적 차트 카드 — A1 차트(kpiChartHTML) 재사용 + 판정 뱃지·요약 통합, 3열 */
+.kpi-charts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:6px}
+.kpi-chartcell{border:1px solid var(--line-strong);background:var(--paper);padding:13px 15px 11px;display:flex;flex-direction:column}
+.kpi-chartcell .cc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.kpi-chartcell .cc-h{font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.kpi-chartcell .cc-s{font-family:var(--mono);font-size:10px;color:var(--muted);margin:3px 0 7px}
+.kpi-chartcell .cc-v{font-size:11.5px;color:var(--muted);line-height:1.55;margin:0 0 10px;padding-bottom:10px;border-bottom:1px dotted var(--line)}
+.kpi-chartcell .kpi-badge{margin-top:0;flex:none}
+.kpi-chartcell .kpi-chart{margin-top:auto}
 @media(max-width:760px){
   .kpi-verdicts{grid-template-columns:1fr}
   .kpi-row{grid-template-columns:1fr;gap:9px}
@@ -604,60 +607,28 @@ function toggleTlSort(){
   if (currentAxis) openTimeline(currentAxis);
 }
 
-// ── 2030 KPI 진척현황 ─────────────────────────────────────────────────
-// pct: 목표=100% 대비 도달률 / base·alt: 마커(%) / status: behind|near|ontrack|watch
-const KPI_A = [
-  { code:'7-1 · OPM', name:'영업이익률 7%', note:"'25 연간 2.8% → '26 1Q 7.1%",
-    cur:'2.8%', tgt:'목표 7.0%', pct:40, status:'behind', alt:{ pos:100, label:"1Q 7.1%" } },
-  { code:'7-2 · CAGR', name:'연평균성장률 7%', note:'이노텍 제외 22→25 실질 ≈1.5%/yr',
-    cur:'≈1.5%', tgt:'목표 7.0%', pct:21, status:'behind' },
-  { code:'7-3 · EV/EBITDA', name:'기업가치 7배', note:'저평가 지속 ≈4.5배',
-    cur:'≈4.5x', tgt:'목표 7.0x', pct:64, status:'behind' },
-];
-const KPI_B = [
-  { code:'R · REVENUE', name:'매출 100조원', note:'이노텍 제외 · 연결은 89.2조',
-    cur:'≈67조', tgt:'목표 100조', pct:67, status:'behind', base:{ pos:65, label:"'22 65조" } },
-  { code:'B · B2B', name:'B2B 40조 · 비중 45%', note:"'26 1Q 6.5조 · 비중 36%",
-    cur:'36%', tgt:'목표 45%', pct:80, status:'near' },
-  { code:'T · 매출', name:'3대 전환영역 매출 50%', note:"'25 질적성장 비중 절반 육박",
-    cur:'≈48%', tgt:'목표 50%', pct:96, status:'ontrack' },
-  { code:'T · 이익', name:'3대 전환영역 영업이익 75%', note:'세부 정량 미공개 · 전장/webOS/구독 견인',
-    cur:'—', tgt:'목표 75%', pct:0, status:'watch' },
-];
-function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
-function kpiBar(k){
-  let p = `<div class="kpi-fill s-${k.status}" data-w="${k.pct}"></div>`;
-  if(k.base) p += `<span class="kpi-base" style="left:${k.base.pos}%" data-label="${k.base.label}"></span>`;
-  if(k.alt)  p += `<span class="kpi-alt" style="left:${k.alt.pos}%" data-label="${k.alt.label}"></span>`;
-  const out = k.pct < 18;
-  const t = k.status==='watch' ? 'N/A' : k.pct + '%';
-  p += `<span class="kpi-pct${out?' out':''}" style="${out?`left:${k.pct}%;margin-left:6px`:''}">${t}</span>`;
-  return `<div class="kpi-track">${p}</div><div class="kpi-scale"><span>0</span><span>목표 100%</span></div>`;
-}
-function kpiRow(k){
-  return `<div class="kpi-row">
-    <div class="kpi-idc"><span class="c">${k.code}</span><span class="n">${k.name}</span><span class="nt">${k.note}</span></div>
-    <div class="kpi-barw">${kpiBar(k)}</div>
-    <div class="kpi-val"><div class="cur">${k.cur}</div><div class="tgt">${k.tgt}</div><span class="kpi-badge s-${k.status}">${kpiBadgeTxt(k.status)}</span></div>
-  </div>`;
-}
-// 프레임 KPI 궤적 3종 — L2 축의 A1 차트(kpiChartHTML) 컴포넌트를 그대로 재사용.
+// ── 2030 KPI 진척현황 — 규모·전환 3대 목표 궤적 + 판정 통합 ─────────────
+// 각 카드 = 목표 설명 + 판정 뱃지(behind|near|ontrack) + 연도별 실적↔목표 A1 궤적.
 // kind: actual(실적) / estimate(추정) / target(목표). 목표선은 마지막 실적·추정 기준 CAGR 점선.
+function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
 const FRAME_TRAJ = [
-  { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', kpiSeries:{
-    metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], points:[
+  { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
+    verdict:"연결은 성장(89.2조)했으나 목표 기준선(이노텍 제외)은 '22 65→'25 약 67조 정체. 100조까지 두 자릿수 성장 필요.",
+    kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], points:[
       { year:2022, value:65,  kind:'actual',   label:'65조',  note:'기준연도·이노텍 제외' },
       { year:2024, value:66,  kind:'estimate', label:'≈66조', note:'연결 87.7조−이노텍 21.2조' },
       { year:2025, value:67,  kind:'estimate', label:'≈67조', note:'연결 89.2조−이노텍 약 22조(추정)' },
       { year:2030, value:100, kind:'target',   label:'100조', note:'공표·이노텍 제외' }
     ] } },
-  { metric:'B2B 매출', sub:'40조+ / 비중 45% 목표', kpiSeries:{
-    metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], points:[
+  { metric:'B2B 매출', sub:'40조+ / 비중 45% 목표', status:'near',
+    verdict:"'26 1Q 비중 36%로 상승세, 목표 40~45% 궤도 진입 중. HVAC·전장이 견인축.",
+    kpiSeries:{ metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], points:[
       { year:2025, value:24.1, kind:'actual', label:'24.1조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
       { year:2030, value:40,   kind:'target', label:'40조+', note:'공표·비중 40~45%' }
     ] } },
-  { metric:'3대 전환영역', sub:'매출 비중 52% 목표', kpiSeries:{
-    metric:'3대 전환영역 매출 비중', unit:'%', yMax:60, gridlines:[25,50], points:[
+  { metric:'3대 전환영역', sub:'매출 비중 52% 목표', status:'ontrack',
+    verdict:"매출 비중 절반 육박(≈48%), 목표 52% 사실상 근접. 플랫폼·B2B·신사업 질적성장 궤도.",
+    kpiSeries:{ metric:'3대 전환영역 매출 비중', unit:'%', yMax:60, gridlines:[25,50], points:[
       { year:2021, value:29, kind:'actual',   label:'29%' },
       { year:2023, value:42, kind:'actual',   label:'42%' },
       { year:2025, value:48, kind:'estimate', label:'≈48%', note:'절반 육박' },
@@ -665,34 +636,24 @@ const FRAME_TRAJ = [
     ] } }
 ];
 function frameTrajHTML(){
-  return `<div class="kpi-seclabel">GROUP C · 규모·전환 궤적 — 연도별 목표·실적 (A1 차트)</div>
-    <div class="kpi-charts">${FRAME_TRAJ.map(c=>`
-      <div class="kpi-chartcell">
-        <div class="cc-h">${c.metric}</div>
-        <div class="cc-s">${c.sub}</div>
-        ${kpiChartHTML(c)}
-      </div>`).join('')}</div>`;
+  return `<div class="kpi-charts">${FRAME_TRAJ.map(c=>`
+    <div class="kpi-chartcell">
+      <div class="cc-top"><div class="cc-h">${c.metric}</div><span class="kpi-badge s-${c.status}">${kpiBadgeTxt(c.status)}</span></div>
+      <div class="cc-s">${c.sub}</div>
+      <div class="cc-v">${c.verdict}</div>
+      ${kpiChartHTML(c)}
+    </div>`).join('')}</div>`;
 }
 function kpiPanelHTML(){
   return `<div class="kpi-panel" id="kpiPanel" hidden>
-    <div class="kpi-lead">2023.07 선포 <b>트리플 7</b> + <b>매출 100조</b>를 baseline(2022 이노텍 제외 65조)·최신 실적(2025 연간·2026 1Q)에 대조. 게이지 = <b>목표 100%</b> 대비 도달률.</div>
-    <div class="kpi-verdicts">
-      <div class="kpi-vcard"><div class="vl">트리플 7 · 수익성·가치</div><div class="vs"><span class="d" style="background:var(--amber)"></span>BEHIND</div><div class="vsub">3개 지표 모두 목표 하회. 단 '26 1Q OPM 7.1%로 목표선 첫 터치.</div></div>
-      <div class="kpi-vcard"><div class="vl">매출 100조 · 이노텍 제외</div><div class="vs"><span class="d" style="background:var(--amber)"></span>BEHIND</div><div class="vsub">연결 89.2조 성장했으나 목표 기준선은 65→약 67조 정체.</div></div>
-      <div class="kpi-vcard"><div class="vl">포트폴리오 전환 · B2B·3대영역</div><div class="vs"><span class="d" style="background:var(--deep)"></span>ON-TRACK 근접</div><div class="vsub">3대 전환영역 비중 절반 육박, B2B 36% 상승세. 질적성장축 궤도.</div></div>
-    </div>
-    <div class="kpi-seclabel">GROUP A · 트리플 7 — 수익성·성장성·기업가치</div>
-    ${KPI_A.map(kpiRow).join('')}
-    <div class="kpi-seclabel">GROUP B · 규모·포트폴리오 전환</div>
-    ${KPI_B.map(kpiRow).join('')}
+    <div class="kpi-lead">2023.07 선포 <b>트리플 7</b>·<b>매출 100조</b>·<b>포트폴리오 전환</b>의 정량 진척. 트리플 7(수익성·성장·가치)은 3지표 모두 목표 하회하나 <b>'26 1Q OPM 7.1%</b>로 목표선 첫 터치. 아래는 규모·전환 3대 목표의 연도별 실적↔목표 궤적과 판정.</div>
     ${frameTrajHTML()}
     <div class="kpi-legend">
       <span><span class="d" style="background:var(--amber)"></span>Behind·목표 하회</span>
       <span><span class="d" style="background:var(--new)"></span>근접·궤도 진입중</span>
       <span><span class="d" style="background:var(--deep)"></span>On-track·사실상 도달</span>
-      <span><span class="d" style="background:var(--line-strong)"></span>Watch·정량 미공개</span>
     </div>
-    <div class="kpi-notes"><b>기준</b> '25 연결 잠정(매출 89.2조·OP 2.48조·OPM 2.8%), '26 1Q(매출 23.73조·OP 1.67조·OPM 7.1%). <b>이노텍 제외 매출</b>은 연결−이노텍 추정(약 22조) 차감 <b>추정 약 67조</b>. B2B='26 1Q 비중 36%. 전장 '25 매출 11.1조·수주 100조. CAGR은 이노텍 제외 실질(연결 5년 CAGR 9%). EV/EBITDA 약 4~5배 근사. 확정 공시 시 보정.</div>
+    <div class="kpi-notes"><b>기준</b> '25 연결 잠정(매출 89.2조·OP 2.48조). <b>이노텍 제외 매출</b>은 연결−이노텍 추정(약 22조) 차감 <b>추정 약 67조</b>. B2B='26 1Q 비중 36%(별도). 3대 전환영역은 질적성장 매출비중 추정('21 29%→'25 ≈48%). 목표선은 마지막 실적·추정 기준 CAGR 보간. 확정 공시 시 보정.</div>
   </div>`;
 }
 function toggleKpi(btn){
