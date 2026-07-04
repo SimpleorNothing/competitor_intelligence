@@ -4,10 +4,10 @@
   "companies": [
     {
       "id": "lg",
-      "name": "LG전자 (HS·ES)",
+      "name": "LG전자 (HS·MS·VS·ES)",
       "shortName": "LG",
       "active": true,
-      "scopeNote": "HS(생활가전)·ES(냉난방공조) 한정. MS·VS·BS 제외.",
+      "scopeNote": "HS(생활가전)·MS(TV/미디어)·VS(전장)·ES(냉난방공조) 4개 사업본부 대상. 현재 전략축(A1–A6)은 HS·ES 중심 — MS·VS는 커버리지 확장 예정.",
       "frame": {
         "statement": "2030 미래비전 — 스마트 라이프 솔루션 기업 전환",
         "redefinition": "류재철 체제('26.1~) : B2B 중심 '질적 성장' + 4대 미래사업(로봇·AIDC 냉각·스마트팩토리·AI홈)으로 실행 재정의 (스마트팩토리는 전사 생산기술원 소관 솔루션으로 본 보드 HS·ES 스코프 외 — 축 미설정)",
