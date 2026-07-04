@@ -419,6 +419,126 @@ async function handlePromote(request, env, ctx) {
   });
 }
 
+// ── 워치리스트 스캔(daily cron) ───────────────────────────────────────
+// public/data/watchlist.json 의 '확인 필요' 항목을 MI news.json 과 키워드
+// 매칭한다. 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에
+// 기록(검토 대기). strategies/evidence 는 건드리지 않는다 — 사람이 판단.
+// cron(scheduled) 과 /api/watchlist-scan(수동) 이 이 함수를 호출.
+const WATCHLIST_PATH = "public/data/watchlist.json";
+
+function miNewsHaystack(it) {
+  return [
+    it.headline, it.summary,
+    Array.isArray(it.tags) ? it.tags.join(" ") : "",
+    Array.isArray(it.competitors) ? it.competitors.join(" ") : "",
+  ].join(" ").toLowerCase();
+}
+async function fetchMiItems() {
+  try {
+    const r = await fetch(MI_NEWS_URL, { headers: { "user-agent": "ci-watchlist" } });
+    if (!r.ok) return [];
+    const data = await r.json();
+    return Array.isArray(data) ? data : (data.items || data.news || []);
+  } catch (e) { return []; }
+}
+function matchNewsForKeywords(keywords, items) {
+  const kws = (keywords || []).map((k) => String(k).toLowerCase().trim()).filter(Boolean);
+  if (!kws.length) return [];
+  return items
+    .map((it) => {
+      const hay = miNewsHaystack(it);
+      let score = 0;
+      kws.forEach((k) => { if (hay.includes(k)) score++; });
+      return { it, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) =>
+      b.score - a.score ||
+      String(b.it.publishedAt || "").localeCompare(String(a.it.publishedAt || ""))
+    )
+    .slice(0, 3)
+    .map((x) => ({
+      headline: x.it.headline || "",
+      url: x.it.url || (x.it.source && x.it.source.url) || "",
+      source: (x.it.source && x.it.source.name) || "",
+      publishedAt: x.it.publishedAt || "",
+      score: x.score,
+    }));
+}
+function nowKstStamp() {
+  return new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 16).replace("T", " ");
+}
+async function scanWatchlist(env, reason) {
+  if (!env.GITHUB_TOKEN) return { ok: false, error: "GITHUB_TOKEN 미설정 — watchlist 커밋 불가" };
+  const gh = {
+    "user-agent": "ci-watchlist",
+    accept: "application/vnd.github+json",
+    authorization: "Bearer " + env.GITHUB_TOKEN,
+  };
+  const getRes = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + WATCHLIST_PATH + "?ref=main",
+    { headers: gh }
+  );
+  if (!getRes.ok) return { ok: false, error: "watchlist.json 조회 실패 " + getRes.status };
+  const meta = await getRes.json();
+  let wl;
+  try { wl = JSON.parse(b64DecodeUtf8(meta.content)); }
+  catch (e) { return { ok: false, error: "watchlist.json 파싱 실패" }; }
+
+  const items = await fetchMiItems();
+  const stamp = nowKstStamp();
+  let changed = 0, newSignals = 0;
+
+  for (const w of (wl.items || [])) {
+    w.lastChecked = stamp;
+    if (w.status === "resolved") continue;
+    const matches = matchNewsForKeywords(w.keywords, items);
+    const seen = new Set((w.hits || []).map((h) => h.url).filter(Boolean));
+    const fresh = matches.filter((m) => m.url && !seen.has(m.url));
+    if (fresh.length) {
+      w.hits = fresh.map((m) => ({ ...m, seenAt: stamp })).concat(w.hits || []).slice(0, 5);
+      w.lastHit = stamp;
+      if (w.status === "watching") { w.status = "signal"; newSignals++; }
+      changed++;
+    }
+  }
+  wl.lastScan = stamp;
+  wl.scanReason = reason || "cron";
+  wl.updatedAt = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10) + "T00:00:00+09:00";
+
+  // 신규 매칭이 없으면 커밋 생략(매일 무의미 커밋 방지). lastScan은 다음 신호 때 함께 반영.
+  if (!changed) return { ok: true, scanned: (wl.items || []).length, changed: 0, newSignals: 0, committed: false };
+
+  const msg = "data: 워치리스트 스캔 — 신호 " + newSignals + "건 감지 (" + (reason || "cron") + ") [skip-log]";
+  const putRes = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + WATCHLIST_PATH,
+    {
+      method: "PUT",
+      headers: { ...gh, "content-type": "application/json" },
+      body: JSON.stringify({
+        message: msg,
+        content: b64EncodeUtf8(JSON.stringify(wl, null, 2) + "\n"),
+        sha: meta.sha,
+        branch: "main",
+      }),
+    }
+  );
+  if (!putRes.ok) {
+    const t = await putRes.text();
+    return { ok: false, error: "커밋 실패 " + putRes.status, detail: t.slice(0, 200) };
+  }
+  const out = await putRes.json();
+  return {
+    ok: true,
+    scanned: (wl.items || []).length,
+    changed, newSignals, committed: true,
+    commit: (out.commit && out.commit.html_url) || null,
+  };
+}
+async function handleWatchlistScan(request, env, ctx) {
+  return json(await scanWatchlist(env, "manual"));
+}
+
 async function handleSense(request, env, ctx) {
   let body = {};
   try { body = await request.json(); } catch (e) {}
@@ -431,6 +551,10 @@ async function handleSense(request, env, ctx) {
 }
 
 export default {
+  async scheduled(event, env, ctx) {
+    // daily cron — 워치리스트를 MI news 와 대조해 신호 갱신
+    ctx.waitUntil(scanWatchlist(env, "cron"));
+  },
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const host = url.hostname;
@@ -472,6 +596,9 @@ export default {
       }
       if (url.pathname === "/api/promote" && request.method === "POST") {
         return handlePromote(request, env, ctx);
+      }
+      if (url.pathname === "/api/watchlist-scan" && request.method === "POST") {
+        return handleWatchlistScan(request, env, ctx);
       }
       // 루트 페이지: /version.json 이 GitHub API 순간 장애 등으로 빈 log를
       // 반환해도 update-badge.js가 배포 시각 기준으로는 최소한 폴백하도록
