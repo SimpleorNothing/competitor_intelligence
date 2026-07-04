@@ -338,7 +338,8 @@ function kpiChartHTML(axis){
   }
   const pts = ks.points.slice().sort((a,b)=>a.year-b.year);
   const yrs = pts.map(p=>p.year);
-  const yr0 = Math.min(...yrs), yr1 = Math.max(...yrs);
+  // 카드 간 비교를 위해 축 기간을 '24~'30으로 통일(데이터가 벗어나면 확장)
+  const yr0 = Math.min(2024, ...yrs), yr1 = Math.max(2030, ...yrs);
   const unit = ks.unit || '';
   const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
   const W=300,H=132, x0=30,x1=290, yt=14,yb=104;
@@ -386,9 +387,9 @@ function kpiChartHTML(axis){
     g += `<circle cx="${f1(tx)}" cy="${f1(ty)}" r="2.6" fill="var(--insight)"/>`;
     g += `<text x="${f1(tx)}" y="${f1(ty-6)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
   }
-  pts.forEach(p => {
-    g += `<text x="${f1(px(p.year))}" y="${H-4}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(p.year).slice(2)}</text>`;
-  });
+  for(let y=yr0; y<=yr1; y++){
+    g += `<text x="${f1(px(y))}" y="${H-4}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(y).slice(2)}</text>`;
+  }
   const cap = `<span><i class="sw-act"></i>실적</span><span><i class="sw-fc"></i>전망</span><span><i class="sw-tg"></i>목표</span>`;
   return `<div class="kpi-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${(ks.metric||'KPI')} 연도별 목표·실적">${g}</svg>
     <div class="kpi-cap">${cap}<span style="margin-left:auto">${ks.metric||''} · 단위 ${unit}</span></div></div>`;
