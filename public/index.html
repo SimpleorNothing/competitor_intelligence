@@ -186,6 +186,33 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .sense-prog .stp.ok::after{content:" ✓"}
 .sense-prog .el{margin-left:auto;flex:none}
 
+/* ── 확인 필요 항목 · 상시 감시(워치리스트) ── */
+.watch{border:1px solid var(--line-strong);background:var(--panel);padding:16px 20px;margin:34px 0 0}
+.watch h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);font-weight:500;margin-bottom:10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.watch h3 .sig{color:var(--insight);font-weight:600}
+.watch h3 .scan{font-size:10px;letter-spacing:.04em;color:var(--line-strong);margin-left:auto}
+.watch .rule{font-size:12px;color:var(--muted);line-height:1.6;margin:-4px 0 12px;padding-bottom:10px;border-bottom:1px dotted var(--line)}
+.watch .rule b{color:var(--ink);font-weight:600}
+.watch .rule b.mk{color:var(--insight)}
+.w-it{padding:11px 0;border-bottom:1px dotted var(--line)}
+.w-it:last-child{border-bottom:none}
+.w-it.signal{background:color-mix(in srgb,var(--insight) 5%,transparent);border-left:3px solid var(--insight);padding-left:12px;margin-left:-12px}
+.w-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.w-code{font-family:var(--mono);font-weight:600;font-size:10.5px;background:var(--paper);border:1px solid var(--line-strong);padding:1px 7px}
+.w-q{font-size:13.5px;font-weight:600;flex:1;min-width:200px;line-height:1.4}
+.w-pri{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border:1px solid var(--line-strong);color:var(--muted)}
+.w-pri.p-상{border-color:var(--insight);color:var(--insight)}
+.w-st{font-family:var(--mono);font-size:10px;padding:2px 8px;white-space:nowrap}
+.w-st.watching{border:1px solid var(--line-strong);color:var(--muted)}
+.w-st.signal{background:var(--insight);color:#fff}
+.w-detail{font-size:12px;color:var(--muted);line-height:1.55;margin-top:6px}
+.w-hits{margin-top:8px;padding:8px 12px;background:var(--paper);border-left:2px solid var(--new)}
+.w-hits .hl{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--new);margin-bottom:5px}
+.w-hit{font-size:12px;padding:3px 0;line-height:1.5}
+.w-hit a{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new)}
+.w-hit a:hover{border-bottom-style:solid}
+.w-hit .hm{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
 footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 footer #ub-btn{font-size:11.5px!important}
 .err{padding:60px 20px;text-align:center;color:var(--muted);font-size:14px}
@@ -340,7 +367,7 @@ footer #ub-btn{font-size:11.5px!important}
 <script defer src="/update-badge.js" data-src="/version.json"></script>
 
 <script>
-let S = null, E = null, currentAxis = null;
+let S = null, E = null, W = null, currentAxis = null;
 let tlSortAsc = true; // 타임라인 기본 정렬: 오래된순
 
 // 세션 만료(SSO 게이트 401/403) — Worker가 미인증 요청에 로그인 페이지를
@@ -362,6 +389,7 @@ async function boot(){
     if(isAuthGate(rs) || isAuthGate(re)) return sessionExpired();
     if(!rs.ok || !re.ok) throw 0;
     S = await rs.json(); E = await re.json();
+    try{ W = await fetch('data/watchlist.json').then(r=>r.ok?r.json():null); }catch(_){ W = null; }
     render();
   }catch(err){
     document.getElementById('loading').innerHTML =
@@ -459,6 +487,46 @@ function kpiChartHTML(axis){
     <div class="kpi-cap">${cap}<span style="margin-left:auto">${ks.metric||''} · 단위 ${unit}</span></div></div>`;
 }
 
+// ── 확인 필요 항목 · 상시 감시(워치리스트) ─────────────────────────────
+// public/data/watchlist.json 을 표시. daily cron(index.js scanWatchlist)이
+// MI 뉴스와 키워드 매칭 → 신규 감지 시 status watching→signal + hits 기록.
+// signal 항목을 상단·강조, 이후 우선순위(상>중>하) 순. senseEsc는 하단 정의(호이스팅).
+function watchlistHTML(){
+  if(!W || !Array.isArray(W.items) || !W.items.length) return '';
+  const PRI = { '상':0, '중':1, '하':2 };
+  const sorted = W.items.slice().sort((a,b)=>{
+    const sa = a.status==='signal'?0:1, sb = b.status==='signal'?0:1;
+    if(sa!==sb) return sa-sb;
+    return (PRI[a.priority]!=null?PRI[a.priority]:9) - (PRI[b.priority]!=null?PRI[b.priority]:9);
+  });
+  const signalN = W.items.filter(i=>i.status==='signal').length;
+  const scan = W.lastScan ? ('마지막 스캔 ' + senseEsc(W.lastScan)) : '스캔 대기';
+  return `
+  <section class="watch">
+    <h3>확인 필요 항목 · 상시 감시${signalN?` · <span class="sig">신호 ${signalN}</span>`:''}<span class="scan">${scan}</span></h3>
+    <p class="rule">CI 판정에서 나온 <b>재센싱 트리거</b>를 상시 감시합니다. daily로 MI 뉴스와 키워드 매칭 → 신규 감지 시 <b class="mk">◆ 신호</b>로 표시(검토 대기). 실제 축·증거 반영은 사람이 판단합니다.</p>
+    ${sorted.map(w=>{
+      const sig = w.status==='signal';
+      const hits = Array.isArray(w.hits) ? w.hits : [];
+      return `
+      <div class="w-it ${sig?'signal':''}">
+        <div class="w-head">
+          <span class="w-code">${senseEsc(w.axisCode)}</span>
+          <span class="w-q">${senseEsc(w.question)}</span>
+          <span class="w-pri p-${senseEsc(w.priority)}">${senseEsc(w.priority)}</span>
+          <span class="w-st ${sig?'signal':'watching'}">${sig?'◆ 신호':'감시중'}</span>
+        </div>
+        <div class="w-detail">${senseEsc(w.detail)}</div>
+        ${hits.length?`
+        <div class="w-hits">
+          <div class="hl">감지 기사 ${hits.length}</div>
+          ${hits.map(x=>`<div class="w-hit">${x.url?`<a href="${senseEsc(x.url)}" target="_blank" rel="noopener">${senseEsc(x.headline||x.url)}</a>`:senseEsc(x.headline||'')}<span class="hm"> · ${senseEsc(x.source||'')}${x.publishedAt?' · '+senseEsc(String(x.publishedAt).slice(0,10)):''}${x.seenAt?' · 감지 '+senseEsc(x.seenAt):''}</span></div>`).join('')}
+        </div>`:''}
+      </div>`;
+    }).join('')}
+  </section>`;
+}
+
 function render(){
   const co = S.companies.find(c => c.active);
   document.getElementById('updatedAt').textContent =
@@ -529,6 +597,8 @@ function render(){
   </div>
 
   <section class="tl" id="tl" aria-live="polite"></section>
+
+  ${watchlistHTML()}
 
   <section class="inbox">
     <h3>검증 대기 인박스 · 추가 센싱 요청</h3>
