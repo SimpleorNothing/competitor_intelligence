@@ -632,20 +632,20 @@ function toggleTlSort(){
 function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
 const FRAME_TRAJ = [
   { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
-    verdict:"이노텍 제외 매출은 '21 60조→'23 62조(소폭 등락)→'25 67조로 완만. 연결(89.2조)은 성장했으나 이노텍 제외 기준선은 정체, '25→'30 연 8.3% 필요. LG공표 기준선은 '22 65조.",
+    verdict:"이노텍 제외 매출은 '21 59.8조→'22 62.9조→'23 61.7조→'24 66.5조→'25 67.2조. 연결 매출은 89.2조까지 성장했으나 이노텍 제외 기준선은 완만해 '25→'30 연 8.3% 필요. LG공표 기준선은 '22 65조.",
     kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], xMin:2021, xMax:2030, points:[
-      { year:2021, value:59.8, kind:'estimate', label:'≈60조', note:'연결 74.7조−이노텍 14.9조' },
-      { year:2022, value:62.9, kind:'estimate', label:'≈63조', note:'연결 82.5조−이노텍 19.6조 · LG공표 기준선 65조와 병기' },
-      { year:2023, value:61.7, kind:'estimate', label:'≈62조', note:'연결 82.3조−이노텍 20.6조 · 이노텍 제외론 소폭 감소' },
-      { year:2024, value:66.5, kind:'estimate', label:'≈66조', note:'연결 87.7조−이노텍 21.2조' },
-      { year:2025, value:67.2, kind:'estimate', label:'≈67조', note:'연결 89.2조−이노텍 약 22조(추정)' },
+      { year:2021, value:59.8, kind:'estimate', label:'60조', note:'연결 74.7조−이노텍 14.9조' },
+      { year:2022, value:62.9, kind:'estimate', label:'63조', note:'연결 82.5조−이노텍 19.6조 · LG공표 기준선 65조와 병기' },
+      { year:2023, value:61.7, kind:'estimate', label:'62조', note:'연결 82.3조−이노텍 20.6조 · 이노텍 제외론 소폭 감소' },
+      { year:2024, value:66.5, kind:'estimate', label:'67조', note:'연결 87.7조−이노텍 21.2조' },
+      { year:2025, value:67.2, kind:'estimate', label:'67조', note:'연결 89.2조−이노텍 약 22.0조(추정)' },
       { year:2030, value:100,  kind:'target',   label:'100조', note:'공표·이노텍 제외' }
     ] } },
   { metric:'B2B 매출', sub:'40조+ / 비중 45% 목표', status:'near',
     verdict:"'26 1Q 비중 36%로 상승세, 목표 40~45% 궤도 진입 중. HVAC·전장이 견인축. '21~'23 별도 B2B 시리즈는 미공표(비중 30%대 중반만 언급).",
     kpiSeries:{ metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], xMin:2021, xMax:2030, points:[
-      { year:2024, value:23.4, kind:'estimate', label:'23.4조', note:"'25 24.1조·+3% 역산 추정" },
-      { year:2025, value:24.1, kind:'actual',   label:'24.1조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
+      { year:2024, value:23.4, kind:'estimate', label:'23조', note:"'25 24.1조·+3% 역산 추정" },
+      { year:2025, value:24.1, kind:'actual',   label:'24조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
       { year:2030, value:40,   kind:'target',   label:'40조+', note:'공표·비중 40~45%' }
     ] } }
 ];
