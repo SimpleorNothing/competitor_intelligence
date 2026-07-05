@@ -109,8 +109,6 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .kpi-chart.empty{height:26px;display:flex;align-items:center;justify-content:center;border:1px dotted var(--line);margin-top:4px}
 .kpi-chart.empty span{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .axis .foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
-.axis .foot a{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new)}
-.axis .foot a:hover{border-bottom-style:solid}
 
 /* ── 타임라인 ── */
 .tl{background:var(--panel);border:1px solid var(--line-strong);margin:26px 0 40px;display:none}
@@ -121,6 +119,8 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .tl-hd .cnt{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted);background:none;border:none;padding:2px 4px;cursor:pointer}
 .tl-hd .cnt:hover{color:var(--ink)}
 .tl-hd .cnt:focus-visible{outline:2px solid var(--insight);outline-offset:1px}
+.tl-hd a.rm-link{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new);font-size:11.5px;font-family:var(--mono)}
+.tl-hd a.rm-link:hover{border-bottom-style:solid}
 .ev{display:grid;grid-template-columns:112px 1fr;gap:0;border-bottom:1px solid var(--line)}
 .ev:last-child{border-bottom:none}
 .ev .when{font-family:var(--mono);font-size:12px;padding:16px 0 16px 22px;color:var(--ink);font-weight:500;border-right:1px solid var(--line)}
@@ -340,9 +340,6 @@ footer #ub-btn{font-size:11.5px!important}
 let S = null, E = null, W = null, currentAxis = null;
 let tlSortAsc = true; // 타임라인 기본 정렬: 오래된순
 
-// 세션 만료(SSO 게이트 401/403) — Worker가 미인증 요청에 로그인 페이지를
-// 반환하므로 data fetch가 401/403을 받는다. 이땐 '데이터 로드 실패'가 아니라
-// 세션 만료이므로, 안내 후 새로고침해 게이트(로그인)로 재진입시킨다.
 function isAuthGate(r){ return r && (r.status === 401 || r.status === 403); }
 function sessionExpired(){
   const el = document.getElementById('loading');
@@ -368,7 +365,6 @@ async function boot(){
 }
 
 function fmtDate(d){
-  // "2026-04-29" → '26.04.29 / "2026-01" → '26.01
   const p = d.split('-');
   return "'" + p[0].slice(2) + '.' + p.slice(1).join('.');
 }
@@ -377,7 +373,6 @@ function quarterKey(d){
   return y + 'Q' + Math.ceil(m/3);
 }
 function quarterRange(){
-  // '23Q3 ~ 현재 분기
   const out = []; let y = 2023, q = 3;
   const now = new Date(), ny = now.getFullYear(), nq = Math.ceil((now.getMonth()+1)/3);
   while (y < ny || (y === ny && q <= nq)){
@@ -400,14 +395,13 @@ function kpiChartHTML(axis){
   }
   const pts = ks.points.slice().sort((a,b)=>a.year-b.year);
   const yrs = pts.map(p=>p.year);
-  // 축 범위: xMin/xMax 지정 시 우선(막대 없는 연도도 축 노출 → '21 시작 보장)
   const yr0 = ks.xMin != null ? ks.xMin : Math.min(...yrs);
   const yr1 = ks.xMax != null ? ks.xMax : Math.max(...yrs);
   const unit = ks.unit || '';
   const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
   const W=320,H=175, x0=30,x1=312, yt=26,yb=143;
-  const yYear=161;   // 연도 라벨 y
-  const xpad = 13;   // 좌측 축라벨과 첫 막대 간격
+  const yYear=161;
+  const xpad = 13;
   const bw = 15;
   const px = y => x0 + xpad + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0-xpad);
   const py = v => yb - (v/yMax)*(yb-yt);
@@ -419,7 +413,6 @@ function kpiChartHTML(axis){
     g += `<text x="${x0-4}" y="${f1(py(gl)+3)}" text-anchor="end" font-size="8" fill="var(--muted)" font-family="var(--mono)">${gl}${unit}</text>`;
   });
   g += `<line x1="${x0}" x2="${x1}" y1="${yb}" y2="${yb}" stroke="var(--line-strong)"/>`;
-  // ── 목표선 CAGR 점선: 마지막 실적·추정 → 목표 ──
   const acts = pts.filter(p=>p.kind==='actual'||p.kind==='estimate');
   const tgt = pts.find(p=>p.kind==='target');
   if(tgt && acts.length){
@@ -432,7 +425,6 @@ function kpiChartHTML(axis){
         d += ` L ${f1(px(y))} ${f1(py(v))}`;
       }
       g += `<path d="${d}" fill="none" stroke="var(--insight)" stroke-width="1.4" stroke-dasharray="4 3" opacity=".85"/>`;
-      // CAGR 라벨 — 점선 중앙 상단, paper 배경칩
       const my = (base.year+tgt.year)/2;
       const mv = base.value*Math.pow(1+r, my-base.year);
       const cagrTxt = `CAGR ${Math.round(r*100)}%`;
@@ -442,7 +434,6 @@ function kpiChartHTML(axis){
       g += `<text x="${f1(cx)}" y="${f1(cyv)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${cagrTxt}</text>`;
     }
   }
-  // ── 막대(target 제외) ──
   const barPts = pts.filter(p=>p.kind!=='target');
   barPts.forEach(p => {
     const x = px(p.year)-bw/2, y = py(p.value), h = yb-y;
@@ -456,31 +447,27 @@ function kpiChartHTML(axis){
     }
     g += `<text x="${f1(px(p.year))}" y="${f1(y-4)}" text-anchor="middle" font-size="8.5" fill="var(--ink)" font-family="var(--mono)" font-weight="600">${lab(p)}</text>`;
   });
-  // ── 전년비 %칩: 연속한 막대쌍 사이, 각 쌍의 높은 막대 값라벨 위에 개별 배치(계단식) ──
   for(let i=1;i<barPts.length;i++){
     const a=barPts[i-1], b=barPts[i];
     if(a.value>0 && b.value>0){
       const span=b.year-a.year;
       let pct, suf='';
-      if(span>1){ pct=(Math.pow(b.value/a.value,1/span)-1)*100; suf='ᐟ'; } // 연율(gap>1)
+      if(span>1){ pct=(Math.pow(b.value/a.value,1/span)-1)*100; suf='ᐟ'; }
       else pct=(b.value/a.value-1)*100;
       const rpct=Math.round(pct);
       const sign = rpct>0?'+':'';
       const col = rpct>0?'var(--deep)':(rpct<0?'var(--insight)':'var(--muted)');
       const mx=(px(a.year)+px(b.year))/2;
-      // 두 막대 중 높은 쪽의 값라벨보다 위(계단식) — 플롯 상단 클램프
       const yP=Math.max(11, Math.min(py(a.value),py(b.value))-15);
       const txt=`${sign}${rpct}%${suf}`;
       g += `<text x="${f1(mx)}" y="${f1(yP)}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
     }
   }
-  // ── 목표 막대(점선 red 아웃라인 — 아직 미실현 목표) ──
   if(tgt){
     const tx = px(tgt.year), ty = py(tgt.value), th = yb-ty;
     g += `<rect x="${f1(tx-bw/2)}" y="${f1(ty)}" width="${bw}" height="${f1(th)}" fill="color-mix(in srgb,var(--insight) 15%,transparent)" stroke="var(--insight)" stroke-width="1.3" stroke-dasharray="3 2"/>`;
     g += `<text x="${f1(tx)}" y="${f1(ty-4)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
   }
-  // ── 연도 라벨 ──
   for(let y=yr0; y<=yr1; y++){
     g += `<text x="${f1(px(y))}" y="${yYear}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(y).slice(2)}</text>`;
   }
@@ -489,10 +476,6 @@ function kpiChartHTML(axis){
     <div class="kpi-cap">${cap}<span style="margin-left:auto">${ks.metric||''} · 단위 ${unit}</span></div></div>`;
 }
 
-// ── 확인 필요 항목 · 상시 감시(워치리스트) ─────────────────────────────
-// public/data/watchlist.json 을 표시. daily cron(index.js scanWatchlist)이
-// MI 뉴스와 키워드 매칭 → 신규 감지 시 status watching→signal + hits 기록.
-// signal 항목을 상단·강조, 이후 우선순위(상>중>하) 순. senseEsc는 하단 정의(호이스팅).
 function watchlistHTML(){
   if(!W || !Array.isArray(W.items) || !W.items.length) return '';
   const PRI = { '상':0, '중':1, '하':2 };
@@ -534,7 +517,6 @@ function render(){
   document.getElementById('updatedAt').textContent =
     'updated ' + S.updatedAt.slice(0,10) + ' KST';
 
-  // 탭
   document.getElementById('tabs').innerHTML = S.companies.map(c =>
     `<span class="tab ${c.active ? 'on':'off'}" title="${c.active ? c.scopeNote : '커버리지 확장 예정'}">${c.shortName}</span>`
   ).join('');
@@ -594,7 +576,7 @@ function render(){
         <ul class="kpi">${a.kpi.map(k=>`<li>${k}</li>`).join('')}</ul>
         ${a.kpiSeries && Array.isArray(a.kpiSeries.points) && a.kpiSeries.points.length ? `<div class="ach" title="${a.trajNote?senseEsc(a.trajNote):''}"><span class="ach-t">${a.kpiSeries.metric} 궤적</span><span class="kpi-badge s-${a.trajGrade||'watch'}">${kpiBadgeTxt(a.trajGrade)}</span></div>` : ''}
         ${kpiChartHTML(a)}
-        <div class="foot"><span>${a.org}</span><span>증거 ${n}건 → ${a.id === 'lg-a1' ? ' | <a href="/a1-roadmap.html" target="_blank" rel="noopener">추진로드맵 ↗</a>' : ''}</span></div>
+        <div class="foot"><span>${a.org}</span><span>증거 ${n}건 →</span></div>
       </button>`;
     }).join('')}
   </div>
@@ -622,13 +604,10 @@ function render(){
   alignKpiDividers();
 }
 
-// 시그니처 카드 정렬: 같은 행(2열)의 카드끼리 KPI 목록 줄 수가 달라도
-// 구분선(kpi 상단 점선)과 그 아래 스파크 차트가 같은 높이에서 시작하도록
-// KPI 블록 높이를 행 단위로 맞춘다.
 function alignKpiDividers(){
   const cards = Array.from(document.querySelectorAll('.axis'));
   cards.forEach(c => { const k = c.querySelector('.kpi'); if (k) k.style.minHeight = ''; });
-  if (window.matchMedia('(max-width:760px)').matches) return; // 모바일은 1열이라 정렬 불필요
+  if (window.matchMedia('(max-width:760px)').matches) return;
   for (let i = 0; i < cards.length; i += 2){
     const pair = cards.slice(i, i + 2).map(c => c.querySelector('.kpi')).filter(Boolean);
     if (pair.length < 2) continue;
@@ -650,9 +629,6 @@ function toggleTlSort(){
   if (currentAxis) openTimeline(currentAxis);
 }
 
-// ── 2030 KPI 진척현황 — 규모·전환 3대 목표 궤적 + 판정 통합 ─────────────
-// 각 카드 = 목표 설명 + 판정 뱃지(behind|near|ontrack) + 연도별 실적↔목표 A1 궤적.
-// kind: actual(실적) / estimate(추정) / target(목표). 목표선은 마지막 실적·추정 기준 CAGR 점선.
 function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
 const FRAME_TRAJ = [
   { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
@@ -687,7 +663,7 @@ function kpiPanelHTML(){
     <div class="kpi-lead">2023.07 선포 <b>트리플 7</b>·<b>매출 100조</b>·<b>포트폴리오 전환</b>의 정량 진척. 트리플 7(수익성·성장·가치)은 3지표 모두 목표 하회하나 <b>'26 1Q OPM 7.1%</b>로 목표선 첫 터치. 아래는 <b>매출 규모·B2B</b> 목표의 연도별 실적↔목표 궤적과 판정.</div>
     ${frameTrajHTML()}
     <div class="kpi-legend">
-      <span><span class="d" style="background:var(--amber)"></span>Behind·목표 하회</span>
+      <span><span class="d" style="background:var(--amber)"></span>Behind·목표 하위</span>
       <span><span class="d" style="background:var(--new)"></span>근접·궤도 진입중</span>
       <span><span class="d" style="background:var(--deep)"></span>On-track·사실상 도달</span>
     </div>
@@ -729,6 +705,7 @@ function openTimeline(axisId){
     <div class="tl-hd">
       <span class="code">${axis.code}</span>
       <h3>${axis.title} — 실행 증거 타임라인</h3>
+      ${axisId === 'lg-a1' ? '<a href="/a1-roadmap.html" class="cnt rm-link" target="_blank" rel="noopener">추진로드맵 ↗</a>' : ''}
       <button type="button" class="cnt" onclick="toggleTlSort()">${evs.length}건 · ${tlSortAsc ? '오래된순' : '최신순'} ⇅</button>
     </div>
     ${evs.map(e => `
@@ -752,9 +729,6 @@ function openTimeline(axisId){
   tl.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// ── 추가 센싱 ─────────────────────────────────────────────────────────
-// 인박스 항목의 "추가 센싱하기" → Worker /api/sense 호출
-//   응답: { mi:[MI DB 매칭], web:{summary} 또는 null }
 function senseEsc(s){
   return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 }
@@ -765,7 +739,6 @@ function senseLinkify(s){
 function sensePlain(s){
   return String(s||'').replace(/^#{1,6}\s*/gm,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/\*([^*]+)\*/g,'$1');
 }
-// 진행 표시 — 단계별 하이라이트 + 경과 시간 (자판기 스타일)
 const SENSE_STEPS = ['MI 뉴스 DB 조회', '웹 검색·1차 출처 조사', '승격 조건 판정'];
 function senseProgressHTML(){
   return '<div class="sense-prog"><span class="spin" aria-hidden="true"></span><span class="stps">' +
@@ -821,7 +794,6 @@ async function senseInbox(id, btn){
   if(!entry) return;
   const box = document.getElementById('sr-' + id);
   if(!box) return;
-  // 이미 로드되어 열려있으면 토글로 닫기
   if(!box.hidden && box.dataset.loaded === '1'){ box.hidden = true; return; }
   box.hidden = false; box.className = 'sense-result'; box.dataset.loaded = '';
   box.innerHTML = senseProgressHTML();
@@ -849,7 +821,6 @@ async function senseInbox(id, btn){
   }
 }
 
-// "판정대로 반영하기" → /api/promote — evidence.json을 main에 커밋(자동 재배포)
 async function promoteSense(id, btn){
   const d = (window.__sense||{})[id];
   if(!d || !d.web) return;
