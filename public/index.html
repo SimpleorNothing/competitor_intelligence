@@ -109,6 +109,8 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .kpi-chart.empty{height:26px;display:flex;align-items:center;justify-content:center;border:1px dotted var(--line);margin-top:4px}
 .kpi-chart.empty span{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .axis .foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.axis .foot a{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new)}
+.axis .foot a:hover{border-bottom-style:solid}
 
 /* ── 타임라인 ── */
 .tl{background:var(--panel);border:1px solid var(--line-strong);margin:26px 0 40px;display:none}
@@ -592,7 +594,7 @@ function render(){
         <ul class="kpi">${a.kpi.map(k=>`<li>${k}</li>`).join('')}</ul>
         ${a.kpiSeries && Array.isArray(a.kpiSeries.points) && a.kpiSeries.points.length ? `<div class="ach" title="${a.trajNote?senseEsc(a.trajNote):''}"><span class="ach-t">${a.kpiSeries.metric} 궤적</span><span class="kpi-badge s-${a.trajGrade||'watch'}">${kpiBadgeTxt(a.trajGrade)}</span></div>` : ''}
         ${kpiChartHTML(a)}
-        <div class="foot"><span>${a.org}</span><span>증거 ${n}건 →</span></div>
+        <div class="foot"><span>${a.org}</span><span>증거 ${n}건 → ${a.id === 'lg-a1' ? ' | <a href="/a1-roadmap.html" target="_blank" rel="noopener">추진로드맵 ↗</a>' : ''}</span></div>
       </button>`;
     }).join('')}
   </div>
