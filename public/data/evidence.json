@@ -1157,6 +1157,74 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "auto"
+    },
+    {
+      "id": 86,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2026-03-20",
+      "event": "LG 씽큐 웹 서비스(my.lgthinq.com) 공식 오픈 — 스마트폰 앱 외 PC 웹 브라우저에서 계정 로그인·가전 상태 확인·원격 제어. 대시보드형 UI로 여러 가전 동시 관제. 향후 글로벌 약 156개국으로 확대 '계획' 명시",
+      "interpretation": "AI홈 접근 채널을 앱에서 웹으로 넓힌 실행 증거. 단 156개국은 목표치일 뿐 현재 완료 범위가 아니며, 웹 오픈 자체는 실행이나 글로벌 확대는 '계획' 단계 — A3 실행 밀도 판정 시 실행분과 계획분을 구분해야 함.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "이데일리·녹색경제신문",
+        "url": "https://marketin.edaily.co.kr/News/ReadE?newsId=04093446645385288",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 87,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2026-02-17",
+      "event": "KBIS 2026(올랜도, 2.17~19)에서 북미 B2B 전용 스마트홈 관리 플랫폼 'LG 씽큐 프로(ThinQ Pro)' 공개 — 빌트인 가전+공조 시스템의 설치·운영·유지보수·안전·에너지 관리를 통합하는 멀티패밀리(MDU)·임대단지 대상 솔루션. 건설사·설치·자산관리사가 대시보드로 단지 전체 관제, QR 일괄 등록. 북미 B2B 가전 3위 안착 목표",
+      "interpretation": "AI홈(A3)을 B2C 씽큐에서 B2B 운영 플랫폼으로 확장한 신호 — GE·월풀이 선점한 북미 빌더 시장 진입 수단. 단 KBIS '공개' 단계로 정식 출시·수주 규모·확산 일정은 미확인. A3와 A5(북미)·A2(공조)가 교차하는 축.",
+      "signalType": "Insight",
+      "confidence": "사실",
+      "source": {
+        "name": "뉴스핌·데일리안",
+        "url": "https://www.newspim.com/news/view/20260212001335",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 88,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2025-07-03",
+      "event": "와이즈앱·리테일 집계 — '25.6 국내 안드로이드 기준 스마트홈 앱 MAU 1위 삼성 스마트싱스 867만, 2위 LG 씽큐 154만. (A3 카드의 '가입 900만·MAU 200만' 외부 추정치의 검증 가능한 근접 앵커 — iOS 포함 시 씽큐 국내 MAU가 안드로이드 154만보다 다소 상회)",
+      "interpretation": "A3 카드의 '가입 900만·MAU 200만'은 회사 공표가 아닌 외부 추정이며, 검증 가능한 최근접 실측은 와이즈앱 '25.6 국내 MAU다. 국내 스마트홈 앱에서 삼성 스마트싱스(867만)에 크게 열위 — AI홈 사용자 접점 확보가 A3의 실질 과제임을 시사. 정확한 가입 수·글로벌 MAU 기준시점은 회사 미공표로 재확인 필요.",
+      "signalType": "Deep",
+      "confidence": "추론",
+      "source": {
+        "name": "EBN(와이즈앱·리테일 인용)",
+        "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1669097",
+        "tier": 3
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 89,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2024-08-21",
+      "event": "인베스터 포럼 이후 IR 공시 체계상 AI홈은 독립 매출 목표 없이 3대 전환영역 중 '플랫폼 서비스'에 통합 계상 — '30년 매출 50%·영업이익 75% 목표는 전환영역 단위로만 제시되며, AI홈·씽큐 개별 매출 목표는 '26.3 주총까지도 미공표 상태 유지",
+      "interpretation": "AI홈은 회사가 '전략 지위'(4대 미래사업)는 부여했으나 '정량 목표'는 부여하지 않은 축 — 이행도를 매출로 계측할 수 없어 실행 증거(웹서비스·B2B 플랫폼·M&A) 밀도로만 판정해야 하는 구조적 한계. 개별 정량 목표를 가진 A2(HVAC 20조)·A6(로봇)와 대비되는 지점.",
+      "signalType": "Deep",
+      "confidence": "추론",
+      "source": {
+        "name": "LG전자 뉴스룸(인베스터 포럼)·'26.3 주총 대조",
+        "url": "https://live.lge.co.kr/2408-lg-ceo/",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
     }
   ],
   "inbox": [
@@ -1180,7 +1248,7 @@
     },
     {
       "id": "inbox-6",
-      "note": "스마트팩토리 스코프 판단(2026-07-04): 류재철 4대 미래사업(로봇·AIDC냉각·스마트팩토리·AI홈) 중 로봇=A6·AIDC냉각=A2(→A7 분리 검토)·AI홈=A3로 편입했으나 스마트팩토리만 축 미설정. 사유 = LG 스마트팩토리 사업은 생산기술원/CTO 소관 전사 B2B 솔루션으로 본 보드 HS·ES 스코프 밖(strategies.frame.redefinition 각주 반영). 재검토 트리거: 스마트팩토리를 HS·ES 사업본부 손익으로 이관하거나 가전·공조 생산연계 솔루션으로 상품화하면 스코프 재판정. 다음 체크: '26 하반기 조직개편·IR. 참고: 스마트팩토리 전담조직 수주잔고 5,000억원+ 보도는 전사 지표로 별도 모니터.",
+      "note": "2026-07-04 체크 완료. HS·ES 이관·솔루션 상품화·하반기 조직개편 관련 1차 출처 없음. 다음 체크: 2026 하반기 조직개편 발표 또는 3Q26 IR 자료 공개 시. 키워드: LG전자 스마트팩토리 HS ES 이관, 생산기술원 조직개편.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
       "createdAt": "2026-07-04"
     }

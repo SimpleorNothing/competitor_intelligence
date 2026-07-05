@@ -225,6 +225,76 @@ async function senseMiMatch(note) {
   }
 }
 
+// ── 참고 보고서 매칭(추가 센싱 입력) ──────────────────────────────────
+// 공유 R2(samsungda-research)의 워드보고서 예시 중 note 키워드와 제목·파일명이
+// 겹치는 것을 골라 웹 센싱의 '사내 배경 자료'로 넘긴다. 텍스트 계열(html·txt·md
+// 등)만 본문 일부를 발췌하고, docx 등 바이너리는 제목·메타만 넘긴다(Worker에서
+// 언집 파싱하지 않음). idea-bank/ 프리픽스(아이디어 뱅크)는 제외. 읽기 전용.
+const REF_TEXT_RE = /(text\/|json|markdown|html|xml|csv|javascript)/i;
+function stripHtml(s) {
+  return String(s || "")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+async function senseReferenceMatch(note, bucket) {
+  if (!bucket) return [];
+  try {
+    const kws = senseKeywords(note).map((k) => k.toLowerCase());
+    if (!kws.length) return [];
+    const listed = await bucket.list({ include: ["customMetadata", "httpMetadata"] });
+    const scored = listed.objects
+      .filter((o) => !o.key.startsWith("idea-bank/"))
+      .map((o) => {
+        const title = o.customMetadata?.title ? decodeURIComponent(o.customMetadata.title) : o.key;
+        const name = o.customMetadata?.name ? decodeURIComponent(o.customMetadata.name) : o.key;
+        const hay = (title + " " + name).toLowerCase();
+        let score = 0;
+        kws.forEach((k) => { if (hay.includes(k)) score++; });
+        return { o, title, name, score };
+      })
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score || new Date(b.o.uploaded) - new Date(a.o.uploaded))
+      .slice(0, 4);
+
+    const out = [];
+    for (const x of scored) {
+      const type = x.o.httpMetadata?.contentType || "";
+      let excerpt = null;
+      if (REF_TEXT_RE.test(type) || /\.(html?|txt|md|markdown|json|csv)$/i.test(x.name)) {
+        try {
+          const obj = await bucket.get(x.o.key);
+          if (obj) {
+            const raw = await obj.text();
+            const clean = /html/i.test(type) || /\.html?$/i.test(x.name)
+              ? stripHtml(raw)
+              : String(raw).replace(/\s+/g, " ").trim();
+            excerpt = clean.slice(0, 1200);
+          }
+        } catch (e) { /* 발췌 실패 → 제목·메타만 */ }
+      }
+      out.push({
+        id: x.o.key,
+        title: x.title,
+        name: x.name,
+        type,
+        size: x.o.size,
+        uploaded: x.o.uploaded,
+        uploader: x.o.customMetadata?.uploader ? decodeURIComponent(x.o.customMetadata.uploader) : "",
+        score: x.score,
+        excerpt,
+      });
+    }
+    return out;
+  } catch (e) {
+    return [];
+  }
+}
+
 // 전략축 카탈로그 — 자체 정적 자산(strategies.json)에서 로드
 async function loadAxisCatalog(env) {
   try {
@@ -251,10 +321,24 @@ function extractJson(text) {
   return null;
 }
 
-async function senseWeb(note, env, axes) {
+async function senseWeb(note, env, axes, refs) {
   if (!env.ANTHROPIC_API_KEY) return null; // 미설정 → 웹 센싱 생략
   try {
     const axisList = (axes || []).map((a) => a.id + "(" + (a.code || "") + " " + (a.title || "") + ")").join(", ");
+    let refBlock = "";
+    if (refs && refs.length) {
+      const lines = refs.map((r, i) =>
+        (i + 1) + ". \u300c" + r.title + "\u300d" +
+        (r.name && r.name !== r.title ? " (" + r.name + ")" : "") +
+        (r.excerpt ? "\n   발췌: " + r.excerpt : "\n   (본문 미발췌 — 제목·파일명만 참고)")
+      ).join("\n");
+      refBlock =
+        "\n\n[사내 참고 보고서] 팀이 이미 작성한 워드보고서 예시 중 이 항목과 제목이 겹치는 자료다. " +
+        "배경·맥락 파악용으로만 쓰고 절대 1차 출처로 삼지 마라. 이 자료만으로는 승격할 수 없으며, " +
+        "반드시 웹 1차 출처(공시·회사 발표)로 교차검증하라. 사내 자료를 근거로 인용할 때는 " +
+        "source.name을 \"사내: <보고서 제목>\"으로, source.tier를 3, confidence를 '추론' 이하로 둔다.\n" +
+        lines;
+    }
     const prompt =
       "너는 삼성 DA 기획팀의 경쟁사 동향 센싱 에이전트다. 아래 '검증 대기' 항목을 웹에서 " +
       "최신·1차 출처(거래소 공시·회사 공식 발표·Tier1 매체) 위주로 조사하고, 승격 조건에 따라 판정하라.\n" +
@@ -268,7 +352,7 @@ async function senseWeb(note, env, axes) {
       '"noteUpdate":"대기·부분승격 시 인박스에 남길 갱신 노트(없으면 null)","removeFromInbox":false}\n' +
       "규칙: items에는 출처로 확인된 사실만 넣는다. confidence '사실'은 1차 출처(공시·회사 발표)가 있을 때만. " +
       "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n\n" +
-      "요청: " + note;
+      "요청: " + note + refBlock;
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -419,6 +503,126 @@ async function handlePromote(request, env, ctx) {
   });
 }
 
+// ── 워치리스트 스캔(daily cron) ───────────────────────────────────────
+// public/data/watchlist.json 의 '확인 필요' 항목을 MI news.json 과 키워드
+// 매칭한다. 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에
+// 기록(검토 대기). strategies/evidence 는 건드리지 않는다 — 사람이 판단.
+// cron(scheduled) 과 /api/watchlist-scan(수동) 이 이 함수를 호출.
+const WATCHLIST_PATH = "public/data/watchlist.json";
+
+function miNewsHaystack(it) {
+  return [
+    it.headline, it.summary,
+    Array.isArray(it.tags) ? it.tags.join(" ") : "",
+    Array.isArray(it.competitors) ? it.competitors.join(" ") : "",
+  ].join(" ").toLowerCase();
+}
+async function fetchMiItems() {
+  try {
+    const r = await fetch(MI_NEWS_URL, { headers: { "user-agent": "ci-watchlist" } });
+    if (!r.ok) return [];
+    const data = await r.json();
+    return Array.isArray(data) ? data : (data.items || data.news || []);
+  } catch (e) { return []; }
+}
+function matchNewsForKeywords(keywords, items) {
+  const kws = (keywords || []).map((k) => String(k).toLowerCase().trim()).filter(Boolean);
+  if (!kws.length) return [];
+  return items
+    .map((it) => {
+      const hay = miNewsHaystack(it);
+      let score = 0;
+      kws.forEach((k) => { if (hay.includes(k)) score++; });
+      return { it, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) =>
+      b.score - a.score ||
+      String(b.it.publishedAt || "").localeCompare(String(a.it.publishedAt || ""))
+    )
+    .slice(0, 3)
+    .map((x) => ({
+      headline: x.it.headline || "",
+      url: x.it.url || (x.it.source && x.it.source.url) || "",
+      source: (x.it.source && x.it.source.name) || "",
+      publishedAt: x.it.publishedAt || "",
+      score: x.score,
+    }));
+}
+function nowKstStamp() {
+  return new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 16).replace("T", " ");
+}
+async function scanWatchlist(env, reason) {
+  if (!env.GITHUB_TOKEN) return { ok: false, error: "GITHUB_TOKEN 미설정 — watchlist 커밋 불가" };
+  const gh = {
+    "user-agent": "ci-watchlist",
+    accept: "application/vnd.github+json",
+    authorization: "Bearer " + env.GITHUB_TOKEN,
+  };
+  const getRes = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + WATCHLIST_PATH + "?ref=main",
+    { headers: gh }
+  );
+  if (!getRes.ok) return { ok: false, error: "watchlist.json 조회 실패 " + getRes.status };
+  const meta = await getRes.json();
+  let wl;
+  try { wl = JSON.parse(b64DecodeUtf8(meta.content)); }
+  catch (e) { return { ok: false, error: "watchlist.json 파싱 실패" }; }
+
+  const items = await fetchMiItems();
+  const stamp = nowKstStamp();
+  let changed = 0, newSignals = 0;
+
+  for (const w of (wl.items || [])) {
+    w.lastChecked = stamp;
+    if (w.status === "resolved") continue;
+    const matches = matchNewsForKeywords(w.keywords, items);
+    const seen = new Set((w.hits || []).map((h) => h.url).filter(Boolean));
+    const fresh = matches.filter((m) => m.url && !seen.has(m.url));
+    if (fresh.length) {
+      w.hits = fresh.map((m) => ({ ...m, seenAt: stamp })).concat(w.hits || []).slice(0, 5);
+      w.lastHit = stamp;
+      if (w.status === "watching") { w.status = "signal"; newSignals++; }
+      changed++;
+    }
+  }
+  wl.lastScan = stamp;
+  wl.scanReason = reason || "cron";
+  wl.updatedAt = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10) + "T00:00:00+09:00";
+
+  // 신규 매칭이 없으면 커밋 생략(매일 무의미 커밋 방지). lastScan은 다음 신호 때 함께 반영.
+  if (!changed) return { ok: true, scanned: (wl.items || []).length, changed: 0, newSignals: 0, committed: false };
+
+  const msg = "data: 워치리스트 스캔 — 신호 " + newSignals + "건 감지 (" + (reason || "cron") + ") [skip-log]";
+  const putRes = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + WATCHLIST_PATH,
+    {
+      method: "PUT",
+      headers: { ...gh, "content-type": "application/json" },
+      body: JSON.stringify({
+        message: msg,
+        content: b64EncodeUtf8(JSON.stringify(wl, null, 2) + "\n"),
+        sha: meta.sha,
+        branch: "main",
+      }),
+    }
+  );
+  if (!putRes.ok) {
+    const t = await putRes.text();
+    return { ok: false, error: "커밋 실패 " + putRes.status, detail: t.slice(0, 200) };
+  }
+  const out = await putRes.json();
+  return {
+    ok: true,
+    scanned: (wl.items || []).length,
+    changed, newSignals, committed: true,
+    commit: (out.commit && out.commit.html_url) || null,
+  };
+}
+async function handleWatchlistScan(request, env, ctx) {
+  return json(await scanWatchlist(env, "manual"));
+}
+
 async function handleSense(request, env, ctx) {
   let body = {};
   try { body = await request.json(); } catch (e) {}
@@ -426,11 +630,16 @@ async function handleSense(request, env, ctx) {
   const id = String(body.id || "");
   if (!note) return json({ error: "note required" }, 400);
   const axes = await loadAxisCatalog(env);
-  const [mi, web] = await Promise.all([senseMiMatch(note), senseWeb(note, env, axes)]);
-  return json({ id, note, mi, web, ts: new Date().toISOString() });
+  const [mi, refs] = await Promise.all([senseMiMatch(note), senseReferenceMatch(note, env.RESEARCH)]);
+  const web = await senseWeb(note, env, axes, refs);
+  return json({ id, note, mi, refs, web, ts: new Date().toISOString() });
 }
 
 export default {
+  async scheduled(event, env, ctx) {
+    // daily cron — 워치리스트를 MI news 와 대조해 신호 갱신
+    ctx.waitUntil(scanWatchlist(env, "cron"));
+  },
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const host = url.hostname;
@@ -472,6 +681,9 @@ export default {
       }
       if (url.pathname === "/api/promote" && request.method === "POST") {
         return handlePromote(request, env, ctx);
+      }
+      if (url.pathname === "/api/watchlist-scan" && request.method === "POST") {
+        return handleWatchlistScan(request, env, ctx);
       }
       // 루트 페이지: /version.json 이 GitHub API 순간 장애 등으로 빈 log를
       // 반환해도 update-badge.js가 배포 시각 기준으로는 최소한 폴백하도록

@@ -32,6 +32,7 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .hd h1{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .hd .sub{font-size:12.5px;color:var(--muted)}
 .hd .upd{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.hd-tools{font-family:var(--mono);font-size:11.5px;padding:5px 11px;letter-spacing:.01em}
 
 /* ── 회사 탭 ── */
 .tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 14px;scrollbar-width:none}
@@ -51,17 +52,20 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .stamp+.stamp{border-left:none}
 .stamp b{font-weight:600}
 .stamp.redefined{border-color:var(--insight);color:var(--insight);border-left:1px solid var(--insight)}
-.fgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;margin-top:16px}
+.fgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:0;margin-top:16px}
+.fgrid>.fcol:first-child{padding-right:24px}
+.fgrid>.fcol:last-child{padding-left:24px;border-left:1px solid var(--line)}
 .fcol h3{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);margin-bottom:8px;font-weight:500}
 .fcol ul{list-style:none}
 .fcol li{font-size:13.5px;padding:5px 0;border-bottom:1px dotted var(--line)}
 .fcol li:last-child{border-bottom:none}
 .ppl{font-size:13px}
 .ppl .r{font-family:var(--mono);font-size:11px;color:var(--muted);display:inline-block;min-width:96px}
-.frame-actions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.frame-actions{margin-top:16px;display:grid;grid-template-columns:1.2fr .8fr;gap:0}
+.frame-actions .fa-left{display:flex;gap:8px;flex-wrap:wrap;padding-right:24px}
+.frame-actions .fa-right{display:flex;align-items:flex-start;padding-left:24px;border-left:1px solid var(--line)}
 .btn-ghost{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:none;padding:6px 14px;cursor:pointer;color:var(--ink)}
 a.btn-ghost{display:inline-block;text-decoration:none}
-.frame-actions .org-link{margin-left:auto}
 .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper)}
 .btn-ghost:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
 
@@ -92,13 +96,16 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .axis .kpi li{list-style:none;padding:1.5px 0;font-family:var(--mono);font-size:11.5px;color:var(--ink)}
 .axis .kpi li::before{content:"▸ ";color:var(--muted)}
 /* 시그니처: 연도별 KPI 목표·실적 궤적 차트 */
+.axis .ach{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.axis .ach .ach-t{font-size:12.5px;font-weight:700;letter-spacing:-.01em;color:var(--ink);line-height:1.3}
+.axis .ach .kpi-badge{margin-top:0;flex:none}
 .kpi-chart{margin-top:4px}
 .kpi-chart svg{display:block;width:100%;height:auto;overflow:visible}
 .kpi-cap{font-family:var(--mono);font-size:9.5px;color:var(--muted);display:flex;gap:11px;flex-wrap:wrap;margin-top:4px}
 .kpi-cap i{display:inline-block;width:8px;height:8px;margin-right:3px;vertical-align:-1px}
 .kpi-cap .sw-act{background:var(--new)}
 .kpi-cap .sw-fc{background:transparent;border:1.3px solid var(--amber)}
-.kpi-cap .sw-tg{background:var(--insight)}
+.kpi-cap .sw-tg{background:color-mix(in srgb,var(--insight) 15%,transparent);border:1.3px solid var(--insight)}
 .kpi-chart.empty{height:26px;display:flex;align-items:center;justify-content:center;border:1px dotted var(--line);margin-top:4px}
 .kpi-chart.empty span{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .axis .foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
@@ -112,15 +119,14 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .tl-hd .cnt{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted);background:none;border:none;padding:2px 4px;cursor:pointer}
 .tl-hd .cnt:hover{color:var(--ink)}
 .tl-hd .cnt:focus-visible{outline:2px solid var(--insight);outline-offset:1px}
+.tl-hd a.rm-link{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new);font-size:11.5px;font-family:var(--mono)}
+.tl-hd a.rm-link:hover{border-bottom-style:solid}
 .ev{display:grid;grid-template-columns:112px 1fr;gap:0;border-bottom:1px solid var(--line)}
 .ev:last-child{border-bottom:none}
 .ev .when{font-family:var(--mono);font-size:12px;padding:16px 0 16px 22px;color:var(--ink);font-weight:500;border-right:1px solid var(--line)}
 .ev .body{padding:14px 22px 16px}
 .ev .badges{display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap}
 .b{font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:2px 7px}
-.b.sig-New{background:var(--new);color:#fff}
-.b.sig-Deep{background:var(--deep);color:#fff}
-.b.sig-Insight{background:var(--insight);color:#fff}
 .b.cf-사실{border:1px solid var(--deep);color:var(--deep)}
 .b.cf-추론{border:1px dashed var(--new);color:var(--new)}
 .b.cf-가설{border:1px dashed var(--amber);color:var(--amber)}
@@ -186,19 +192,50 @@ a.btn-ghost{display:inline-block;text-decoration:none}
 .sense-prog .stp.ok::after{content:" ✓"}
 .sense-prog .el{margin-left:auto;flex:none}
 
+/* ── 확인 필요 항목 · 상시 감시(워치리스트) ── */
+.watch{border:1px solid var(--line-strong);background:var(--panel);padding:16px 20px;margin:34px 0 0}
+.watch h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);font-weight:500;margin-bottom:10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.watch h3 .sig{color:var(--insight);font-weight:600}
+.watch h3 .scan{font-size:10px;letter-spacing:.04em;color:var(--line-strong);margin-left:auto}
+.watch .rule{font-size:12px;color:var(--muted);line-height:1.6;margin:-4px 0 12px;padding-bottom:10px;border-bottom:1px dotted var(--line)}
+.watch .rule b{color:var(--ink);font-weight:600}
+.watch .rule b.mk{color:var(--insight)}
+.w-it{padding:11px 0;border-bottom:1px dotted var(--line)}
+.w-it:last-child{border-bottom:none}
+.w-it.signal{background:color-mix(in srgb,var(--insight) 5%,transparent);border-left:3px solid var(--insight);padding-left:12px;margin-left:-12px}
+.w-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.w-code{font-family:var(--mono);font-weight:600;font-size:10.5px;background:var(--paper);border:1px solid var(--line-strong);padding:1px 7px}
+.w-q{font-size:13.5px;font-weight:600;flex:1;min-width:200px;line-height:1.4}
+.w-pri{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border:1px solid var(--line-strong);color:var(--muted)}
+.w-pri.p-상{border-color:var(--insight);color:var(--insight)}
+.w-st{font-family:var(--mono);font-size:10px;padding:2px 8px;white-space:nowrap}
+.w-st.watching{border:1px solid var(--line-strong);color:var(--muted)}
+.w-st.signal{background:var(--insight);color:#fff}
+.w-detail{font-size:12px;color:var(--muted);line-height:1.55;margin-top:6px}
+.w-hits{margin-top:8px;padding:8px 12px;background:var(--paper);border-left:2px solid var(--new)}
+.w-hits .hl{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--new);margin-bottom:5px}
+.w-hit{font-size:12px;padding:3px 0;line-height:1.5}
+.w-hit a{color:var(--new);text-decoration:none;border-bottom:1px dotted var(--new)}
+.w-hit a:hover{border-bottom-style:solid}
+.w-hit .hm{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
 footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 footer #ub-btn{font-size:11.5px!important}
 .err{padding:60px 20px;text-align:center;color:var(--muted);font-size:14px}
 
 @media(max-width:760px){
   .axes{grid-template-columns:1fr}
-  .fgrid{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr;gap:20px}
+  .fgrid>.fcol:first-child{padding-right:0}
+  .fgrid>.fcol:last-child{padding-left:0;border-left:none}
   .ev{grid-template-columns:1fr}
   .ev .when{border-right:none;padding:14px 22px 0}
   .ev .body{padding-top:6px}
   .frame{padding:20px 18px}
   .hd .upd{width:100%;margin-left:0}
-  .frame-actions .org-link{margin-left:0}
+  .frame-actions{grid-template-columns:1fr;gap:12px}
+  .frame-actions .fa-left{padding-right:0}
+  .frame-actions .fa-right{padding-left:0;border-left:none}
 }
 
 /* ── KPI 진척 패널 (프레임 내 접이식) ── */
@@ -247,10 +284,20 @@ footer #ub-btn{font-size:11.5px!important}
 .kpi-legend .d{width:8px;height:8px}
 .kpi-notes{margin-top:16px;font-size:10.5px;color:var(--muted);line-height:1.65;font-family:var(--mono)}
 .kpi-notes b{color:var(--ink)}
+/* KPI 궤적 차트 카드 — A1 차트(kpiChartHTML) 재사용 + 판정 뱃지·요약 통합, 3열 */
+.kpi-charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:6px}
+.kpi-chartcell{border:1px solid var(--line-strong);background:var(--paper);padding:13px 15px 11px;display:flex;flex-direction:column}
+.kpi-chartcell .cc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.kpi-chartcell .cc-h{font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.kpi-chartcell .cc-s{font-family:var(--mono);font-size:10px;color:var(--muted);margin:3px 0 7px}
+.kpi-chartcell .cc-v{font-size:11.5px;color:var(--muted);line-height:1.55;margin:0 0 10px;padding-bottom:10px;border-bottom:1px dotted var(--line)}
+.kpi-chartcell .kpi-badge{margin-top:0;flex:none}
+.kpi-chartcell .kpi-chart{margin-top:auto}
 @media(max-width:760px){
   .kpi-verdicts{grid-template-columns:1fr}
   .kpi-row{grid-template-columns:1fr;gap:9px}
   .kpi-val{text-align:left}
+  .kpi-charts{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -263,6 +310,7 @@ footer #ub-btn{font-size:11.5px!important}
       <h1>경쟁사 전략 추적 보드</h1>
       <span class="sub">선언된 전략 ↔ 실행 증거의 정합성 검증</span>
       <span class="upd" id="updatedAt"></span>
+      <a class="btn-ghost hd-tools" href="https://samsungda.net" target="_blank" rel="noopener" aria-label="기획 도구모음 포털로 이동">기획 도구모음 ↗</a>
     </div>
     <nav class="tabs" id="tabs" aria-label="경쟁사 선택"></nav>
   </div>
@@ -278,8 +326,10 @@ footer #ub-btn{font-size:11.5px!important}
     해석문은 AI 생성 후 주간 검토로 승격됩니다.
     <div style="margin-top:8px">
       <b>축 근거</b>: 공표=회사 발표 / 추론=간접 정황 일관 / 가설=미검증 ·
-      <b>이행도</b>: 가속=계획보다 빠른 실행 누적 / 순항=방향 유지 / 지연=목표 대비 지연 / 방향전환=축 변경·폐기 ·
-      <b>증거 신호</b>: New=변곡 조짐 / Deep=구조적 심화 / Insight=판단을 바꾸는 결정적 증거
+      <b>이행도</b>: 가속=계획보다 빠른 실행 누적 / 순항=방향 유지 / 지연=목표 대비 지연 / 방향전환=축 변경·폐기
+    </div>
+    <div style="margin-top:8px">
+      <b>궤적 판정</b>(공표 목표 도달에 필요한 CAGR = 점선 목표선 기준): <b>ON-TRACK</b>=목표선 상회·정상 추종 / <b>근접</b>=목표선 진입했으나 성장률이 필요 CAGR 하회·둔화 관찰 / <b>BEHIND</b>=실적·전망이 필요 CAGR 크게 하회 / <b>WATCH</b>=정량 KPI 미공표
     </div>
     <div class="updated" id="ub-footer" style="margin-top:8px">update : —</div>
   </div>
@@ -287,17 +337,26 @@ footer #ub-btn{font-size:11.5px!important}
 <script defer src="/update-badge.js" data-src="/version.json"></script>
 
 <script>
-const SIG_ORDER = { "Insight": 3, "Deep": 2, "New": 1 };
-let S = null, E = null, currentAxis = null;
+let S = null, E = null, W = null, currentAxis = null;
 let tlSortAsc = true; // 타임라인 기본 정렬: 오래된순
+
+function isAuthGate(r){ return r && (r.status === 401 || r.status === 403); }
+function sessionExpired(){
+  const el = document.getElementById('loading');
+  if(el) el.innerHTML = '세션이 만료되었습니다. 로그인 페이지로 이동합니다…';
+  setTimeout(function(){ location.reload(); }, 1500);
+}
 
 async function boot(){
   try{
-    const [s, e] = await Promise.all([
-      fetch('data/strategies.json').then(r=>{if(!r.ok)throw 0;return r.json()}),
-      fetch('data/evidence.json').then(r=>{if(!r.ok)throw 0;return r.json()})
+    const [rs, re] = await Promise.all([
+      fetch('data/strategies.json'),
+      fetch('data/evidence.json')
     ]);
-    S = s; E = e;
+    if(isAuthGate(rs) || isAuthGate(re)) return sessionExpired();
+    if(!rs.ok || !re.ok) throw 0;
+    S = await rs.json(); E = await re.json();
+    try{ W = await fetch('data/watchlist.json').then(r=>r.ok?r.json():null); }catch(_){ W = null; }
     render();
   }catch(err){
     document.getElementById('loading').innerHTML =
@@ -306,7 +365,6 @@ async function boot(){
 }
 
 function fmtDate(d){
-  // "2026-04-29" → '26.04.29 / "2026-01" → '26.01
   const p = d.split('-');
   return "'" + p[0].slice(2) + '.' + p.slice(1).join('.');
 }
@@ -315,7 +373,6 @@ function quarterKey(d){
   return y + 'Q' + Math.ceil(m/3);
 }
 function quarterRange(){
-  // '23Q3 ~ 현재 분기
   const out = []; let y = 2023, q = 3;
   const now = new Date(), ny = now.getFullYear(), nq = Math.ceil((now.getMonth()+1)/3);
   while (y < ny || (y === ny && q <= nq)){
@@ -328,7 +385,7 @@ function quarterRange(){
 function evidenceFor(axisId, ascending){
   const dir = ascending ? 1 : -1;
   return E.items.filter(i => i.axisId === axisId)
-    .sort((a,b) => dir*a.date.localeCompare(b.date) || (SIG_ORDER[b.signalType]-SIG_ORDER[a.signalType]));
+    .sort((a,b) => dir*a.date.localeCompare(b.date));
 }
 
 function kpiChartHTML(axis){
@@ -338,12 +395,15 @@ function kpiChartHTML(axis){
   }
   const pts = ks.points.slice().sort((a,b)=>a.year-b.year);
   const yrs = pts.map(p=>p.year);
-  // 카드 간 비교를 위해 축 기간을 '24~'30으로 통일(데이터가 벗어나면 확장)
-  const yr0 = Math.min(2024, ...yrs), yr1 = Math.max(2030, ...yrs);
+  const yr0 = ks.xMin != null ? ks.xMin : Math.min(...yrs);
+  const yr1 = ks.xMax != null ? ks.xMax : Math.max(...yrs);
   const unit = ks.unit || '';
   const yMax = ks.yMax || Math.max(...pts.map(p=>p.value))*1.1;
-  const W=300,H=132, x0=30,x1=290, yt=14,yb=104;
-  const px = y => x0 + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0);
+  const W=320,H=175, x0=30,x1=312, yt=26,yb=143;
+  const yYear=161;
+  const xpad = 13;
+  const bw = 15;
+  const px = y => x0 + xpad + (yr1===yr0 ? 0 : (y-yr0)/(yr1-yr0))*(x1-x0-xpad);
   const py = v => yb - (v/yMax)*(yb-yt);
   const lab = p => p.label != null ? p.label : (p.value + unit);
   const f1 = n => (Math.round(n*10)/10);
@@ -365,11 +425,17 @@ function kpiChartHTML(axis){
         d += ` L ${f1(px(y))} ${f1(py(v))}`;
       }
       g += `<path d="${d}" fill="none" stroke="var(--insight)" stroke-width="1.4" stroke-dasharray="4 3" opacity=".85"/>`;
+      const my = (base.year+tgt.year)/2;
+      const mv = base.value*Math.pow(1+r, my-base.year);
+      const cagrTxt = `CAGR ${Math.round(r*100)}%`;
+      const cx = px(my), cyv = py(mv)-7;
+      const cw = cagrTxt.length*5.0+8;
+      g += `<rect x="${f1(cx-cw/2)}" y="${f1(cyv-9)}" width="${f1(cw)}" height="12" fill="var(--paper)" opacity=".92"/>`;
+      g += `<text x="${f1(cx)}" y="${f1(cyv)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${cagrTxt}</text>`;
     }
   }
-  const bw = 17;
-  pts.forEach(p => {
-    if(p.kind==='target') return;
+  const barPts = pts.filter(p=>p.kind!=='target');
+  barPts.forEach(p => {
     const x = px(p.year)-bw/2, y = py(p.value), h = yb-y;
     const a = `x="${f1(x)}" y="${f1(y)}" width="${bw}" height="${f1(h)}"`;
     if(p.kind==='forecast'){
@@ -381,18 +447,69 @@ function kpiChartHTML(axis){
     }
     g += `<text x="${f1(px(p.year))}" y="${f1(y-4)}" text-anchor="middle" font-size="8.5" fill="var(--ink)" font-family="var(--mono)" font-weight="600">${lab(p)}</text>`;
   });
+  for(let i=1;i<barPts.length;i++){
+    const a=barPts[i-1], b=barPts[i];
+    if(a.value>0 && b.value>0){
+      const span=b.year-a.year;
+      let pct, suf='';
+      if(span>1){ pct=(Math.pow(b.value/a.value,1/span)-1)*100; suf='ᐟ'; }
+      else pct=(b.value/a.value-1)*100;
+      const rpct=Math.round(pct);
+      const sign = rpct>0?'+':'';
+      const col = rpct>0?'var(--deep)':(rpct<0?'var(--insight)':'var(--muted)');
+      const mx=(px(a.year)+px(b.year))/2;
+      const yP=Math.max(11, Math.min(py(a.value),py(b.value))-15);
+      const txt=`${sign}${rpct}%${suf}`;
+      g += `<text x="${f1(mx)}" y="${f1(yP)}" text-anchor="middle" font-size="8" fill="${col}" font-family="var(--mono)" font-weight="600">${txt}</text>`;
+    }
+  }
   if(tgt){
-    const tx = px(tgt.year), ty = py(tgt.value);
-    g += `<line x1="${f1(tx-11)}" x2="${f1(tx+11)}" y1="${f1(ty)}" y2="${f1(ty)}" stroke="var(--insight)" stroke-width="2.4"/>`;
-    g += `<circle cx="${f1(tx)}" cy="${f1(ty)}" r="2.6" fill="var(--insight)"/>`;
-    g += `<text x="${f1(tx)}" y="${f1(ty-6)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
+    const tx = px(tgt.year), ty = py(tgt.value), th = yb-ty;
+    g += `<rect x="${f1(tx-bw/2)}" y="${f1(ty)}" width="${bw}" height="${f1(th)}" fill="color-mix(in srgb,var(--insight) 15%,transparent)" stroke="var(--insight)" stroke-width="1.3" stroke-dasharray="3 2"/>`;
+    g += `<text x="${f1(tx)}" y="${f1(ty-4)}" text-anchor="middle" font-size="8.5" fill="var(--insight)" font-family="var(--mono)" font-weight="700">${lab(tgt)}</text>`;
   }
   for(let y=yr0; y<=yr1; y++){
-    g += `<text x="${f1(px(y))}" y="${H-4}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(y).slice(2)}</text>`;
+    g += `<text x="${f1(px(y))}" y="${yYear}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--mono)">'${String(y).slice(2)}</text>`;
   }
-  const cap = `<span><i class="sw-act"></i>실적</span><span><i class="sw-fc"></i>전망</span><span><i class="sw-tg"></i>목표</span>`;
-  return `<div class="kpi-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${(ks.metric||'KPI')} 연도별 목표·실적">${g}</svg>
+  const cap = `<span><i class="sw-act"></i>실적</span><span><i class="sw-fc"></i>전망</span><span><i class="sw-tg"></i>목표</span><span style="color:var(--deep)">▲</span>/<span style="color:var(--insight)">▼</span> 전년비 · 점선 CAGR`;
+  return `<div class="kpi-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${(ks.metric||'KPI')} 연도별 목표·실적·전년비">${g}</svg>
     <div class="kpi-cap">${cap}<span style="margin-left:auto">${ks.metric||''} · 단위 ${unit}</span></div></div>`;
+}
+
+function watchlistHTML(){
+  if(!W || !Array.isArray(W.items) || !W.items.length) return '';
+  const PRI = { '상':0, '중':1, '하':2 };
+  const sorted = W.items.slice().sort((a,b)=>{
+    const sa = a.status==='signal'?0:1, sb = b.status==='signal'?0:1;
+    if(sa!==sb) return sa-sb;
+    return (PRI[a.priority]!=null?PRI[a.priority]:9) - (PRI[b.priority]!=null?PRI[b.priority]:9);
+  });
+  const signalN = W.items.filter(i=>i.status==='signal').length;
+  const scan = W.lastScan ? ('마지막 스캔 ' + senseEsc(W.lastScan)) : '스캔 대기';
+  return `
+  <section class="watch">
+    <h3>확인 필요 항목 · 상시 감시${signalN?` · <span class="sig">신호 ${signalN}</span>`:''}<span class="scan">${scan}</span></h3>
+    <p class="rule">CI 판정에서 나온 <b>재센싱 트리거</b>를 상시 감시합니다. daily로 MI 뉴스와 키워드 매칭 → 신규 감지 시 <b class="mk">◆ 신호</b>로 표시(검토 대기). 실제 축·증거 반영은 사람이 판단합니다.</p>
+    ${sorted.map(w=>{
+      const sig = w.status==='signal';
+      const hits = Array.isArray(w.hits) ? w.hits : [];
+      return `
+      <div class="w-it ${sig?'signal':''}">
+        <div class="w-head">
+          <span class="w-code">${senseEsc(w.axisCode)}</span>
+          <span class="w-q">${senseEsc(w.question)}</span>
+          <span class="w-pri p-${senseEsc(w.priority)}">${senseEsc(w.priority)}</span>
+          <span class="w-st ${sig?'signal':'watching'}">${sig?'◆ 신호':'감시중'}</span>
+        </div>
+        <div class="w-detail">${senseEsc(w.detail)}</div>
+        ${hits.length?`
+        <div class="w-hits">
+          <div class="hl">감지 기사 ${hits.length}</div>
+          ${hits.map(x=>`<div class="w-hit">${x.url?`<a href="${senseEsc(x.url)}" target="_blank" rel="noopener">${senseEsc(x.headline||x.url)}</a>`:senseEsc(x.headline||'')}<span class="hm"> · ${senseEsc(x.source||'')}${x.publishedAt?' · '+senseEsc(String(x.publishedAt).slice(0,10)):''}${x.seenAt?' · 감지 '+senseEsc(x.seenAt):''}</span></div>`).join('')}
+        </div>`:''}
+      </div>`;
+    }).join('')}
+  </section>`;
 }
 
 function render(){
@@ -400,7 +517,6 @@ function render(){
   document.getElementById('updatedAt').textContent =
     'updated ' + S.updatedAt.slice(0,10) + ' KST';
 
-  // 탭
   document.getElementById('tabs').innerHTML = S.companies.map(c =>
     `<span class="tab ${c.active ? 'on':'off'}" title="${c.active ? c.scopeNote : '커버리지 확장 예정'}">${c.shortName}</span>`
   ).join('');
@@ -429,17 +545,18 @@ function render(){
       </div>
     </div>
     <div class="frame-actions">
-      <button class="btn-ghost" onclick="openTimeline('lg-frame')">프레임 연혁 보기 (${frameEvCount}건)</button>
-      <button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>
-      <a class="btn-ghost org-link" href="/org.html" target="_blank" rel="noopener">조직도 보기 ↗</a>
+      <div class="fa-left">
+        <button class="btn-ghost" onclick="openTimeline('lg-frame')">프레임 연혁 보기 (${frameEvCount}건)</button>
+        <button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>
+      </div>
+      <div class="fa-right">
+        <a class="btn-ghost org-link" href="/org.html" target="_blank" rel="noopener">조직도 보기 ↗</a>
+      </div>
     </div>
     ${kpiPanelHTML()}
   </section>
 
   <div class="legend">
-    <span><span class="dot" style="background:var(--insight)"></span>Insight 분수령</span>
-    <span><span class="dot" style="background:var(--deep)"></span>Deep 구조 동인</span>
-    <span><span class="dot" style="background:var(--new)"></span>New 변곡 신호</span>
     <span style="margin-left:auto">이행도: 가속 / 순항 / 지연 / 방향전환</span>
   </div>
 
@@ -457,6 +574,7 @@ function render(){
         </div>
         <div class="sum">${a.summary}</div>
         <ul class="kpi">${a.kpi.map(k=>`<li>${k}</li>`).join('')}</ul>
+        ${a.kpiSeries && Array.isArray(a.kpiSeries.points) && a.kpiSeries.points.length ? `<div class="ach" title="${a.trajNote?senseEsc(a.trajNote):''}"><span class="ach-t">${a.kpiSeries.metric} 궤적</span><span class="kpi-badge s-${a.trajGrade||'watch'}">${kpiBadgeTxt(a.trajGrade)}</span></div>` : ''}
         ${kpiChartHTML(a)}
         <div class="foot"><span>${a.org}</span><span>증거 ${n}건 →</span></div>
       </button>`;
@@ -464,6 +582,8 @@ function render(){
   </div>
 
   <section class="tl" id="tl" aria-live="polite"></section>
+
+  ${watchlistHTML()}
 
   <section class="inbox">
     <h3>검증 대기 인박스 · 추가 센싱 요청</h3>
@@ -484,13 +604,10 @@ function render(){
   alignKpiDividers();
 }
 
-// 시그니처 카드 정렬: 같은 행(2열)의 카드끼리 KPI 목록 줄 수가 달라도
-// 구분선(kpi 상단 점선)과 그 아래 스파크 차트가 같은 높이에서 시작하도록
-// KPI 블록 높이를 행 단위로 맞춘다.
 function alignKpiDividers(){
   const cards = Array.from(document.querySelectorAll('.axis'));
   cards.forEach(c => { const k = c.querySelector('.kpi'); if (k) k.style.minHeight = ''; });
-  if (window.matchMedia('(max-width:760px)').matches) return; // 모바일은 1열이라 정렬 불필요
+  if (window.matchMedia('(max-width:760px)').matches) return;
   for (let i = 0; i < cards.length; i += 2){
     const pair = cards.slice(i, i + 2).map(c => c.querySelector('.kpi')).filter(Boolean);
     if (pair.length < 2) continue;
@@ -512,62 +629,45 @@ function toggleTlSort(){
   if (currentAxis) openTimeline(currentAxis);
 }
 
-// ── 2030 KPI 진척현황 ─────────────────────────────────────────────────
-// pct: 목표=100% 대비 도달률 / base·alt: 마커(%) / status: behind|near|ontrack|watch
-const KPI_A = [
-  { code:'7-1 · OPM', name:'영업이익률 7%', note:"'25 연간 2.8% → '26 1Q 7.1%",
-    cur:'2.8%', tgt:'목표 7.0%', pct:40, status:'behind', alt:{ pos:100, label:"1Q 7.1%" } },
-  { code:'7-2 · CAGR', name:'연평균성장률 7%', note:'이노텍 제외 22→25 실질 ≈1.5%/yr',
-    cur:'≈1.5%', tgt:'목표 7.0%', pct:21, status:'behind' },
-  { code:'7-3 · EV/EBITDA', name:'기업가치 7배', note:'저평가 지속 ≈4.5배',
-    cur:'≈4.5x', tgt:'목표 7.0x', pct:64, status:'behind' },
-];
-const KPI_B = [
-  { code:'R · REVENUE', name:'매출 100조원', note:'이노텍 제외 · 연결은 89.2조',
-    cur:'≈67조', tgt:'목표 100조', pct:67, status:'behind', base:{ pos:65, label:"'22 65조" } },
-  { code:'B · B2B', name:'B2B 40조 · 비중 45%', note:"'26 1Q 6.5조 · 비중 36%",
-    cur:'36%', tgt:'목표 45%', pct:80, status:'near' },
-  { code:'T · 매출', name:'3대 전환영역 매출 50%', note:"'25 질적성장 비중 절반 육박",
-    cur:'≈48%', tgt:'목표 50%', pct:96, status:'ontrack' },
-  { code:'T · 이익', name:'3대 전환영역 영업이익 75%', note:'세부 정량 미공개 · 전장/webOS/구독 견인',
-    cur:'—', tgt:'목표 75%', pct:0, status:'watch' },
-];
 function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
-function kpiBar(k){
-  let p = `<div class="kpi-fill s-${k.status}" data-w="${k.pct}"></div>`;
-  if(k.base) p += `<span class="kpi-base" style="left:${k.base.pos}%" data-label="${k.base.label}"></span>`;
-  if(k.alt)  p += `<span class="kpi-alt" style="left:${k.alt.pos}%" data-label="${k.alt.label}"></span>`;
-  const out = k.pct < 18;
-  const t = k.status==='watch' ? 'N/A' : k.pct + '%';
-  p += `<span class="kpi-pct${out?' out':''}" style="${out?`left:${k.pct}%;margin-left:6px`:''}">${t}</span>`;
-  return `<div class="kpi-track">${p}</div><div class="kpi-scale"><span>0</span><span>목표 100%</span></div>`;
-}
-function kpiRow(k){
-  return `<div class="kpi-row">
-    <div class="kpi-idc"><span class="c">${k.code}</span><span class="n">${k.name}</span><span class="nt">${k.note}</span></div>
-    <div class="kpi-barw">${kpiBar(k)}</div>
-    <div class="kpi-val"><div class="cur">${k.cur}</div><div class="tgt">${k.tgt}</div><span class="kpi-badge s-${k.status}">${kpiBadgeTxt(k.status)}</span></div>
-  </div>`;
+const FRAME_TRAJ = [
+  { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
+    verdict:"이노텍 제외 매출은 '21 60조→'23 62조(소폭 등락)→'25 67조로 완만. 연결(89.2조)은 성장했으나 이노텍 제외 기준선은 정체, '25→'30 연 8.3% 필요. LG공표 기준선은 '22 65조.",
+    kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], xMin:2021, xMax:2030, points:[
+      { year:2021, value:59.8, kind:'estimate', label:'≈60조', note:'연결 74.7조−이노텍 14.9조' },
+      { year:2022, value:62.9, kind:'estimate', label:'≈63조', note:'연결 82.5조−이노텍 19.6조 · LG공표 기준선 65조와 병기' },
+      { year:2023, value:61.7, kind:'estimate', label:'≈62조', note:'연결 82.3조−이노텍 20.6조 · 이노텍 제외론 소폭 감소' },
+      { year:2024, value:66.5, kind:'estimate', label:'≈66조', note:'연결 87.7조−이노텍 21.2조' },
+      { year:2025, value:67.2, kind:'estimate', label:'≈67조', note:'연결 89.2조−이노텍 약 22조(추정)' },
+      { year:2030, value:100,  kind:'target',   label:'100조', note:'공표·이노텍 제외' }
+    ] } },
+  { metric:'B2B 매출', sub:'40조+ / 비중 45% 목표', status:'near',
+    verdict:"'26 1Q 비중 36%로 상승세, 목표 40~45% 궤도 진입 중. HVAC·전장이 견인축. '21~'23 별도 B2B 시리즈는 미공표(비중 30%대 중반만 언급).",
+    kpiSeries:{ metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], xMin:2021, xMax:2030, points:[
+      { year:2024, value:23.4, kind:'estimate', label:'23.4조', note:"'25 24.1조·+3% 역산 추정" },
+      { year:2025, value:24.1, kind:'actual',   label:'24.1조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
+      { year:2030, value:40,   kind:'target',   label:'40조+', note:'공표·비중 40~45%' }
+    ] } }
+];
+function frameTrajHTML(){
+  return `<div class="kpi-charts">${FRAME_TRAJ.map(c=>`
+    <div class="kpi-chartcell">
+      <div class="cc-top"><div class="cc-h">${c.metric}</div><span class="kpi-badge s-${c.status}">${kpiBadgeTxt(c.status)}</span></div>
+      <div class="cc-s">${c.sub}</div>
+      <div class="cc-v">${c.verdict}</div>
+      ${kpiChartHTML(c)}
+    </div>`).join('')}</div>`;
 }
 function kpiPanelHTML(){
   return `<div class="kpi-panel" id="kpiPanel" hidden>
-    <div class="kpi-lead">2023.07 선포 <b>트리플 7</b> + <b>매출 100조</b>를 baseline(2022 이노텍 제외 65조)·최신 실적(2025 연간·2026 1Q)에 대조. 게이지 = <b>목표 100%</b> 대비 도달률.</div>
-    <div class="kpi-verdicts">
-      <div class="kpi-vcard"><div class="vl">트리플 7 · 수익성·가치</div><div class="vs"><span class="d" style="background:var(--amber)"></span>BEHIND</div><div class="vsub">3개 지표 모두 목표 하회. 단 '26 1Q OPM 7.1%로 목표선 첫 터치.</div></div>
-      <div class="kpi-vcard"><div class="vl">매출 100조 · 이노텍 제외</div><div class="vs"><span class="d" style="background:var(--amber)"></span>BEHIND</div><div class="vsub">연결 89.2조 성장했으나 목표 기준선은 65→약 67조 정체.</div></div>
-      <div class="kpi-vcard"><div class="vl">포트폴리오 전환 · B2B·3대영역</div><div class="vs"><span class="d" style="background:var(--deep)"></span>ON-TRACK 근접</div><div class="vsub">3대 전환영역 비중 절반 육박, B2B 36% 상승세. 질적성장축 궤도.</div></div>
-    </div>
-    <div class="kpi-seclabel">GROUP A · 트리플 7 — 수익성·성장성·기업가치</div>
-    ${KPI_A.map(kpiRow).join('')}
-    <div class="kpi-seclabel">GROUP B · 규모·포트폴리오 전환</div>
-    ${KPI_B.map(kpiRow).join('')}
+    <div class="kpi-lead">2023.07 선포 <b>트리플 7</b>·<b>매출 100조</b>·<b>포트폴리오 전환</b>의 정량 진척. 트리플 7(수익성·성장·가치)은 3지표 모두 목표 하회하나 <b>'26 1Q OPM 7.1%</b>로 목표선 첫 터치. 아래는 <b>매출 규모·B2B</b> 목표의 연도별 실적↔목표 궤적과 판정.</div>
+    ${frameTrajHTML()}
     <div class="kpi-legend">
-      <span><span class="d" style="background:var(--amber)"></span>Behind·목표 하회</span>
+      <span><span class="d" style="background:var(--amber)"></span>Behind·목표 하위</span>
       <span><span class="d" style="background:var(--new)"></span>근접·궤도 진입중</span>
       <span><span class="d" style="background:var(--deep)"></span>On-track·사실상 도달</span>
-      <span><span class="d" style="background:var(--line-strong)"></span>Watch·정량 미공개</span>
     </div>
-    <div class="kpi-notes"><b>기준</b> '25 연결 잠정(매출 89.2조·OP 2.48조·OPM 2.8%), '26 1Q(매출 23.73조·OP 1.67조·OPM 7.1%). <b>이노텍 제외 매출</b>은 연결−이노텍 추정(약 22조) 차감 <b>추정 약 67조</b>. B2B='26 1Q 비중 36%. 전장 '25 매출 11.1조·수주 100조. CAGR은 이노텍 제외 실질(연결 5년 CAGR 9%). EV/EBITDA 약 4~5배 근사. 확정 공시 시 보정.</div>
+    <div class="kpi-notes"><b>기준</b> 궤적은 '21년부터 표기 — 막대 상단 스트립 <b>전년비</b>, 향후 점선은 <b>CAGR</b>. <b>이노텍 제외 매출</b>=각 연도 연결−LG이노텍(공시) 일관 산정('21 59.8·'22 62.9·'23 61.7·'24 66.5·'25 67.2조). LG공표 기준선('22 65조·'30 100조)과 '22 약 2조 차이는 산식 차이(공표 65조 병기). B2B '24는 '25 24.1조 +3% 역산이며 '21~'23 별도 B2B, ES '21~'23(HVAC 본부 독립 '24말 이전)은 미공표. 확정 공시 시 보정.</div>
   </div>`;
 }
 function toggleKpi(btn){
@@ -605,6 +705,7 @@ function openTimeline(axisId){
     <div class="tl-hd">
       <span class="code">${axis.code}</span>
       <h3>${axis.title} — 실행 증거 타임라인</h3>
+      ${axisId === 'lg-a1' ? '<a href="/a1-roadmap.html" class="cnt rm-link" target="_blank" rel="noopener">추진로드맵 ↗</a>' : ''}
       <button type="button" class="cnt" onclick="toggleTlSort()">${evs.length}건 · ${tlSortAsc ? '오래된순' : '최신순'} ⇅</button>
     </div>
     ${evs.map(e => `
@@ -612,7 +713,6 @@ function openTimeline(axisId){
       <div class="when">${fmtDate(e.date)}</div>
       <div class="body">
         <div class="badges">
-          <span class="b sig-${e.signalType}">${e.signalType.toUpperCase()}</span>
           <span class="b cf-${e.confidence}">${e.confidence}</span>
           <span class="b rv ${e.reviewStatus==='auto'?'auto':''}">${
             e.reviewStatus==='seeded' ? '시딩 · 대화검증' :
@@ -629,9 +729,6 @@ function openTimeline(axisId){
   tl.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// ── 추가 센싱 ─────────────────────────────────────────────────────────
-// 인박스 항목의 "추가 센싱하기" → Worker /api/sense 호출
-//   응답: { mi:[MI DB 매칭], web:{summary} 또는 null }
 function senseEsc(s){
   return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 }
@@ -642,7 +739,6 @@ function senseLinkify(s){
 function sensePlain(s){
   return String(s||'').replace(/^#{1,6}\s*/gm,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/\*([^*]+)\*/g,'$1');
 }
-// 진행 표시 — 단계별 하이라이트 + 경과 시간 (자판기 스타일)
 const SENSE_STEPS = ['MI 뉴스 DB 조회', '웹 검색·1차 출처 조사', '승격 조건 판정'];
 function senseProgressHTML(){
   return '<div class="sense-prog"><span class="spin" aria-hidden="true"></span><span class="stps">' +
@@ -698,7 +794,6 @@ async function senseInbox(id, btn){
   if(!entry) return;
   const box = document.getElementById('sr-' + id);
   if(!box) return;
-  // 이미 로드되어 열려있으면 토글로 닫기
   if(!box.hidden && box.dataset.loaded === '1'){ box.hidden = true; return; }
   box.hidden = false; box.className = 'sense-result'; box.dataset.loaded = '';
   box.innerHTML = senseProgressHTML();
@@ -726,7 +821,6 @@ async function senseInbox(id, btn){
   }
 }
 
-// "판정대로 반영하기" → /api/promote — evidence.json을 main에 커밋(자동 재배포)
 async function promoteSense(id, btn){
   const d = (window.__sense||{})[id];
   if(!d || !d.web) return;
