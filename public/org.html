@@ -86,6 +86,33 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .mem .dp{font-weight:600;flex:1;min-width:120px}
 .mem .nm2{color:var(--muted);font-size:12px;white-space:nowrap}
 .note{font-size:11.5px;color:var(--muted);padding:0 20px 16px}
+.b.est{background:var(--amber);color:#fff;border:none}
+.osleg{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);padding:10px 20px;border-bottom:1px solid var(--line)}
+.osleg b{color:var(--ink)}
+.oswrap{padding:16px 20px 8px}
+.osg{border:1px solid var(--line-strong);margin-bottom:14px;background:var(--panel)}
+.osh{display:flex;align-items:center;gap:11px;padding:9px 14px;background:var(--new);color:#fff}
+.osg.hq .osh{background:var(--ink)}
+.osg.prod .osh{background:var(--deep)}
+.osg.orphan .osh{background:var(--line-strong)}
+.oslv{font-size:9.5px;letter-spacing:.13em;opacity:.72;border:1px solid rgba(255,255,255,.45);padding:1px 5px;white-space:nowrap}
+.osh h4{font-size:14.5px;font-weight:700}
+.osh .rep{font-size:12px;font-weight:600;opacity:.93}
+.osh .rep.none{opacity:.82;font-weight:400;font-style:italic}
+.osh .osc{margin-left:auto;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.18);padding:2px 9px}
+.osb{padding:6px 14px 10px 20px}
+.osm{display:flex;align-items:baseline;gap:9px;padding:5px 0 5px 18px;border-bottom:1px dotted var(--line);position:relative;font-size:13px}
+.osm:last-child{border-bottom:none}
+.osm::after{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line)}
+.osm:last-child::after{bottom:calc(100% - 12px)}
+.osm::before{content:'';position:absolute;left:0;top:12px;width:11px;height:1px;background:var(--line-strong)}
+.osm .dp{font-weight:600;min-width:148px}
+.osm .nm2{color:var(--muted);font-size:12.5px;white-space:nowrap}
+.osstaff{padding:9px 0 2px 18px;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
+.osstaff .cap{font-size:10.5px;letter-spacing:.06em;color:var(--muted);font-weight:700;margin-right:2px}
+.osstaff .st{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:2px 7px}
+.osnote{font-size:11px;color:var(--insight);padding:9px 0 2px 18px;line-height:1.5}
+@media(max-width:760px){.osm .dp{min-width:0}}
 
 .tab.tr{border-color:var(--insight);color:var(--insight)}
 .tab.tr.on{background:var(--insight);border-color:var(--insight);color:#fff}
@@ -250,12 +277,50 @@ function clusterTrend(dv){
   return {rowsBy,keyOf,seq,label};
 }
 
+const OS_ORDER=['해외영업본부','북미','유럽','아시아','중남미','중동아프리카','생산법인'];
+const OS_GEO=[['북미',/미국|미주|캐나다/],['중남미',/칠레|브라질|아르헨티나|콜롬비아|페루|파나마|중남미|멕시코/],['유럽',/독일|러시아|영국|프랑스|이태리|이탈리아|베네룩스|튀르키예|터키|카자흐|스페인|이베리아|폴란드|북유럽|CIS/],['아시아',/일본|중국|말레이|호주|인도네시아|태국|베트남|싱가포르|대만|아시아/],['중동아프리카',/걸프|사우디|이집트|마그렙|나이지리아|레반트|남아공|이란|이스라엘/]];
+const OS_META={'해외영업본부':{lv:'본부 직속·공통',cls:'hq'},'북미':{lv:'지역대표',cls:'reg'},'유럽':{lv:'지역대표',cls:'reg'},'아시아':{lv:'지역대표',cls:'reg'},'중남미':{lv:'지역대표',cls:'reg'},'중동아프리카':{lv:'지역 · 대표 미배속',cls:'orphan'},'생산법인':{lv:'생산',cls:'prod'}};
+const OSRK={'부회장':6,'사장':5,'부사장':5,'전무':3,'상무':2};
+function osGroupOf(d0){
+  const d=String(d0||'').trim();
+  if(/생산법인/.test(d)) return {g:'생산법인',role:'prod'};
+  if(/인도SW|인도\S*연구소/.test(d)) return {g:'생산법인',role:'rnd'};
+  const rm=d.match(/^(북미|유럽|아시아|중남미|중아)/);
+  const region=rm?(rm[1]==='중아'?'중동아프리카':rm[1]):null;
+  if(region){
+    if(/^(북미|유럽|아시아|중남미|중아)지역대표$/.test(d)) return {g:region,role:'rep'};
+    if(/지역대표\s*산하|이노베이션센터|경영관리|산하/.test(d)) return {g:region,role:'staff'};
+  }
+  if(/법인/.test(d)){
+    for(const [g,re] of OS_GEO) if(re.test(d)) return {g,role:'sales'};
+    return {g:'해외영업본부',role:'sales'};
+  }
+  return {g:'해외영업본부',role:'hq'};
+}
+function renderOverseas(dv,P,rows,keep){
+  const G={}; OS_ORDER.forEach(g=>G[g]={rep:null,sales:[],staff:[]});
+  rows.forEach(r=>{const {g,role}=osGroupOf(r.d); const b=G[g]||G['해외영업본부']; if(role==='rep')b.rep=r; else if(role==='staff')b.staff.push(r); else b.sales.push(r);});
+  const sortR=(a,b)=>(OSRK[b.r]||0)-(OSRK[a.r]||0)||a.d.localeCompare(b.d,'ko');
+  const memRow=r=>`<div class="osm"><span class="dp">${esc(r.d)}</span><span class="nm2">${esc(r.n)} ${esc(r.r)}</span>${r.p?'<span class="b pr">▲</span>':''}${r.w?'<span class="b nw">●</span>':''}</div>`;
+  const blocks=OS_ORDER.map(g=>{
+    const b=G[g], meta=OS_META[g];
+    const sales=b.sales.slice().sort(sortR), staff=b.staff.slice().sort(sortR);
+    const cnt=(b.rep?1:0)+sales.length+staff.length; if(!cnt) return '';
+    const rep=b.rep?`<span class="rep">${esc(b.rep.n)} ${esc(b.rep.r)}${b.rep.p?' ▲':''}</span>`:(g==='중동아프리카'?`<span class="rep none">대표 미배속</span>`:'');
+    return `<div class="osg ${meta.cls}"><div class="osh"><span class="oslv">${esc(meta.lv)}</span><h4>${esc(g)}</h4>${rep}<span class="osc">${cnt}명</span></div><div class="osb">${sales.map(memRow).join('')}${staff.length?`<div class="osstaff"><span class="cap">지역 스태프</span>${staff.map(s=>`<span class="st">${esc(s.d)} · ${esc(s.n)} ${esc(s.r)}${s.p?' ▲':''}${s.w?' ●':''}</span>`).join('')}</div>`:''}${g==='중동아프리카'?`<div class="osnote">중아지역대표(정필원 전무)는 원본 데이터상 「한국영업」 본부로 분류되어 이 본부 내 대표가 없음 — 지리 기준 그룹핑.</div>`:''}</div></div>`;
+  }).join('');
+  const promo=rows.filter(r=>r.p).length, nw=rows.filter(r=>r.w).length;
+  const d=document.getElementById('detail'); d.className='detail open';
+  d.innerHTML=`<div class="dhd"><h3>${esc(dv)}</h3><span class="sub">${P.label} · ${rows.length}명 · 그룹 ${OS_ORDER.length} · ▲${promo} ●${nw}</span><button class="close" onclick="closeDiv()">닫기 ✕</button></div><div class="osleg"><span><b>구성</b> 해외영업본부 · 지역대표 4(북미·유럽·아시아·중남미) · 중동아프리카 · 생산법인</span><span><span class="b est">추정</span> 법인→지역 배속은 지리 기반 추정 (원본 데이터에 지역 귀속 없음)</span></div><div class="oswrap">${blocks}</div><div class="note">레벨: 그룹(지역대표/본부/생산) → 소속 임원. 판매법인장은 해당 지역대표 하위, 지역 경영·스태프는 같은 지역 하위, 인도SW연구소는 생산법인 하위. 배속은 담당업무 키워드 기반 추정.</div>`;
+  if(!keep) d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
 function openDiv(dv,keep){
   curDiv=dv;
   const P=PERIODS[cur];
   const {rowsBy,keyOf,seq,label}=clusterTrend(dv);
   const rows=rowsBy[P.k];
   document.querySelectorAll('.dv').forEach(el=>el.classList.toggle('on',el.querySelector('h3').textContent===dv));
+  if(dv==='해외·지역'){ renderOverseas(dv,P,rows,keep); return; }
   const groups={};
   rows.forEach(r=>{const [k]=keyOf(r.d);(groups[k]=groups[k]||[]).push(r);});
   const clusters=Object.entries(groups)
