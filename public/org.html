@@ -69,10 +69,15 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 .dhd .sub{font-size:12px;color:var(--muted)}
 .dhd .close{margin-left:auto;font-size:11.5px;color:var(--muted);background:none;border:1px solid var(--line-strong);padding:3px 10px;cursor:pointer}
 .dhd .close:hover{border-color:var(--ink);color:var(--ink)}
-.dlead{padding:14px 20px 4px}
+.dlead{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .leadbox{display:inline-block;background:var(--ink);color:#fff;padding:9px 18px}
 .leadbox .r{font-size:10px;letter-spacing:.1em;opacity:.7;display:block}
 .leadbox .nm{font-size:15px;font-weight:700}
+.leadnote{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);line-height:1.5}
+.leadnote .cap{display:flex;align-items:center;gap:5px;font-weight:700;color:var(--deep);white-space:nowrap}
+.leadnote .dot{width:5px;height:5px;background:var(--amber);display:inline-block}
+.leadnote .rows{display:flex;flex-direction:column;line-height:1.5;text-align:right}
+.leadnote b{color:var(--ink);font-weight:600}
 .rkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;padding:12px 20px 20px}
 .rkcol{border:1px solid var(--line);margin:-1px 0 0 -1px;padding:10px 12px}
 .rkh{font-size:11px;letter-spacing:.1em;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:7px}
@@ -149,7 +154,7 @@ async function loadData(){
   const parts=await Promise.all(ks.map(k=>fetch('data/org-'+k+'.json').then(r=>{if(!r.ok)throw new Error('org-'+k);return r.json()})));
   DATA={}; ks.forEach((k,i)=>DATA[k]=parts[i]);
 }
-const TREND = {"HS (H&A 계보)":{"tot":[45,57,50,52],"items":[{"o":"키친솔루션 계열","seq":[6,5,4,5],"born":null,"gone":null,"a":true},{"o":"리빙솔루션 계열","seq":[4,5,5,5],"born":null,"gone":null,"a":true},{"o":"에어솔루션 계열","seq":[3,0,0,0],"born":null,"gone":"2023","a":true},{"o":"HS플랫폼 계열","seq":[0,0,3,3],"born":"2025","gone":null,"a":true},{"o":"냉장고 계열","seq":[2,2,0,0],"born":null,"gone":"2024","a":true},{"o":"세탁기 계열","seq":[1,2,1,1],"born":null,"gone":null,"a":true},{"o":"부품솔루션 계열","seq":[0,2,2,2],"born":"2024","gone":null,"a":true},{"o":"HS아웃소싱 계열","seq":[0,1,1,2],"born":"2024","gone":null,"a":true},{"o":"본부 직속","seq":[1,1,7,7],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[6,6,8,8],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[3,3,1,2],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[4,6,4,5],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,5,3,5],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[4,5,2,5],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[6,10,7,0],"born":null,"gone":"2025","a":false}]},"MS (HE+BS IT/ID 계보)":{"tot":[30,58,46,43],"items":[{"o":"디스플레이 계열","seq":[0,0,7,8],"born":"2025","gone":null,"a":true},{"o":"TV 계열","seq":[6,7,2,3],"born":null,"gone":null,"a":true},{"o":"ID 계열","seq":[0,5,3,3],"born":"2024","gone":null,"a":true},{"o":"IT 계열","seq":[0,4,4,2],"born":"2024","gone":null,"a":true},{"o":"오디오 계열","seq":[3,1,1,1],"born":null,"gone":null,"a":true},{"o":"LED 계열","seq":[2,1,0,0],"born":null,"gone":"2024","a":true},{"o":"본부 직속","seq":[1,1,5,6],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[2,2,1,1],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[2,6,4,4],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[1,6,4,5],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,4,4,4],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,4,3,3],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[5,13,5,0],"born":null,"gone":"2025","a":false}]},"VS":{"tot":[18,24,22,23],"items":[{"o":"본부 직속","seq":[1,1,3,3],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[4,6,4,5],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[1,1,2,2],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[3,4,3,4],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,4,4,4],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,4,3,3],"born":null,"gone":null,"a":false},{"o":"생산·판매법인","seq":[2,3,2,2],"born":null,"gone":null,"a":false}]},"ES (2024 신설 · HVAC+EV충전)":{"tot":[0,23,24,23],"items":[{"o":"본부 직속","seq":[0,1,5,3],"born":"2024","gone":null,"a":false},{"o":"연구·R&D","seq":[0,5,3,4],"born":"2024","gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[0,6,4,5],"born":"2024","gone":null,"a":false},{"o":"생산·SCM·품질","seq":[0,3,2,4],"born":"2024","gone":null,"a":false},{"o":"경영·스태프","seq":[0,3,2,2],"born":"2024","gone":null,"a":false},{"o":"직속·기타","seq":[0,2,5,2],"born":"2024","gone":null,"a":false}]},"BS (2024 해체: IT/ID→MS·로봇→HS·EV충전→ES)":{"tot":[21,0,0,0],"items":[{"o":"ID 계열","seq":[4,0,0,0],"born":null,"gone":"2023","a":true},{"o":"IT 계열","seq":[4,0,0,0],"born":null,"gone":"2023","a":true},{"o":"연구·R&D","seq":[4,0,0,0],"born":null,"gone":"2023","a":false},{"o":"영업·마케팅·CX","seq":[2,0,0,0],"born":null,"gone":"2023","a":false},{"o":"경영·스태프","seq":[2,0,0,0],"born":null,"gone":"2023","a":false},{"o":"직속·기타","seq":[3,0,0,0],"born":null,"gone":"2023","a":false}]},"한국영업":{"tot":[21,27,23,25],"items":[{"o":"영업·마케팅·CX","seq":[9,11,12,15],"born":null,"gone":null,"a":false},{"o":"생산·판매법인","seq":[2,5,4,4],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[9,11,7,6],"born":null,"gone":null,"a":false}]},"CTO·연구":{"tot":[30,37,34,33],"items":[{"o":"연구·R&D","seq":[16,20,16,17],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[7,5,5,5],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,3,3,2],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[4,8,8,7],"born":null,"gone":null,"a":false}]},"전사센터·생산":{"tot":[22,18,21,23],"items":[{"o":"기술·플랫폼 담당","seq":[9,7,6,8],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[4,2,3,3],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[9,9,11,10],"born":null,"gone":null,"a":false}]}};
+const TREND = {"HS (H&A 계보)":{"tot":[45,57,50,52],"items":[{"o":"키친솔루션 계열","seq":[6,5,4,5],"born":null,"gone":null,"a":true},{"o":"리빙솔루션 계열","seq":[4,5,5,5],"born":null,"gone":null,"a":true},{"o":"에어솔루션 계열","seq":[3,0,0,0],"born":null,"gone":"2023","a":true},{"o":"HS플랫폼 계열","seq":[0,0,3,3],"born":"2025","gone":null,"a":true},{"o":"냉장고 계열","seq":[2,2,0,0],"born":null,"gone":"2024","a":true},{"o":"세탁기 계열","seq":[1,2,1,1],"born":null,"gone":null,"a":true},{"o":"부품솔루션 계열","seq":[0,2,2,2],"born":"2024","gone":null,"a":true},{"o":"HS아웃소싱 계열","seq":[0,1,1,2],"born":"2024","gone":null,"a":true},{"o":"본부 직속","seq":[1,1,7,7],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[6,6,8,8],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[3,3,1,2],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[4,6,4,5],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,5,3,5],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[4,5,2,5],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[6,10,7,0],"born":null,"gone":"2025","a":false}]},"MS (HE+BS IT/ID 계보)":{"tot":[30,58,46,43],"items":[{"o":"디스플레이 계열","seq":[0,0,7,8],"born":"2025","gone":null,"a":true},{"o":"TV 계열","seq":[6,7,2,3],"born":null,"gone":null,"a":true},{"o":"ID 계열","seq":[0,5,3,3],"born":"2024","gone":null,"a":true},{"o":"IT 계열","seq":[0,4,4,2],"born":"2024","gone":null,"a":true},{"o":"오디오 계열","seq":[3,1,1,1],"born":null,"gone":null,"a":true},{"o":"LED 계열","seq":[2,1,0,0],"born":null,"gone":"2024","a":true},{"o":"본부 직속","seq":[1,1,5,6],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[2,2,1,1],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[2,6,4,4],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[1,6,4,5],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,4,4,4],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,4,3,3],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[5,13,5,0],"born":null,"gone":"2025","a":false}]},"VS":{"tot":[18,24,22,23],"items":[{"o":"본부 직속","seq":[1,1,3,3],"born":null,"gone":null,"a":false},{"o":"연구·R&D","seq":[4,6,4,5],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[1,1,2,2],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[3,4,3,4],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[4,4,4,4],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,4,3,3],"born":null,"gone":null,"a":false},{"o":"생산법인","seq":[1,0,0,0],"born":null,"gone":"2023","a":false},{"o":"판매법인","seq":[1,3,2,2],"born":null,"gone":null,"a":false}]},"ES (2024 신설 · HVAC+EV충전)":{"tot":[0,23,24,23],"items":[{"o":"본부 직속","seq":[0,1,5,3],"born":"2024","gone":null,"a":false},{"o":"연구·R&D","seq":[0,5,3,4],"born":"2024","gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[0,6,4,5],"born":"2024","gone":null,"a":false},{"o":"생산·SCM·품질","seq":[0,3,2,4],"born":"2024","gone":null,"a":false},{"o":"경영·스태프","seq":[0,3,2,2],"born":"2024","gone":null,"a":false},{"o":"직속·기타","seq":[0,2,5,2],"born":"2024","gone":null,"a":false}]},"BS (2024 해체: IT/ID→MS·로봇→HS·EV충전→ES)":{"tot":[21,0,0,0],"items":[{"o":"ID 계열","seq":[4,0,0,0],"born":null,"gone":"2023","a":true},{"o":"IT 계열","seq":[4,0,0,0],"born":null,"gone":"2023","a":true},{"o":"연구·R&D","seq":[4,0,0,0],"born":null,"gone":"2023","a":false},{"o":"영업·마케팅·CX","seq":[2,0,0,0],"born":null,"gone":"2023","a":false},{"o":"경영·스태프","seq":[2,0,0,0],"born":null,"gone":"2023","a":false},{"o":"직속·기타","seq":[3,0,0,0],"born":null,"gone":"2023","a":false}]},"한국영업":{"tot":[21,27,23,25],"items":[{"o":"영업·마케팅·CX","seq":[9,11,12,15],"born":null,"gone":null,"a":false},{"o":"판매법인","seq":[2,5,4,4],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[9,11,7,6],"born":null,"gone":null,"a":false}]},"CTO·연구":{"tot":[30,37,34,33],"items":[{"o":"연구·R&D","seq":[16,20,16,17],"born":null,"gone":null,"a":false},{"o":"기술·플랫폼 담당","seq":[7,5,5,5],"born":null,"gone":null,"a":false},{"o":"경영·스태프","seq":[3,3,3,2],"born":null,"gone":null,"a":false},{"o":"직속·기타","seq":[4,8,8,7],"born":null,"gone":null,"a":false}]},"전사센터·생산":{"tot":[22,18,21,23],"items":[{"o":"기술·플랫폼 담당","seq":[9,7,6,8],"born":null,"gone":null,"a":false},{"o":"영업·마케팅·CX","seq":[4,2,3,3],"born":null,"gone":null,"a":false},{"o":"생산·SCM·품질","seq":[9,9,11,10],"born":null,"gone":null,"a":false}]}};
 const PERIODS = [
   {k:'2023', label:'2023말', ceo:{n:'조주완',t:'대표이사 사장 · CEO'},
    divs:['H&A','HE','VS','BS','한국영업','해외·지역','경영지원','CTO·연구','전사센터·생산','기타'],
@@ -214,8 +219,8 @@ const GEN=new Set(['HS','MS','ES','VS','H&A','HE','BS']);
 const BADANCH=new Set(['플랫폼','솔루션','사업','시스템']);
 const BUCKETS=[['본부 직속',/사업본부/],['연구·R&D',/연구|R&D/],['기술·플랫폼 담당',/플랫폼|기술|AX|DX|데이터|제어|SW|개발|디자인|IP/],
  ['영업·마케팅·CX',/영업|마케팅|D2C|구독|CX|온라인|고객/],['생산·SCM·품질',/생산|SCM|구매|품질|오퍼레이션|Task|장비|검사|안전|SAC|칠러/],
- ['경영·스태프',/경영|HR|전략|기획|금융|회계|IR|법무|노경|정도|홍보|인사|CFO|CTO|CSO|CHO/],['생산·판매법인',/법인/]];
-const BORDER=['본부 직속','연구·R&D','기술·플랫폼 담당','영업·마케팅·CX','생산·SCM·품질','경영·스태프','생산·판매법인','직속·기타'];
+ ['경영·스태프',/경영|HR|전략|기획|금융|회계|IR|법무|노경|정도|홍보|인사|CFO|CTO|CSO|CHO/],['생산법인',/생산법인/],['판매법인',/법인/]];
+const BORDER=['본부 직속','연구·R&D','기술·플랫폼 담당','영업·마케팅·CX','생산·SCM·품질','경영·스태프','생산법인','판매법인','직속·기타'];
 const normD=d=>d.replace(/\s*산하$/,'').trim();
 const bornCls=s=>String(s).includes('2024')?'y24':String(s).includes('2025')?'y25':'y26';
 
@@ -235,7 +240,7 @@ function clusterTrend(dv){
   const keyOf=d0=>{
     const d=normD(d0);
     for(const a of anchors) if(d.includes(a)) return ['A:'+a, a+' 계열'];
-    if(/법인/.test(d)) return ['B:법인','생산·판매법인'];
+    if(/법인/.test(d)) return /생산/.test(d)?['B:생산법인','생산법인']:['B:판매법인','판매법인'];
     for(const [lb,pat] of BUCKETS) if(pat.test(d)) return ['B:'+lb, lb];
     return ['B:기타','직속·기타'];
   };
@@ -245,12 +250,64 @@ function clusterTrend(dv){
   return {rowsBy,keyOf,seq,label};
 }
 
+const OS_ORDER=['해외영업본부','북미','유럽','아시아','중남미','중동아프리카','생산법인'];
+const OS_GEO=[['북미',/미국|미주|캐나다/],['중남미',/칠레|브라질|아르헨티나|콜롬비아|페루|파나마|중남미|멕시코/],['유럽',/독일|러시아|영국|프랑스|이태리|이탈리아|베네룩스|튀르키예|터키|카자흐|스페인|이베리아|폴란드|북유럽|CIS/],['아시아',/일본|중국|말레이|호주|인도네시아|태국|베트남|싱가포르|대만|아시아/],['중동아프리카',/걸프|사우디|이집트|마그렙|나이지리아|레반트|남아공|이란|이스라엘/]];
+const OSRK={'부회장':6,'사장':5,'부사장':5,'전무':3,'상무':2};
+const OS_REGION=new Set(['북미','유럽','아시아','중남미','중동아프리카']);
+function osGroupOf(d0){
+  const d=String(d0||'').trim();
+  if(/생산법인/.test(d)) return {g:'생산법인',role:'prod'};
+  if(/인도SW|인도\S*연구소/.test(d)) return {g:'생산법인',role:'rnd'};
+  const rm=d.match(/^(북미|유럽|아시아|중남미|중아)/);
+  const region=rm?(rm[1]==='중아'?'중동아프리카':rm[1]):null;
+  if(region){
+    if(/^(북미|유럽|아시아|중남미|중아)지역대표$/.test(d)) return {g:region,role:'rep'};
+    if(/지역대표\s*산하|이노베이션센터|경영관리|산하/.test(d)) return {g:region,role:'staff'};
+  }
+  if(/법인/.test(d)){
+    for(const [g,re] of OS_GEO) if(re.test(d)) return {g,role:'sales'};
+    return {g:'해외영업본부',role:'sales'};
+  }
+  return {g:'해외영업본부',role:'hq'};
+}
+function renderOverseas(dv,P,rows,keep){
+  const G={}; OS_ORDER.forEach(g=>G[g]={rep:null,mem:[]});
+  rows.forEach(r=>{const {g,role}=osGroupOf(r.d); const b=G[g]||G['해외영업본부']; if(role==='rep')b.rep=r; else b.mem.push(r);});
+  const sortR=(a,b)=>(OSRK[b.r]||0)-(OSRK[a.r]||0)||a.d.localeCompare(b.d,'ko');
+  const memRow=m=>`<div class="mem"><span class="dp">${esc(m.d)}</span><span class="nm2">${esc(m.n)} ${esc(m.r)}</span>${m.p?'<span class="b pr">▲</span>':''}${m.w?'<span class="b nw">●</span>':''}</div>`;
+  const sub=(g,b)=>{
+    if(OS_REGION.has(g)) return b.rep?`지역대표 · ${esc(b.rep.n)} ${esc(b.rep.r)}${b.rep.p?' ▲':''}`:'지역대표 미배속 (중아대표=한국영업 분류)';
+    if(g==='해외영업본부') return '본부 직속 · 공통 기능';
+    if(g==='생산법인') return '글로벌 생산거점 · 인도SW연구소 포함';
+    return '';
+  };
+  const cols=OS_ORDER.map(g=>{
+    const b=G[g]; const mem=b.mem.slice().sort(sortR); const cnt=(b.rep?1:0)+mem.length;
+    if(!cnt) return '';
+    return `<div class="rkcol ${OS_REGION.has(g)?'anch':''}"><div class="rkh">${esc(g)} · ${cnt}명<div class="trmini">${sub(g,b)}</div></div>${mem.map(memRow).join('')}</div>`;
+  }).join('');
+  const promo=rows.filter(r=>r.p).length, nw=rows.filter(r=>r.w).length;
+  const d=document.getElementById('detail'); d.className='detail open';
+  d.innerHTML=`
+    <div class="dhd">
+      <h3>${esc(dv)}</h3>
+      <span class="sub">${P.label} · ${rows.length}명 · 그룹 ${OS_ORDER.length} · ▲${promo} ●${nw}</span>
+      <button class="close" onclick="closeDiv()">닫기 ✕</button>
+    </div>
+    <div class="dlead">
+      <div class="leadnote"><span class="cap"><span class="dot"></span>표기 기준</span><span class="rows"><span>직책·이름 <b>사업보고서</b> · 최상위 단일 리더 <b>없음</b></span><span>법인→지역 배속 <b>지리 추정</b> (원본에 지역 귀속 없음)</span></span></div>
+    </div>
+    <div class="rkgrid">${cols}</div>
+    <div class="note">열 헤더=지역대표/그룹(상위), 행=소속 판매법인장·경영스태프(하위) · 인도SW연구소→생산법인 · 파란 상단선 열=지역대표 체계 · 배속은 담당업무 지명 기반 추정.</div>`;
+  if(!keep) d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
 function openDiv(dv,keep){
   curDiv=dv;
   const P=PERIODS[cur];
   const {rowsBy,keyOf,seq,label}=clusterTrend(dv);
   const rows=rowsBy[P.k];
   document.querySelectorAll('.dv').forEach(el=>el.classList.toggle('on',el.querySelector('h3').textContent===dv));
+  if(dv==='해외·지역'){ renderOverseas(dv,P,rows,keep); return; }
   const groups={};
   rows.forEach(r=>{const [k]=keyOf(r.d);(groups[k]=groups[k]||[]).push(r);});
   const clusters=Object.entries(groups)
@@ -278,6 +335,7 @@ function openDiv(dv,keep){
     </div>
     <div class="dlead">
       <div class="leadbox"><span class="r">리더</span><span class="nm">${esc(P.leaders[dv]||'최상위: '+(rows[0]? rows[0].n+' '+rows[0].r:'—'))}</span></div>
+      <div class="leadnote"><span class="cap"><span class="dot"></span>표기 기준</span><span class="rows"><span>직책·이름 <b>사업보고서 기준</b></span><span>조직 체계 <b>AI 추정</b></span></span></div>
     </div>
     <div class="rkgrid">
       ${clusters.map(c=>`

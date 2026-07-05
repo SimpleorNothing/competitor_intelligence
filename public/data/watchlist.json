@@ -1,0 +1,414 @@
+{
+  "updatedAt": "2026-07-05T00:00:00+09:00",
+  "schemaVersion": "v1",
+  "companyId": "lg",
+  "lastScan": "2026-07-05 07:50",
+  "scanReason": "cron",
+  "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
+  "items": [
+    {
+      "id": "w-a2-nvidia",
+      "axisId": "lg-a2",
+      "axisCode": "A2",
+      "question": "엔비디아 벤더 인증 통과 여부",
+      "detail": "현재 미통과. 통과 시 AIDC 냉각(칠러·CDU·액침) 확정 수주 규모 급확대 → A2 별도 축 분리 재검토 트리거.",
+      "keywords": [
+        "엔비디아",
+        "NVIDIA",
+        "벤더 인증",
+        "액침냉각",
+        "CDU",
+        "칠러",
+        "데이터센터 냉각"
+      ],
+      "priority": "상",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "LG전자 Q2 실적 호조에 증권사 목표가 상향, AI 냉각 성장 주목",
+          "url": "https://biz.chosun.com/en/en-finance/2026/06/23/27KRR3T2VBDQNEH3WM2XFIUP7M/",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-06-22T23:34:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "구광모 회장, 젠슨 황과의 만남서 LG 세탁기 전략 공개",
+          "url": "https://www.joongang.co.kr/article/25437891",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-18T20:03:48.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "히트펌프, 탈탄소화·AI 데이터센터 냉각 핵심기술로 부상",
+          "url": "https://www.snmnews.com/news/articleView.html?idxno=570920",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-17T23:42:36.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-a2-ms-contract",
+      "axisId": "lg-a2",
+      "axisCode": "A2",
+      "question": "MS·하이퍼스케일러 냉각 확정계약 성사",
+      "detail": "'25.12.5 해명공시로 '수십억달러 계약' 부인(확정계약 없음). 빅테크 칠러 품질인증 막바지 → 확정 매출 '26 하반기 전망. 확정 수주 공시 시 승격.",
+      "keywords": [
+        "마이크로소프트",
+        "하이퍼스케일러",
+        "칠러",
+        "품질인증",
+        "수주",
+        "데이터센터",
+        "AIDC"
+      ],
+      "priority": "상",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "LG, 데이터센터 물리형 AI 사업 확대",
+          "url": "https://www.straitstimes.com/business/lg-this-home-appliances-brand-is-bringing-physical-ai-to-data-centres",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-06-24T20:00:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, 가전 기술 활용해 동남아 데이터센터 시장 진출",
+          "url": "https://www.straitstimes.com/business/lg-this-home-appliances-brand-is-bringing-physical-ai-to-data-centres?ref=latest",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-06-24T20:00:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, 북미 빅테크 AI 수주 임박",
+          "url": "https://ket.kr/news/article.html?no=38928",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-23T02:04:20.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-a3-aihome-rev",
+      "axisId": "lg-a3",
+      "axisCode": "A3",
+      "question": "AI홈 개별 매출목표/실적 공개 여부",
+      "detail": "현재 개별 매출목표 미공표(3대 전환영역 플랫폼 매출로 흡수). IFA 2026·하반기 신제품에서 AI홈 실행·매출 증거 재확인. 미확인 지속 시 우선순위 후퇴 판정.",
+      "keywords": [
+        "AI홈",
+        "씽큐",
+        "ThinQ",
+        "플랫폼",
+        "IFA",
+        "공간형",
+        "구독"
+      ],
+      "priority": "중",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "LG전자, 오픈AI 협력으로 AI 가전 제어 플랫폼 강화",
+          "url": "https://v.daum.net/v/20260624154235758",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-24T06:42:35.000Z",
+          "score": 3,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, AI 홈 허브 'ThinQ On' 공개",
+          "url": "https://www.msn.com/en-xl/lifestyle/shopping/lg-electronics-unveils-thinq-on-ai-home-hub/ar-AA249lfN?ocid=finance-verthp-feeds",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-05-30T06:35:08.000Z",
+          "score": 3,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG 씽큐 데이터로 본 에어컨 사용 시점 매년 앞당겨져",
+          "url": "https://www.hvacrj.co.kr/news/articleView.html?idxno=31041",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-19T04:34:27.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-a4-costtarget",
+      "axisId": "lg-a4",
+      "axisCode": "A4",
+      "question": "볼륨존 비중·저원가국 생산비중 정량목표 공개",
+      "detail": "현재 컨셉 정성 코멘트만 존재. 볼륨존(보급형) 매출비중·저원가국 생산비중·고정비 절감액 등 정량 목표 공개 시 반영.",
+      "keywords": [
+        "볼륨존",
+        "보급형",
+        "원가",
+        "저원가국",
+        "고정비",
+        "생산지",
+        "희망퇴직"
+      ],
+      "priority": "중",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "미국 에너지효율규제 폐지로 삼성·LG 가전주 수혜",
+          "url": "https://www.g-enews.com/article/Global-Biz/2026/07/2026070406560364552bd56fbc3c_1",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-03T21:59:45.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "월풀, 멕시코 공장 구조조정 단행",
+          "url": "https://www.theglobeandmail.com/investing/markets/markets-news/Tipranks/3107352/whirlpool-announces-major-mexican-manufacturing-restructuring-plan/",
+          "source": "Google News - US Home Appliances",
+          "publishedAt": "2026-07-02T21:38:37.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, 공기청정기도 중국 외주 제작 전환",
+          "url": "https://www.etnews.com/20260701000157",
+          "source": "전자신문",
+          "publishedAt": "2026-07-01T07:00:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-a5-globalsouth",
+      "axisId": "lg-a5",
+      "axisCode": "A5",
+      "question": "글로벌 사우스 '30년 매출 목표 구체 수치",
+      "detail": "현재 '대폭 확대 방침'까지만 확보(구체 수치 미공표). IR·컨콜에서 인도/신흥시장 매출 목표·비중 수치 공개 시 반영.",
+      "keywords": [
+        "글로벌 사우스",
+        "인도",
+        "신흥시장",
+        "매출 목표",
+        "인도법인",
+        "스리시티"
+      ],
+      "priority": "중",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "삼성전자, 고효율 HVAC로 인도 시장 공략 가속",
+          "url": "https://www.newsprime.co.kr/news/article/?no=737608",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-22T10:20:43.000Z",
+          "score": 3,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, 인도 가전사업 IPO 87억 달러 추진",
+          "url": "https://www.msn.com/en-us/money/companies/lg-electronics-seeks-87-billion-valuation-for-india-unit-ipo/ar-AA1NBVdg?apiversion=v2&domshim=1&noservercache=1&noservertelemetry=1&batchservertelemetry=1&renderwebcomponents=1&wcseo=1",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-07-03T09:33:06.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "삼성전자, 인도 럭셔리 주택단지 시스템에어컨 대규모 수주 확보",
+          "url": "http://www.newsdream.kr/news/articleView.html?idxno=113376",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-21T23:49:36.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-a5-tariff",
+      "axisId": "lg-a5",
+      "axisCode": "A5",
+      "question": "美 IEEPA 관세 판결 후속·생산 재편 방향",
+      "detail": "美 대법원 IEEPA 관세 무효 판결 후 동남아 증설 보류·북미 집중 재편 관찰 중. 관세 리스크 변동이 지역 생산배치에 영향 → 방향전환 추적.",
+      "keywords": [
+        "관세",
+        "IEEPA",
+        "트럼프",
+        "북미 생산",
+        "테네시",
+        "역내 생산",
+        "동남아"
+      ],
+      "priority": "중",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "트럼프 관세, 월풀 아이오와 냉장고 공장 일자리 보호 실패",
+          "url": "https://www.reuters.com/business/world-at-work/trumps-tariffs-arent-saving-jobs-whirlpools-iowa-refrigerator-plant-2026-06-29/",
+          "source": "Google News - Whirlpool",
+          "publishedAt": "2026-06-29T19:43:18.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "미국 에너지효율규제 폐지로 삼성·LG 가전주 수혜",
+          "url": "https://www.g-enews.com/article/Global-Biz/2026/07/2026070406560364552bd56fbc3c_1",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-03T21:59:45.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "트럼프 행정부, 가전 에너지효율 규제 완화 추진",
+          "url": "https://www.washingtonpost.com/business/2026/07/02/energy-department-wants-weaken-efficiency-standards-home-appliances/",
+          "source": "Google News - US Home Appliances",
+          "publishedAt": "2026-07-02T21:42:01.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-a6-homerobot",
+      "axisId": "lg-a6",
+      "axisCode": "A6",
+      "question": "홈로봇 상업화·액추에이터 양산 진척",
+      "detail": "홈로봇 '28 상업화 목표. 액추에이터 '26 상반기 초도 양산 예정 → 실제 양산 개시·PoC 결과·수주 등 진척 이벤트 추적.",
+      "keywords": [
+        "홈로봇",
+        "휴머노이드",
+        "액추에이터",
+        "글로이드",
+        "클로이드",
+        "로봇",
+        "PoC"
+      ],
+      "priority": "상",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "美 로봇企, AI 학습 전용시설 '로봇파크' 확장 개장",
+          "url": "https://www.etnews.com/20260702000242",
+          "source": "전자신문",
+          "publishedAt": "2026-07-03T13:30:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, 홈 로봇으로 AI홈 전략 본격화",
+          "url": "https://www.news2day.co.kr/article/20260630500233",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-30T21:30:54.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, 로봇사업센터 신설…홈로봇 '클로이' 상용화 가속",
+          "url": "https://www.mk.co.kr/en/business/12086784",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-06-30T07:44:27.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-a1-sub2026",
+      "axisId": "lg-a1",
+      "axisCode": "A1",
+      "question": "'26년 구독 매출 확정 실적 (2.84조 추정 검증)",
+      "detail": "'26년 구독 매출은 현재 증권가 전망 약 2.84조(외부 추정). 분기·연간 실적 발표로 확정치 확보 시 kpiSeries 갱신.",
+      "keywords": [
+        "구독",
+        "가전구독",
+        "케어",
+        "반복 매출",
+        "실적",
+        "하이케어솔루션"
+      ],
+      "priority": "중",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "가전 구독 서비스 확산…맞춤형 케어·관리 편의성 강화",
+          "url": "https://www.donga.com/news/amp/all/20260623/134160683/2",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-23T19:30:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "LG전자, 가전구독 서비스 3조원 시대 진입…해외 확대",
+          "url": "https://www.news2day.co.kr/article/20260610500238",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-10T21:34:36.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        },
+        {
+          "headline": "보일러·생리대 등 구독서비스 확산, 소비 패턴 변화",
+          "url": "https://www.mk.co.kr/news/business/12061913",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-05-30T08:22:57.000Z",
+          "score": 2,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    },
+    {
+      "id": "w-frame-777",
+      "axisId": "lg-frame",
+      "axisCode": "F0",
+      "question": "7·7·7 지표 공식 폐기 여부",
+      "detail": "취임 간담회·주총·컨콜에서 미언급된 de facto 후퇴 지표(존치 추정). 공식 폐기 선언 또는 재천명 시 프레임 targets 갱신.",
+      "keywords": [
+        "7·7·7",
+        "중장기 목표",
+        "EBITDA",
+        "영업이익률",
+        "미래비전",
+        "류재철"
+      ],
+      "priority": "하",
+      "status": "signal",
+      "createdAt": "2026-07-04",
+      "lastChecked": "2026-07-05 07:50",
+      "lastHit": "2026-07-05 07:50",
+      "hits": [
+        {
+          "headline": "LG전자 류재철 대표, 가전 1위 기반 B2B·로봇사업으로 전환",
+          "url": "https://v.daum.net/v/20260622064303824",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-21T21:43:03.000Z",
+          "score": 1,
+          "seenAt": "2026-07-05 07:50"
+        }
+      ]
+    }
+  ]
+}

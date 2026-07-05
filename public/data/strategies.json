@@ -4,10 +4,10 @@
   "companies": [
     {
       "id": "lg",
-      "name": "LG전자 (HS·ES)",
+      "name": "LG전자 (HS·MS·VS·ES)",
       "shortName": "LG",
       "active": true,
-      "scopeNote": "HS(생활가전)·ES(냉난방공조) 한정. MS·VS·BS 제외.",
+      "scopeNote": "HS(생활가전)·MS(TV/미디어)·VS(전장)·ES(냉난방공조) 4개 사업본부 대상. 현재 전략축(A1–A6)은 HS·ES 중심 — MS·VS는 커버리지 확장 예정.",
       "frame": {
         "statement": "2030 미래비전 — 스마트 라이프 솔루션 기업 전환",
         "redefinition": "류재철 체제('26.1~) : B2B 중심 '질적 성장' + 4대 미래사업(로봇·AIDC 냉각·스마트팩토리·AI홈)으로 실행 재정의 (스마트팩토리는 전사 생산기술원 소관 솔루션으로 본 보드 HS·ES 스코프 외 — 축 미설정)",
@@ -43,14 +43,21 @@
           ],
           "execStatus": "가속",
           "statusRationale": "매출 성장률 30% 유지 + 해외 국가 확장 지속 + 구독 임원 승진 등 조직 신호 동반",
+          "trajGrade": "near",
+          "trajNote": "'21 0.64조→'25 2.5조 연 40%대 고성장(전년비 표기). 단 '26 전망 +13.6%(2.84조)는 6조 필요 CAGR 19.1% 하회 — 궤도 진입·둔화 관찰",
           "kpiSeries": {
             "metric": "구독 매출",
             "unit": "조원",
             "yMax": 6.5,
             "gridlines": [3, 6],
+            "xMin": 2021,
+            "xMax": 2030,
             "points": [
-              { "year": 2024, "value": 1.9, "kind": "estimate", "label": "1.9조", "note": "전년비 +30% 역산·추정" },
-              { "year": 2025, "value": 2.5, "kind": "actual", "label": "2.5조" },
+              { "year": 2021, "value": 0.64, "kind": "estimate", "label": "0.64조", "note": "'21 구독 매출 약 6,400억(외부 추정)" },
+              { "year": 2022, "value": 0.85, "kind": "estimate", "label": "0.85조", "note": "'22 약 8,500억(외부 추정)" },
+              { "year": 2023, "value": 1.13, "kind": "estimate", "label": "1.13조", "note": "'23 1조1,341억(케어서비스 포함·공표)" },
+              { "year": 2024, "value": 1.9, "kind": "estimate", "label": "1.9조", "note": "전년비 +75%·2조 육박(추정)" },
+              { "year": 2025, "value": 2.5, "kind": "actual", "label": "2.5조", "note": "'26.1.30 실적발표, 전년비 +30%" },
               { "year": 2026, "value": 2.84, "kind": "forecast", "label": "2.84조", "note": "외부 추정" },
               { "year": 2030, "value": 6.0, "kind": "target", "label": "6조", "note": "공표" }
             ]
@@ -73,13 +80,17 @@
           ],
           "execStatus": "가속",
           "statusRationale": "목표 선언 후 채용·R&D센터·아카데미·수주 증거가 분기 단위로 연속 누적, 전사 희망퇴직 중에도 선별 충원. AIDC 냉각은 A2의 핵심 실행방안(④)으로 편입 — 별도 축 미분리. 단 엔비디아 벤더 인증 미통과(id67), MS '수십억달러 계약'은 '25.12.5 해명공시로 부인(확정계약 없음)·빅테크 칠러 품질인증 막바지로 확정 매출은 '26 하반기 전망. 인증 통과·하이퍼스케일러 확정 수주로 규모 급확대 시 별도 축 재검토 여지.",
+          "trajGrade": "behind",
+          "trajNote": "'24→'25 실적 성장 +5.7%가 20조 필요 CAGR 16.5%를 크게 하회 + '26.1Q ES 매출 YoY 감소 — 정량 궤도는 하회, 데이터센터 수주 전환이 관건(실행 모멘텀은 가속). '21~'23은 HVAC 본부 독립('24말) 이전이라 별도 미공표.",
           "kpiSeries": {
             "metric": "ES(HVAC) 매출",
             "unit": "조원",
             "yMax": 22,
             "gridlines": [10, 20],
+            "xMin": 2021,
+            "xMax": 2030,
             "points": [
-              { "year": 2024, "value": 8.8, "kind": "estimate", "label": "≈8.8조", "note": "'25 +5.7% 역산" },
+              { "year": 2024, "value": 8.8, "kind": "estimate", "label": "≈8.8조", "note": "'25 +5.7% 역산 · '21~'23은 HVAC 본부 독립 이전으로 별도 미공표" },
               { "year": 2025, "value": 9.3, "kind": "actual", "label": "9.3조", "note": "연 9.3조·영업이익 6,473억" },
               { "year": 2030, "value": 20, "kind": "target", "label": "20조", "note": "공표 · HVAC 사업 기준" }
             ]
