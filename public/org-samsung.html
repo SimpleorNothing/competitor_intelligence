@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>삼성전자 조직도 — 연도별 변화 추적</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --ink:#17222D; --paper:#EDEFEC; --line:#C9CEC8; --line2:#DDE0DA;
+  --new:#46647E; --insight:#B02E24; --amber:#B7791F;
+  --dx:#2F4A5C; --ds:#46647E; --corp:#6E736B; --deep:#0F1922;
+  --grn:#2E7D5B; --muted:#5C665E; --card:#F6F6F3;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+body{font-family:'Pretendard',system-ui,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased; line-height:1.5;}
+.wrap{max-width:1180px; margin:0 auto; padding:26px 20px 80px;}
+
+/* header */
+.head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.tag{background:var(--ink); color:#fff; font-size:12px; font-weight:800; letter-spacing:.5px; padding:4px 9px;}
+.head h1{font-size:22px; font-weight:800; letter-spacing:-.4px;}
+.head .h1sub{font-size:13px; color:var(--muted); font-weight:600;}
+.srcline{margin-top:6px; font-size:12px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+
+/* tabs */
+.tabs{display:flex; gap:8px; margin:18px 0 0; flex-wrap:wrap;}
+.tab{border:1.5px solid var(--line); background:#fff; color:var(--ink); font-family:inherit;
+  font-size:14px; font-weight:700; padding:8px 15px; cursor:pointer; letter-spacing:-.2px;}
+.tab:hover{border-color:var(--ink);}
+.tab.on{background:var(--ink); color:#fff; border-color:var(--ink);}
+.tab.matrix{margin-left:8px; color:var(--insight); border-color:var(--insight);}
+.tab.matrix.on{background:var(--insight); border-color:var(--insight); color:#fff;}
+
+/* summary */
+.summary{margin-top:14px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; font-size:14px;}
+.summary .tot{font-weight:800; font-size:15px;}
+.pillp,.pilln{display:inline-flex; align-items:center; gap:5px; font-weight:700; font-size:13px;}
+.pillp{color:var(--insight);} .pilln{color:var(--grn);}
+.tri{color:var(--insight); font-size:11px;} .dot{color:var(--grn); font-size:12px;}
+.note{margin-top:6px; font-size:12.5px; color:var(--muted);}
+.legend{margin-top:8px; font-size:12px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
+.legend b{color:var(--insight);} .legend .g{color:var(--grn);}
+
+/* apex */
+.apexrow{display:flex; justify-content:center; margin-top:26px;}
+.apex{background:var(--ink); color:#fff; padding:14px 30px; text-align:center; min-width:230px;}
+.apex .role{font-size:11px; opacity:.75; letter-spacing:1px; font-weight:700;}
+.apex .nm{font-size:19px; font-weight:800; margin-top:3px;}
+.apex .ttl{font-size:12.5px; opacity:.85; margin-top:2px;}
+.vline{width:1.5px; height:22px; background:var(--line); margin:0 auto;}
+
+/* section (부문) */
+.section{margin-top:8px; border:1.5px solid var(--line); background:#fff;}
+.sechead{display:flex; align-items:center; gap:12px; padding:9px 14px; border-bottom:1.5px solid var(--line2);}
+.sechead .sn{font-size:14px; font-weight:800; letter-spacing:-.2px;}
+.sechead .lead{font-size:12.5px; color:var(--muted); font-weight:600;}
+.sechead .lead b{color:var(--ink);}
+.sechead .cnt{margin-left:auto; font-size:12.5px; color:var(--muted); font-weight:700;}
+.bar{width:7px; height:16px;}
+.bar.dx{background:var(--dx);} .bar.ds{background:var(--ds);} .bar.corp{background:var(--corp);}
+
+.grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.grid{grid-template-columns:1fr;}}
+.box{position:relative; border-right:1px solid var(--line2); border-bottom:1px solid var(--line2);
+  padding:13px 14px 12px; cursor:pointer; background:#fff; transition:background .12s;}
+.box:hover{background:var(--card);}
+.box.sel{background:var(--ink); }
+.box.sel *{color:#fff !important;}
+.box .bl{font-size:13.5px; font-weight:800; letter-spacing:-.3px; padding-right:40px;}
+.box .bleader{font-size:12px; color:var(--muted); margin-top:4px; font-weight:600;}
+.box .bleader b{color:var(--ink); font-weight:700;}
+.box .bn{margin-top:9px; font-size:12px; font-weight:800;}
+.box .bn .u{color:var(--muted); font-weight:600;}
+.badges{position:absolute; top:10px; right:11px; display:flex; gap:4px;}
+.bg{font-size:10.5px; font-weight:800; padding:2px 5px; color:#fff; line-height:1.2;}
+.bg.p{background:var(--insight);} .bg.n{background:var(--grn);}
+
+/* drill */
+.drill{margin-top:16px; border:1.5px solid var(--ink); background:#fff; display:none;}
+.drill.show{display:block;}
+.dhead{display:flex; align-items:center; gap:10px; padding:12px 16px; background:var(--ink); color:#fff;}
+.dhead .dt{font-size:15px; font-weight:800;}
+.dhead .dmeta{font-size:12px; opacity:.8;}
+.dhead .close{margin-left:auto; background:transparent; border:1px solid rgba(255,255,255,.4); color:#fff;
+  font-family:inherit; font-size:12px; padding:4px 10px; cursor:pointer;}
+.dhead .close:hover{background:rgba(255,255,255,.12);}
+.dleadrow{padding:12px 16px; border-bottom:1.5px solid var(--line2); display:flex; gap:14px; align-items:baseline; flex-wrap:wrap;}
+.dleadrow .k{font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.5px;}
+.dleadrow .lname{font-size:15px; font-weight:800;}
+.dleadrow .lduty{font-size:12.5px; color:var(--muted);}
+.units{padding:6px 16px 16px;}
+.units h4{font-size:12px; color:var(--muted); font-weight:700; margin:12px 0 8px; letter-spacing:.3px;}
+.utable{width:100%; border-collapse:collapse; font-size:13px;}
+.utable td{padding:7px 8px; border-bottom:1px solid var(--line2); vertical-align:top;}
+.utable td.un{font-weight:600;}
+.utable td.up{width:78px; color:var(--muted); font-weight:600;}
+.utable td.un2{width:70px; font-weight:700;}
+.empty{padding:20px 16px; color:var(--muted); font-size:13px;}
+
+/* matrix */
+.mwrap{margin-top:20px; border:1.5px solid var(--line); background:#fff; overflow-x:auto; display:none;}
+.mwrap.show{display:block;}
+.mtable{width:100%; border-collapse:collapse; font-size:13px; min-width:640px;}
+.mtable th,.mtable td{padding:9px 11px; text-align:center; border-bottom:1px solid var(--line2);}
+.mtable th{background:var(--ink); color:#fff; font-weight:700; font-size:12.5px; position:sticky; top:0;}
+.mtable td.lbl{text-align:left; font-weight:700;}
+.mtable td.sec{text-align:left; font-weight:800; background:var(--card); letter-spacing:-.2px;}
+.mtable .delta{font-size:11px; font-weight:700; margin-left:3px;}
+.up{color:var(--insight);} .dn{color:var(--new);}
+.mtable tr.totalrow td{font-weight:800; border-top:1.5px solid var(--ink);}
+.foot{margin-top:22px; font-size:11.5px; color:var(--muted); border-top:1px solid var(--line2); padding-top:12px; line-height:1.7;}
+.hidden{display:none !important;}
+.backlink{margin-left:auto; font-size:12px; font-weight:700; padding:5px 12px; border:1.5px solid var(--ink);
+  color:var(--ink); text-decoration:none; background:transparent; white-space:nowrap;}
+.backlink:hover{background:var(--ink); color:#fff;}
+/* DA rich panel (HS-style) */
+.dpwrap{padding:0;}
+.dp-note{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;
+  padding:12px 16px; border-bottom:1.5px solid var(--line2);}
+.dp-lead{display:inline-flex; align-items:stretch; border:1px solid var(--line);}
+.dp-lead .lk{background:var(--ink); color:#fff; font-size:11px; font-weight:800; padding:8px 12px; display:flex; align-items:center; letter-spacing:1px;}
+.dp-lead .lv{padding:8px 14px; font-size:14px; font-weight:800;}
+.dp-lead .lv small{font-weight:600; color:var(--muted); font-size:12px; margin-left:5px;}
+.dp-crit{font-size:11.5px; color:var(--muted); text-align:right; line-height:1.6;}
+.dp-crit b{color:var(--ink);}
+.dgrid{column-count:3; column-gap:0; border-top:1px solid var(--line2);}
+@media(max-width:820px){.dgrid{column-count:2;}}
+@media(max-width:480px){.dgrid{column-count:1;}}
+.dcard{break-inside:avoid; border-right:1px solid var(--line2); border-bottom:1px solid var(--line2); padding:13px 15px 15px;}
+.dcard .ct{display:flex; align-items:center; gap:7px; flex-wrap:wrap;}
+.dcard .ctn{font-size:13.5px; font-weight:800; letter-spacing:-.2px;}
+.dcard .ctc{font-size:12px; color:var(--muted); font-weight:700;}
+.nvbadge{font-size:10px; font-weight:800; background:var(--new); color:#fff; padding:2px 6px;}
+.dtraj{margin-top:5px; font-size:12px; color:var(--muted); font-weight:700; letter-spacing:.3px;}
+.dtraj b{color:var(--ink);}
+.dtraj .z{opacity:.4;}
+.dmem{margin-top:11px; display:flex; flex-direction:column; gap:0;}
+.mrow{display:flex; align-items:baseline; gap:8px; padding:5px 0; border-top:1px dotted var(--line2);}
+.mrow:first-child{border-top:none;}
+.mrow .role{font-size:12px; color:var(--muted); font-weight:600; min-width:64px;}
+.mrow .role.head{color:var(--insight); font-weight:800;}
+.mrow .who{margin-left:auto; font-size:13px; font-weight:700; text-align:right;}
+.mrow .who .rk{color:var(--muted); font-weight:600; font-size:12px; margin-left:3px;}
+.mflag{font-size:10px; font-weight:800; padding:1px 4px; color:#fff; margin-left:5px;}
+.mflag.p{background:var(--insight);} .mflag.n{background:var(--grn);}
+.dp-empty{padding:8px 0 0; font-size:12px; color:var(--muted);}
+.morerow{padding:6px 0 0; font-size:11.5px; color:var(--muted); font-weight:600; border-top:1px dotted var(--line2);}
+.postflag{display:inline-block; margin-left:6px; color:var(--insight); font-weight:700; font-size:11.5px;}
+.postbanner{margin:0; padding:11px 16px; background:#FBEFEA; border-bottom:1.5px solid var(--insight);
+  color:#7A241C; font-size:12.5px; font-weight:600; line-height:1.55;}
+.postbanner b{color:var(--insight); font-weight:800;}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <span class="tag">ORG</span>
+    <h1>삼성전자 조직도 — 연도별 변화 추적</h1>
+    <span class="h1sub">부문·사업부별 임원 수 · 리더 · 승진/신규 표시</span>
+    <a class="backlink" href="/org">← LG전자 조직도</a>
+  </div>
+  <div class="srcline">
+    <span>사업/분기보고서 미등기임원 현황 4개 원문 파싱 · DART 기준</span>
+    <span id="asof"></span>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div id="orgview">
+    <div class="summary" id="summary"></div>
+    <div class="note" id="note"></div>
+    <div class="legend">
+      <span><b>▲ 승진</b> 직전 보고서 대비 직급 상승</span>
+      <span><span class="g">● 신규</span> 직전 보고서에 없던 임원</span>
+      <span>부문 박스 클릭 → 리더·하위 조직</span>
+    </div>
+
+    <div class="apexrow"><div class="apex" id="apex"></div></div>
+    <div class="vline"></div>
+    <div id="sections"></div>
+    <div class="drill" id="drill"></div>
+  </div>
+
+  <div class="mwrap" id="mwrap"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+let DATA=null, PANELS=null;
+const POST_YEAR='2026';
+const POST_GLOBAL='보고서 이후(2026-03-31 기준일 이후) 변동 · 2026-05-04 원포인트 사장단 인사 반영 안 됨';
+const POST={
+ '영상디스플레이':'보고서 이후 · 2026-05-04 원포인트 인사 — VD사업부장 <b>용석우 사장 → 이원진 사장</b>(前 DX 글로벌마케팅실장, VD사업부장 겸 서비스비즈니스팀장) 교체. 용석우 사장은 DX부문장 보좌역(AI·로봇 기술자문)으로 이동. 20여 년 만의 비(非)개발 출신 수장.',
+ '생활가전':'보고서 이후 · 2026 상반기 사업 구조 재편 진행 — 식기세척기·전자레인지 라인 외주 전환, 말레이시아 공장 폐쇄, 중국 가전·TV 판매 연내 중단 추진, 고연차 희망퇴직. 사업부장(김철기 부사장) 유지, 조직 슬림화는 2026 2Q 보고서에서 반영 예상.',
+ 'MX':null
+};
+const SEC=[['DX','DX부문','dx'],['DS','DS부문','ds'],['전사','전사 · 경영지원','corp']];
+let curYear=0;
+let curBox=null;
+let matrixMode=false;
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function buildTabs(){
+  const t=document.getElementById('tabs'); t.innerHTML='';
+  DATA.years.forEach((y,i)=>{
+    const b=document.createElement('button');
+    b.className='tab'+(!matrixMode&&i===curYear?' on':'');
+    b.textContent=y.label;
+    b.onclick=()=>{matrixMode=false;curYear=i;curBox=null;render();};
+    t.appendChild(b);
+  });
+  const m=document.createElement('button');
+  m.className='tab matrix'+(matrixMode?' on':'');
+  m.textContent='조직 변화 매트릭스';
+  m.onclick=()=>{matrixMode=!matrixMode;curBox=null;render();};
+  t.appendChild(m);
+}
+
+function yObj(){return DATA.years[curYear];}
+
+function renderOrg(){
+  const y=yObj();
+  document.getElementById('asof').textContent=y.label+' 기준';
+  // summary
+  const s=document.getElementById('summary');
+  s.innerHTML=`<span class="tot">임원 총원 ${y.total}명</span>`+
+    (y.prom||y.new?`<span class="pillp"><span class="tri">▲</span>승진 ${y.prom}</span><span class="pilln"><span class="dot">●</span>신규 ${y.new}</span>`
+      :`<span class="pilln">최초 스냅샷 · 증감 기준선</span>`);
+  const noteEl=document.getElementById('note');
+  noteEl.innerHTML = (y.prom||y.new
+    ? `직전 보고서 대비 승진 ${y.prom}명 · 신규 선임 ${y.new}명 (미등기임원 기준)`
+    : '2023말은 비교 기준선이라 승진/신규 뱃지가 없습니다.')
+    + (y.y===POST_YEAR ? ` <span class="postflag">⚑ ${POST_GLOBAL}</span>` : '');
+  // apex
+  const ap=document.getElementById('apex');
+  ap.innerHTML=`<div class="role">SAMSUNG ELECTRONICS</div>
+    <div class="nm">${esc(y.apex.name)}</div><div class="ttl">${esc(y.apex.title)} · 총수</div>`;
+  // sections
+  const cont=document.getElementById('sections'); cont.innerHTML='';
+  SEC.forEach(([pk,pname,cls])=>{
+    const boxes=y.boxes.filter(b=>b.parent===pk);
+    if(!boxes.length) return;
+    const sec=document.createElement('div'); sec.className='section';
+    let lead='';
+    if(pk==='DX'&&y.dxHead) lead=`부문장 <b>${esc(y.dxHead.name)} ${esc(y.dxHead.title)}</b>`;
+    if(pk==='DS'&&y.dsHead){lead=`부문장 <b>${esc(y.dsHead.name)} ${esc(y.dsHead.title)}</b>`;
+      if(y.dsHead2) lead+=` · 경영전략총괄 <b>${esc(y.dsHead2.name)} ${esc(y.dsHead2.title)}</b>`;}
+    const tot=y.parentTotals[pk]||boxes.reduce((a,b)=>a+b.n,0);
+    sec.innerHTML=`<div class="sechead"><span class="bar ${cls}"></span>
+      <span class="sn">${pname}</span><span class="lead">${lead}</span>
+      <span class="cnt">임원 ${tot}명</span></div>`;
+    const grid=document.createElement('div'); grid.className='grid';
+    boxes.forEach(b=>{
+      const el=document.createElement('div');
+      el.className='box'+(curBox&&curBox.parent===b.parent&&curBox.key===b.key?' sel':'');
+      let bd='';
+      if(b.prom) bd+=`<span class="bg p">▲${b.prom}</span>`;
+      if(b.new) bd+=`<span class="bg n">●${b.new}</span>`;
+      const ld=b.leader?`<b>${esc(b.leader.name)}</b> ${esc(b.leader.title)}`:'—';
+      el.innerHTML=`<div class="badges">${bd}</div>
+        <div class="bl">${esc(b.label)}</div>
+        <div class="bleader">${ld}</div>
+        <div class="bn">${b.n}<span class="u">명</span></div>`;
+      el.onclick=()=>{curBox=(curBox&&curBox.key===b.key)?null:b; render();};
+      grid.appendChild(el);
+    });
+    sec.appendChild(grid); cont.appendChild(sec);
+  });
+  renderDrill();
+}
+
+
+function trajHTML(traj){
+  return traj.map((c,i)=>{
+    const cls=(c===0?'z':(i===traj.length-1?'cur':''));
+    return `<span class="${cls}">${i===traj.length-1?'<b>'+c+'</b>':c}</span>`;
+  }).join(' → ');
+}
+function richPanel(key){
+  const y=yObj();
+  const P=PANELS[key]; const p=P?P[y.y]:null;
+  if(!p) return '<div class="empty">해당 연도 데이터가 없습니다.</div>';
+  const postBanner=(y.y===POST_YEAR && POST[key])
+    ? `<div class="postbanner">⚑ ${POST[key]}</div>` : '';
+  const headHTML = p.head
+    ? `<div class="dp-lead"><span class="lk">리더</span><span class="lv">${esc(p.head.name)} <small>${esc(p.head.title)} · ${esc(p.head.label||'')}</small></span></div>`
+    : `<div class="dp-lead"><span class="lk">리더</span><span class="lv"><small>사업부장/COO 별도 표기 없음 (겸임 체계)</small></span></div>`;
+  const CAP=14;
+  const cards=p.cards.map(c=>{
+    const nb=c.novel?`<span class="nvbadge">신설 ${esc(c.novelYear)}</span>`:'';
+    const shown=c.members.slice(0,CAP);
+    const rest=c.members.length-shown.length;
+    const mem=shown.map(m=>{
+      const rc=(['사업부장','COO','실장','센터장'].includes(m.role))?'role head':'role';
+      const fl=(m.prom?'<span class="mflag p">▲</span>':'')+(m.new?'<span class="mflag n">●</span>':'');
+      return `<div class="mrow"><span class="${rc}">${esc(m.role)}</span>
+        <span class="who">${esc(m.name)}<span class="rk">${esc(m.title)}</span>${fl}</span></div>`;
+    }).join('');
+    const more=rest>0?`<div class="morerow">외 ${rest}명 (담당임원)</div>`:'';
+    return `<div class="dcard">
+      <div class="ct"><span class="ctn">${esc(c.team)}</span><span class="ctc">· ${c.n}명</span>${nb}</div>
+      <div class="dtraj">${trajHTML(c.traj)}</div>
+      <div class="dmem">${mem}${more}</div></div>`;
+  }).join('');
+  return `<div class="dpwrap">
+    ${postBanner}
+    <div class="dp-note">
+      ${headHTML}
+      <div class="dp-crit"><b>■ 표기 기준</b> · 직책·이름 사업보고서 기준<br>계열 편성 · 담당업무 텍스트 AI 분류</div>
+    </div>
+    <div class="dgrid">${cards}</div>
+  </div>`;
+}
+
+function renderDrill(){
+  const d=document.getElementById('drill');
+  if(!curBox){d.className='drill';d.innerHTML='';return;}
+  const b=curBox;
+  const parentName={'DX':'DX부문','DS':'DS부문','전사':'전사'}[b.parent];
+  let units='';
+  if(b.units&&b.units.length){
+    units=`<h4>주요 하위 조직 · 리더 (사장·부사장·전무급)</h4>
+      <table class="utable"><tbody>`+
+      b.units.map(u=>`<tr><td class="up">${esc(u.title)}</td>
+        <td class="un2">${esc(u.person)}</td>
+        <td class="un">${esc(u.name)}</td></tr>`).join('')+
+      `</tbody></table>`;
+  } else {
+    units=`<div class="empty">이 보고서 기준 사장·부사장·전무급 조직장 표기가 없습니다. (담당임원 단위로만 편성)</div>`;
+  }
+  const ld=b.leader?`<span class="lname">${esc(b.leader.name)}</span>
+      <span class="lduty">${esc(b.leader.title)} · ${esc(b.leader.duty||'')}</span>`:'—';
+  d.className='drill show';
+  if(PANELS[b.key]){
+    const p=(PANELS[b.key][yObj().y])||{};
+    d.innerHTML=`<div class="dhead">
+        <span class="dt">${esc(b.label)}</span>
+        <span class="dmeta">${parentName} · ${yObj().label} · ${p.total||b.n}명 · 사업부/기능 ${p.teamCount||'-'} · ▲${p.prom||0} ●${p.new||0}</span>
+        <button class="close" onclick="curBox=null;render();">닫기 ✕</button>
+      </div>${richPanel(b.key)}`;
+    return;
+  }
+  d.innerHTML=`<div class="dhead">
+      <span class="dt">${esc(b.label)}</span>
+      <span class="dmeta">${parentName} · ${yObj().label} · 임원 ${b.n}명 · ▲${b.prom} ●${b.new}</span>
+      <button class="close" onclick="curBox=null;render();">닫기 ✕</button>
+    </div>
+    <div class="dleadrow"><span class="k">대표 리더</span>${ld}</div>
+    <div class="units">${units}</div>`;
+}
+
+function renderMatrix(){
+  const m=document.getElementById('mwrap');
+  const yrs=DATA.years;
+  const keys=yrs[yrs.length-1].boxes.map(b=>({parent:b.parent,key:b.key,label:b.label}));
+  function cell(parent,key,yi){
+    const bx=yrs[yi].boxes.find(b=>b.parent===parent&&b.key===key);
+    return bx?bx.n:0;
+  }
+  let rows='';
+  SEC.forEach(([pk,pname])=>{
+    rows+=`<tr><td class="sec" colspan="${yrs.length+1}">${pname}</td></tr>`;
+    keys.filter(k=>k.parent===pk).forEach(k=>{
+      let tds='';
+      yrs.forEach((y,yi)=>{
+        const v=cell(pk,k.key,yi);
+        let delta='';
+        if(yi>0){const p=cell(pk,k.key,yi-1);const dv=v-p;
+          if(dv>0)delta=`<span class="delta up">▲${dv}</span>`;
+          else if(dv<0)delta=`<span class="delta dn">▼${-dv}</span>`;}
+        tds+=`<td>${v}${delta}</td>`;
+      });
+      rows+=`<tr><td class="lbl">${k.label}</td>${tds}</tr>`;
+    });
+  });
+  let totrow='';
+  yrs.forEach((y,yi)=>{
+    let delta='';
+    if(yi>0){const dv=y.total-yrs[yi-1].total;
+      if(dv>0)delta=`<span class="delta up">▲${dv}</span>`;
+      else if(dv<0)delta=`<span class="delta dn">▼${-dv}</span>`;}
+    totrow+=`<td>${y.total}${delta}</td>`;
+  });
+  rows+=`<tr class="totalrow"><td class="lbl">임원 총원</td>${totrow}</tr>`;
+  m.innerHTML=`<table class="mtable"><thead><tr><th style="text-align:left">조직</th>`+
+    yrs.map(y=>`<th>${y.label}</th>`).join('')+`</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function render(){
+  buildTabs();
+  const org=document.getElementById('orgview'), mw=document.getElementById('mwrap');
+  if(matrixMode){org.classList.add('hidden'); mw.classList.add('show'); renderMatrix();}
+  else{org.classList.remove('hidden'); mw.classList.remove('show'); renderOrg();}
+}
+
+document.getElementById('foot').innerHTML=
+  '출처 · 삼성전자 사업보고서(2023·2024·2025 4Q) 및 분기보고서(2026 1Q) VIII. 임원 및 직원 등에 관한 사항 — 미등기임원 현황 원문 파싱. '+
+  '담당업무 텍스트를 부문·사업부로 자동 분류(公표 기준). 승진=직전 보고서 대비 직급 상승, 신규=직전 보고서 미등재 임원. '+
+  '부문장은 등기임원(대표이사) 표 기준. \u203b 분류는 담당업무 키워드 기반 추정이며 일부 겸직·전사스태프는 근사치.';
+
+async function boot(){
+  try{
+    const r=await fetch('data/samsung-org.json');
+    if(!r.ok) throw new Error('data '+r.status);
+    const j=await r.json();
+    DATA=j.data; PANELS=j.panels;
+    curYear=DATA.years.length-1;
+    render();
+  }catch(e){
+    document.getElementById('sections').innerHTML='<div class=\"empty\">데이터 로드 실패 — 새로고침해 주세요. ('+e.message+')</div>';
+  }
+}
+boot();
+</script>
+</body>
+</html>
