@@ -109,6 +109,9 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 @media(max-width:760px){.trrow{grid-template-columns:1fr repeat(4,44px) 92px;padding:6px 10px}.trrow .c i{display:none}}
 footer{border-top:1px solid var(--line-strong);padding:16px 0 44px;font-size:11.5px;color:var(--muted);line-height:1.75}
 footer b{color:var(--ink)}
+.footlinks{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.footlinks a{font-size:12px;font-weight:700;padding:5px 12px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;background:transparent;white-space:nowrap;cursor:pointer}
+.footlinks a:hover{background:var(--ink);color:var(--paper)}
 @media(max-width:760px){.dv{width:calc(33% - 8px)}.branches::before{left:2%;right:2%}}
 </style>
 </head>
@@ -147,6 +150,10 @@ footer b{color:var(--ink)}
     <b>데이터</b> DART 사업보고서 2023·2024·2025 연간 + 2026 1분기보고서 「임원 현황」 원문 파싱(임원별 담당업무 키워드로 본부 배속 추정).<br>
     <b>승진 검증</b> 2026 1Q 승진 배지 13명 = 2026 정기인사 발표(사장 2·부사장 2·전무 9)와 전원 일치. 신규선임 상무는 보고서 반영 시점 차이로 기간 귀속이 ±1기 이동할 수 있음.<br>
     <b>주의</b> '기타·전사'는 담당업무만으로 본부 특정이 어려운 임원 · 등기 7인은 경영지원 포함 · 공식 영문: HS=Home Appliance Solution / MS=Media Entertainment Solution / VS=Vehicle Solution / ES=Eco Solution · BS 해체 분산: IT/ID→MS, 로봇→HS, EV충전→ES · 부품솔루션사업부는 HS 소속.
+    <div class="footlinks">
+      <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260515000856" onclick="window.open(this.href,'lgeDart','width=1150,height=860,scrollbars=yes,resizable=yes');return false;">LG전자 사업보고서 원문(DART) ↗</a>
+      <a href="/org-samsung" target="_blank" rel="noopener">삼성전자 조직도 ↗</a>
+    </div>
   </div>
 </footer>
 
