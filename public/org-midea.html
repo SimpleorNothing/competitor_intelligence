@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Midea Group 조직도 — 6대 사업그룹 · 주요 임원</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --paper:#EDEFEC; --panel:#FFFFFF; --ink:#17222D; --muted:#5C6B79;
+  --line:#D3D9D6; --line-strong:#9AA6A0;
+  --new:#46647E; --deep:#2F614D; --insight:#B02E24; --amber:#A9790F; --purple:#6B4E9B;
+  --sans:'Pretendard',system-ui,-apple-system,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.mark,.upd,.tab,.cnt,.b,.legend,.rkh,.sub,.note{font-variant-numeric:tabular-nums}
+
+header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+.hd{display:flex;align-items:baseline;gap:14px;padding:14px 0;flex-wrap:wrap}
+.hd .mark{font-weight:600;font-size:13px;letter-spacing:.08em;background:var(--ink);color:var(--paper);padding:3px 8px}
+.hd h1{font-size:17px;font-weight:700}
+.hd .sub{font-size:12.5px;color:var(--muted)}
+.hd .upd{margin-left:10px;font-size:11.5px;color:var(--muted)}
+.hd .xlink{margin-left:auto;font-size:12px;font-weight:700;padding:5px 12px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;background:transparent;white-space:nowrap}
+.hd .xlink:hover{background:var(--ink);color:var(--paper)}
+
+.legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);padding:12px 0 14px;flex-wrap:wrap}
+.legend b{color:var(--ink)}
+.legend .tag{font-size:10px;letter-spacing:.05em;padding:1px 7px;font-weight:600;color:#fff}
+.legend .tag.core{background:var(--new)} .legend .tag.growth{background:var(--deep)} .legend .tag.inno{background:var(--line-strong)}
+
+/* ── 트리 ── */
+.tree{padding:6px 0 4px}
+.root{background:var(--ink);color:#fff;text-align:center;padding:12px 26px;max-width:420px;margin:0 auto;position:relative}
+.root .r{font-size:10.5px;letter-spacing:.12em;opacity:.75;display:block}
+.root .nm{font-size:18px;font-weight:700}
+.root .nt{font-size:11.5px;opacity:.85;margin-top:2px}
+.root::after{content:'';position:absolute;left:50%;bottom:-18px;width:2px;height:18px;background:var(--line-strong)}
+.branches{display:flex;justify-content:center;gap:10px;margin-top:36px;flex-wrap:wrap;position:relative;padding-top:18px}
+.branches::before{content:'';position:absolute;top:0;left:5%;right:5%;height:2px;background:var(--line-strong)}
+.dv{background:var(--new);color:#fff;border:none;width:150px;padding:11px 9px 10px;text-align:center;cursor:pointer;position:relative;font-family:var(--sans);transition:filter .12s}
+.dv::before{content:'';position:absolute;top:-18px;left:50%;width:2px;height:18px;background:var(--line-strong)}
+.dv:hover{filter:brightness(1.12)}
+.dv:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
+.dv.on{outline:3px solid var(--ink);outline-offset:0}
+.dv .cd{font-size:10px;letter-spacing:.08em;opacity:.8}
+.dv h3{font-size:13px;font-weight:700;line-height:1.3;margin-top:1px}
+.dv .ld{font-size:11px;opacity:.92;margin-top:4px;min-height:15px}
+.dv .cnt{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;background:rgba(255,255,255,.18);padding:1px 8px}
+.dv.growth{background:var(--deep)} .dv.inno{background:var(--line-strong)} .dv.inno .cd{opacity:.9}
+
+/* ── 상세 ── */
+.detail{background:var(--panel);border:1px solid var(--line-strong);margin:24px 0 20px;display:none}
+.detail.open{display:block}
+.dhd{display:flex;align-items:baseline;gap:12px;padding:14px 20px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.dhd .cd{font-weight:700;font-size:13px;background:var(--ink);color:#fff;padding:2px 9px}
+.dhd h3{font-size:17px;font-weight:700}
+.dhd .sub{font-size:12px;color:var(--muted)}
+.dhd .close{margin-left:auto;font-size:11.5px;color:var(--muted);background:none;border:1px solid var(--line-strong);padding:3px 10px;cursor:pointer}
+.dhd .close:hover{border-color:var(--ink);color:var(--ink)}
+.dlead{padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.leadbox{display:inline-block;background:var(--ink);color:#fff;padding:9px 18px}
+.leadbox .r{font-size:10px;letter-spacing:.1em;opacity:.7;display:block}
+.leadbox .nm{font-size:15px;font-weight:700}
+.leadnote{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);line-height:1.5}
+.leadnote .cap{display:flex;align-items:center;gap:5px;font-weight:700;color:var(--deep);white-space:nowrap}
+.leadnote .dot{width:5px;height:5px;background:var(--amber);display:inline-block}
+.dbody{padding:4px 20px 8px}
+.drow{font-size:13px;padding:9px 0;border-bottom:1px dotted var(--line);line-height:1.6}
+.drow:last-child{border-bottom:none}
+.drow .k{font-weight:700;color:var(--ink)}
+.drow .brands{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.drow .bd{font-size:11px;padding:2px 8px;border:1px solid var(--line-strong);color:var(--muted);background:var(--paper)}
+.kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.kv .m{font-size:11.5px;color:var(--muted);background:var(--paper);border:1px solid var(--line);padding:2px 9px;font-variant-numeric:tabular-nums}
+.kv .m b{color:var(--ink)}
+.axmap{display:inline-block;font-size:10.5px;font-weight:700;color:var(--new);border:1px solid var(--new);padding:1px 7px;margin-left:6px}
+.note{font-size:11.5px;color:var(--muted);padding:10px 20px 18px;line-height:1.6}
+.note b{color:var(--ink)}
+
+/* ── 그룹 요약 표 ── */
+.sumsec{background:var(--panel);border:1px solid var(--line-strong);border-top:3px solid var(--ink);margin:8px 0 22px}
+.sumhd{display:flex;gap:12px;align-items:baseline;padding:12px 18px;border-bottom:2px solid var(--ink)}
+.sumhd h3{font-size:15px;font-weight:700}
+.sumhd .sub{font-size:11.5px;color:var(--muted)}
+.srow{display:grid;grid-template-columns:150px 1fr 118px 92px;align-items:center;padding:9px 18px;border-bottom:1px dotted var(--line);font-size:12.5px}
+.srow:last-child{border-bottom:none}
+.srow.head{font-size:10.5px;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--line)}
+.srow .g{font-weight:700}
+.srow .g .cd{font-size:10px;color:var(--muted);font-weight:600;margin-right:5px}
+.srow .rev{text-align:right;font-variant-numeric:tabular-nums}
+.srow .rev em{color:var(--muted);font-style:normal;font-size:11px}
+.srow .st{text-align:center}
+.chip{font-size:9.5px;letter-spacing:.03em;padding:2px 7px;white-space:nowrap;color:#fff}
+.chip.가속{background:var(--insight)} .chip.순항{background:var(--new)} .chip.방향전환{background:var(--purple)}
+@media(max-width:760px){
+  .dv{width:calc(50% - 8px)}
+  .branches::before{left:2%;right:2%}
+  .srow{grid-template-columns:1fr 96px 76px;gap:6px}
+  .srow .desc{display:none}
+}
+
+footer{border-top:1px solid var(--line-strong);padding:16px 0 44px;font-size:11.5px;color:var(--muted);line-height:1.75}
+footer b{color:var(--ink)}
+.footlinks{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.footlinks a{font-size:12px;font-weight:700;padding:5px 12px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;background:transparent;white-space:nowrap;cursor:pointer}
+.footlinks a:hover{background:var(--ink);color:var(--paper)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="hd">
+      <span class="mark">ORG</span>
+      <h1>Midea Group 조직도 — 6대 사업그룹 · 주요 임원</h1>
+      <span class="sub">간략형 · 사업그룹 클릭 → 상세</span>
+      <a class="xlink" href="/">CI 보드 ↗</a>
+      <span class="upd">IR·연보·뉴스 기반 · 2026-07-07 센싱</span>
+    </div>
+    <div class="legend">
+      <span><b>계층</b> 그룹 회장 · 총재 → 6대 사업그룹 → 주요 브랜드/사업부</span>
+      <span><span class="tag core">핵심</span> 백색가전·HVAC</span>
+      <span><span class="tag growth">차핵심</span> 로봇·에너지·의료</span>
+      <span><span class="tag inno">창신</span> 물류 등</span>
+      <span style="margin-left:auto">박스 클릭 → 브랜드·임원·매핑 CI축</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="tree">
+    <div class="root" id="root"></div>
+    <div class="branches" id="branches"></div>
+  </div>
+  <section class="detail" id="detail" aria-live="polite"></section>
+
+  <section class="sumsec">
+    <div class="sumhd"><h3>사업그룹 요약</h3><span class="sub">매출 = '25 세그먼트 기준 · RMB(억 위안) · USD 병기 · CI 축 매핑</span></div>
+    <div class="srow head"><span class="g">사업그룹</span><span class="desc">범위</span><span class="rev">'25 매출</span><span class="st">CI 축</span></div>
+    <div id="sumrows"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>데이터</b> Midea Group IR(연간·분기 실적·주주서한), 홍콩거래소/심천거래소 공시, 회사 공식 뉴스룸 + Tier1 매체 센싱(2026-07-07). 임원·조직은 공개 정보 기반 <b>간략형</b>이며 DART 같은 원문 파싱이 아님.<br>
+    <b>환율</b> USD 병기는 약 1 USD = 7.1 RMB 기준 근사치. 매출은 세그먼트 공표치이며 A주·H주 이중상장으로 보고 기준별 총계가 상이할 수 있음(IR 공표치 우선).<br>
+    <b>주의</b> 6대 사업그룹 = 스마트홈 / 스마트빌딩테크(MBT) / 신에너지·산업기술 / 로봇·자동화(KUKA) / 헬스케어(Midea Medical) / 창신(Annto 등). 승계·임원 이동(예: CTO 웨이창 '26.5 사임)은 시그널로 별도 추적. 수치·직책은 확정 공시로 보정 예정.
+    <div class="footlinks">
+      <a href="/" >CI 보드 — Midea 탭 ↗</a>
+      <a href="https://www.midea.com.cn/en/Investors" target="_blank" rel="noopener">Midea IR ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const ROOT = { r:'그룹 회장 겸 총재 · Chairman & President', nm:'팡훙보 (方洪波)', nt:"2012.08~ · 창업주 허샹젠 승계 전문경영인 · CFO 정중(郑中) · 4대 전략주축(科技领先·用户直达·数智驱动·全球突破)" };
+
+const DIVS = [
+  { code:'SH', cls:'', name:'스마트홈 사업그룹', lead:'자오레이 (赵磊) · 부총재·총재',
+    rev:'2,999억', usd:'≈$422억', share:'65.7%', axis:'A1·A6', status:'가속',
+    scope:'냉장고·세탁기·에어컨·주방·소형가전 (그룹 최대 세그먼트)',
+    brands:['Midea','COLMO(프리미엄)','Toshiba(가전)','Comfee(밸류)','Eureka'],
+    people:[
+      ['부총재·스마트홈 총재','자오레이(赵磊) — 전주택 스마트 전략(MevoX) 주도'],
+      ['전략 기조','OBM 우선 해외확장 · DTC(用户直达) · 三个一 AI홈']
+    ],
+    kv:['해외 OBM 비중 45%+','커넥티드 가전 1.4억대','AI 3년 600억 위안 투자'] },
+
+  { code:'MBT', cls:'', name:'스마트빌딩테크', lead:'Dennis Lee · GM (MBT)',
+    rev:'약 370억', usd:'≈$52억', share:'8%대', axis:'A2', status:'가속',
+    scope:'상업공조·엘리베이터·데이터센터 냉각(AIDC) · 유럽 MBT Climate',
+    brands:['Midea CAC','MBT Climate(Clivet+Arbonia)','LINVOL(엘리베이터)','Toshiba Elevator China'],
+    people:[
+      ['MBT GM','Dennis Lee'],
+      ['주거용 에어컨 GM','Alex Zhu'],
+      ['MBT Climate(유럽) President','Stefano Bellò']
+    ],
+    kv:["'24 285억→'25 ~370억(+25%대)",'원심냉동기 中 15%·국산1위','순더 액냉기지 27.8 양산'] },
+
+  { code:'IT', cls:'growth', name:'신에너지·산업기술', lead:'GMCC·Welling 계열',
+    rev:'약 400억', usd:'≈$56억', share:'8%대', axis:'A4', status:'가속',
+    scope:'컴프레서·모터 코어부품 · EV 열관리 부품 · 에너지스토리지(Midea Energy)',
+    brands:['GMCC(컴프레서)','Welling(모터)','Welling Auto Parts','Midea Energy','MR SEMI(추정)'],
+    people:[
+      ['코어부품','GMCC 컴프레서 글로벌 1위 · Welling 모터'],
+      ['신설','Midea Energy 사업부 분리(\'25.12 보도·1차 확인 필요)']
+    ],
+    kv:["'25.1Q +45%(그룹 최고 성장)",'Welling 멕시코 생산','Dallas R&D(\'25.3Q)'] },
+
+  { code:'RA', cls:'growth', name:'로봇·자동화 (KUKA)', lead:'KUKA 경영진 (뮌헨)',
+    rev:'약 300억', usd:'≈$42억', share:'6%대', axis:'A3', status:'방향전환',
+    scope:'KUKA 산업로봇 · 물류자동화 · 자체 휴머노이드(MIRO U) · 체화지능',
+    brands:['KUKA','Swisslog(물류)','Midea 자체 휴머노이드(MIRO U / Mila)'],
+    people:[
+      ['KUKA','중국 산업로봇 점유 9.4% · 중국 1위 목표 재정렬'],
+      ['체화지능(前)','CTO 웨이창(魏昌) — \'26.5 사임(시그널)'],
+      ['플랫폼','체화지능 15억 위안 투자 · 블루오렌지연구소']
+    ],
+    kv:["'24 -7.6%→'25 +9% 회복",'KUKA \'24 순손실 €4,350만','MIRO U 우시공장 파일럿'] },
+
+  { code:'MED', cls:'growth', name:'헬스케어 (Midea Medical)', lead:'万东의료 계열',
+    rev:'별도 미공표', usd:'—', share:'—', axis:'A5', status:'순항',
+    scope:'의료영상(CT·MRI)·수술로봇·병원물류 · AI×의료영상 (\'25.4 사업부 승격)',
+    brands:['万东의료(Wandong)','KUKA Medical','Swisslog Healthcare','Carestream Intl'],
+    people:[
+      ['플랫폼 목표','千亿급(1,000억 위안) 의료 플랫폼(경영진 전망)'],
+      ['M&A','Carestream 국제사업 인수(\'25.12) · 헬륨프리 MRI 30개국+']
+    ],
+    kv:['국내 7,000+ 병원 파트너','글로벌 10만+ 병원','5+2+X 기술전략'] },
+
+  { code:'INN', cls:'inno', name:'창신사업 (Annto 등)', lead:'Annto(安得智联)',
+    rev:'215억(Annto)', usd:'≈$30억', share:'—', axis:'A6 하위/판단', status:'순항',
+    scope:'스마트물류(Annto) · 기타 혁신사업 · \'26.6 홍콩 IPO 제출',
+    brands:['Annto(安得智联)'],
+    people:[
+      ['Annto','\'25 매출 215억(+15%)·GPM ~7% · Midea 의존도 2/3+'],
+      ['상장','\'26.6 홍콩 IPO 프로스펙터스 제출 — 축 편입 판단 대기']
+    ],
+    kv:['공급망·물류 통합','Midea 그룹 물류 백본','IPO 진행'] }
+];
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+let curDiv = null;
+
+function renderTree(){
+  const r = document.getElementById('root');
+  r.innerHTML = `<span class="r">${esc(ROOT.r)}</span><span class="nm">${esc(ROOT.nm)}</span><span class="nt">${esc(ROOT.nt)}</span>`;
+  document.getElementById('branches').innerHTML = DIVS.map((d,i)=>`
+    <button class="dv ${d.cls}" onclick="openDiv(${i})" aria-label="${esc(d.name)} 상세">
+      <span class="cd">${esc(d.code)}</span>
+      <h3>${esc(d.name)}</h3>
+      <span class="ld">${esc(d.lead)}</span>
+      <span class="cnt">CI ${esc(d.axis)}</span>
+    </button>`).join('');
+}
+function renderSummary(){
+  document.getElementById('sumrows').innerHTML = DIVS.map(d=>`
+    <div class="srow">
+      <span class="g"><span class="cd">${esc(d.code)}</span>${esc(d.name)}</span>
+      <span class="desc" style="color:var(--muted);font-size:12px">${esc(d.scope)}</span>
+      <span class="rev">${esc(d.rev)}<br><em>${esc(d.usd)}${d.share!=='—'?' · '+esc(d.share):''}</em></span>
+      <span class="st"><span class="chip ${esc(d.status)}">${esc(d.status)}</span><br><span style="font-size:10px;color:var(--muted)">${esc(d.axis)}</span></span>
+    </div>`).join('');
+}
+function openDiv(i){
+  const d = DIVS[i]; curDiv = i;
+  document.querySelectorAll('.dv').forEach((el,idx)=>el.classList.toggle('on',idx===i));
+  const el = document.getElementById('detail');
+  el.className = 'detail open';
+  el.innerHTML = `
+    <div class="dhd">
+      <span class="cd">${esc(d.code)}</span>
+      <h3>${esc(d.name)}</h3>
+      <span class="sub">'25 매출 ${esc(d.rev)} ${esc(d.usd)}${d.share!=='—'?' · 비중 '+esc(d.share):''}</span>
+      <span class="axmap">CI ${esc(d.axis)} · ${esc(d.status)}</span>
+      <button class="close" onclick="closeDiv()">닫기 ✕</button>
+    </div>
+    <div class="dlead">
+      <div class="leadbox"><span class="r">리더</span><span class="nm">${esc(d.lead)}</span></div>
+      <div class="leadnote"><span class="cap"><span class="dot"></span>표기 기준</span><span>공개 IR·뉴스 기반 간략형 · 직책/수치 확정 공시로 보정</span></div>
+    </div>
+    <div class="dbody">
+      <div class="drow"><span class="k">범위</span> · ${esc(d.scope)}
+        <div class="brands">${d.brands.map(b=>`<span class="bd">${esc(b)}</span>`).join('')}</div>
+      </div>
+      ${d.people.map(p=>`<div class="drow"><span class="k">${esc(p[0])}</span> · ${esc(p[1])}</div>`).join('')}
+      <div class="drow"><span class="k">핵심 지표</span>
+        <div class="kv">${d.kv.map(m=>`<span class="m">${esc(m)}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="note">CI 보드 <b>${esc(d.axis)}</b> 축과 매핑 · 매출은 '25 세그먼트 공표 기준(일부 추정·병기 USD는 근사) · 임원·조직은 공개정보 기반 간략형.</div>`;
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function closeDiv(){curDiv=null;document.getElementById('detail').className='detail';document.querySelectorAll('.dv').forEach(el=>el.classList.remove('on'));}
+
+renderTree();
+renderSummary();
+</script>
+</body>
+</html>
