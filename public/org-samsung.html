@@ -407,14 +407,15 @@ document.getElementById('foot').innerHTML=
 
 async function boot(){
   try{
-    const r=await fetch('data/samsung-org.json');
-    if(!r.ok) throw new Error('data '+r.status);
-    const j=await r.json();
-    DATA=j.data; PANELS=j.panels;
+    const names=['sorg-y1','sorg-y2','sorg-da','sorg-vd','sorg-mx1','sorg-mx2'];
+    const parts=await Promise.all(names.map(n=>fetch('data/'+n+'.json').then(r=>{if(!r.ok)throw new Error(n+' '+r.status);return r.json();})));
+    const [y1,y2,da,vd,mx1,mx2]=parts;
+    DATA={years:[...y1.years,...y2.years], yearLabels:y2.yearLabels};
+    PANELS={'생활가전':da,'영상디스플레이':vd,'MX':Object.assign({},mx1,mx2)};
     curYear=DATA.years.length-1;
     render();
   }catch(e){
-    document.getElementById('sections').innerHTML='<div class=\"empty\">데이터 로드 실패 — 새로고침해 주세요. ('+e.message+')</div>';
+    document.getElementById('sections').innerHTML='<div class="empty">데이터 로드 실패 — 새로고침해 주세요. ('+e.message+')</div>';
   }
 }
 boot();
