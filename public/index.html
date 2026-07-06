@@ -339,6 +339,20 @@ footer #ub-btn{font-size:11.5px!important}
 <script>
 let S = null, E = null, W = null, currentAxis = null;
 let tlSortAsc = true; // 타임라인 기본 정렬: 오래된순
+let curCompanyId = null; // 현재 선택된 회사(탭). null이면 첫 active 회사
+
+function curCompany(){
+  return (curCompanyId && S.companies.find(c => c.id === curCompanyId && c.active))
+    || S.companies.find(c => c.active);
+}
+function selectCompany(id){
+  const c = S.companies.find(x => x.id === id);
+  if(!c || !c.active || id === (curCompany() && curCompany().id)) return;
+  curCompanyId = id;
+  currentAxis = null;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 function isAuthGate(r){ return r && (r.status === 401 || r.status === 403); }
 function sessionExpired(){
@@ -513,16 +527,21 @@ function watchlistHTML(){
 }
 
 function render(){
-  const co = S.companies.find(c => c.active);
+  const co = curCompany();
   document.getElementById('updatedAt').textContent =
     'updated ' + S.updatedAt.slice(0,10) + ' KST';
 
-  document.getElementById('tabs').innerHTML = S.companies.map(c =>
-    `<span class="tab ${c.active ? 'on':'off'}" title="${c.active ? c.scopeNote : '커버리지 확장 예정'}">${c.shortName}</span>`
-  ).join('');
+  document.getElementById('tabs').innerHTML = S.companies.map(c => {
+    if(c.active){
+      const on = c.id === co.id;
+      return `<span class="tab ${on ? 'on' : ''}" style="cursor:pointer" role="button" tabindex="0" aria-pressed="${on}" onclick="selectCompany('${c.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectCompany('${c.id}')}" title="${senseEsc(c.scopeNote || '')}">${c.shortName}</span>`;
+    }
+    return `<span class="tab off" title="커버리지 확장 예정">${c.shortName}</span>`;
+  }).join('');
 
   const f = co.frame;
-  const frameEvCount = evidenceFor('lg-frame').length;
+  const frameId = co.id + '-frame';
+  const frameEvCount = evidenceFor(frameId).length;
 
   let html = `
   <section class="frame">
@@ -546,14 +565,14 @@ function render(){
     </div>
     <div class="frame-actions">
       <div class="fa-left">
-        <button class="btn-ghost" onclick="openTimeline('lg-frame')">프레임 연혁 보기 (${frameEvCount}건)</button>
-        <button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>
+        <button class="btn-ghost" onclick="openTimeline('${frameId}')">프레임 연혁 보기 (${frameEvCount}건)</button>
+        ${co.id === 'lg' ? `<button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>` : ''}
       </div>
       <div class="fa-right">
-        <a class="btn-ghost org-link" href="/org.html" target="_blank" rel="noopener">조직도 보기 ↗</a>
+        ${co.id === 'lg' ? `<a class="btn-ghost org-link" href="/org.html" target="_blank" rel="noopener">조직도 보기 ↗</a>` : ''}
       </div>
     </div>
-    ${kpiPanelHTML()}
+    ${co.id === 'lg' ? kpiPanelHTML() : ''}
   </section>
 
   <div class="legend">
@@ -686,8 +705,8 @@ function toggleKpi(btn){
 }
 
 function openTimeline(axisId){
-  const co = S.companies.find(c => c.active);
-  const isFrame = axisId === 'lg-frame';
+  const co = curCompany();
+  const isFrame = axisId === co.id + '-frame';
   const axis = isFrame
     ? { code:'F0', title:'전략 프레임 연혁' }
     : co.axes.find(a => a.id === axisId);
