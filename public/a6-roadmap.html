@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A6 추진 로드맵 — 로봇 사업 본격화</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --paper:#EDEFEC; --panel:#FFFFFF; --ink:#17222D; --muted:#5C6B79;
+  --line:#D3D9D6; --line-strong:#9AA6A0;
+  --new:#46647E; --deep:#2F614D; --insight:#B02E24;
+  --amber:#A9790F; --purple:#6B4E9B;
+  --mono:'Pretendard',system-ui,-apple-system,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  --sans:'Pretendard',system-ui,-apple-system,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;padding:0 0 50px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+.tabular{font-variant-numeric:tabular-nums}
+
+/* --- 헤더 --- */
+header{border-bottom:2px solid var(--ink);background:var(--paper);margin-bottom:22px}
+.hd{display:flex;align-items:baseline;gap:14px;padding:16px 0;flex-wrap:wrap}
+.hd .mark{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.08em;background:var(--ink);color:var(--paper);padding:3px 8px}
+.hd h1{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.hd .sub{font-size:12.5px;color:var(--muted)}
+.hd .upd{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+/* --- 범례 --- */
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin:0 0 14px;font-family:var(--mono);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:22px;height:12px;display:inline-block;flex:none}
+.lg-done{background:var(--new)}
+.lg-ongoing{background:var(--deep)}
+.lg-plan{background:color-mix(in srgb,var(--insight) 12%,transparent);border:1.3px dashed var(--insight)}
+.lg-target{background:color-mix(in srgb,var(--insight) 15%,transparent);border:1.3px solid var(--insight)}
+
+/* --- 로드맵 표 --- */
+.rm-scroll{overflow-x:auto;border:1px solid var(--line-strong);background:var(--panel)}
+table.rm{border-collapse:collapse;width:100%;min-width:1000px;table-layout:fixed}
+table.rm col.c-lab{width:250px}
+table.rm col.c-yr{width:112px}
+table.rm th,table.rm td{border:1px solid var(--line);vertical-align:top;padding:0}
+table.rm thead th{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;font-weight:600;text-align:center;padding:9px 4px;position:sticky;top:0;z-index:5}
+table.rm thead th.corner{text-align:left;padding:9px 14px;font-size:11px;letter-spacing:.1em;color:var(--paper)}
+table.rm thead th.now{position:relative}
+table.rm thead th.now::after{content:"▼ 현재";position:absolute;left:50%;bottom:-15px;transform:translateX(-50%);font-family:var(--mono);font-size:9px;color:var(--insight);white-space:nowrap;font-weight:700}
+
+/* 레이블 열 고정 */
+table.rm th.lab,table.rm td.lab{position:sticky;left:0;z-index:4;background:var(--panel);text-align:left}
+table.rm thead th.corner{position:sticky;left:0;z-index:6}
+
+/* L1 레이블 */
+tr.l1 td{background:var(--ink);color:var(--paper);padding:11px 14px}
+tr.l1 .l1-code{font-family:var(--mono);font-weight:600;font-size:12px;background:var(--paper);color:var(--ink);padding:1px 8px;margin-right:9px}
+tr.l1 .l1-t{font-size:15px;font-weight:700;letter-spacing:-.01em}
+tr.l1 .l1-s{display:block;font-size:11.5px;color:#C3CBD2;font-weight:400;margin-top:5px;line-height:1.5}
+tr.l1 td.lab{background:var(--ink)}
+
+/* L2 그리드 레이블 + 로드맵 바 */
+tr.l2 td{padding:0}
+tr.l2 .lab{padding:10px 12px 10px 16px}
+tr.l2 .l2-code{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.06em;display:block;margin-bottom:2px}
+tr.l2 .l2-t{font-size:13.5px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+tr.l2 td.lab{background:var(--paper);border-left:3px solid var(--ink)}
+
+/* L2 로드맵 바 셀 */
+td.bar{height:44px;position:relative}
+td.bar .barlab{position:absolute;top:50%;left:8px;right:8px;transform:translateY(-50%);font-family:var(--mono);font-size:10px;line-height:1.3;text-align:center}
+td.bar.done{background:color-mix(in srgb,var(--new) 20%,transparent)}
+td.bar.done .barlab{color:var(--new);font-weight:600}
+td.bar.plan{background:repeating-linear-gradient(135deg,transparent,transparent 5px,color-mix(in srgb,var(--insight) 8%,transparent) 5px,color-mix(in srgb,var(--insight) 8%,transparent) 10px)}
+td.bar.plan .barlab{color:var(--insight)}
+
+/* L3 데이터/마일스톤 행 */
+tr.l3 td.lab{padding:11px 12px 11px 30px;background:var(--panel)}
+tr.l3 td.lab::before{content:"└";position:absolute;left:16px;color:var(--line-strong);font-family:var(--mono)}
+tr.l3 .l3-t{font-size:12.5px;font-weight:600;letter-spacing:-.01em;line-height:1.35}
+tr.l3 .l3-nx{font-size:10.5px;color:var(--muted);line-height:1.4;margin-top:2px;display:block;font-family:var(--mono)}
+tr.l3:hover td{background:color-mix(in srgb,var(--new) 5%,transparent)}
+tr.l3:hover td.lab{background:color-mix(in srgb,var(--new) 5%,var(--panel))}
+
+/* 데이터 셀 */
+td.cell{padding:7px 6px;height:52px}
+td.cell.empty{background:repeating-linear-gradient(0deg,transparent,transparent 11px,var(--line) 11px,var(--line) 12px);opacity:.3}
+.mk{display:block;font-size:10.5px;line-height:1.35;padding:4px 6px;margin-bottom:4px;font-family:var(--mono)}
+.mk:last-child{margin-bottom:0}
+.mk .mo{font-weight:700;display:inline-block;min-width:16px}
+.mk.done{background:var(--new);color:#fff}
+.mk.ongoing{background:var(--deep);color:#fff}
+.mk.ongoing .mo{color:#fff}
+.mk.plan{background:color-mix(in srgb,var(--insight) 10%,transparent);border:1px dashed var(--insight);color:var(--insight)}
+.mk.target{background:color-mix(in srgb,var(--insight) 15%,transparent);border:1px solid var(--insight);color:var(--insight);font-weight:700;text-align:center}
+.mk .amt{font-weight:700}
+
+/* NOW 세로선 */
+td.now-l,th.now-l{border-left:2px solid var(--insight)!important}
+
+/* --- 주석 --- */
+.notes{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.75}
+.notes b{color:var(--ink)}
+.notes .row{padding:3px 0}
+footer{border-top:1px solid var(--line-strong);margin-top:20px;padding-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+@media(max-width:760px){
+  table.rm col.c-lab{width:180px}
+  table.rm col.c-yr{width:96px}
+  .hd .upd{width:100%;margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hd">
+      <span class="mark">CI · A6</span>
+      <h1>추진 로드맵 — 로봇 사업 본격화</h1>
+      <span class="sub">LG전자 HS + 전사 · 증거(evidence) 기반 L1·L2·L3 추진체계 렌더링 맵</span>
+      <span class="upd tabular">기준 '26.07 · 자료 evidence.json / strategies.json</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="legend">
+    <span><i class="lg-done"></i>실행 완료(당해 확정기)</span>
+    <span><i class="lg-ongoing"></i>상시 운영</span>
+    <span><i class="lg-plan"></i>계획·전략</span>
+    <span><i class="lg-target"></i>공표 목표</span>
+    <span style="margin-left:auto;color:var(--insight);font-weight:700">▼ 현재 = '26년 (당해기 진행)</span>
+  </div>
+
+  <div class="rm-scroll">
+    <table class="rm tabular">
+      <colgroup>
+        <col class="c-lab">
+        <col class="c-yr"><col class="c-yr"><col class="c-yr"><col class="c-yr"><col class="c-yr"><col class="c-yr"><col class="c-yr">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="corner lab">출시방안 &nbsp;/&nbsp; 연도 →</th>
+          <th>'24</th>
+          <th>'25</th>
+          <th class="now now-l">'26</th>
+          <th>'27</th>
+          <th>'28</th>
+          <th>'29</th>
+          <th>'30</th>
+        </tr>
+      </thead>
+      
+<tbody>
+
+        <tr class="l1">
+          <td class="lab" colspan="8">
+            <span class="l1-code">A6</span><span class="l1-t">로봇 사업 본격화</span>
+            <span class="l1-s">'26년 로봇 원년 선언. 60년 모터 노하우 기반 액추에이터(로봇 원가 40%+) 직접 설계·생산 → 글로벌 로봇사 B2B 부품 사업. 로보티즈·로보스타·베어로보틱스 지분 포트폴리오 · 이행도 <b>가속</b></span>
+          </td>
+        </tr>
+
+        <tr class="l2">
+          <td class="lab"><span class="l2-code">L2 · 지분</span><span class="l2-t">지분투자 · 자회사 편입</span></td>
+          <td class="bar done"><span class="barlab">베어 21%<br>→ 51% 취득</span></td>
+          <td class="bar done"><span class="barlab">콜옵션 행사<br>자회사 편입</span></td>
+          <td class="bar done now-l"><span class="barlab">포트폴리오<br>확인</span></td>
+          <td class="bar plan" colspan="4"><span class="barlab">포트폴리오(로보티즈·로보스타·베어) 활용 시나리오 관찰</span></td>
+        </tr>
+        <tr class="l3">
+          <td class="lab"><span class="l3-t">베어로보틱스</span><span class="l3-n">AI 자율주행 서비스 로봇</span></td>
+          <td class="cell">
+            <span class="mk done"><span class="mo">03</span> 지분 21% 취득 6,000만달러<br>+ 30% 콜옵션 계약</span>
+            <span class="mk done"><span class="mo">12</span> 51% 취득 완료<br>(공정위 신고·공식 발표)</span>
+          </td>
+          <td class="cell">
+            <span class="mk done"><span class="mo">01</span> 이사회 콜옵션 의결 — 총 51%<br>경영권·자회사 편입 (총 1.8억달러)</span>
+            <span class="mk plan"><span class="mo">01</span> 이후 61.1%까지 확대<br>(thebell · 추론)</span>
+          </td>
+          <td class="cell empty now-l"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+        <tr class="l3">
+          <td class="lab"><span class="l3-t">포트폴리오</span><span class="l3-n">액추에이터·산업용·서비스</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell now-l">
+            <span class="mk done"><span class="mo">02</span> 로보티즈·로보스타·베어<br>3사 지분 포트폴리오 확인</span>
+          </td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+
+        <tr class="l2">
+          <td class="lab"><span class="l2-code">L2 · 조직</span><span class="l2-t">R&D · 사업 조직 재편</span></td>
+          <td class="bar done"><span class="barlab">BS 로봇사업<br>HS 이관</span></td>
+          <td class="bar done"><span class="barlab">HS로보틱스<br>연구소 신설</span></td>
+          <td class="bar done now-l"><span class="barlab">원년 선언</span></td>
+          <td class="bar plan" colspan="4"><span class="barlab">4대 미래사업 · 연 4조+ 선행 R&D 공유 영역</span></td>
+        </tr>
+        <tr class="l3">
+          <td class="lab"><span class="l3-t">조직 재편</span><span class="l3-n">로봇청소기·Q9 → 휴머노이드 R&D</span></td>
+          <td class="cell">
+            <span class="mk done"><span class="mo">12</span> BS 로봇사업(로봇청소기·Q9)<br>HS사업본부 이관</span>
+          </td>
+          <td class="cell">
+            <span class="mk done"><span class="mo">12</span> HS로보틱스연구소 신설<br>소장 이재욱 연구위원</span>
+          </td>
+          <td class="cell now-l">
+            <span class="mk done"><span class="mo">01</span> 류재철 CEO<br>로봇 원년 선언</span>
+          </td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+
+        <tr class="l2">
+          <td class="lab"><span class="l2-code">L2 · 사업화</span><span class="l2-t">액추에이터 B2B + 홈로봇 상업화</span></td>
+          <td class="bar"><span class="barlab"></span></td>
+          <td class="bar"><span class="barlab"></span></td>
+          <td class="bar done now-l"><span class="barlab">PoC · 초도양산<br>파일럿 라인</span></td>
+          <td class="bar plan" colspan="4"><span class="barlab">'27 외부 매출 본격화 예상 → '28 홈로봇 상업화(공표) → '30 신사업 1.7x/2.4x 연동</span></td>
+        </tr>
+        <tr class="l3">
+          <td class="lab"><span class="l3-t">액추에이터 B2B</span><span class="l3-n">로봇 원가 40%+ 핵심부품</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell now-l">
+            <span class="mk done"><span class="mo">01</span> 직접 설계·생산 → 글로벌 로봇사<br>B2B 부품 사업 착수 선언</span>
+            <span class="mk plan"><span class="mo">05</span> 창원 파일럿 라인 구축 중<br>연내 자사 로봇 우선 적용 (추론)</span>
+            <span class="mk plan"><span class="mo">06</span> 상반기 초도 양산<br>(공표 계획)</span>
+          </td>
+          <td class="cell">
+            <span class="mk plan">외부 매출<br>본격화 예상</span>
+          </td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+        <tr class="l3">
+          <td class="lab"><span class="l3-t">휴머노이드·홈로봇</span><span class="l3-n">글로이드 PoC → 상업화</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell now-l">
+            <span class="mk plan"><span class="mo">06</span> 상반기 휴머노이드 '글로이드'<br>PoC (산업용·가정용 · 공표 계획)</span>
+            <span class="mk done"><span class="mo">02</span> 홈로봇 '클로이드' 포함<br>iF 어워드 26개 본상</span>
+          </td>
+          <td class="cell empty"></td>
+          <td class="cell">
+            <span class="mk target">★ 홈로봇 상업화<br>공표 목표 (주총·CFO 재확인)</span>
+          </td>
+          <td class="cell empty"></td>
+          <td class="cell">
+            <span class="mk plan">개별 매출 목표 미공표<br>신사업 1.7x/2.4x 연동</span>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notes">
+    <div class="row"><b>'30 목표 구조</b> — 로봇 개별 매출 목표 미공표('26.3 주총). 전사 신사업 '24→'30 매출 1.7배·영업이익 2.4배(류재철 체제 주지표)에 연동 관찰.</div>
+    <div class="row"><b>명칭</b> — 휴머노이드 PoC 명칭 '글로이드'(공표 계획)와 iF 수상 홈로봇 '클로이드'는 원천 기재 그대로 구분 유지 — 동일체 여부 미확인.</div>
+    <div class="row"><b>구독 결합</b> — 홈로봇+구독 결합 성장 시나리오는 증권가 추론(A1 '26.2 항목) — 교차축 신호로만 태깅.</div>
+  </div>
+
+  <footer>
+    CI 경쟁사 전략 추적 보드 · 근거는 evidence.json 원본 항목 기준 — 확신도(사실/추론)·출처 등급은 보드 타임라인 참조 · 기준 '26.07
+  </footer>
+</main>
+</body>
+</html>
