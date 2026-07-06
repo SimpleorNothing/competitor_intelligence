@@ -566,13 +566,13 @@ function render(){
     <div class="frame-actions">
       <div class="fa-left">
         <button class="btn-ghost" onclick="openTimeline('${frameId}')">프레임 연혁 보기 (${frameEvCount}건)</button>
-        ${co.id === 'lg' ? `<button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>` : ''}
+        ${FRAME_TRAJ_BY_CO[co.id] ? `<button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>` : ''}
       </div>
       <div class="fa-right">
-        ${co.id === 'lg' ? `<a class="btn-ghost org-link" href="/org.html" target="_blank" rel="noopener">조직도 보기 ↗</a>` : ''}
+        ${ORG_PAGE[co.id] ? `<a class="btn-ghost org-link" href="${ORG_PAGE[co.id]}" target="_blank" rel="noopener">조직도 보기 ↗</a>` : ''}
       </div>
     </div>
-    ${co.id === 'lg' ? kpiPanelHTML() : ''}
+    ${FRAME_TRAJ_BY_CO[co.id] ? kpiPanelHTML(co.id) : ''}
   </section>
 
   <div class="legend">
@@ -649,27 +649,62 @@ function toggleTlSort(){
 }
 
 function kpiBadgeTxt(s){ return s==='behind'?'BEHIND':s==='near'?'근접':s==='ontrack'?'ON-TRACK':'WATCH'; }
-const FRAME_TRAJ = [
-  { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
-    verdict:"이노텍 제외 매출은 '21 59.8조→'22 62.9조→'23 61.7조→'24 66.5조→'25 67.2조. 연결 매출은 89.2조까지 성장했으나 이노텍 제외 기준선은 완만해 '25→'30 연 8.3% 필요. LG공표 기준선은 '22 65조.",
-    kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], xMin:2021, xMax:2030, points:[
-      { year:2021, value:59.8, kind:'estimate', label:'60조', note:'연결 74.7조−이노텍 14.9조' },
-      { year:2022, value:62.9, kind:'estimate', label:'63조', note:'연결 82.5조−이노텍 19.6조 · LG공표 기준선 65조와 병기' },
-      { year:2023, value:61.7, kind:'estimate', label:'62조', note:'연결 82.3조−이노텍 20.6조 · 이노텍 제외론 소폭 감소' },
-      { year:2024, value:66.5, kind:'estimate', label:'67조', note:'연결 87.7조−이노텍 21.2조' },
-      { year:2025, value:67.2, kind:'estimate', label:'67조', note:'연결 89.2조−이노텍 약 22.0조(추정)' },
-      { year:2030, value:100,  kind:'target',   label:'100조', note:'공표·이노텍 제외' }
-    ] } },
-  { metric:'B2B 매출', sub:'40조+ / 비중 45% 목표', status:'near',
-    verdict:"'26 1Q 비중 36%로 상승세, 목표 40~45% 궤도 진입 중. HVAC·전장이 견인축. '21~'23 별도 B2B 시리즈는 미공표(비중 30%대 중반만 언급).",
-    kpiSeries:{ metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], xMin:2021, xMax:2030, points:[
-      { year:2024, value:23.4, kind:'estimate', label:'23조', note:"'25 24.1조·+3% 역산 추정" },
-      { year:2025, value:24.1, kind:'actual',   label:'24조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
-      { year:2030, value:40,   kind:'target',   label:'40조+', note:'공표·비중 40~45%' }
-    ] } }
-];
-function frameTrajHTML(){
-  return `<div class="kpi-charts">${FRAME_TRAJ.map(c=>`
+const ORG_PAGE = { lg: '/org.html', midea: '/org-midea.html' };
+const FRAME_TRAJ_BY_CO = {
+  lg: {
+    lead:`2023.07 선포 <b>트리플 7</b>·<b>매출 100조</b>·<b>포트폴리오 전환</b>의 정량 진척. 트리플 7(수익성·성장·가치)은 3지표 모두 목표 하회하나 <b>'26 1Q OPM 7.1%</b>로 목표선 첫 터치. 아래는 <b>매출 규모·B2B</b> 목표의 연도별 실적↔목표 궤적과 판정.`,
+    notes:`<b>기준</b> 궤적은 '21년부터 표기 — 막대 상단 스트립 <b>전년비</b>, 향후 점선은 <b>CAGR</b>. <b>이노텍 제외 매출</b>=각 연도 연결−LG이노텍(공시) 일관 산정('21 59.8·'22 62.9·'23 61.7·'24 66.5·'25 67.2조). LG공표 기준선('22 65조·'30 100조)과 '22 약 2조 차이는 산식 차이(공표 65조 병기). B2B '24는 '25 24.1조 +3% 역산이며 '21~'23 별도 B2B, ES '21~'23(HVAC 본부 독립 '24말 이전)은 미공표. 확정 공시 시 보정.`,
+    cards:[
+      { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
+        verdict:"이노텍 제외 매출은 '21 59.8조→'22 62.9조→'23 61.7조→'24 66.5조→'25 67.2조. 연결 매출은 89.2조까지 성장했으나 이노텍 제외 기준선은 완만해 '25→'30 연 8.3% 필요. LG공표 기준선은 '22 65조.",
+        kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], xMin:2021, xMax:2030, points:[
+          { year:2021, value:59.8, kind:'estimate', label:'60조', note:'연결 74.7조−이노텍 14.9조' },
+          { year:2022, value:62.9, kind:'estimate', label:'63조', note:'연결 82.5조−이노텍 19.6조 · LG공표 기준선 65조와 병기' },
+          { year:2023, value:61.7, kind:'estimate', label:'62조', note:'연결 82.3조−이노텍 20.6조 · 이노텍 제외론 소폭 감소' },
+          { year:2024, value:66.5, kind:'estimate', label:'67조', note:'연결 87.7조−이노텍 21.2조' },
+          { year:2025, value:67.2, kind:'estimate', label:'67조', note:'연결 89.2조−이노텍 약 22.0조(추정)' },
+          { year:2030, value:100,  kind:'target',   label:'100조', note:'공표·이노텍 제외' }
+        ] } },
+      { metric:'B2B 매출', sub:'40조+ / 비중 45% 목표', status:'near',
+        verdict:"'26 1Q 비중 36%로 상승세, 목표 40~45% 궤도 진입 중. HVAC·전장이 견인축. '21~'23 별도 B2B 시리즈는 미공표(비중 30%대 중반만 언급).",
+        kpiSeries:{ metric:'B2B 매출(별도)', unit:'조원', yMax:44, gridlines:[20,40], xMin:2021, xMax:2030, points:[
+          { year:2024, value:23.4, kind:'estimate', label:'23조', note:"'25 24.1조·+3% 역산 추정" },
+          { year:2025, value:24.1, kind:'actual',   label:'24조', note:"별도·'26.1.30 실적발표, 전년비 +3%" },
+          { year:2030, value:40,   kind:'target',   label:'40조+', note:'공표·비중 40~45%' }
+        ] } }
+    ]
+  },
+  midea: {
+    lead:`팡훙보 체제 <b>ToC+ToB 듀얼 드라이브</b>의 정량 진척. 그룹 차원 <b>공표 매출 목표는 없어</b> 실적 추이로 표기하며, 유일한 정량 목표였던 <b>해외 400억달러('25)</b>는 미달로 리셋 대상. 단위는 <b>RMB(억 위안)</b>, 괄호는 USD 근사(≈7.1 RMB/USD).`,
+    notes:`<b>기준</b> 막대 상단 스트립 <b>전년비</b>. Midea는 그룹 매출·ToB의 <b>2030 정량 목표를 공표하지 않아</b> 목표선(점선)은 해외매출(원목표 400억달러≈2,900억 위안)에만 표시 — 나머지는 <b>WATCH</b>(추이만). 세그먼트·해외 수치는 '25 IR 공표치이며 A주·H주 이중상장으로 총계 기준이 상이할 수 있음(IR 공표치 우선). '23 값 일부는 전년비 역산 추정. USD는 근사.`,
+    cards:[
+      { metric:'그룹 매출', sub:'ToC+ToB · 목표 미공표', status:'watch',
+        verdict:"'24 4,091억(≈$576억)→'25 4,585억 위안(≈$646억)·+12.1%. ToB 1,228억(+17.5%)으로 ToC 대비 빠르게 성장. 2030 정량 목표 미공표라 궤도 판정 대신 추이만 추적.",
+        kpiSeries:{ metric:'그룹 매출', unit:'억위안', yMax:5000, gridlines:[2000,4000], xMin:2023, xMax:2025, points:[
+          { year:2023, value:3737, kind:'estimate', label:'3,737', note:"'24 +9.5% 역산 추정(≈$526억)" },
+          { year:2024, value:4091, kind:'actual',   label:'4,091', note:"'24 매출 4,091억 위안(≈$576억)·+9.5% (IR)" },
+          { year:2025, value:4585, kind:'actual',   label:'4,585', note:"'25 매출 4,585억 위안(≈$646억)·+12.1% (IR)" }
+        ] } },
+      { metric:'해외 매출', sub:'원목표 400억달러 — 미달·리셋', status:'behind',
+        verdict:"'25 해외 1,959억 위안(≈$276억)·+16%·비중 42.9%. OBM 45%+로 질적 개선이나, 원목표 400억달러(≈2,900억 위안) 대비 달성률 약 69%로 미달 — 신규 목표 재공표가 다음 분수령.",
+        kpiSeries:{ metric:'해외 매출', unit:'억위안', yMax:3000, gridlines:[1500,2900], xMin:2023, xMax:2025, points:[
+          { year:2023, value:1509, kind:'estimate', label:'1,509', note:"'23 해외 약 1,509억(≈$213억, 추정)" },
+          { year:2024, value:1690, kind:'estimate', label:'1,690', note:"'24 해외 약 1,690억(≈$238억, 추정)" },
+          { year:2025, value:1959, kind:'actual',   label:'1,959', note:"'25 해외 1,959억(≈$276억)·+16%·비중 42.9%" },
+          { year:2025, value:2900, kind:'target',   label:'≈2,900(원목표)', note:"원목표 400억달러≈2,900억 위안 — 미달" }
+        ] } },
+      { metric:'ToB 매출', sub:'듀얼 드라이브 B축 · 목표 미공표', status:'watch',
+        verdict:"'25 ToB 1,228억 위안(≈$173억)·+17.5%로 전사 성장률(+12.1%) 상회. MBT·산업기술·로봇·의료 합산. 정량 목표 미공표로 추이만 추적하나, 성장률 우위가 포트폴리오 ToB 전환을 뒷받침.",
+        kpiSeries:{ metric:'ToB 매출', unit:'억위안', yMax:1400, gridlines:[600,1200], xMin:2024, xMax:2025, points:[
+          { year:2024, value:1045, kind:'estimate', label:'1,045', note:"'25 1,228억·+17.5% 역산 추정(≈$147억)" },
+          { year:2025, value:1228, kind:'actual',   label:'1,228', note:"'25 ToB 1,228억 위안(≈$173억)·+17.5% (IR)" }
+        ] } }
+    ]
+  }
+};
+function frameTrajHTML(coId){
+  const t = FRAME_TRAJ_BY_CO[coId]; if(!t) return '';
+  return `<div class="kpi-charts">${t.cards.map(c=>`
     <div class="kpi-chartcell">
       <div class="cc-top"><div class="cc-h">${c.metric}</div><span class="kpi-badge s-${c.status}">${kpiBadgeTxt(c.status)}</span></div>
       <div class="cc-s">${c.sub}</div>
@@ -677,16 +712,18 @@ function frameTrajHTML(){
       ${kpiChartHTML(c)}
     </div>`).join('')}</div>`;
 }
-function kpiPanelHTML(){
+function kpiPanelHTML(coId){
+  const t = FRAME_TRAJ_BY_CO[coId]; if(!t) return '';
   return `<div class="kpi-panel" id="kpiPanel" hidden>
-    <div class="kpi-lead">2023.07 선포 <b>트리플 7</b>·<b>매출 100조</b>·<b>포트폴리오 전환</b>의 정량 진척. 트리플 7(수익성·성장·가치)은 3지표 모두 목표 하회하나 <b>'26 1Q OPM 7.1%</b>로 목표선 첫 터치. 아래는 <b>매출 규모·B2B</b> 목표의 연도별 실적↔목표 궤적과 판정.</div>
-    ${frameTrajHTML()}
+    <div class="kpi-lead">${t.lead}</div>
+    ${frameTrajHTML(coId)}
     <div class="kpi-legend">
       <span><span class="d" style="background:var(--amber)"></span>Behind·목표 하위</span>
       <span><span class="d" style="background:var(--new)"></span>근접·궤도 진입중</span>
       <span><span class="d" style="background:var(--deep)"></span>On-track·사실상 도달</span>
+      <span><span class="d" style="background:var(--line-strong)"></span>Watch·목표 미공표</span>
     </div>
-    <div class="kpi-notes"><b>기준</b> 궤적은 '21년부터 표기 — 막대 상단 스트립 <b>전년비</b>, 향후 점선은 <b>CAGR</b>. <b>이노텍 제외 매출</b>=각 연도 연결−LG이노텍(공시) 일관 산정('21 59.8·'22 62.9·'23 61.7·'24 66.5·'25 67.2조). LG공표 기준선('22 65조·'30 100조)과 '22 약 2조 차이는 산식 차이(공표 65조 병기). B2B '24는 '25 24.1조 +3% 역산이며 '21~'23 별도 B2B, ES '21~'23(HVAC 본부 독립 '24말 이전)은 미공표. 확정 공시 시 보정.</div>
+    <div class="kpi-notes">${t.notes}</div>
   </div>`;
 }
 function toggleKpi(btn){
