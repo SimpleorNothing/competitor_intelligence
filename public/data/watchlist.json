@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-05T00:00:00+09:00",
+  "updatedAt": "2026-07-07T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-07-05 07:50",
+  "lastScan": "2026-07-07 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -71,7 +71,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -118,7 +118,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -165,7 +165,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -211,9 +211,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
-      "lastHit": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
+      "lastHit": "2026-07-07 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 인도 스리시티 공장 75% 공정률 달성",
+          "url": "https://www.theguru.co.kr/news/article.html?no=104007",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-06T04:40:44.000Z",
+          "score": 2,
+          "seenAt": "2026-07-07 07:50"
+        },
         {
           "headline": "삼성전자, 고효율 HVAC로 인도 시장 공략 가속",
           "url": "https://www.newsprime.co.kr/news/article/?no=737608",
@@ -258,9 +266,25 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
-      "lastHit": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
+      "lastHit": "2026-07-07 07:50",
       "hits": [
+        {
+          "headline": "월풀, 멕시코 아포다카 공장 폐쇄·생산 이전",
+          "url": "https://mexicobusiness.news/tech/news/whirlpool-close-apodaca-plant-mexico-production-shifts",
+          "source": "Google News - US Home Appliances",
+          "publishedAt": "2026-07-06T18:30:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-07 07:50"
+        },
+        {
+          "headline": "관세청, 무역안보 침해사범 7703억원 단속",
+          "url": "https://www.mk.co.kr/news/economy/12091313",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-07-06T06:55:01.000Z",
+          "score": 1,
+          "seenAt": "2026-07-07 07:50"
+        },
         {
           "headline": "트럼프 관세, 월풀 아이오와 냉장고 공장 일자리 보호 실패",
           "url": "https://www.reuters.com/business/world-at-work/trumps-tariffs-arent-saving-jobs-whirlpools-iowa-refrigerator-plant-2026-06-29/",
@@ -305,9 +329,17 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
-      "lastHit": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
+      "lastHit": "2026-07-07 07:50",
       "hits": [
+        {
+          "headline": "삼성, 토요타와 휴머노이드 로봇 협력 강화…2년만에 공급 5배",
+          "url": "https://www.etnews.com/20260703000206",
+          "source": "전자신문",
+          "publishedAt": "2026-07-06T09:05:38.000Z",
+          "score": 2,
+          "seenAt": "2026-07-07 07:50"
+        },
         {
           "headline": "美 로봇企, AI 학습 전용시설 '로봇파크' 확장 개장",
           "url": "https://www.etnews.com/20260702000242",
@@ -351,7 +383,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -397,7 +429,7 @@
       "priority": "하",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-05 07:50",
+      "lastChecked": "2026-07-07 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
