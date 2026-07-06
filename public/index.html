@@ -705,7 +705,7 @@ function openTimeline(axisId){
     <div class="tl-hd">
       <span class="code">${axis.code}</span>
       <h3>${axis.title} — 실행 증거 타임라인</h3>
-      ${axisId === 'lg-a1' ? '<a href="/a1-roadmap.html" class="cnt rm-link" target="_blank" rel="noopener">추진로드맵 ↗</a>' : ''}
+      ${/^lg-a[1-6]$/.test(axisId) ? '<a href="/' + axisId.slice(3) + '-roadmap.html" class="cnt rm-link" target="_blank" rel="noopener">추진로드맵 ↗</a>' : ''}
       <button type="button" class="cnt" onclick="toggleTlSort()">${evs.length}건 · ${tlSortAsc ? '오래된순' : '최신순'} ⇅</button>
     </div>
     ${evs.map(e => `
