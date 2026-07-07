@@ -68,6 +68,10 @@ header{border-bottom:2px solid var(--ink);background:var(--paper);position:stick
 a.btn-ghost{display:inline-block;text-decoration:none}
 .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper)}
 .btn-ghost:focus-visible{outline:2px solid var(--insight);outline-offset:2px}
+.btn-kpi{display:inline-flex;align-items:center;gap:7px}
+.kpi-dot{width:7px;height:7px;border-radius:50%;background:var(--insight);flex:none;animation:kpiDot 1.8s ease-out infinite}
+.btn-kpi:hover .kpi-dot,.btn-kpi:focus-visible .kpi-dot,.btn-kpi.on .kpi-dot{background:var(--paper);animation:none}
+@keyframes kpiDot{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--insight) 35%,transparent)}70%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
 
 /* ── 범례 ── */
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin:0 0 12px;font-family:var(--mono)}
@@ -566,7 +570,7 @@ function render(){
     <div class="frame-actions">
       <div class="fa-left">
         <button class="btn-ghost" onclick="openTimeline('${frameId}')">프레임 연혁 보기 (${frameEvCount}건)</button>
-        ${FRAME_TRAJ_BY_CO[co.id] ? `<button class="btn-ghost" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel">KPI 진척현황</button>` : ''}
+        ${FRAME_TRAJ_BY_CO[co.id] ? `<button class="btn-ghost btn-kpi" onclick="toggleKpi(this)" aria-expanded="false" aria-controls="kpiPanel"><span class="kpi-dot" aria-hidden="true"></span>KPI 진척현황</button>` : ''}
       </div>
       <div class="fa-right">
         ${ORG_PAGE[co.id] ? `<a class="btn-ghost org-link" href="${ORG_PAGE[co.id]}" target="_blank" rel="noopener">조직도 보기 ↗</a>` : ''}
