@@ -782,6 +782,8 @@ function openTimeline(axisId){
       </div>
     </article>`).join('')}
   `;
+  const hdEl = document.querySelector('header');
+  tl.style.scrollMarginTop = ((hdEl ? hdEl.offsetHeight : 0) + 10) + 'px';
   tl.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
