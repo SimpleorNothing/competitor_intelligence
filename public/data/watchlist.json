@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-07T00:00:00+09:00",
+  "updatedAt": "2026-07-08T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-07-07 07:50",
+  "lastScan": "2026-07-08 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -71,9 +71,17 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
-      "lastHit": "2026-07-05 07:50",
+      "lastChecked": "2026-07-08 07:50",
+      "lastHit": "2026-07-08 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 로보틱스·AIDC 냉각사업 신성장 진입",
+          "url": "https://news.einfomax.co.kr/news/articleViewAmp.html?idxno=4423721",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-07T02:44:15.000Z",
+          "score": 2,
+          "seenAt": "2026-07-08 07:50"
+        },
         {
           "headline": "LG, 데이터센터 물리형 AI 사업 확대",
           "url": "https://www.straitstimes.com/business/lg-this-home-appliances-brand-is-bringing-physical-ai-to-data-centres",
@@ -118,7 +126,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -165,7 +173,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -211,7 +219,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
       "lastHit": "2026-07-07 07:50",
       "hits": [
         {
@@ -266,9 +274,25 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
-      "lastHit": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
+      "lastHit": "2026-07-08 07:50",
       "hits": [
+        {
+          "headline": "미국 USTR, 한국 강제노동 관세 압박…근거 미흡",
+          "url": "https://www.mk.co.kr/news/economy/12092810",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-07-07T12:41:36.000Z",
+          "score": 1,
+          "seenAt": "2026-07-08 07:50"
+        },
+        {
+          "headline": "LG전자, 미국 관세 환급으로 Q2 역대 최고 실적",
+          "url": "https://www.koreajoongangdaily.com/business/lg-electronics-posts-record-q2-earnings-on-premium-appliances-us-tariff-refund/12759352",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-07-07T08:05:05.000Z",
+          "score": 1,
+          "seenAt": "2026-07-08 07:50"
+        },
         {
           "headline": "월풀, 멕시코 아포다카 공장 폐쇄·생산 이전",
           "url": "https://mexicobusiness.news/tech/news/whirlpool-close-apodaca-plant-mexico-production-shifts",
@@ -292,22 +316,6 @@
           "publishedAt": "2026-06-29T19:43:18.000Z",
           "score": 2,
           "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "미국 에너지효율규제 폐지로 삼성·LG 가전주 수혜",
-          "url": "https://www.g-enews.com/article/Global-Biz/2026/07/2026070406560364552bd56fbc3c_1",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-07-03T21:59:45.000Z",
-          "score": 1,
-          "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "트럼프 행정부, 가전 에너지효율 규제 완화 추진",
-          "url": "https://www.washingtonpost.com/business/2026/07/02/energy-department-wants-weaken-efficiency-standards-home-appliances/",
-          "source": "Google News - US Home Appliances",
-          "publishedAt": "2026-07-02T21:42:01.000Z",
-          "score": 1,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -329,7 +337,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
       "lastHit": "2026-07-07 07:50",
       "hits": [
         {
@@ -383,7 +391,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -429,7 +437,7 @@
       "priority": "하",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-07 07:50",
+      "lastChecked": "2026-07-08 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
