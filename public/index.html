@@ -661,6 +661,7 @@ const FRAME_TRAJ_BY_CO = {
     notes:`<b>기준</b> 궤적은 '21년부터 표기 — 막대 상단 스트립 <b>전년비</b>, 향후 점선은 <b>CAGR</b>. <b>이노텍 제외 매출</b>=각 연도 연결−LG이노텍(공시) 일관 산정('21 59.8·'22 62.9·'23 61.7·'24 66.5·'25 67.2조). LG공표 기준선('22 65조·'30 100조)과 '22 약 2조 차이는 산식 차이(공표 65조 병기). B2B '24는 '25 24.1조 +3% 역산이며 '21~'23 별도 B2B, ES '21~'23(HVAC 본부 독립 '24말 이전)은 미공표. 확정 공시 시 보정.`,
     cards:[
       { metric:'전체 매출', sub:'LG이노텍 제외 · 100조 목표', status:'behind',
+        link:'/lg-h1-revenue.html',
         verdict:"이노텍 제외 매출은 '21 59.8조→'22 62.9조→'23 61.7조→'24 66.5조→'25 67.2조. 연결 매출은 89.2조까지 성장했으나 이노텍 제외 기준선은 완만해 '25→'30 연 8.3% 필요. LG공표 기준선은 '22 65조.",
         kpiSeries:{ metric:'전체 매출(이노텍 제외)', unit:'조원', yMax:110, gridlines:[50,100], xMin:2021, xMax:2030, points:[
           { year:2021, value:59.8, kind:'estimate', label:'60조', note:'연결 74.7조−이노텍 14.9조' },
@@ -715,6 +716,7 @@ function frameTrajHTML(coId){
       <div class="cc-s">${c.sub}</div>
       <div class="cc-v">${c.verdict}</div>
       ${kpiChartHTML(c)}
+      ${c.link?`<a class="btn-ghost" style="margin-top:12px;align-self:flex-start;font-size:11.5px" href="${c.link}" target="_blank" rel="noopener">반기별 비교 ↗</a>`:''}
     </div>`).join('')}</div>`;
 }
 function kpiPanelHTML(coId){
