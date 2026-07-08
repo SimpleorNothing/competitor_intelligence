@@ -715,8 +715,8 @@ function frameTrajHTML(coId){
       <div class="cc-top"><div class="cc-h">${c.metric}</div><span class="kpi-badge s-${c.status}">${kpiBadgeTxt(c.status)}</span></div>
       <div class="cc-s">${c.sub}</div>
       <div class="cc-v">${c.verdict}</div>
+      ${c.link?`<a class="btn-ghost" style="margin:0 0 8px;align-self:flex-start;font-size:11px;padding:4px 10px" href="${c.link}" target="_blank" rel="noopener">반기별 ↗</a>`:''}
       ${kpiChartHTML(c)}
-      ${c.link?`<a class="btn-ghost" style="margin-top:12px;align-self:flex-start;font-size:11.5px" href="${c.link}" target="_blank" rel="noopener">반기별 비교 ↗</a>`:''}
     </div>`).join('')}</div>`;
 }
 function kpiPanelHTML(coId){
