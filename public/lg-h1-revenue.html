@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>LG전자 상반기 매출 추이 | CI</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --paper:#EDEFEC; --panel:#FFFFFF; --ink:#17222D; --muted:#5C6B79;
+  --line:#D3D9D6; --line-strong:#9AA6A0;
+  --new:#46647E; --deep:#2F614D; --insight:#B02E24; --amber:#A9790F;
+  --sans:'Pretendard',system-ui,-apple-system,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+.code,.upd,.legend,.kpi-cap,.tog,.note,.src,.tbl{font-variant-numeric:tabular-nums}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+header{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+.hd{display:flex;align-items:baseline;gap:12px;padding:14px 0;flex-wrap:wrap}
+.hd .mark{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.08em;background:var(--ink);color:var(--paper);padding:3px 8px}
+.hd h1{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.hd .back{margin-left:auto;font-size:12px;font-family:var(--sans);border:1px solid var(--ink);padding:5px 11px;text-decoration:none;color:var(--ink)}
+.hd .back:hover{background:var(--ink);color:var(--paper)}
+main{padding:24px 0 60px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.14em;color:var(--muted);margin-bottom:7px}
+h2{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.lead{font-size:13.5px;color:var(--muted);line-height:1.65;margin:10px 0 0;max-width:760px}
+.lead b{color:var(--ink)}
+.panel{background:var(--panel);border:1px solid var(--line-strong);border-top:4px solid var(--ink);margin:22px 0;padding:22px 24px}
+.toggle{display:flex;gap:0;margin-bottom:6px}
+.tog{font-size:13px;font-family:var(--sans);padding:7px 16px;border:1px solid var(--line-strong);background:transparent;color:var(--muted);cursor:pointer}
+.tog+.tog{border-left:none}
+.tog.on{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:600}
+.basis{font-size:12px;color:var(--muted);margin:12px 0 4px;padding:9px 12px;background:var(--paper);border-left:3px solid var(--new);line-height:1.55}
+.basis b{color:var(--ink)}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.kpi-cap{font-family:var(--sans);font-size:10px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.kpi-cap i{display:inline-block;width:9px;height:9px;margin-right:3px;vertical-align:-1px}
+.sw-act{background:var(--new)}
+.sw-est{background:var(--new);opacity:.34}
+.sw-pl{background:var(--new);opacity:.55;border:1.3px dashed var(--insight)}
+.tbl{width:100%;border-collapse:collapse;margin-top:20px;font-size:12.5px}
+.tbl th,.tbl td{text-align:right;padding:7px 10px;border-bottom:1px dotted var(--line)}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl thead th{font-family:var(--sans);font-size:10.5px;letter-spacing:.04em;color:var(--muted);border-bottom:1px solid var(--line-strong)}
+.tbl td .pl{color:var(--insight);font-family:var(--sans);font-size:10px;margin-left:4px}
+.tbl td.na{color:var(--muted)}
+.notes{margin-top:18px;font-size:11px;color:var(--muted);line-height:1.7;font-family:var(--sans);padding-top:14px;border-top:1px solid var(--line)}
+.notes b{color:var(--ink)}
+footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11px;color:var(--muted);font-family:var(--sans)}
+@media(max-width:600px){ .panel{padding:18px 16px} h2{font-size:19px} }
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="hd">
+  <span class="mark">CI</span>
+  <h1>LG전자 상반기 매출 추이</h1>
+  <a class="back" href="/">← 보드로</a>
+</div></div></header>
+
+<main class="wrap">
+  <div class="eyebrow">L1 · 전체 매출 — 반기(상반기) 비교</div>
+  <h2>상반기 매출 '21 → '26</h2>
+  <p class="lead">연간 궤적(이노텍 제외·100조 목표)을 <b>반기 단위</b>로 분해. 기본은 <b>연결(이노텍 포함)</b> — 잠정실적이 연결 기준으로만 공시되기 때문. <b>이노텍 제외</b>는 사업본부별 확정실적(실적설명회) 기준으로 전환하며, '26 상반기는 <b>7/30 확정</b> 전까지 산출 불가.</p>
+
+  <section class="panel">
+    <div class="toggle" role="tablist" aria-label="기준 선택">
+      <button class="tog on" id="tg-c" role="tab" aria-selected="true" onclick="setMode('consolidated')">연결 (이노텍 포함)</button>
+      <button class="tog" id="tg-e" role="tab" aria-selected="false" onclick="setMode('exInnotek')">이노텍 제외</button>
+    </div>
+    <div class="basis" id="basis"></div>
+    <div class="chart" id="chart"></div>
+    <div class="kpi-cap" id="cap"></div>
+    <table class="tbl" id="tbl"></table>
+    <div class="notes" id="notes"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">DA 2030 · Competitor Intelligence · 상반기 누적(1Q+2Q) 연결 매출 · 단위 조원 · '26 상반기는 잠정(7/7 공시)</div></footer>
+
+<script>
+const DATA = {
+  consolidated: {
+    basis: "<b>연결(이노텍 포함)</b> — LG전자 연결 상반기 매출. '26 상반기는 7/7 잠정공시치(점선 테두리).",
+    unit: "조원", yMax: 52, gridlines: [25, 50],
+    points: [
+      { year:2021, value:34.9, kind:'actual',   note:"상반기 연결 34조9,263억 (반기 누적 공시)" },
+      { year:2022, value:40.6, kind:'estimate', note:"40조5,754억 (1Q 21.11+2Q 19.46 합산 · 태양광 중단영업 재작성 유의)" },
+      { year:2023, value:40.4, kind:'estimate', note:"약 40조4천억 (분기 합산 재구성)" },
+      { year:2024, value:42.8, kind:'actual',   note:"42조7,968억 (1Q 21.10+2Q 21.70 공시)" },
+      { year:2025, value:43.5, kind:'actual',   note:"43조4,750억 (1Q 22.74+2Q 20.74 공시)" },
+      { year:2026, value:47.6, kind:'prelim',   note:"47조5,569억 잠정 · 7/7 공시(YoY +9.4%) · 확정 7/30" }
+    ]
+  },
+  exInnotek: {
+    basis: "<b>이노텍 제외</b> — 연결 상반기 − LG이노텍 상반기(공시). 연간 이노텍-제외 궤적과 동일 산식. '26은 사업본부별 확정(7/30) 전까지 산출 불가.",
+    unit: "조원", yMax: 52, gridlines: [25, 50],
+    points: [
+      { year:2021, value:29.5, kind:'actual',   note:"연결 34.9 − 이노텍 5.42조 (2021 1Q 3.07+2Q 2.35)" },
+      { year:2022, value:32.9, kind:'estimate', note:"연결 40.6 − 이노텍 7.66조 (2022 1Q 3.95+2Q 3.70)" },
+      { year:2023, value:32.1, kind:'estimate', note:"연결 40.4 − 이노텍 8.28조 (2023 1Q 4.38+2Q 3.91)" },
+      { year:2024, value:33.9, kind:'actual',   note:"연결 42.8 − 이노텍 8.89조 (2024 1Q 4.33+2Q 4.56)" },
+      { year:2025, value:34.6, kind:'actual',   note:"연결 43.5 − 이노텍 8.92조 (2025 1Q 4.98+2Q 3.93)" },
+      { year:2026, value:null, kind:'pending',  note:"잠정엔 이노텍 분리 불가 — 7/30 실적설명회 후 산출·반영 예정" }
+    ]
+  }
+};
+let MODE = 'consolidated';
+
+function chartSVG(ds){
+  const pts = ds.points.slice().sort((a,b)=>a.year-b.year);
+  const drawn = pts.filter(p=>p.value!=null);
+  const yr0 = pts[0].year, yr1 = pts[pts.length-1].year;
+  const unit = ds.unit, yMax = ds.yMax;
+  const W=340,H=190, x0=30,x1=330, yt=24,yb=150, yYear=168, xpad=18, bw=24;
+  const px = y => x0 + xpad + (yr1===yr0?0:(y-yr0)/(yr1-yr0))*(x1-x0-xpad);
+  const py = v => yb - (v/yMax)*(yb-yt);
+  const f1 = n => Math.round(n*10)/10;
+  let g = '';
+  (ds.gridlines||[]).forEach(gl=>{
+    g += `<line x1="${x0}" x2="${x1}" y1="${f1(py(gl))}" y2="${f1(py(gl))}" stroke="var(--line)" stroke-dasharray="1 4"/>`;
+    g += `<text x="${x0-4}" y="${f1(py(gl)+3)}" text-anchor="end" font-size="8.5" fill="var(--muted)">${gl}${unit}</text>`;
+  });
+  g += `<line x1="${x0}" x2="${x1}" y1="${yb}" y2="${yb}" stroke="var(--line-strong)"/>`;
+  pts.forEach(p=>{
+    const cx = px(p.year);
+    if(p.value==null){
+      g += `<rect x="${f1(cx-bw/2)}" y="${f1(yb-46)}" width="${bw}" height="46" fill="none" stroke="var(--line-strong)" stroke-width="1.1" stroke-dasharray="2 3"/>`;
+      g += `<text x="${f1(cx)}" y="${f1(yb-52)}" text-anchor="middle" font-size="8" fill="var(--muted)">7/30</text>`;
+      g += `<text x="${f1(cx)}" y="${f1(yb-24)}" text-anchor="middle" font-size="7.5" fill="var(--muted)">확정</text>`;
+      g += `<text x="${f1(cx)}" y="${f1(yb-15)}" text-anchor="middle" font-size="7.5" fill="var(--muted)">대기</text>`;
+      return;
+    }
+    const y = py(p.value), h = yb-y, a = `x="${f1(cx-bw/2)}" y="${f1(y)}" width="${bw}" height="${f1(h)}"`;
+    if(p.kind==='prelim'){
+      g += `<rect ${a} fill="var(--new)" opacity=".55" stroke="var(--insight)" stroke-width="1.3" stroke-dasharray="2 2"/>`;
+    } else if(p.kind==='estimate'){
+      g += `<rect ${a} fill="var(--new)" opacity=".34"/>`;
+    } else {
+      g += `<rect ${a} fill="var(--new)"/>`;
+    }
+    g += `<text x="${f1(cx)}" y="${f1(y-5)}" text-anchor="middle" font-size="9" fill="var(--ink)" font-weight="600">${p.value.toFixed(1)}${p.kind==='prelim'?'<tspan fill="var(--insight)" font-size="7.5"> 잠정</tspan>':''}</text>`;
+  });
+  for(let i=1;i<drawn.length;i++){
+    const a=drawn[i-1], b=drawn[i];
+    if(a.value>0&&b.value>0){
+      const pct=Math.round((b.value/a.value-1)*100);
+      const sign=pct>0?'+':'';
+      const col=pct>0?'var(--deep)':(pct<0?'var(--insight)':'var(--muted)');
+      const mx=(px(a.year)+px(b.year))/2, yP=Math.max(12,Math.min(py(a.value),py(b.value))-16);
+      g += `<text x="${f1(mx)}" y="${f1(yP)}" text-anchor="middle" font-size="8.5" fill="${col}" font-weight="600">${sign}${pct}%</text>`;
+    }
+  }
+  for(let y=yr0;y<=yr1;y++){
+    g += `<text x="${f1(px(y))}" y="${yYear}" text-anchor="middle" font-size="8.5" fill="var(--muted)">'${String(y).slice(2)}</text>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="상반기 매출 연도별">${g}</svg>`;
+}
+
+function tableHTML(ds){
+  const rows = ds.points.map(p=>{
+    if(p.value==null) return `<tr><td>'${String(p.year).slice(2)}</td><td class="na">확정 대기</td><td class="na" style="font-size:11px">${p.note}</td></tr>`;
+    const pl = p.kind==='prelim'?'<span class="pl">잠정</span>':(p.kind==='estimate'?'<span class="pl" style="color:var(--muted)">재구성</span>':'');
+    return `<tr><td>'${String(p.year).slice(2)}</td><td>${p.value.toFixed(1)}조${pl}</td><td style="font-size:11px;color:var(--muted)">${p.note}</td></tr>`;
+  }).join('');
+  return `<thead><tr><th>상반기</th><th>매출</th><th>비고 · 출처</th></tr></thead><tbody>${rows}</tbody>`;
+}
+
+function render(){
+  const ds = DATA[MODE];
+  document.getElementById('basis').innerHTML = ds.basis;
+  document.getElementById('chart').innerHTML = chartSVG(ds);
+  document.getElementById('cap').innerHTML =
+    `<span><i class="sw-act"></i>실적</span><span><i class="sw-est"></i>분기합산 재구성</span>`
+    + (MODE==='consolidated'?`<span><i class="sw-pl"></i>잠정</span>`:``)
+    + `<span style="margin-left:auto">전년비 · 단위 ${ds.unit}</span>`;
+  document.getElementById('tbl').innerHTML = tableHTML(ds);
+  document.getElementById('notes').innerHTML = MODE==='consolidated'
+    ? `<b>연결 기준</b>. '21·'26은 반기 누적/잠정 공시 직접치, '24·'25는 분기(1Q+2Q) 공시 합산, '22·'23은 분기 합산 재구성(태양광 중단영업 재작성 유의). 좌측 보드의 연간 궤적은 <b>이노텍 제외</b>라 축이 다름.`
+    : `<b>이노텍 제외 기준</b> = 연결 상반기 − LG이노텍 상반기(공시). 연간 이노텍-제외 궤적과 동일 산식. 상반기 이노텍-제외는 연간의 49~52% 수준으로 정합. '26 상반기는 잠정실적에 이노텍이 분리되지 않아 <b>7/30 확정</b> 후 반영.`;
+  document.getElementById('tg-c').classList.toggle('on', MODE==='consolidated');
+  document.getElementById('tg-c').setAttribute('aria-selected', MODE==='consolidated');
+  document.getElementById('tg-e').classList.toggle('on', MODE==='exInnotek');
+  document.getElementById('tg-e').setAttribute('aria-selected', MODE==='exInnotek');
+}
+function setMode(m){ MODE=m; render(); }
+render();
+</script>
+</body>
+</html>
