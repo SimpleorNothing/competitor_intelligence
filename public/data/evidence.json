@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T00:00:00+09:00",
+  "updatedAt": "2026-07-09T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -1225,6 +1225,23 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "auto"
+    },
+    {
+      "id": 90,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2024-12-17",
+      "event": "LG전자, 스마트솔루션 API 개발자 사이트(smartsolution.developer.lge.com) 통해 씽큐 API 전면 개방 — 개인용 ThinQ API + 기업용 ThinQ Business API 이원화. PAT(Personal Access Token, connect-pat.lgthinq.com) 인증, REST GET/POST 4종(/devices·/{id}/profile·/{id}/state·/{id}/control), openapi.json 전체 명세 공개 다운로드, 27종 가전 프로파일, AWS IoT Core MQTT 이벤트 푸시. Home Assistant 26종 연동 지원. 앳홈(호미, 5만종·앱 1000개) 개방 생태계 결합. 공식 파이썬 SDK thinqconnect(thinq-connect/pythinqconnect) 제공",
+      "interpretation": "씽큐가 '자사 가전 폐쇄 앱'에서 '개방형 개발자 플랫폼'으로 전환된 실행 레이어 — 앳홈 인수('24.7, id50)→씽큐 플랫폼사업센터 HS 직속 이관('24.12, id54)→씽큐 온('25.10)→웹서비스(id86)→씽큐 프로 B2B(id87)로 이어지는 개방 생태계의 기반 인프라. openapi.json 전체 공개로 27종 카테고리별 property·notification(예: 공청기 PM1/2/10·냄새·필터잔량·풍량 r/w)이 스펙만으로 노출 — 당사 관점에선 실기기 없이도 LG 커넥티드 가전의 센서·기능 택소노미를 역설계·벤치마킹할 수 있는 창구(제품기획 대비표 원료). 단 API 자체는 '본인 계정 등록 기기'만 노출하므로 경쟁정보 창구가 아니라 공개 스펙 독해·플랫폼 전략 신호·SmartThings 대비 개방도 벤치마킹이 실제 CI 가치. 낮은 진입장벽(PAT·OAuth無)·HA 커뮤니티 포섭은 스마트싱스(id88, 국내 MAU 우위) 대비 개발자 생태계 열세를 개방도로 만회하려는 수. 개방 API 축적 데이터가 A6 로봇 학습 자산 시나리오(id49)의 연료가 될 수 있어 A3↔A6 교차 감시 대상.",
+      "signalType": "Insight",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 뉴스룸 'LG Opens ThinQ API to Foster Smart Home Innovation'",
+        "url": "https://www.lg.com/global/newsroom/news/home-appliance-solution/lg-opens-thinq-api-to-foster-smart-home-innovation/",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "seeded"
     },
     {
       "id": 100,
