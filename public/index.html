@@ -298,7 +298,7 @@ footer #ub-btn{font-size:11.5px!important}
 .kpi-chartcell .cc-v{font-size:11.5px;color:var(--muted);line-height:1.55;margin:0 0 10px;padding-bottom:10px;border-bottom:1px dotted var(--line)}
 .kpi-chartcell .kpi-badge{margin-top:0;flex:none}
 .kpi-chartcell .kpi-chart{margin-top:auto}
-.kpi-chartcell a.btn-ghost+.kpi-chart{margin-top:0}
+.kpi-chartcell a.btn-ghost+.kpi-chart{margin-top:0!important}
 @media(max-width:760px){
   .kpi-verdicts{grid-template-columns:1fr}
   .kpi-row{grid-template-columns:1fr;gap:9px}
@@ -716,7 +716,7 @@ function frameTrajHTML(coId){
       <div class="cc-top"><div class="cc-h">${c.metric}</div><span class="kpi-badge s-${c.status}">${kpiBadgeTxt(c.status)}</span></div>
       <div class="cc-s">${c.sub}</div>
       <div class="cc-v">${c.verdict}</div>
-      ${c.link?`<a class="btn-ghost" style="margin:auto 0 8px;align-self:flex-start;font-size:11px;padding:4px 10px" href="${c.link}" target="_blank" rel="noopener">반기별 ↗</a>`:''}
+      ${c.link?`<a class="btn-ghost" style="margin:auto 0 0;align-self:flex-start;font-size:11px;padding:4px 10px" href="${c.link}" target="_blank" rel="noopener">반기별 ↗</a>`:''}
       ${kpiChartHTML(c)}
     </div>`).join('')}</div>`;
 }
