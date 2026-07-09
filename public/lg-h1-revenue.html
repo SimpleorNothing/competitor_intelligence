@@ -142,8 +142,6 @@ function chartSVG(ds){
         g += `<text x="${f1(cx)}" y="${f1(yb-52)}" text-anchor="middle" font-size="6.5" fill="var(--muted)">7/30</text>`;
         g += `<text x="${f1(cx)}" y="${f1(yb-24)}" text-anchor="middle" font-size="6" fill="var(--muted)">확정</text>`;
         g += `<text x="${f1(cx)}" y="${f1(yb-15)}" text-anchor="middle" font-size="6" fill="var(--muted)">대기</text>`;
-      } else {
-        g += `<rect x="${f1(cx-bw/2)}" y="${f1(yb-14)}" width="${bw}" height="14" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="1.5 2.5"/>`;
       }
       return;
     }
