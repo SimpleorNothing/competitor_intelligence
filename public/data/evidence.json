@@ -1227,6 +1227,23 @@
       "reviewStatus": "auto"
     },
     {
+      "id": 90,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2025-09-24",
+      "event": "캐롯손해보험, LG전자와 제휴 — LG 씽큐(ThinQ) 연동 시 주택종합보험 월 보험료 10% 할인 제공. 할인 적용 기기를 기존 CCTV·센서 등 보안기기에서 LG 냉장고·세탁기·청소기 등 생활가전 총 15종으로 확대, ThinQ에 가전을 이미 등록·사용 중인 고객은 별도 IoT 기기 구매 없이 할인 적용(아카라 홈에 이어 2번째 연동 플랫폼)",
+      "interpretation": "AI홈(A3)의 씽큐가 LG 자체 서비스를 넘어 제3자 핀테크(보험)와 연동돼 실생활 혜택(보험료 할인)으로 환류된 신호 — 등록 가전 데이터가 외부 파트너 효용으로 연결되며 '개방형 플랫폼' 가치를 실증. 다만 발표 주체는 캐롯손보이고 LG는 씽큐 연동을 제공하는 파트너 지위로, LG의 직접 수익화·가입자 유입 효과는 미공개. id30 rationale의 'A3 최근 90일 실행 증거 얇음'을 일부 보강하는 생태계 확장 증거.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "전자신문",
+        "url": "https://www.etnews.com/20250924000032",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
       "id": 100,
       "companyId": "midea",
       "axisId": "midea-frame",
