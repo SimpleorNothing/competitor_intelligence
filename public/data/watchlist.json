@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-10T00:00:00+09:00",
+  "updatedAt": "2026-07-11T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-07-10 07:50",
+  "lastScan": "2026-07-11 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,9 +24,17 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
-      "lastHit": "2026-07-10 07:50",
+      "lastChecked": "2026-07-11 07:50",
+      "lastHit": "2026-07-11 07:50",
       "hits": [
+        {
+          "headline": "오텍캐리어, 글로벌 캐리어와 데이터센터 냉각 협력",
+          "url": "https://www.hankyung.com/article/202607108020i",
+          "source": "한국경제",
+          "publishedAt": "2026-07-10T02:00:00.000Z",
+          "score": 4,
+          "seenAt": "2026-07-11 07:50"
+        },
         {
           "headline": "LG전자 칠러·로봇 사업 목표가 줄상향",
           "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4424072",
@@ -79,9 +87,25 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
-      "lastHit": "2026-07-10 07:50",
+      "lastChecked": "2026-07-11 07:50",
+      "lastHit": "2026-07-11 07:50",
       "hits": [
+        {
+          "headline": "오텍캐리어, 글로벌 캐리어와 데이터센터 냉각 협력",
+          "url": "https://www.hankyung.com/article/202607108020i",
+          "source": "한국경제",
+          "publishedAt": "2026-07-10T02:00:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-11 07:50"
+        },
+        {
+          "headline": "삼성전자 하만, 뉴질랜드 대형 컨벤션센터 오디오 인프라 수주",
+          "url": "https://www.theguru.co.kr/news/article.html?no=104252",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-10T15:00:57.000Z",
+          "score": 1,
+          "seenAt": "2026-07-11 07:50"
+        },
         {
           "headline": "LG전자 칠러·로봇 사업 목표가 줄상향",
           "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4424072",
@@ -105,22 +129,6 @@
           "publishedAt": "2026-06-24T20:00:00.000Z",
           "score": 1,
           "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "LG전자, 가전 기술 활용해 동남아 데이터센터 시장 진출",
-          "url": "https://www.straitstimes.com/business/lg-this-home-appliances-brand-is-bringing-physical-ai-to-data-centres?ref=latest",
-          "source": "Google News - LG Global",
-          "publishedAt": "2026-06-24T20:00:00.000Z",
-          "score": 1,
-          "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "LG전자, 북미 빅테크 AI 수주 임박",
-          "url": "https://ket.kr/news/article.html?no=38928",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-06-23T02:04:20.000Z",
-          "score": 1,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -142,7 +150,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
+      "lastChecked": "2026-07-11 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -189,7 +197,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
+      "lastChecked": "2026-07-11 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
@@ -235,7 +243,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
+      "lastChecked": "2026-07-11 07:50",
       "lastHit": "2026-07-07 07:50",
       "hits": [
         {
@@ -290,9 +298,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
-      "lastHit": "2026-07-10 07:50",
+      "lastChecked": "2026-07-11 07:50",
+      "lastHit": "2026-07-11 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 동남아 스마트 세탁소 신사업 확대…베트남 진출",
+          "url": "https://www.theguru.co.kr/news/article.html?no=104227",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-09T23:12:20.000Z",
+          "score": 1,
+          "seenAt": "2026-07-11 07:50"
+        },
         {
           "headline": "트럼프 관세, 월풀 아이오와 냉장고 공장 고용 감소 방어 실패",
           "url": "https://www.reuters.com/business/world-at-work/trumps-tariffs-arent-saving-jobs-whirlpools-iowa-refrigerator-plant-2026-06-29/",
@@ -324,14 +340,6 @@
           "publishedAt": "2026-07-07T08:05:05.000Z",
           "score": 1,
           "seenAt": "2026-07-08 07:50"
-        },
-        {
-          "headline": "월풀, 멕시코 아포다카 공장 폐쇄·생산 이전",
-          "url": "https://mexicobusiness.news/tech/news/whirlpool-close-apodaca-plant-mexico-production-shifts",
-          "source": "Google News - US Home Appliances",
-          "publishedAt": "2026-07-06T18:30:00.000Z",
-          "score": 1,
-          "seenAt": "2026-07-07 07:50"
         }
       ]
     },
@@ -353,9 +361,25 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
-      "lastHit": "2026-07-07 07:50",
+      "lastChecked": "2026-07-11 07:50",
+      "lastHit": "2026-07-11 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 휴머노이드 로봇용 액추에이터 양산 돌입",
+          "url": "https://www.mk.co.kr/news/business/12095018",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-07-09T22:06:55.000Z",
+          "score": 5,
+          "seenAt": "2026-07-11 07:50"
+        },
+        {
+          "headline": "LG, 가사 자동화 홈로봇 AI 기술 추진",
+          "url": "https://www.msn.com/en-in/lifestyle/shopping/lg-s-home-robot-plan-wants-ai-to-handle-daily-chores-for-users/ar-AA25KV2S?uxmode=ruby&apiversion=v2&domshim=1&noservercache=1&noservertelemetry=1&batchservertelemetry=1&renderwebcomponents=1&wcseo=1",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-07-10T09:59:20.000Z",
+          "score": 2,
+          "seenAt": "2026-07-11 07:50"
+        },
         {
           "headline": "삼성, 토요타와 휴머노이드 로봇 협력 강화…2년만에 공급 5배",
           "url": "https://www.etnews.com/20260703000206",
@@ -379,14 +403,6 @@
           "publishedAt": "2026-06-30T21:30:54.000Z",
           "score": 2,
           "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "LG전자, 로봇사업센터 신설…홈로봇 '클로이' 상용화 가속",
-          "url": "https://www.mk.co.kr/en/business/12086784",
-          "source": "Google News - LG Global",
-          "publishedAt": "2026-06-30T07:44:27.000Z",
-          "score": 2,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -407,9 +423,25 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
-      "lastHit": "2026-07-09 07:50",
+      "lastChecked": "2026-07-11 07:50",
+      "lastHit": "2026-07-11 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 신사업 '피보팅'으로 가전 불황 극복",
+          "url": "https://biz.chosun.com/it-science/ict/2026/07/10/H3S2PHZJKVD7NMY75FD4CCLUMA/",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-10T06:22:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-11 07:50"
+        },
+        {
+          "headline": "삼성, AI 기반 구독형 가전 케어 서비스 'AI 구독클럽' 출시",
+          "url": "https://news.samsung.com/kr/%EC%B9%B4%EB%93%9C%EB%89%B4%EC%8A%A4-%EC%9A%B0%EB%A6%AC%EC%A7%91-%EA%B0%80%EC%A0%84%EC%9D%84-%EB%8A%98-%EC%B5%9C%EC%83%81%EC%9C%BC%EB%A1%9C-ai-%EA%B5%AC%EB%8F%85%ED%81%B4%EB%9F%BD",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-10T05:00:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-11 07:50"
+        },
         {
           "headline": "LG전자 2분기 영업익 1조5788억, 전년 비 146.9% 급증",
           "url": "https://www.koit.co.kr/news/articleView.html?idxno=207885",
@@ -433,14 +465,6 @@
           "publishedAt": "2026-06-10T21:34:36.000Z",
           "score": 2,
           "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "보일러·생리대 등 구독서비스 확산, 소비 패턴 변화",
-          "url": "https://www.mk.co.kr/news/business/12061913",
-          "source": "매일경제 산업",
-          "publishedAt": "2026-05-30T08:22:57.000Z",
-          "score": 2,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -461,7 +485,7 @@
       "priority": "하",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-10 07:50",
+      "lastChecked": "2026-07-11 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
