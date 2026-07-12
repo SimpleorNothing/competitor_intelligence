@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-12T00:00:00+09:00",
+  "updatedAt": "2026-07-13T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-07-12 07:50",
+  "lastScan": "2026-07-13 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
+      "lastChecked": "2026-07-13 07:50",
       "lastHit": "2026-07-11 07:50",
       "hits": [
         {
@@ -87,7 +87,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
+      "lastChecked": "2026-07-13 07:50",
       "lastHit": "2026-07-11 07:50",
       "hits": [
         {
@@ -150,9 +150,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
-      "lastHit": "2026-07-05 07:50",
+      "lastChecked": "2026-07-13 07:50",
+      "lastHit": "2026-07-13 07:50",
       "hits": [
+        {
+          "headline": "LG전자 ThinQ 앱 에어컨 제어 오류 발생",
+          "url": "https://www.gukjenews.com/news/articleView.html?idxno=3633625",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-12T13:04:09.000Z",
+          "score": 2,
+          "seenAt": "2026-07-13 07:50"
+        },
         {
           "headline": "LG전자, 오픈AI 협력으로 AI 가전 제어 플랫폼 강화",
           "url": "https://v.daum.net/v/20260624154235758",
@@ -197,9 +205,33 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
-      "lastHit": "2026-07-12 07:50",
+      "lastChecked": "2026-07-13 07:50",
+      "lastHit": "2026-07-13 07:50",
       "hits": [
+        {
+          "headline": "칩플레이션 확산, 삼성전자 서비스 자재비 인상",
+          "url": "https://www.yna.co.kr/view/AKR20260712045900003",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-12T20:55:01.000Z",
+          "score": 1,
+          "seenAt": "2026-07-13 07:50"
+        },
+        {
+          "headline": "월풀, 구조조정·부채 재편으로 주가 상승",
+          "url": "https://timothysykes.com/news/whirlpoolcorporation-whr-news-2026_07_11/",
+          "source": "Google News - US Home Appliances",
+          "publishedAt": "2026-07-11T15:07:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-13 07:50"
+        },
+        {
+          "headline": "월풀, 가격 인상·재무 개선으로 주가 상승",
+          "url": "https://www.quiverquant.com/news/Whirlpool+shares+climb+as+investors+weigh+pricing+actions+and+refinancing+progress",
+          "source": "Google News - US Home Appliances",
+          "publishedAt": "2026-07-10T21:20:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-13 07:50"
+        },
         {
           "headline": "월풀, 원가절감·부채 구조조정 강화로 주가 상승",
           "url": "https://www.timothysykes.com/news/whirlpoolcorporation-whr-news-2026_07_11/",
@@ -215,30 +247,6 @@
           "publishedAt": "2026-07-10T00:56:00.000Z",
           "score": 1,
           "seenAt": "2026-07-12 07:50"
-        },
-        {
-          "headline": "미국 에너지효율규제 폐지로 삼성·LG 가전주 수혜",
-          "url": "https://www.g-enews.com/article/Global-Biz/2026/07/2026070406560364552bd56fbc3c_1",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-07-03T21:59:45.000Z",
-          "score": 1,
-          "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "월풀, 멕시코 공장 구조조정 단행",
-          "url": "https://www.theglobeandmail.com/investing/markets/markets-news/Tipranks/3107352/whirlpool-announces-major-mexican-manufacturing-restructuring-plan/",
-          "source": "Google News - US Home Appliances",
-          "publishedAt": "2026-07-02T21:38:37.000Z",
-          "score": 1,
-          "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "LG전자, 공기청정기도 중국 외주 제작 전환",
-          "url": "https://www.etnews.com/20260701000157",
-          "source": "전자신문",
-          "publishedAt": "2026-07-01T07:00:00.000Z",
-          "score": 1,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -259,7 +267,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
+      "lastChecked": "2026-07-13 07:50",
       "lastHit": "2026-07-07 07:50",
       "hits": [
         {
@@ -314,7 +322,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
+      "lastChecked": "2026-07-13 07:50",
       "lastHit": "2026-07-11 07:50",
       "hits": [
         {
@@ -377,7 +385,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
+      "lastChecked": "2026-07-13 07:50",
       "lastHit": "2026-07-11 07:50",
       "hits": [
         {
@@ -439,9 +447,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
-      "lastHit": "2026-07-11 07:50",
+      "lastChecked": "2026-07-13 07:50",
+      "lastHit": "2026-07-13 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 구독형 정기케어 서비스 확대 추진",
+          "url": "https://v.daum.net/v/0LZndQ8Byy?f=p",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-12T05:42:05.000Z",
+          "score": 2,
+          "seenAt": "2026-07-13 07:50"
+        },
         {
           "headline": "LG전자, 신사업 '피보팅'으로 가전 불황 극복",
           "url": "https://biz.chosun.com/it-science/ict/2026/07/10/H3S2PHZJKVD7NMY75FD4CCLUMA/",
@@ -473,14 +489,6 @@
           "publishedAt": "2026-06-23T19:30:00.000Z",
           "score": 2,
           "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "LG전자, 가전구독 서비스 3조원 시대 진입…해외 확대",
-          "url": "https://www.news2day.co.kr/article/20260610500238",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-06-10T21:34:36.000Z",
-          "score": 2,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -501,7 +509,7 @@
       "priority": "하",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-12 07:50",
+      "lastChecked": "2026-07-13 07:50",
       "lastHit": "2026-07-05 07:50",
       "hits": [
         {
