@@ -18,6 +18,11 @@ ci-site/
 │   │   ├── strategies.json # L1 전략 프레임 + L2 추진전략 축
 │   │   └── evidence.json   # L3 실행 증거 타임라인 + 미분류 인박스
 │   └── .nojekyll
+├── scripts/
+│   └── ingest-from-mi.mjs  # mi 경쟁사 기사 → evidence 자동 적재 (2차 자동화)
+├── .github/
+│   └── workflows/
+│       └── ingest-from-mi.yml  # 일 1회 자동 실행
 ├── wrangler.jsonc           # Workers 배포 설정 (assets.run_worker_first: true)
 └── README.md
 ```
@@ -71,10 +76,21 @@ ci-site/
 - **분기 검증**: L1·L2가 최신 전략으로 유효한지 총론 재검색 — CEO 교체·조직개편·목표 수치 변경은
   즉시 frame/axes 반영
 
-## 2차 자동화 (예정 — 아직 미구현)
+## 2차 자동화 (구현됨)
 
-`market-insight` 패턴 재사용:
-`mi`의 news.json(경쟁사 태그) → 일 1회 GitHub Action → Claude API로
-① 축 매핑(불가 시 inbox) ② 해석 1~2문장 ③ New/Deep/Insight 판정 →
-`evidence.json` append(`reviewStatus: auto`) → execStatus 재계산.
-필요 시크릿: `ANTHROPIC_API_KEY`, Workflow permissions: Read and write.
+`market-insight`(mi)의 경쟁사 태그 기사를 매일 CI evidence로 자동 적재한다.
+
+- **파이프라인**: `mi`의 news.json(공개 raw) → 일 1회 GitHub Action(`ingest-from-mi.yml`) →
+  `scripts/ingest-from-mi.mjs`가 Claude API로 ① 축 매핑(불가 시 inbox) ② 해석 1~2문장
+  ③ New/Deep/Insight 판정 → `evidence.json` append(`reviewStatus: "auto"`, `origin: "mi"`, `miId`).
+- **적재 대상**: strategies.json에서 `active` + 축을 가진 회사(현재 LG·Midea)로 태깅된 기사 중
+  등급 긴급/주요/주시, 최근 30일 내, 미적재분. 한 회 최대 12건(비용 보호).
+- **모델**: `claude-haiku-4-5-20251001` (mi와 동일). Node 20 내장 fetch만 사용 — 별도 npm 의존성 없음.
+- **멱등성**: 이미 적재된 `source.url`·`miId`는 재적재하지 않음. 매일 실행해도 중복 없음.
+- **execStatus는 자동 변경하지 않음.** 자동 적재분은 `reviewStatus: "auto"`로만 쌓이고,
+  execStatus·축 승격(reviewed)은 위 **주간 검토**에서 사람이 판정한다(자동 판정이 큐레이션을 오염시키지 않도록).
+- **수동 실행**: Actions → *Ingest from Market Insight* → Run workflow.
+- **로컬 검증(비호출)**: `DRY_RUN=1 node scripts/ingest-from-mi.mjs` — Claude 호출 없이 후보 선별까지만 확인.
+
+필요 시크릿: `ANTHROPIC_API_KEY` (Settings → Secrets and variables → Actions).
+Workflow permissions: Read and write (`.github/workflows/ingest-from-mi.yml`에 `contents: write` 명시).
