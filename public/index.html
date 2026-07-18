@@ -498,13 +498,19 @@ function kpiChartHTML(axis){
 
 function watchlistHTML(){
   if(!W || !Array.isArray(W.items) || !W.items.length) return '';
+  // 워치리스트는 단일 파일(data/watchlist.json)에 여러 회사 항목이 섞여 있다.
+  // 현재 선택된 회사(탭)의 항목만 렌더한다 — companyId 명시값 우선, 없으면 axisId 접두어(예: lg-a2 → lg)로 판정.
+  const cid = curCompany().id;
+  const itemCompany = i => i.companyId || String(i.axisId||'').split('-')[0];
+  const mine = W.items.filter(i => itemCompany(i) === cid);
+  if(!mine.length) return '';
   const PRI = { '상':0, '중':1, '하':2 };
-  const sorted = W.items.slice().sort((a,b)=>{
+  const sorted = mine.slice().sort((a,b)=>{
     const sa = a.status==='signal'?0:1, sb = b.status==='signal'?0:1;
     if(sa!==sb) return sa-sb;
     return (PRI[a.priority]!=null?PRI[a.priority]:9) - (PRI[b.priority]!=null?PRI[b.priority]:9);
   });
-  const signalN = W.items.filter(i=>i.status==='signal').length;
+  const signalN = mine.filter(i=>i.status==='signal').length;
   const scan = W.lastScan ? ('마지막 스캔 ' + senseEsc(W.lastScan)) : '스캔 대기';
   return `
   <section class="watch">
