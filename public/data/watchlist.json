@@ -1,10 +1,10 @@
 {
   "updatedAt": "2026-07-18T00:00:00+09:00",
   "schemaVersion": "v1",
-  "companyId": "lg",
+  "companyId": "multi",
   "lastScan": "2026-07-18 07:50",
   "scanReason": "cron",
-  "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
+  "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님). 여러 회사(LG·Midea) 항목이 한 파일에 섞여 있으며, 보드는 각 항목의 companyId(없으면 axisId 접두어)로 선택 회사 탭에 맞는 항목만 렌더한다.",
   "items": [
     {
       "id": "w-a2-nvidia",
@@ -537,6 +537,160 @@
           "seenAt": "2026-07-05 07:50"
         }
       ]
+    },
+    {
+      "id": "w-m-a1-obm",
+      "companyId": "midea",
+      "axisId": "midea-a1",
+      "axisCode": "A1",
+      "question": "해외 매출 신규 정량 목표 재공표 여부",
+      "detail": "'25 해외 400억달러 원목표 미달(실적 약 275억달러·+16%). 신규 해외매출·OBM 비중 정량 목표 재공표 시 프레임 targets·A1 궤도 재판정.",
+      "keywords": [
+        "Midea",
+        "美的",
+        "미디어",
+        "해외 매출",
+        "OBM",
+        "자체브랜드",
+        "해외 비중",
+        "글로벌"
+      ],
+      "priority": "중",
+      "status": "watching",
+      "createdAt": "2026-07-18",
+      "lastChecked": null,
+      "lastHit": null,
+      "hits": []
+    },
+    {
+      "id": "w-m-a2-aidc",
+      "companyId": "midea",
+      "axisId": "midea-a2",
+      "axisCode": "A2",
+      "question": "AIDC 냉각 단독 매출·수주 목표 공개 / 글로벌 DC냉각 점유 진입",
+      "detail": "AIDC 냉각은 MBT 세그먼트 통합 계상(단독 매출·수주 목표 미공개). 순더 액냉기지 '27.8 양산·아세안 풀스택 확산·글로벌 DC냉각 리더보드 진입 시 별도 추적. LG(칠러)·삼성(FläktGroup)과 정면 경쟁.",
+      "keywords": [
+        "Midea",
+        "美的",
+        "MBT",
+        "데이터센터 냉각",
+        "액냉",
+        "칠러",
+        "CDU",
+        "智算",
+        "AIDC",
+        "순더"
+      ],
+      "priority": "상",
+      "status": "watching",
+      "createdAt": "2026-07-18",
+      "lastChecked": null,
+      "lastHit": null,
+      "hits": []
+    },
+    {
+      "id": "w-m-a3-humanoid",
+      "companyId": "midea",
+      "axisId": "midea-a3",
+      "axisCode": "A3",
+      "question": "휴머노이드(MIRO U) 양산·체화지능 조직 안정성",
+      "detail": "'25.12 MIRO U 우시 세탁기공장 파일럿(라인효율 +30% 목표). '26.5 휴머노이드 주도 CTO 웨이창 사임 — 조직 시그널 관찰. KUKA V자 회복 지속성은 '26 연간 실적으로 재판정.",
+      "keywords": [
+        "Midea",
+        "美的",
+        "KUKA",
+        "库卡",
+        "휴머노이드",
+        "체화지능",
+        "具身智能",
+        "MIRO",
+        "로봇",
+        "블루오렌지"
+      ],
+      "priority": "상",
+      "status": "watching",
+      "createdAt": "2026-07-18",
+      "lastChecked": null,
+      "lastHit": null,
+      "hits": []
+    },
+    {
+      "id": "w-m-a4-energy",
+      "companyId": "midea",
+      "axisId": "midea-a4",
+      "axisCode": "A4",
+      "question": "Midea Energy 사업부 분리 공식 확인",
+      "detail": "'25.12 에너지 사업부 별도 분리는 보도 기준(1차 출처 미확인). 공식 확인·조직 신설 공시 시 A4 org 갱신. GMCC·Welling의 EV 열관리·에너지스토리지 확장 추적.",
+      "keywords": [
+        "Midea",
+        "美的",
+        "신에너지",
+        "에너지 사업부",
+        "GMCC",
+        "Welling",
+        "威灵",
+        "EV 열관리",
+        "컴프레서",
+        "에너지스토리지"
+      ],
+      "priority": "중",
+      "status": "watching",
+      "createdAt": "2026-07-18",
+      "lastChecked": null,
+      "lastHit": null,
+      "hits": []
+    },
+    {
+      "id": "w-m-a5-medical",
+      "companyId": "midea",
+      "axisId": "midea-a5",
+      "axisCode": "A5",
+      "question": "헬스케어(万东·Carestream) 세그먼트 실적·'千亿' 목표 시한 공개",
+      "detail": "세그먼트 매출 별도 미공표. 万东의료(상장 자회사) 매출·Carestream 국제사업 통합 실적, '千亿급(1,000억 위안)' 플랫폼 목표 시한 공개 시 계열화(kpiSeries) 검토.",
+      "keywords": [
+        "Midea",
+        "美的",
+        "의료",
+        "헬스케어",
+        "万东",
+        "Carestream",
+        "MRI",
+        "수술로봇",
+        "千亿",
+        "Swisslog"
+      ],
+      "priority": "중",
+      "status": "watching",
+      "createdAt": "2026-07-18",
+      "lastChecked": null,
+      "lastHit": null,
+      "hits": []
+    },
+    {
+      "id": "w-m-a6-simplify",
+      "companyId": "midea",
+      "axisId": "midea-a6",
+      "axisCode": "A6",
+      "question": "대규모 감원·조직 간소화 규모 공식 확인",
+      "detail": "'3만명 감원설'은 회사 공식 확인 없음. 감원 규모·SKU/조직 층위 축소(关停并转)·순현금 기반 M&A 등 MBS 실행 정량치 공식 확인 시 반영.",
+      "keywords": [
+        "Midea",
+        "美的",
+        "감원",
+        "구조조정",
+        "MBS",
+        "精简",
+        "원가",
+        "자사주",
+        "배당",
+        "以简化促增长"
+      ],
+      "priority": "하",
+      "status": "watching",
+      "createdAt": "2026-07-18",
+      "lastChecked": null,
+      "lastHit": null,
+      "hits": []
     }
   ]
 }
