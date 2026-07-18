@@ -636,14 +636,22 @@ function render(){
 }
 
 function alignKpiDividers(){
+  // 카드 쌍(2열)에서 .kpi(구분선)·.ach(궤적 헤더)·.kpi-cap(범례 캡션)·.foot(하단 메타)의 높이를 맞춘다.
+  // 특히 svg 아래의 .kpi-cap·.foot 높이 차이(폭에 따른 줄바꿈)는 하단 고정된 궤적 차트의
+  // 기준선 y를 좌우로 어긋나게 하므로, 이들까지 정렬해야 두 그래프의 수평선이 일치한다.
+  const ROWSEL = ['.kpi', '.ach', '.kpi-cap', '.foot'];
   const cards = Array.from(document.querySelectorAll('.axis'));
-  cards.forEach(c => { const k = c.querySelector('.kpi'); if (k) k.style.minHeight = ''; });
+  cards.forEach(c => ROWSEL.forEach(sel => { const el = c.querySelector(sel); if (el) el.style.minHeight = ''; }));
   if (window.matchMedia('(max-width:760px)').matches) return;
   for (let i = 0; i < cards.length; i += 2){
-    const pair = cards.slice(i, i + 2).map(c => c.querySelector('.kpi')).filter(Boolean);
-    if (pair.length < 2) continue;
-    const max = Math.max(...pair.map(k => k.offsetHeight));
-    pair.forEach(k => { k.style.minHeight = max + 'px'; });
+    const pairCards = cards.slice(i, i + 2);
+    if (pairCards.length < 2) continue;
+    ROWSEL.forEach(sel => {
+      const els = pairCards.map(c => c.querySelector(sel)).filter(Boolean);
+      if (els.length < 2) return; // 한쪽에만 있으면(예: 차트 없는 축) 정렬 생략
+      const max = Math.max(...els.map(el => el.offsetHeight));
+      els.forEach(el => { el.style.minHeight = max + 'px'; });
+    });
   }
 }
 let kpiAlignResizeT = null;
