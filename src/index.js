@@ -350,9 +350,11 @@ async function senseWeb(note, env, axes, refs) {
       '{"summary":"5줄 이내 조사 요약, 각 사실 끝에 (출처URL)","verdict":"승격|부분승격|대기",' +
       '"reason":"판정 근거 1~2문장","items":[{"axisId":"...","date":"YYYY-MM-DD 또는 YYYY-MM",' +
       '"event":"확정된 사실","interpretation":"당사(삼성 DA) 관점 해석","signalType":"New|Deep|Insight",' +
-      '"confidence":"사실|추론","source":{"name":"출처명","url":"https://...","tier":1}}],' +
+      '"confidence":"사실|추론","source":{"name":"출처명","url":"https://...","tier":1},"tags":[]}],' +
       '"noteUpdate":"대기·부분승격 시 인박스에 남길 갱신 노트(없으면 null)","removeFromInbox":false}\n' +
       "규칙: items에는 출처로 확인된 사실만 넣는다. confidence '사실'은 1차 출처(공시·회사 발표)가 있을 때만. " +
+      "tags는 축을 가로지르는 중첩 주제를 표시하는 선택 필드다. axisId는 반드시 단일 전략축으로 두고, tags에 중첩축 식별자를 넣는다. " +
+      "현재 정의된 값은 \"B2B주거\" 하나뿐 — 건설사 대상 주거 솔루션(빌트인·재건축 특판 구독, 아파트 단지 AI홈 연동, 로봇 친화형 아파트)에 해당할 때만 붙인다. 해당 없으면 빈 배열. " +
       "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n\n" +
       "요청: " + note + refBlock;
     const r = await fetch("https://api.anthropic.com/v1/messages", {
@@ -448,8 +450,16 @@ async function handlePromote(request, env, ctx) {
   const entry = (data.inbox || []).find((x) => x.id === inboxId);
   let nextId = Math.max(0, ...(data.items || []).map((i) => Number(i.id) || 0)) + 1;
   const added = [];
+  const TAG_VOCAB = ["B2B주거"]; // 중첩축 식별자 — claude/axis-overlay-design.md
   for (const it of items.slice(0, 5)) {
     if (!it || !it.axisId || !it.event) continue;
+    // tags: 축을 가로지르는 중첩 참조. axisId는 단일 귀속을 유지하고 tags로만 교차 표시한다.
+    // 정의된 어휘만 통과시켜 오탈자·임의 태그가 쌓이는 것을 막는다.
+    const tags = (Array.isArray(it.tags) ? it.tags : [])
+      .map((t) => String(t).trim())
+      .filter((t) => TAG_VOCAB.includes(t))
+      .filter((t, i, a) => a.indexOf(t) === i)
+      .slice(0, 5);
     added.push({
       id: nextId++,
       companyId: "lg",
@@ -466,6 +476,7 @@ async function handlePromote(request, env, ctx) {
       },
       interpretationBy: "claude",
       reviewStatus: "auto",
+      ...(tags.length ? { tags } : {}),
     });
   }
   data.items = (data.items || []).concat(added);
@@ -477,7 +488,8 @@ async function handlePromote(request, env, ctx) {
 
   const msg = "data: 센싱 반영 — " + inboxId +
     (removeFromInbox ? " 승격·인박스 제거" : noteUpdate ? " 노트 갱신" : " 증거 추가") +
-    " (+" + added.length + "건)";
+    " (+" + added.length + "건" +
+    (added.some((a) => a.tags) ? " · tags " + Array.from(new Set(added.flatMap((a) => a.tags || []))).join(",") : "") + ")";
   const putRes = await fetch(
     "https://api.github.com/repos/" + DATA_REPO + "/contents/" + DATA_PATH,
     {
