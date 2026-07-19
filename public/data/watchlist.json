@@ -258,7 +258,9 @@
           "score": 1,
           "seenAt": "2026-07-13 07:50"
         }
-      ]
+      ],
+      "routedInboxId": "ib-w-a4-costtarget",
+      "routedAt": "2026-07-19 17:58"
     },
     {
       "id": "w-a5-globalsouth",
