@@ -127,7 +127,18 @@
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ id: id, action: action, reason: reason })
       });
-      var d = await r.json();
+      // 라우트 미배포·프록시 오류 시 본문이 비어 r.json() 이 곧장 터진다.
+      // 원인을 알 수 있도록 텍스트로 먼저 읽고 상태코드를 붙여 보고한다.
+      var raw = await r.text();
+      var d = {};
+      if (raw) {
+        try { d = JSON.parse(raw); }
+        catch (e) { throw new Error("HTTP " + r.status + " — 응답이 JSON이 아님: " + raw.slice(0, 120)); }
+      } else if (!r.ok) {
+        throw new Error("HTTP " + r.status + " — 응답 본문 없음. /api/watchlist-action 이 배포됐는지 확인하세요.");
+      } else {
+        throw new Error("빈 응답(HTTP " + r.status + ")");
+      }
       if (!r.ok || d.error) throw new Error(d.error || "HTTP " + r.status);
 
       var it = (W.items || []).find(function (x) { return x.id === id; });
