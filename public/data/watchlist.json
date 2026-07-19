@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-18T00:00:00+09:00",
+  "updatedAt": "2026-07-19T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
   "lastScan": "2026-07-18 07:50",
@@ -67,7 +67,9 @@
           "score": 1,
           "seenAt": "2026-07-05 07:50"
         }
-      ]
+      ],
+      "routedInboxId": "ib-w-a2-nvidia",
+      "routedAt": "2026-07-19 15:53"
     },
     {
       "id": "w-a2-ms-contract",
