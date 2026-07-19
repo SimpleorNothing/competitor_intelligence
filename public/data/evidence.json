@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-17T00:00:00+09:00",
+  "updatedAt": "2026-07-19T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -1763,6 +1763,14 @@
       "note": "[Midea] ①'26.3.10 전주택 스마트 전략(三个一·MevoX·3년 600억 위안 AI 투자)의 축 처리 — A1 하위 유지 vs 스마트홈 AI 별도 축(A7) 분리 판단 대기(증거 누적 시 재검토). ②MR SEMI(파워반도체) 추가 센싱. ③팡훙보 승계 시그널 — 허젠펑(何建锋) '26 이사 비연임 등 지배구조 변화 모니터링.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
       "createdAt": "2026-07-07"
+    },
+    {
+      "id": "ib-w-a2-nvidia",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "엔비디아 벤더 인증 통과 여부 — 현재 미통과. 통과 시 AIDC 냉각(칠러·CDU·액침) 확정 수주 규모 급확대 → A2 별도 축 분리 재검토 트리거. [워치리스트 감지 5건: https://www.hankyung.com/article/202607108020i https://news.einfomax.co.kr/news/articleView.html?idxno=4424072 https://biz.chosun.com/en/en-finance/2026/06/23/27KRR3T2VBDQNEH3WM2XFIUP7M/]",
+      "createdAt": "2026-07-19",
+      "origin": "watchlist",
+      "watchlistId": "w-a2-nvidia"
     }
   ]
 }
