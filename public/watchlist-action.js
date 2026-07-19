@@ -38,12 +38,61 @@
     });
   };
 
+  // ── 회사(탭) 필터 ───────────────────────────────────────────────────
+  // 보드는 상단 탭으로 회사를 전환하지만, 워치리스트·인박스는 전체 항목을
+  // 그대로 그려 LG 탭에서 Midea 항목이, Midea 탭에서 LG 항목이 보였다.
+  // 항목의 소속 회사를 판정해 현재 탭과 일치하는 것만 렌더한다.
+  var KNOWN_CO = ["lg","whirlpool","bsh","electrolux","midea","haier","carrier","trane","jci","daikin","lennox"];
+
+  function curCoId() {
+    try {
+      var c = (typeof curCompany === "function") ? curCompany() : null;
+      return (c && c.id) || null;
+    } catch (e) { return null; }
+  }
+  function curCoName() {
+    try {
+      var c = (typeof curCompany === "function") ? curCompany() : null;
+      return (c && (c.shortName || c.name)) || "";
+    } catch (e) { return ""; }
+  }
+  // 워치리스트: item.companyId → 파일 단위 companyId → axisId 접두(lg-a2 → lg)
+  function coOfWatch(w) {
+    if (!w) return "";
+    if (w.companyId) return w.companyId;
+    if (typeof W !== "undefined" && W && W.companyId) return W.companyId;
+    return String(w.axisId || "").split("-")[0] || "";
+  }
+  // 인박스: companyId → (워치리스트 유래면) 원 항목 → note 앞머리 "[Midea …]" → 기본 lg
+  // 기본값이 lg 인 이유: companyId 필드 도입 이전 레거시 인박스는 전부 LG 건이다.
+  function coOfInbox(i) {
+    if (!i) return "lg";
+    if (i.companyId) return i.companyId;
+    if (i.watchlistId && typeof W !== "undefined" && W && Array.isArray(W.items)) {
+      for (var k = 0; k < W.items.length; k++) {
+        if (W.items[k].id === i.watchlistId) return coOfWatch(W.items[k]);
+      }
+    }
+    var m = String(i.note || "").match(/^\s*\[([A-Za-z]+)/);
+    if (m) {
+      var t = m[1].toLowerCase();
+      if (KNOWN_CO.indexOf(t) >= 0) return t;
+    }
+    return "lg";
+  }
+
   // ── watchlistHTML() 오버라이드 ──────────────────────────────────────
   window.watchlistHTML = function () {
     if (!W || !Array.isArray(W.items) || !W.items.length) return "";
     var PRI = { "상": 0, "중": 1, "하": 2 };
-    var active = W.items.filter(function (i) { return i.status !== "resolved"; });
-    var resolved = W.items.filter(function (i) { return i.status === "resolved"; });
+    var co = curCoId();
+    var mine = W.items.filter(function (i) { return !co || coOfWatch(i) === co; });
+    if (!mine.length) {
+      return '<section class="watch"><h3>확인 필요 항목 · 상시 감시</h3>' +
+        '<p class="rule">' + esc(curCoName()) + ' 감시 항목이 아직 없습니다. 다른 회사의 감시 항목은 해당 탭에서 확인하세요.</p></section>';
+    }
+    var active = mine.filter(function (i) { return i.status !== "resolved"; });
+    var resolved = mine.filter(function (i) { return i.status === "resolved"; });
     var sorted = active.slice().sort(function (a, b) {
       var sa = a.status === "signal" ? 0 : 1, sb = b.status === "signal" ? 0 : 1;
       if (sa !== sb) return sa - sb;
@@ -173,6 +222,44 @@
       alert("실패: " + (e && e.message ? e.message : e));
     }
   };
+
+  // ── 인박스 회사 필터 ────────────────────────────────────────────────
+  // 인박스는 index.html 의 render() 안에서 인라인으로 그려진다(별도 함수 없음).
+  // 파일 크기 제약으로 index.html 을 직접 편집하지 않고, render() 를 감싸
+  // 렌더 직후 현재 탭과 다른 회사의 항목을 제거한다. DOM 순서는 E.inbox 배열
+  // 순서와 1:1 이므로 인덱스로 대응시킨다.
+  function filterInboxByCompany() {
+    var sec = document.querySelector("section.inbox");
+    if (!sec || typeof E === "undefined" || !E || !Array.isArray(E.inbox)) return;
+    var nodes = sec.querySelectorAll(".inbox-entry");
+    if (nodes.length !== E.inbox.length) return;   // 구조가 바뀌면 건드리지 않음
+    var co = curCoId();
+    var shown = 0;
+    for (var i = 0; i < nodes.length; i++) {
+      var ok = !co || coOfInbox(E.inbox[i]) === co;
+      nodes[i].hidden = !ok;
+      if (ok) shown++;
+    }
+    var h3 = sec.querySelector("h3");
+    if (h3) h3.textContent = "검증 대기 인박스 · 추가 센싱 요청 (" + shown + ")";
+    var old = sec.querySelector(".ib-empty");
+    if (old) old.parentNode.removeChild(old);
+    if (!shown) {
+      var p = document.createElement("p");
+      p.className = "rule ib-empty";
+      p.textContent = curCoName() + " 검증 대기 항목이 없습니다.";
+      sec.appendChild(p);
+    }
+  }
+
+  if (typeof window.render === "function") {
+    var _render = window.render;
+    window.render = function () {
+      var r = _render.apply(this, arguments);
+      try { filterInboxByCompany(); } catch (e) {}
+      return r;
+    };
+  }
 
   // 인라인 스크립트가 이미 렌더를 마친 뒤라면 한 번 다시 그린다.
   if (typeof W !== "undefined" && W && typeof render === "function") {

@@ -145,6 +145,9 @@ export async function handleWatchlistAction(request, env, ctx) {
       createdAt: kstDate(),
       origin: "watchlist",
       watchlistId: id,
+      // 회사 귀속 — 탭 필터·승격 시 축 오배정 방지
+      companyId: item.companyId || wl.data.companyId ||
+        String(item.axisId || "").split("-")[0] || "lg",
     };
     ev.data.inbox.push(inboxItem);
     ev.data.updatedAt = kstDate() + "T00:00:00+09:00";
