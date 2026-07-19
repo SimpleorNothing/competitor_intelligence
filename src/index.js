@@ -12,6 +12,8 @@
 // wrangler.jsonc의 assets.run_worker_first:true 가 있어야 이 Worker가
 // 정적 자산보다 먼저 모든 요청을 가로챈다.
 
+import { handleWatchlistAction } from "./watchlist-action.js";
+
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -685,6 +687,9 @@ export default {
       if (url.pathname === "/api/watchlist-scan" && request.method === "POST") {
         return handleWatchlistScan(request, env, ctx);
       }
+      if (url.pathname === "/api/watchlist-action" && request.method === "POST") {
+        return handleWatchlistAction(request, env, ctx);
+      }
       // 루트 페이지: /version.json 이 GitHub API 순간 장애 등으로 빈 log를
       // 반환해도 update-badge.js가 배포 시각 기준으로는 최소한 폴백하도록
       // <meta app-updated>를 주입한다(포탈과 동일한 이중 안전장치).
@@ -692,17 +697,25 @@ export default {
         const assetRes = await env.ASSETS.fetch(request);
         const vm = env.CF_VERSION_METADATA;
         const ct = assetRes.headers.get("content-type") || "";
-        if (vm && vm.timestamp && ct.includes("text/html")) {
+        if (!ct.includes("text/html")) return assetRes;
+        let rw = new HTMLRewriter();
+        if (vm && vm.timestamp) {
           const ts = escAttr(vm.timestamp);
-          return new HTMLRewriter()
-            .on("head", {
-              element(el) {
-                el.append(`\n<meta name="app-updated" content="${ts}">`, { html: true });
-              },
-            })
-            .transform(assetRes);
+          rw = rw.on("head", {
+            element(el) {
+              el.append(`\n<meta name="app-updated" content="${ts}">`, { html: true });
+            },
+          });
         }
-        return assetRes;
+        // 워치리스트 액션 오버레이 주입 — index.html 이 인라인 커밋 한계(61KB)를
+        // 넘어 직접 수정이 불가하므로 body 끝에 외부 클래식 스크립트를 덧붙인다.
+        // 인라인 <script> 뒤에 실행되어 전역 W·E·render·senseInbox 를 공유한다.
+        rw = rw.on("body", {
+          element(el) {
+            el.append('\n<script src="/watchlist-action.js"></script>\n', { html: true });
+          },
+        });
+        return rw.transform(assetRes);
       }
       return env.ASSETS.fetch(request);
     }
