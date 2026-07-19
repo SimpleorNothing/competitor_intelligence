@@ -1701,6 +1701,106 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
+    },
+    {
+      "id": 127,
+      "companyId": "lg",
+      "axisId": "lg-a1",
+      "date": "2026-07-19",
+      "event": "현대건설 협력으로 압구정 재건축 2·3·5구역 조합원 7,000여 세대에 가전 구독 공급 발표. 구역별 냉장고·세탁기·건조기·스타일러·식기세척기 등 5~7종 선택, 3·5구역 펜트하우스는 SKS·LG 시그니처 공급 계획. 구독 세대는 입주 후 5년간 전문 매니저의 분해 세척·성능 점검 제공",
+      "interpretation": "A1 증거 14건이 전부 B2C·해외확장이었는데 선분양 빌트인 특판이라는 신규 채널이 열림. 당사 AI구독클럽은 B2C 중심이라 건설사 채널 대응 공백. 계약금액·구독매출 기여분 미공개로 규모 판단은 유보",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 발표(보도 인용)",
+        "url": "https://www.socialvalue.kr/news/view/1065576323365614",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto",
+      "tags": [
+        "B2B주거"
+      ]
+    },
+    {
+      "id": 128,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2026-07-10",
+      "event": "GS건설과 '차세대 AI홈 공동개발 업무협약(MOU)' 체결. 류재철 LG전자 CEO·허윤홍 GS건설 대표 참석. 씽큐 온을 중심으로 가전·IoT·서비스를 자이 단지 인프라와 연계 — 세대 내 가전·조명·난방·환기 제어 + 단지 내 엘리베이터 호출·주차 위치·방문 이력·커뮤니티 예약 통합. 성수1지구 재개발부터 적용",
+      "interpretation": "A3 '최근 90일 실행 증거 얇음' 판정을 철회한 직접 근거. CEO가 직접 협약식에 나온 것은 우선순위 신호이며, AI홈이 단지 단위 판매 유닛으로 작동하기 시작했음을 의미",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 발표(전자신문 인용)",
+        "url": "https://www.etnews.com/20260713000135",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto",
+      "tags": [
+        "B2B주거"
+      ]
+    },
+    {
+      "id": 129,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2026-06",
+      "event": "씽큐 앱 아파트 전용 기능 '우리 단지 연결' 적용 규모 30만 세대 초과 ('26 상반기 기준). 입주민은 씽큐 온과 앱을 연동해 세대 내 기기 제어·공용시설 이용을 음성으로 사용",
+      "interpretation": "AI홈 개별 매출목표는 여전히 미공표지만, 단지 인프라 연동의 설치기반이 정량으로 처음 확인된 지표. 향후 B2B 주거 채널의 규모 판단 기준선",
+      "signalType": "Insight",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 발표(보도 인용)",
+        "url": "https://www.socialvalue.kr/news/view/1065576323365614",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto",
+      "tags": [
+        "B2B주거"
+      ]
+    },
+    {
+      "id": 130,
+      "companyId": "lg",
+      "axisId": "lg-a6",
+      "date": "2026-04",
+      "event": "GS건설과 홈로봇 'LG 클로이드(CLOiD)'를 아파트 단지에 적용하기 위한 '로봇 친화형 아파트' MOU 체결",
+      "interpretation": "7월 AI홈 MOU의 선행 단계. 로봇이 B2C 가정용이 아니라 건설사향 단지 인프라로 먼저 진입하는 경로 — A6 '28 홈로봇 상업화 목표의 중간 착지점",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 발표(한국경제 인용)",
+        "url": "https://www.hankyung.com/article/2026071325121",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto",
+      "tags": [
+        "B2B주거"
+      ]
+    },
+    {
+      "id": 131,
+      "companyId": "lg",
+      "axisId": "lg-a6",
+      "date": "2026-07-13",
+      "event": "GS건설과 서울 성동구 성수전략정비구역1지구 재개발 사업에서 단지 내 홈로봇 'LG 클로이드'와 자율주행 기반 서빙·배송 로봇 도입 계획 공개",
+      "interpretation": "'26.4 MOU가 특정 단지 적용으로 구체화. 클로이드 아파트 순찰 이미지가 공개돼 PoC 단계를 넘어선 배치 계획으로 진전 — 다만 도입 시점·대수는 미공개",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 발표(경향신문 인용)",
+        "url": "https://www.khan.co.kr/article/202607131647001",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto",
+      "tags": [
+        "B2B주거"
+      ]
     }
   ],
   "inbox": [
