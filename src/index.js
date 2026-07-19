@@ -450,10 +450,14 @@ async function handlePromote(request, env, ctx) {
   const added = [];
   for (const it of items.slice(0, 5)) {
     if (!it || !it.axisId || !it.event) continue;
+    const axisId = String(it.axisId);
+    // companyId 는 axisId 접두(lg-a2 → lg)에서 도출. 과거 "lg" 하드코딩 탓에
+    // Midea 등 타사 인박스를 승격하면 LG 증거로 잘못 들어갔다.
+    const coId = axisId.split("-")[0] || (entry && entry.companyId) || "lg";
     added.push({
       id: nextId++,
-      companyId: "lg",
-      axisId: String(it.axisId),
+      companyId: coId,
+      axisId,
       date: String(it.date || new Date().toISOString().slice(0, 10)),
       event: String(it.event).slice(0, 600),
       interpretation: String(it.interpretation || "").slice(0, 600),
