@@ -1771,6 +1771,14 @@
       "createdAt": "2026-07-19",
       "origin": "watchlist",
       "watchlistId": "w-a2-nvidia"
+    },
+    {
+      "id": "ib-w-a4-costtarget",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "볼륨존 비중·저원가국 생산비중 정량목표 공개 — 현재 컨셉 정성 코멘트만 존재. 볼륨존(보급형) 매출비중·저원가국 생산비중·고정비 절감액 등 정량 목표 공개 시 반영. [워치리스트 감지 5건: https://www.mk.co.kr/news/world/12099708 https://www.briefs.co/news/whirlpool-just-cut-its-profit-forecast-in-half-and-killed-its-dividend/ https://www.chosun.com/english/industry-en/2026/07/13/EJNADRH5NJCWRL7ZFWB6DBFUIM/]",
+      "createdAt": "2026-07-19",
+      "origin": "watchlist",
+      "watchlistId": "w-a4-costtarget"
     }
   ]
 }
