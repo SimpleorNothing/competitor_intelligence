@@ -1708,61 +1708,71 @@
       "id": "inbox-1",
       "note": "2026.07.17 재조사 완료 - LG 2026 TV 공식 라인업(CES 2026, 미국·글로벌 공식 사이트, IFA 2026 참가 정보) 전수 조사 결과 Q9 TV 모델 없음. OLED(G6/C6/W6/B6), Micro RGB evo(MRGB95/85), Gallery TV(LX7), QNED evo(90~70)로 구성. Q9은 2018년 LG 스마트폰 모델명으로만 존재. ThinQ AI 플랫폼·AI Agent 전략은 TV·가전 전 제품군에 적용 중이나 Q9이라는 특정 모델명과 무관. 다음 체크: 2026년 9월 IFA 2026 종료 후 또는 2027 CES 발표 시점 재검증.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-03"
+      "createdAt": "2026-07-03",
+      "companyId": "lg"
     },
     {
       "id": "inbox-4",
       "note": "2027년 1월 말 LG전자 2026년 연간 실적 발표 시점에 구독 서비스 매출 재확인 필요. 현재까지 3조원 목표는 언론 추정치로 공식 IR자료·공시 미등장 확인됨",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-03"
+      "createdAt": "2026-07-03",
+      "companyId": "lg"
     },
     {
       "id": "inbox-5",
       "note": "LG전자·삼성전자의 GB200 냉각 공급 또는 인증은 2026-07-03 기준 공식 출처 미확인. 다음 체크포인트: 2026 Q3 어닝콜(LG전자 H&A 사업본부, 삼성전자 DA), 엔비디아 GTC 2027 파트너 발표, Vertiv/Super Micro IR 업데이트. 삼성 DA 대응: ①hyperscaler 직접 접촉(냉각 모듈 RFQ), ②Vertiv 등 Tier1과 2nd source 협상, ③자체 DLC 기술 IP 확보 검토.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-03"
+      "createdAt": "2026-07-03",
+      "companyId": "lg"
     },
     {
       "id": "inbox-6",
       "note": "2026-07-04 체크 완료. HS·ES 이관·솔루션 상품화·하반기 조직개편 관련 1차 출처 없음. 다음 체크: 2026 하반기 조직개편 발표 또는 3Q26 IR 자료 공개 시. 키워드: LG전자 스마트팩토리 HS ES 이관, 생산기술원 조직개편.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-04"
+      "createdAt": "2026-07-04",
+      "companyId": "lg"
     },
     {
       "id": "inbox-7",
       "note": "[Midea] 4대 전략주축(科技领先·用户直达·数智驱动·全球突破) 최초 공식 선포 시점(2020~21 정립 추정)의 1차 출처(연보·공시 원문) 확인 필요 — 현재 frame.declaredAt은 '2021'로 잠정 표기.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-07"
+      "createdAt": "2026-07-07",
+      "companyId": "midea"
     },
     {
       "id": "inbox-8",
       "note": "[Midea] AIDC 냉각 단독 매출·수주 목표 미공개(MBT 세그먼트 통합 계상). '유일 풀스택(칠러+CDU+데이터홀 통합)' 주장은 투자자 논평 기반 — 독립 검증 필요. 글로벌 DC냉각 점유(GMI 기준 Vertiv 11.3%+ 1위, 상위 5사 약 35%)에 Midea·LG 모두 미등재 — 양사 아시아 편중 여부 지속 검증.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-07"
+      "createdAt": "2026-07-07",
+      "companyId": "midea"
     },
     {
       "id": "inbox-9",
       "note": "[Midea/중국 수요] 이구환신(以旧换新) '26년 연장 확정(15% 보조·품목당 최대 1,500위안·62.5억 위안 선집행) vs NielsenIQ 'Home Appliances Outlook 2026': 중국 소비자 70%가 보조금 의존 교체, '26 중국 가전시장 -5% 역성장 전망(프리미엄 최대 타격) — 정책 축소·종료 시 Midea 국내 매출 급락 리스크. 분기 실적에서 국내/해외 성장 분해 지속 추적.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-07"
+      "createdAt": "2026-07-07",
+      "companyId": "midea"
     },
     {
       "id": "inbox-10",
       "note": "[Midea] 스마트물류 자회사 Annto(安得智联) '26.6 홍콩 IPO 프로스펙터스 제출 — '25 매출 215억 위안(+15%)·매출총이익률 약 7%·Midea 그룹 의존도 2/3+. 상장 확정 시 별도 축(창신/물류) 신설 또는 A6 하위 편입 판단.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-07"
+      "createdAt": "2026-07-07",
+      "companyId": "midea"
     },
     {
       "id": "inbox-11",
       "note": "[Midea 갭 시그널] LG 구독축(lg-a1)에 대응하는 Midea 구독형 BM 미확인 — 확인된 것은 DTC(用户直达)·설치인센티브 Midea Club(21개국 21만+ 회원)·HVAC 라이프사이클 서비스(MCE 2026)까지. 구독/렌털 BM 출현 여부 지속 센싱(출현 시 New 신호로 즉시 등재).",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-07"
+      "createdAt": "2026-07-07",
+      "companyId": "midea"
     },
     {
       "id": "inbox-12",
       "note": "[Midea] ①'26.3.10 전주택 스마트 전략(三个一·MevoX·3년 600억 위안 AI 투자)의 축 처리 — A1 하위 유지 vs 스마트홈 AI 별도 축(A7) 분리 판단 대기(증거 누적 시 재검토). ②MR SEMI(파워반도체) 추가 센싱. ③팡훙보 승계 시그널 — 허젠펑(何建锋) '26 이사 비연임 등 지배구조 변화 모니터링.",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "createdAt": "2026-07-07"
+      "createdAt": "2026-07-07",
+      "companyId": "midea"
     },
     {
       "id": "ib-w-a2-nvidia",
@@ -1770,7 +1780,8 @@
       "note": "엔비디아 벤더 인증 통과 여부 — 현재 미통과. 통과 시 AIDC 냉각(칠러·CDU·액침) 확정 수주 규모 급확대 → A2 별도 축 분리 재검토 트리거. [워치리스트 감지 5건: https://www.hankyung.com/article/202607108020i https://news.einfomax.co.kr/news/articleView.html?idxno=4424072 https://biz.chosun.com/en/en-finance/2026/06/23/27KRR3T2VBDQNEH3WM2XFIUP7M/]",
       "createdAt": "2026-07-19",
       "origin": "watchlist",
-      "watchlistId": "w-a2-nvidia"
+      "watchlistId": "w-a2-nvidia",
+      "companyId": "lg"
     },
     {
       "id": "ib-w-a4-costtarget",
@@ -1778,7 +1789,8 @@
       "note": "볼륨존 비중·저원가국 생산비중 정량목표 공개 — 현재 컨셉 정성 코멘트만 존재. 볼륨존(보급형) 매출비중·저원가국 생산비중·고정비 절감액 등 정량 목표 공개 시 반영. [워치리스트 감지 5건: https://www.mk.co.kr/news/world/12099708 https://www.briefs.co/news/whirlpool-just-cut-its-profit-forecast-in-half-and-killed-its-dividend/ https://www.chosun.com/english/industry-en/2026/07/13/EJNADRH5NJCWRL7ZFWB6DBFUIM/]",
       "createdAt": "2026-07-19",
       "origin": "watchlist",
-      "watchlistId": "w-a4-costtarget"
+      "watchlistId": "w-a4-costtarget",
+      "companyId": "lg"
     }
   ]
 }
