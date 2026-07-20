@@ -5,7 +5,9 @@ A2(HVAC·AIDC) — 엔비디아 DSX Infrastructure LGE CDU 등재 반영 패치
 생성일: 2026-07-20 / 브랜치: a2-nvidia-dsx-cdu
 
 실행: 레포 루트에서  python3 tools/apply_a2_nvidia_dsx.py
-대상: public/data/evidence.json (신규 id 132·133 + inbox-13), public/data/strategies.json (lg-a2 statusRationale)
+대상: public/data/evidence.json (신규 id 132·133 + inbox-13)
+      public/data/strategies.json (lg-a2 statusRationale)
+      public/data/watchlist.json (w-a2-nvidia 트리거 발화 반영)
 
 ※ evidence.json(96KB)·strategies.json(33KB)은 GitHub MCP 인라인 푸시 한계(~56-64KB / ~30KB)를
    초과하여 Claude Code 로컬 git 환경에서 적용해야 함.
@@ -13,16 +15,19 @@ A2(HVAC·AIDC) — 엔비디아 DSX Infrastructure LGE CDU 등재 반영 패치
 적용 전 base blob SHA (main 기준, 불일치 시 중단):
   public/data/evidence.json    27109542a63a8307e93011364e59e8a46a53808c
   public/data/strategies.json  a8b80cbe3557a60b6d19794000f6447bef598723
+  public/data/watchlist.json   6c9910ea2cbbb3b96c77990c0545e81cb9a03790
 검증: printf 'blob %d\\0' "$(wc -c < FILE)" | cat - FILE | sha1sum
 """
 import json, sys, hashlib, collections, io, os
 
 EV = "public/data/evidence.json"
 ST = "public/data/strategies.json"
+WL = "public/data/watchlist.json"
 
 BASE_SHA = {
     EV: "27109542a63a8307e93011364e59e8a46a53808c",
     ST: "a8b80cbe3557a60b6d19794000f6447bef598723",
+    WL: "6c9910ea2cbbb3b96c77990c0545e81cb9a03790",
 }
 
 NEW_ITEMS = [
@@ -75,6 +80,19 @@ ST_OLD = "단 엔비디아 벤더 인증 미통과(id67)"
 ST_NEW = ("단 엔비디아 인증은 '26.7.20 마켓플레이스 DSX Infrastructure 목록에 600kW급 CDU 등재로 부분 진전(id133) — "
           "등재분은 주력 1.4MW급이 아닌 인증용 개발품이고 Wetted Materials·Supply Chain Status 공란으로 절차 미완결, 등재≠채택")
 
+WL_DETAIL_NEW = ("'26.7.20 엔비디아 마켓플레이스 DSX Infrastructure 목록에 LGE 600kW급 CDU 등재로 부분 통과 확인(id133). "
+                 "다만 등재분은 인증용 개발품이고 Wetted Materials·Supply Chain Status 공란 = 절차 미완결. "
+                 "잔여 감시: 공란 충족 시점 / 1.4MW급 추가 등재 / 확정 수주. 완결 시 A2 별도 축 분리 재검토 트리거.")
+
+WL_HIT = {
+  "headline": "엔비디아 마켓플레이스 'AI Factory DSX Infrastructure'에 LGE 600kW CDU 등재",
+  "url": "https://marketplace.nvidia.com/en-us/enterprise/dsx-infrastructure/",
+  "source": "NVIDIA Marketplace (1차)",
+  "publishedAt": "2026-07-20T00:00:00.000Z",
+  "score": 10,
+  "seenAt": "2026-07-20 22:00"
+}
+
 NEW_TS = "2026-07-20T00:00:00+09:00"
 OLD_TS = "2026-07-19T00:00:00+09:00"
 
@@ -115,14 +133,30 @@ def main():
                                           '"updatedAt": "%s"' % NEW_TS, 1)
     open(ST, "w", encoding="utf-8").write(s)
 
-    # 3) 검증
-    for p in (EV, ST):
+    # 3) watchlist.json — w-a2-nvidia 트리거 발화 반영
+    w = json.loads(open(WL, encoding="utf-8").read(), object_pairs_hook=collections.OrderedDict)
+    tgt = [x for x in w["items"] if x.get("id") == "w-a2-nvidia"]
+    if len(tgt) != 1:
+        sys.exit("watchlist w-a2-nvidia %d건 매치" % len(tgt))
+    t = tgt[0]
+    if any(h.get("url") == WL_HIT["url"] for h in t.get("hits", [])):
+        print("watchlist hit 이미 존재 — skip")
+    else:
+        t["detail"] = WL_DETAIL_NEW
+        t["hits"].insert(0, WL_HIT)
+        t["status"] = "signal"
+        t["lastHit"] = "2026-07-20 22:00"
+        t["lastChecked"] = "2026-07-20 22:00"
+        open(WL, "w", encoding="utf-8").write(json.dumps(w, ensure_ascii=False, indent=2) + "\n")
+
+    # 4) 검증
+    for p in (EV, ST, WL):
         json.load(open(p, encoding="utf-8"))
     print("OK — evidence.json items %d, inbox %d / strategies.json lg-a2 갱신 완료" %
           (len(d["items"]), len(d["inbox"])))
-    print("다음: git add public/data/evidence.json public/data/strategies.json && "
-          "git commit -m 'A2: 엔비디아 DSX Infrastructure LGE 600kW CDU 등재 반영(id132·133)' && "
-          "git push origin a2-nvidia-dsx-cdu")
+    print("다음: git add public/data/evidence.json public/data/strategies.json public/data/watchlist.json"
+          " && git commit -m 'A2: 엔비디아 DSX Infrastructure LGE 600kW CDU 등재 반영(id132·133)'"
+          " && git push origin a2-nvidia-dsx-cdu")
 
 
 if __name__ == "__main__":
