@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-21T00:00:00+09:00",
+  "updatedAt": "2026-07-22T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-07-21 07:50",
+  "lastScan": "2026-07-22 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
+      "lastChecked": "2026-07-22 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
@@ -89,7 +89,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
+      "lastChecked": "2026-07-22 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
@@ -154,9 +154,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
-      "lastHit": "2026-07-21 07:50",
+      "lastChecked": "2026-07-22 07:50",
+      "lastHit": "2026-07-22 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 오픈AI 협력으로 AI 가전 제어 플랫폼 강화",
+          "url": "https://v.daum.net/v/20260624154235758",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-24T06:42:35.000Z",
+          "score": 3,
+          "seenAt": "2026-07-22 07:50"
+        },
         {
           "headline": "LG 씽큐, ChatGPT 연동으로 AI홈 제어 창구 확대",
           "url": "https://www.etnews.com/20260720000255",
@@ -188,14 +196,6 @@
           "publishedAt": "2026-07-15T22:20:02.000Z",
           "score": 2,
           "seenAt": "2026-07-17 07:50"
-        },
-        {
-          "headline": "LG전자, GS건설과 AI홈 사업 파트너십 체결",
-          "url": "https://www.koreaherald.com/article/10807360",
-          "source": "Google News - LG Global",
-          "publishedAt": "2026-07-13T08:00:26.000Z",
-          "score": 2,
-          "seenAt": "2026-07-15 07:50"
         }
       ]
     },
@@ -217,9 +217,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
-      "lastHit": "2026-07-16 07:50",
+      "lastChecked": "2026-07-22 07:50",
+      "lastHit": "2026-07-22 07:50",
       "hits": [
+        {
+          "headline": "월풀, 가전 수요·원가관리로 주가 안정적 움직임",
+          "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/whirlpool-stock-trades-steadily-as-appliance-demand-and-cost-controls/69818960",
+          "source": "Google News - US Home Appliances",
+          "publishedAt": "2026-07-21T06:08:51.000Z",
+          "score": 1,
+          "seenAt": "2026-07-22 07:50"
+        },
         {
           "headline": "미국 6월 PPI 5.5% 상승, 예상치 하회",
           "url": "https://www.mk.co.kr/news/world/12099708",
@@ -251,14 +259,6 @@
           "publishedAt": "2026-07-12T20:55:01.000Z",
           "score": 1,
           "seenAt": "2026-07-13 07:50"
-        },
-        {
-          "headline": "월풀, 구조조정·부채 재편으로 주가 상승",
-          "url": "https://timothysykes.com/news/whirlpoolcorporation-whr-news-2026_07_11/",
-          "source": "Google News - US Home Appliances",
-          "publishedAt": "2026-07-11T15:07:00.000Z",
-          "score": 1,
-          "seenAt": "2026-07-13 07:50"
         }
       ],
       "routedInboxId": "ib-w-a4-costtarget",
@@ -281,7 +281,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
+      "lastChecked": "2026-07-22 07:50",
       "lastHit": "2026-07-16 07:50",
       "hits": [
         {
@@ -344,9 +344,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
-      "lastHit": "2026-07-18 07:50",
+      "lastChecked": "2026-07-22 07:50",
+      "lastHit": "2026-07-22 07:50",
       "hits": [
+        {
+          "headline": "트럼프, 캐나다 제품에 50% 관세 부과…USMCA 협상 압박",
+          "url": "https://www.mk.co.kr/news/world/12103822",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-07-21T11:37:39.000Z",
+          "score": 2,
+          "seenAt": "2026-07-22 07:50"
+        },
         {
           "headline": "삼성전자, 멕시코 공장 스마트팩토리 전환·3천명 고용",
           "url": "https://www.g-enews.com/article/Global-Biz/2026/07/2026071708404868400c8c1c064d_1",
@@ -378,14 +386,6 @@
           "publishedAt": "2026-07-08T07:00:00.000Z",
           "score": 2,
           "seenAt": "2026-07-09 07:50"
-        },
-        {
-          "headline": "미국 USTR, 한국 강제노동 관세 압박…근거 미흡",
-          "url": "https://www.mk.co.kr/news/economy/12092810",
-          "source": "매일경제 산업",
-          "publishedAt": "2026-07-07T12:41:36.000Z",
-          "score": 1,
-          "seenAt": "2026-07-08 07:50"
         }
       ]
     },
@@ -407,7 +407,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
+      "lastChecked": "2026-07-22 07:50",
       "lastHit": "2026-07-17 07:50",
       "hits": [
         {
@@ -472,9 +472,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
-      "lastHit": "2026-07-13 07:50",
+      "lastChecked": "2026-07-22 07:50",
+      "lastHit": "2026-07-22 07:50",
       "hits": [
+        {
+          "headline": "LG전자, webOS·구독 중심 수익모델 전환",
+          "url": "https://v.daum.net/v/XqObGANdWf",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-21T13:25:24.000Z",
+          "score": 2,
+          "seenAt": "2026-07-22 07:50"
+        },
         {
           "headline": "LG전자, 구독형 정기케어 서비스 확대 추진",
           "url": "https://v.daum.net/v/0LZndQ8Byy?f=p",
@@ -506,14 +514,6 @@
           "publishedAt": "2026-07-07T21:09:53.000Z",
           "score": 2,
           "seenAt": "2026-07-09 07:50"
-        },
-        {
-          "headline": "가전 구독 서비스 확산…맞춤형 케어·관리 편의성 강화",
-          "url": "https://www.donga.com/news/amp/all/20260623/134160683/2",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-06-23T19:30:00.000Z",
-          "score": 2,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -602,7 +602,7 @@
           "seenAt": "2026-07-20 07:50"
         }
       ],
-      "lastChecked": "2026-07-21 07:50",
+      "lastChecked": "2026-07-22 07:50",
       "lastHit": "2026-07-21 07:50"
     },
     {
@@ -622,7 +622,7 @@
       "priority": "하",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-21 07:50",
+      "lastChecked": "2026-07-22 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
