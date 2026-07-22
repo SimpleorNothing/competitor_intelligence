@@ -1801,6 +1801,74 @@
       "tags": [
         "B2B주거"
       ]
+    },
+    {
+      "id": 132,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2025-12",
+      "event": "LG전자 MS 레드먼드 캠퍼스 AIDC 테크쇼 개최, 칠러 등 냉각 솔루션 협의 진행",
+      "interpretation": "MS와 수년간 협의 끝에 품질인증 막바지 진입. HVAC 전통 강점을 하이퍼스케일러 냉각으로 전환해 'B2B 인프라 전문업체'로 포지셔닝 성공 시 삼성 DA의 B2B 공조·에너지 솔루션과 정면 경쟁. 칠러 매출 '27년 1조원 목표 조기 달성 시 원가·스케일 압박 예상.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "비즈니스포스트",
+        "url": "https://www.businesspost.co.kr/BP?command=article_view&num=440939",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 133,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-01",
+      "event": "LG전자 '25년 데이터센터 칠러 수주 전년 대비 3배 성장, '26년 본격 수주 확대 전망 공식 발표",
+      "interpretation": "공조 B2B 매출 가시화 가속. 이재성 ES사업본부장 '27년 칠러 1조원 목표 공언은 AIDC를 신성장축으로 공식화한 것. 삼성 DA도 HVAC 확장 중이나 LG가 빅테크 인증 선점 시 레퍼런스 격차 벌어질 리스크.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "EBN",
+        "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1697752",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 134,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-06",
+      "event": "MS 포함 2개 빅테크 AI 데이터센터용 칠러 품질인증 테스트 막바지 단계, '26 하반기 수주 전망",
+      "interpretation": "MS·타 빅테크 동시 인증은 하이퍼스케일러 표준 솔루션으로 자리잡을 가능성. 인증 완료 후 1년 내 매출 인식 가능 → '27년 1조원 목표 현실화. 삼성은 AIDC 냉각 레퍼런스 미확보 상태로 2~3분기 격차 우려.",
+      "signalType": "Insight",
+      "confidence": "추론",
+      "source": {
+        "name": "비즈니스포스트",
+        "url": "https://www.businesspost.co.kr/BP?command=article_view&num=440939",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 135,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-02",
+      "event": "LG유플러스 파주 AIDC(200MW급) 핵심 냉각 인프라 공급 확정",
+      "interpretation": "국내 최대 AIDC 레퍼런스 확보. 공랭·액체냉각 하이브리드 구조 실증으로 글로벌 빅테크 설득력 강화. 삼성 DA는 자사 AIDC 구축 계획 부재로 실증 환경 열위.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "리버티코리아포스트",
+        "url": "http://www.lkp.news/news/articleView.html?idxno=81165",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
     }
   ],
   "inbox": [
@@ -1883,7 +1951,7 @@
     {
       "id": "ib-w-a2-ms-contract",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "MS·하이퍼스케일러 냉각 확정계약 성사 — '25.12.5 해명공시로 '수십억달러 계약' 부인(확정계약 없음). 빅테크 칠러 품질인증 막바지 → 확정 매출 '26 하반기 전망. 확정 수주 공시 시 승격. [워치리스트 감지 5건: https://v.daum.net/v/20260720154516836 https://www.etnews.com/20260715000260 https://www.hankyung.com/article/202607108020i]",
+      "note": "MS 외 1개 빅테크 품질인증 대상 추가 확인 필요. 확정 수주 공시(계약금액·공급시기 명시) 발생 시 즉시 승격. 워치: 금감원 공시, LG전자 IR 실적발표, MS/AWS/Google Cloud 파트너십 발표.",
       "createdAt": "2026-07-23",
       "origin": "watchlist",
       "watchlistId": "w-a2-ms-contract",
