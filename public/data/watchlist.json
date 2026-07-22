@@ -2,7 +2,7 @@
   "updatedAt": "2026-07-23T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-07-22 07:50",
+  "lastScan": "2026-07-23 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
@@ -89,7 +89,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
@@ -156,7 +156,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
       "lastHit": "2026-07-22 07:50",
       "hits": [
         {
@@ -219,9 +219,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
-      "lastHit": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
+      "lastHit": "2026-07-23 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 인도 생산·R&D·부품 현지화 4대 전략 추진",
+          "url": "https://www.theguru.co.kr/news/article.html?no=104741",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-22T05:27:14.000Z",
+          "score": 1,
+          "seenAt": "2026-07-23 07:50"
+        },
         {
           "headline": "월풀, 가전 수요·원가관리로 주가 안정적 움직임",
           "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/whirlpool-stock-trades-steadily-as-appliance-demand-and-cost-controls/69818960",
@@ -253,14 +261,6 @@
           "publishedAt": "2026-07-13T06:55:04.000Z",
           "score": 1,
           "seenAt": "2026-07-14 07:50"
-        },
-        {
-          "headline": "칩플레이션 확산, 삼성전자 서비스 자재비 인상",
-          "url": "https://www.yna.co.kr/view/AKR20260712045900003",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-07-12T20:55:01.000Z",
-          "score": 1,
-          "seenAt": "2026-07-13 07:50"
         }
       ],
       "routedInboxId": "ib-w-a4-costtarget",
@@ -283,9 +283,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
-      "lastHit": "2026-07-16 07:50",
+      "lastChecked": "2026-07-23 07:50",
+      "lastHit": "2026-07-23 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 인도 생산·R&D·부품 현지화 4대 전략 추진",
+          "url": "https://www.theguru.co.kr/news/article.html?no=104741",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-22T05:27:14.000Z",
+          "score": 2,
+          "seenAt": "2026-07-23 07:50"
+        },
         {
           "headline": "LG전자 인도 3공장 조기가동 임박…에어컨 470만대 공급 본격화",
           "url": "https://www.etnews.com/20260715000181",
@@ -317,14 +325,6 @@
           "publishedAt": "2026-07-03T09:33:06.000Z",
           "score": 2,
           "seenAt": "2026-07-05 07:50"
-        },
-        {
-          "headline": "삼성전자, 인도 럭셔리 주택단지 시스템에어컨 대규모 수주 확보",
-          "url": "http://www.newsdream.kr/news/articleView.html?idxno=113376",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-06-21T23:49:36.000Z",
-          "score": 2,
-          "seenAt": "2026-07-05 07:50"
         }
       ]
     },
@@ -346,9 +346,33 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
-      "lastHit": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
+      "lastHit": "2026-07-23 07:50",
       "hits": [
+        {
+          "headline": "트럼프 관세 위협, 15% 초과 시 한미 합의 위반",
+          "url": "https://www.ytn.co.kr/_ln/0104_202607220631468245",
+          "source": "Google News - 통상·관세 정책 KR",
+          "publishedAt": "2026-07-21T21:31:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-23 07:50"
+        },
+        {
+          "headline": "트럼프, 캐나다 관세 폭탄으로 USMCA 균열 조짐",
+          "url": "https://www.g-enews.com/article/Global-Biz/2026/07/2026072206232160572bd56fbc3c_1",
+          "source": "Google News - 통상·관세 정책 KR",
+          "publishedAt": "2026-07-21T21:26:34.000Z",
+          "score": 2,
+          "seenAt": "2026-07-23 07:50"
+        },
+        {
+          "headline": "트럼프, 캐나다 추가 관세 부과·미멕 협상 진행",
+          "url": "https://kr.investing.com/news/economy-news/article-93CH-2023330",
+          "source": "Google News - 통상·관세 정책 KR",
+          "publishedAt": "2026-07-21T15:43:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-23 07:50"
+        },
         {
           "headline": "트럼프, 캐나다 제품에 50% 관세 부과…USMCA 협상 압박",
           "url": "https://www.mk.co.kr/news/world/12103822",
@@ -364,30 +388,6 @@
           "publishedAt": "2026-07-16T23:42:26.000Z",
           "score": 1,
           "seenAt": "2026-07-18 07:50"
-        },
-        {
-          "headline": "LG전자, 동남아 스마트 세탁소 신사업 확대…베트남 진출",
-          "url": "https://www.theguru.co.kr/news/article.html?no=104227",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-07-09T23:12:20.000Z",
-          "score": 1,
-          "seenAt": "2026-07-11 07:50"
-        },
-        {
-          "headline": "트럼프 관세, 월풀 아이오와 냉장고 공장 고용 감소 방어 실패",
-          "url": "https://www.reuters.com/business/world-at-work/trumps-tariffs-arent-saving-jobs-whirlpools-iowa-refrigerator-plant-2026-06-29/",
-          "source": "Google News - Whirlpool",
-          "publishedAt": "2026-06-29T19:43:18.000Z",
-          "score": 2,
-          "seenAt": "2026-07-10 07:50"
-        },
-        {
-          "headline": "월풀, 트럼프 관세 수혜 못 받고 美 시장점유율 1위→4위 추락",
-          "url": "https://www.etnews.com/20260708000337",
-          "source": "전자신문",
-          "publishedAt": "2026-07-08T07:00:00.000Z",
-          "score": 2,
-          "seenAt": "2026-07-09 07:50"
         }
       ]
     },
@@ -409,7 +409,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
       "lastHit": "2026-07-17 07:50",
       "hits": [
         {
@@ -474,7 +474,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
       "lastHit": "2026-07-22 07:50",
       "hits": [
         {
@@ -572,6 +572,14 @@
       "createdAt": "2026-07-19",
       "hits": [
         {
+          "headline": "삼성·LG, 모듈러주택·히트펌프 사업 확대",
+          "url": "https://www.newsis.com/view/NISX20260716_0003712455",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-07-18T07:00:00.000Z",
+          "score": 1,
+          "seenAt": "2026-07-23 07:50"
+        },
+        {
           "headline": "LG전자, 럭셔리 주택시장 구독형 가전 판로 확대",
           "url": "https://www.asiae.co.kr/en/article/2026072010110751461",
           "source": "Google News - US Home Appliances",
@@ -604,8 +612,8 @@
           "seenAt": "2026-07-20 07:50"
         }
       ],
-      "lastChecked": "2026-07-22 07:50",
-      "lastHit": "2026-07-21 07:50"
+      "lastChecked": "2026-07-23 07:50",
+      "lastHit": "2026-07-23 07:50"
     },
     {
       "id": "w-frame-777",
@@ -624,7 +632,7 @@
       "priority": "하",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-22 07:50",
+      "lastChecked": "2026-07-23 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
