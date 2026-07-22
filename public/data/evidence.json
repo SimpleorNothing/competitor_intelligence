@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T00:00:00+09:00",
+  "updatedAt": "2026-07-23T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -1879,6 +1879,15 @@
       "createdAt": "2026-07-19",
       "origin": "watchlist",
       "watchlistId": "w-a4-costtarget"
+    },
+    {
+      "id": "ib-w-a2-ms-contract",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "MS·하이퍼스케일러 냉각 확정계약 성사 — '25.12.5 해명공시로 '수십억달러 계약' 부인(확정계약 없음). 빅테크 칠러 품질인증 막바지 → 확정 매출 '26 하반기 전망. 확정 수주 공시 시 승격. [워치리스트 감지 5건: https://v.daum.net/v/20260720154516836 https://www.etnews.com/20260715000260 https://www.hankyung.com/article/202607108020i]",
+      "createdAt": "2026-07-23",
+      "origin": "watchlist",
+      "watchlistId": "w-a2-ms-contract",
+      "companyId": "lg"
     }
   ]
 }
