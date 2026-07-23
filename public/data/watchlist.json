@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-23T00:00:00+09:00",
+  "updatedAt": "2026-07-24T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-07-23 07:50",
+  "lastScan": "2026-07-24 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
@@ -89,7 +89,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
@@ -156,7 +156,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
       "lastHit": "2026-07-22 07:50",
       "hits": [
         {
@@ -219,9 +219,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
-      "lastHit": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
+      "lastHit": "2026-07-24 07:50",
       "hits": [
+        {
+          "headline": "브렌트유 배럴당 100달러 돌파…중동 긴장 영향",
+          "url": "https://www.mk.co.kr/news/economy/12106036",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-07-23T13:16:01.000Z",
+          "score": 1,
+          "seenAt": "2026-07-24 07:50"
+        },
         {
           "headline": "LG전자, 인도 생산·R&D·부품 현지화 4대 전략 추진",
           "url": "https://www.theguru.co.kr/news/article.html?no=104741",
@@ -253,14 +261,6 @@
           "publishedAt": "2026-07-13T22:53:19.000Z",
           "score": 1,
           "seenAt": "2026-07-15 07:50"
-        },
-        {
-          "headline": "삼성전자, 자재가 상승에 수리비 인상",
-          "url": "https://www.chosun.com/english/industry-en/2026/07/13/EJNADRH5NJCWRL7ZFWB6DBFUIM/",
-          "source": "Google News - LG Global",
-          "publishedAt": "2026-07-13T06:55:04.000Z",
-          "score": 1,
-          "seenAt": "2026-07-14 07:50"
         }
       ],
       "routedInboxId": "ib-w-a4-costtarget",
@@ -283,7 +283,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
       "lastHit": "2026-07-23 07:50",
       "hits": [
         {
@@ -346,9 +346,25 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
-      "lastHit": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
+      "lastHit": "2026-07-24 07:50",
       "hits": [
+        {
+          "headline": "美, 한국 포함 60개국에 강제노동 관세 12.5% 확정",
+          "url": "https://www.mk.co.kr/news/world/12106270",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-07-23T21:21:13.000Z",
+          "score": 2,
+          "seenAt": "2026-07-24 07:50"
+        },
+        {
+          "headline": "트럼프 60개국 관세 예고, 한국 합의 영향 주시",
+          "url": "https://www.asiatoday.co.kr/kn/view.php?key=20260722010007940",
+          "source": "Google News - 통상·관세 정책 KR",
+          "publishedAt": "2026-07-22T03:26:22.000Z",
+          "score": 2,
+          "seenAt": "2026-07-24 07:50"
+        },
         {
           "headline": "트럼프 관세 위협, 15% 초과 시 한미 합의 위반",
           "url": "https://www.ytn.co.kr/_ln/0104_202607220631468245",
@@ -372,22 +388,6 @@
           "publishedAt": "2026-07-21T15:43:00.000Z",
           "score": 2,
           "seenAt": "2026-07-23 07:50"
-        },
-        {
-          "headline": "트럼프, 캐나다 제품에 50% 관세 부과…USMCA 협상 압박",
-          "url": "https://www.mk.co.kr/news/world/12103822",
-          "source": "매일경제 산업",
-          "publishedAt": "2026-07-21T11:37:39.000Z",
-          "score": 2,
-          "seenAt": "2026-07-22 07:50"
-        },
-        {
-          "headline": "삼성전자, 멕시코 공장 스마트팩토리 전환·3천명 고용",
-          "url": "https://www.g-enews.com/article/Global-Biz/2026/07/2026071708404868400c8c1c064d_1",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-07-16T23:42:26.000Z",
-          "score": 1,
-          "seenAt": "2026-07-18 07:50"
         }
       ]
     },
@@ -409,7 +409,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
       "lastHit": "2026-07-17 07:50",
       "hits": [
         {
@@ -474,9 +474,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
-      "lastHit": "2026-07-22 07:50",
+      "lastChecked": "2026-07-24 07:50",
+      "lastHit": "2026-07-24 07:50",
       "hits": [
+        {
+          "headline": "월풀, 2분기 실적 발표 일정 8월3-4일로 연기",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/whirlpool-corporation-reschedules-second-quarter-201500279.html",
+          "source": "Google News - US Home Appliances",
+          "publishedAt": "2026-07-23T20:15:00.000Z",
+          "score": 2,
+          "seenAt": "2026-07-24 07:50"
+        },
         {
           "headline": "LG전자, webOS·구독 중심 수익모델 전환",
           "url": "https://v.daum.net/v/XqObGANdWf",
@@ -508,14 +516,6 @@
           "publishedAt": "2026-07-10T05:00:00.000Z",
           "score": 2,
           "seenAt": "2026-07-11 07:50"
-        },
-        {
-          "headline": "LG전자 2분기 영업익 1조5788억, 전년 비 146.9% 급증",
-          "url": "https://www.koit.co.kr/news/articleView.html?idxno=207885",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-07-07T21:09:53.000Z",
-          "score": 2,
-          "seenAt": "2026-07-09 07:50"
         }
       ]
     },
@@ -612,7 +612,7 @@
           "seenAt": "2026-07-20 07:50"
         }
       ],
-      "lastChecked": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
       "lastHit": "2026-07-23 07:50"
     },
     {
@@ -632,7 +632,7 @@
       "priority": "하",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-07-23 07:50",
+      "lastChecked": "2026-07-24 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
