@@ -326,7 +326,9 @@
           "score": 2,
           "seenAt": "2026-07-05 07:50"
         }
-      ]
+      ],
+      "routedInboxId": "ib-w-a5-globalsouth",
+      "routedAt": "2026-07-26 22:26"
     },
     {
       "id": "w-a5-tariff",
