@@ -1965,6 +1965,15 @@
       "origin": "watchlist",
       "watchlistId": "w-a5-globalsouth",
       "companyId": "lg"
+    },
+    {
+      "id": "ib-w-a5-tariff",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "美 IEEPA 관세 판결 후속·생산 재편 방향 — 美 대법원 IEEPA 관세 무효 판결 후 동남아 증설 보류·북미 집중 재편 관찰 중. 관세 리스크 변동이 지역 생산배치에 영향 → 방향전환 추적. [워치리스트 감지 5건: https://m.sedaily.com/amparticle/20071542 https://www.aa.com.tr/en/americas/mexico-will-not-retaliate-against-trumps-tariffs-exports-sheltered-under-trade-agreement/4008776 https://www.nytimes.com/article/trump-tariffs-trade.html]",
+      "createdAt": "2026-07-26",
+      "origin": "watchlist",
+      "watchlistId": "w-a5-tariff",
+      "companyId": "lg"
     }
   ]
 }
