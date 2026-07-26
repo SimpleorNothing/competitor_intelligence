@@ -88,12 +88,20 @@ function buildCompanyContext(strategies) {
       ? `프레임(전략 총론, axisId: "${c.id}-frame"): ${c.frame.statement}` +
         (c.frame.redefinition ? ` / 재정의: ${c.frame.redefinition}` : "")
       : `프레임 axisId: "${c.id}-frame"`;
+    const axisHints = c.axes
+      .filter((a) => Array.isArray(a.matchHints) && a.matchHints.length)
+      .map((a) => ({
+        id: a.id,
+        code: a.code,
+        hints: a.matchHints.map((h) => String(h).toLowerCase()),
+      }));
     map.set(c.id, {
       id: c.id,
       name: c.name,
       frameLine,
       axisLines: axisLines.join("\n"),
       axisIds: new Set([`${c.id}-frame`, ...c.axes.map((a) => a.id)]),
+      axisHints,
     });
   }
   return map;
@@ -175,6 +183,21 @@ async function callClaude(apiKey, userPrompt, retry = false) {
   }
 }
 
+// ── 키워드 기반 축 후보 (프롬프트 힌트 + Claude 실패 시 결정적 폴백) ──
+// strategies.json 축의 matchHints를 기사(헤드라인·요약·태그)와 대조. 최상위가 유일할 때만 폴백 채택.
+function keywordAxisHits(company, article) {
+  const hay = `${article.headline || ""} ${article.summary || ""} ${
+    Array.isArray(article.tags) ? article.tags.join(" ") : ""
+  }`.toLowerCase();
+  const hits = [];
+  for (const ax of company.axisHints || []) {
+    const matched = ax.hints.filter((h) => h && hay.includes(h));
+    if (matched.length) hits.push({ id: ax.id, code: ax.code, n: matched.length, matched });
+  }
+  hits.sort((a, b) => b.n - a.n);
+  return hits;
+}
+
 function buildUserPrompt(company, article) {
   const pts = Array.isArray(article.summaryPoints)
     ? article.summaryPoints.map((p) => `  · ${p.text}`).join("\n")
@@ -202,6 +225,13 @@ ${pts}
 
 [뉴스 제품 태그]
 ${(article.products || []).join(", ") || "-"}
+
+[키워드 기반 후보 축 — 참고(최종 판정은 위 축 목록 기준으로 직접 하라)]
+${
+  keywordAxisHits(company, article)
+    .map((h) => `  - ${h.id} (매칭: ${h.matched.join(", ")})`)
+    .join("\n") || "  (없음)"
+}
 
 [출처]
 ${article.source?.name || "-"}`;
@@ -317,8 +347,19 @@ async function main() {
       const interpretation = String(r.interpretation || "").trim().slice(0, 400);
       const date = (art.publishedAt || RUN_DATE).slice(0, 10);
 
-      const axisId =
+      let axisId =
         r.axisId && company.axisIds.has(r.axisId) ? r.axisId : null;
+      let axisBy = axisId ? "claude" : null;
+
+      if (!axisId) {
+        // 키워드 폴백 — Claude가 축을 못 고른 경우(null), matchHints 최상위가 유일하면 그 축으로 라우팅
+        const hits = keywordAxisHits(company, art);
+        if (hits.length && (hits.length === 1 || hits[0].n > hits[1].n)) {
+          axisId = hits[0].id;
+          axisBy = "keyword-fallback";
+          log(`  ↳ 키워드 폴백 → ${axisId} (매칭: ${hits[0].matched.join(", ")})`);
+        }
+      }
 
       if (!axisId) {
         // 축 매핑 불가 → inbox 적재
@@ -350,6 +391,7 @@ async function main() {
           tier: 3,
         },
         interpretationBy: "claude",
+        axisBy,
         reviewStatus: "auto",
         origin: "mi",
         miId: art.id,
