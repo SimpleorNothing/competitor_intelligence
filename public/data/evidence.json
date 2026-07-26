@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-23T00:00:00+09:00",
+  "updatedAt": "2026-07-26T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -1955,6 +1955,15 @@
       "createdAt": "2026-07-23",
       "origin": "watchlist",
       "watchlistId": "w-a2-ms-contract",
+      "companyId": "lg"
+    },
+    {
+      "id": "ib-w-a5-globalsouth",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "글로벌 사우스 '30년 매출 목표 구체 수치 — 현재 '대폭 확대 방침'까지만 확보(구체 수치 미공표). IR·컨콜에서 인도/신흥시장 매출 목표·비중 수치 공개 시 반영. [워치리스트 감지 5건: https://www.theguru.co.kr/news/article.html?no=104741 https://www.etnews.com/20260715000181 https://www.theguru.co.kr/news/article.html?no=104007]",
+      "createdAt": "2026-07-26",
+      "origin": "watchlist",
+      "watchlistId": "w-a5-globalsouth",
       "companyId": "lg"
     }
   ]
