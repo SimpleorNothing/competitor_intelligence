@@ -1869,6 +1869,74 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "auto"
+    },
+    {
+      "id": 136,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-07-20",
+      "event": "LG전자 600kW CDU, 엔비디아 AI Factory DSX 인증 로스터 공식 등재 (테스트 프로토타입)",
+      "interpretation": "엔비디아 공급망 진입 문턱 통과. 최종 인증 완료 시 엔비디아 서버 도입 글로벌 CSP·빅테크 대상 수주 가능성 확대. AIDC 냉각 A2축 분리 트리거 조건 일부 충족. 삼성 HVAC(Fläkt 인수) 대비 액체냉각 선점 리스크.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "The Asia Business Daily",
+        "url": "https://www.asiae.co.kr/en/article/2026072009150328048",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 137,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-06-08",
+      "event": "구광모-젠슨 황 정상회담, CDU·콜드플레이트·액침냉각 인증 협력 및 DSX 모듈형 설계 기술 협력 공식 발표",
+      "interpretation": "엔비디아 AI 팩토리 레퍼런스 디자인 편입 가능성. 단순 부품 공급 넘어 설계 단계 협력은 수주 확도 제고 시그널. LG CNS·LG유플러스 DSX 채택 발표로 그룹 차원 생태계 진입 확인.",
+      "signalType": "Insight",
+      "confidence": "사실",
+      "source": {
+        "name": "NVIDIA Blog",
+        "url": "https://blogs.nvidia.com/blog/nvidia-and-lg-group-ai-factory/",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 138,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-06",
+      "event": "LG전자, 엔비디아 CDU 인증 절차 진행 중·곧 완료 예정 (회사 공식 입장)",
+      "interpretation": "인증 완료는 미확정이나 절차 막바지. 2027년 글로벌 고객사 공급 목표는 유지 중. 수주 규모 미공개로 확정치 없음.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "The Asia Business Daily",
+        "url": "https://www.asiae.co.kr/en/article/2026072009150328048",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
+    },
+    {
+      "id": 139,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-06",
+      "event": "LG전자 칠러 사업, 2027년 목표 매출 1조원 조기 달성 예상 (실적 컨퍼런스콜 공식 발표)",
+      "interpretation": "AIDC 칠러 수주 확대세 지속. 액체냉각(CDU) 인증 지연 리스크를 칠러로 헷지 중. 삼성 Fläkt 인수(2026년 추진 중)와 직접 충돌 구간.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "NewSis",
+        "url": "https://www.newsis.com/view/NISX20260616_0003670681",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "auto"
     }
   ],
   "inbox": [
@@ -1935,7 +2003,7 @@
     {
       "id": "ib-w-a2-nvidia",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "엔비디아 벤더 인증 통과 여부 — 현재 미통과. 통과 시 AIDC 냉각(칠러·CDU·액침) 확정 수주 규모 급확대 → A2 별도 축 분리 재검토 트리거. [워치리스트 감지 5건: https://www.hankyung.com/article/202607108020i https://news.einfomax.co.kr/news/articleView.html?idxno=4424072 https://biz.chosun.com/en/en-finance/2026/06/23/27KRR3T2VBDQNEH3WM2XFIUP7M/]",
+      "note": "엔비디아 DSX 인증 로스터 등재 확인. 최종 인증 완료 시점·확정 수주 규모 모니터링 필요. 다음 체크포인트: LG전자 2Q26 실적 발표(예상 7월 말), 엔비디아 공식 파트너 리스트 업데이트, MS 외 추가 빅테크 수주 공시.",
       "createdAt": "2026-07-19",
       "origin": "watchlist",
       "watchlistId": "w-a2-nvidia"
