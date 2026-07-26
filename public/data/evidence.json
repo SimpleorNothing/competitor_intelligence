@@ -2093,6 +2093,15 @@
       "origin": "watchlist",
       "watchlistId": "w-a5-tariff",
       "companyId": "lg"
+    },
+    {
+      "id": "ib-w-a1-sub2026",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "'26년 구독 매출 확정 실적 (2.84조 추정 검증) — '26년 구독 매출은 현재 증권가 전망 약 2.84조(외부 추정). 분기·연간 실적 발표로 확정치 확보 시 kpiSeries 갱신. [워치리스트 감지 5건: https://www.huffingtonpost.kr/article/258973 https://finance.yahoo.com/markets/stocks/articles/whirlpool-corporation-reschedules-second-quarter-201500279.html https://v.daum.net/v/XqObGANdWf]",
+      "createdAt": "2026-07-26",
+      "origin": "watchlist",
+      "watchlistId": "w-a1-sub2026",
+      "companyId": "lg"
     }
   ]
 }
