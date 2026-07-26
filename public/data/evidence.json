@@ -1,1 +1,21 @@
-__REAL_CONTENT_PENDING__
+{
+  "updatedAt": "2026-07-26T00:00:00+09:00",
+  "schemaVersion": "v1",
+  "items": [
+    {
+      "id": 143,
+      "companyId": "lg",
+      "axisId": "lg-a3",
+      "date": "2026-07-20",
+      "event": "TEMP",
+      "interpretation": "TEMP",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": { "name": "전자신문", "url": "https://www.etnews.com/20260720000255", "tier": 2 },
+      "interpretationBy": "claude",
+      "reviewStatus": "reviewed",
+      "tags": ["생성형AI"]
+    }
+  ],
+  "inbox": []
+}
