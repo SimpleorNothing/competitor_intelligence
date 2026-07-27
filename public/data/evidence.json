@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-26T00:00:00+09:00",
+  "updatedAt": "2026-07-27T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -2101,6 +2101,15 @@
       "createdAt": "2026-07-26",
       "origin": "watchlist",
       "watchlistId": "w-a1-sub2026",
+      "companyId": "lg"
+    },
+    {
+      "id": "ib-w-a6-homerobot",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "홈로봇 상업화·액추에이터 양산 진척 — 홈로봇 '28 상업화 목표. 액추에이터 '26 상반기 초도 양산 예정 → 실제 양산 개시·PoC 결과·수주 등 진척 이벤트 추적. [워치리스트 감지 5건: https://www.etnews.com/20260716000170 https://www.thelec.net/news/articleView.html?idxno=12268 https://www.etnews.com/20260713000323]",
+      "createdAt": "2026-07-27",
+      "origin": "watchlist",
+      "watchlistId": "w-a6-homerobot",
       "companyId": "lg"
     }
   ]
