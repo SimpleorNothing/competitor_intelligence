@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-26T00:00:00+09:00",
+  "updatedAt": "2026-07-27T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -1992,6 +1992,28 @@
     {
       "id": 143,
       "companyId": "lg",
+      "axisId": "lg-a6",
+      "date": "2026-07-01",
+      "event": "LG전자, CEO 직속 '로보틱스사업센터' 신설(센터장 송시용, 양재R&D캠퍼스). 사업개발·영업·오퍼레이션 완결형 조직 + 산하 로봇 학습용 데이터팩토리 전담조직 배치, 액추에이터 국내 자체생산 추진, 로보스타·베어로보틱스 자회사 보유",
+      "interpretation": "'26 로봇 원년 선언(A6)의 조직 실행 단계 — 로봇을 CEO 직속 완결형 사업조직으로 승격하고 데이터팩토리·액추에이터 내재화를 조직화. 산업·상업·가정용 3각축과 액추에이터 B2B 부품사업 의지를 조직 레벨에서 뒷받침하는 New→Deep 신호",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "로봇신문(irobotnews)",
+        "url": "https://www.irobotnews.com/news/articleView.html?idxno=47203",
+        "tier": 2
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "reviewed",
+      "tags": [
+        "조직개편",
+        "로보틱스",
+        "액추에이터"
+      ]
+    },
+    {
+      "id": 144,
+      "companyId": "lg",
       "axisId": "lg-a3",
       "date": "2026-07-20",
       "event": "LG전자, 스마트홈 플랫폼 씽큐(ThinQ)를 챗GPT와 연동하기로 결정. 사용자가 챗GPT 대화 안에서 실내 공기질·온도·가전 상태를 확인하고 자연어 명령으로 가전을 제어 — 앱을 열어 기기별 메뉴를 수동 조작하던 기존 방식을 AI가 의도를 해석하는 대화형으로 전환. LG전자 \"다양한 AI 서비스를 씽큐 앱을 통해 폭넓게 이용하도록 준비\" 입장. 정식 출시 시기 미정",
@@ -2121,6 +2143,15 @@
       "createdAt": "2026-07-26",
       "origin": "watchlist",
       "watchlistId": "w-a1-sub2026",
+      "companyId": "lg"
+    },
+    {
+      "id": "ib-w-a6-homerobot",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "홈로봇 상업화·액추에이터 양산 진척 — 홈로봇 '28 상업화 목표. 액추에이터 '26 상반기 초도 양산 예정 → 실제 양산 개시·PoC 결과·수주 등 진척 이벤트 추적. [워치리스트 감지 5건: https://www.etnews.com/20260716000170 https://www.thelec.net/news/articleView.html?idxno=12268 https://www.etnews.com/20260713000323]",
+      "createdAt": "2026-07-27",
+      "origin": "watchlist",
+      "watchlistId": "w-a6-homerobot",
       "companyId": "lg"
     }
   ]
