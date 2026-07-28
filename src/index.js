@@ -12,8 +12,6 @@
 // wrangler.jsonc의 assets.run_worker_first:true 가 있어야 이 Worker가
 // 정적 자산보다 먼저 모든 요청을 가로챈다.
 
-import { handleWatchlistAction } from "./watchlist-action.js";
-
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -830,14 +828,6 @@ export default {
             },
           });
         }
-        // 워치리스트 액션 오버레이 주입 — index.html 이 인라인 커밋 한계(61KB)를
-        // 넘어 직접 수정이 불가하므로 body 끝에 외부 클래식 스크립트를 덧붙인다.
-        // 인라인 <script> 뒤에 실행되어 전역 W·E·render·senseInbox 를 공유한다.
-        rw = rw.on("body", {
-          element(el) {
-            el.append('\n<script src="/watchlist-action.js"></script>\n', { html: true });
-          },
-        });
         return rw.transform(assetRes);
       }
       return env.ASSETS.fetch(request);
