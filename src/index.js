@@ -166,7 +166,7 @@ async function handleVersionJson(request, env, ctx) {
 // ── 추가 센싱(/api/sense) ─────────────────────────────────────────────
 // 미분류 인박스 항목의 "추가 센싱하기" 버튼이 호출한다.
 //   1) MI DB: market-insight 뉴스 저장소(news.json)에서 note 키워드 매칭
-//   2) 웹 센싱: ANTHROPIC_API_KEY 시크릿이 있으면 Claude + web_search로 최신 조사
+//   2) 웹 센싱: GEMINI_API_KEY 또는 GOOGLE_API_KEY가 있으면 Gemini + Google Search로 최신 조사
 // 결과는 검토용 후보만 반환하고, 반영은 별도 /api/promote(버튼 확인)로만 수행.
 const MI_NEWS_URL =
   "https://raw.githubusercontent.com/SimpleorNothing/market-insight/main/data/news.json";
@@ -322,7 +322,8 @@ function extractJson(text) {
 }
 
 async function senseWeb(note, env, axes, refs) {
-  if (!env.ANTHROPIC_API_KEY) return null; // 미설정 → 웹 센싱 생략
+  const apiKey = env.GEMINI_API_KEY || env.GOOGLE_API_KEY;
+  if (!apiKey) return null; // 미설정 → 웹 센싱 생략
   try {
     const axisList = (axes || []).map((a) => a.id + "(" + (a.code || "") + " " + (a.title || "") + ")").join(", ");
     let refBlock = "";
@@ -355,25 +356,24 @@ async function senseWeb(note, env, axes, refs) {
       "현재 정의된 값은 \"B2B주거\" 하나뿐 — 건설사 대상 주거 솔루션(빌트인·재건축 특판 구독, 아파트 단지 AI홈 연동, 로봇 친화형 아파트)에 해당할 때만 붙인다. 해당 없으면 빈 배열. " +
       "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n\n" +
       "요청: " + note + refBlock;
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-api-key": env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
+        "x-goog-api-key": apiKey,
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
-        max_tokens: 2048,
-        messages: [{ role: "user", content: prompt }],
-        tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 5 }],
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        tools: [{ googleSearch: {} }],
+        generationConfig: {
+          maxOutputTokens: 2048,
+        },
       }),
     });
     if (!r.ok) return { error: "API " + r.status };
     const data = await r.json();
-    const text = (data.content || [])
-      .filter((b) => b.type === "text")
-      .map((b) => b.text)
+    const text = (data.candidates?.[0]?.content?.parts || [])
+      .map((part) => part.text || "")
       .join("\n")
       .trim();
     const p = extractJson(text);
