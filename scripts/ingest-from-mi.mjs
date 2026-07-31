@@ -3,7 +3,7 @@
  * CI 2차 자동화 — market-insight(mi) 경쟁사 기사 → CI evidence.json 자동 적재
  *
  * 흐름 (README "2차 자동화" 구현체):
- *   mi의 news.json(경쟁사 태그) → 일 1회 GitHub Action → Claude API로
+ *   mi의 news.json(경쟁사 태그) → 일 1회 GitHub Action → Gemini API로
  *     ① 축 매핑(불가 시 inbox) ② 해석 1~2문장 ③ New/Deep/Insight 판정
  *   → public/data/evidence.json 에 append(reviewStatus:"auto", origin:"mi")
  *
@@ -11,12 +11,12 @@
  *   - execStatus 는 절대 자동 변경하지 않는다(운영 규율: 주간 사람 검수 대상).
  *     자동 적재분은 reviewStatus:"auto" 로만 쌓고, 사람이 주간 검토에서 reviewed 승격.
  *   - 멱등성: 이미 적재된 URL·miId 는 재적재하지 않는다.
- *   - 비용 보호: 한 회 실행당 MAX_PER_RUN 건까지만 Claude 호출.
+ *   - 비용 보호: 한 회 실행당 MAX_PER_RUN 건까지만 Gemini 호출.
  *   - 의존성 0: Node 20 내장 fetch 만 사용(별도 npm 설치 불필요).
  *
  * 환경변수:
- *   ANTHROPIC_API_KEY (필수)
- *   DRY_RUN=1 (선택 — Claude 호출 없이 후보 선별까지만 검증)
+ *   GEMINI_API_KEY 또는 GOOGLE_API_KEY (필수)
+ *   DRY_RUN=1 (선택 — Gemini 호출 없이 후보 선별까지만 검증)
  */
 
 import { readFile, writeFile } from "fs/promises";
@@ -32,12 +32,12 @@ const STRATEGIES_PATH = join(DATA_DIR, "strategies.json");
 const MI_NEWS_URL =
   "https://raw.githubusercontent.com/SimpleorNothing/market-insight/main/data/news.json";
 
-const MODEL = "claude-haiku-4-5-20251001";
+const MODEL = "gemini-3.5-flash-lite";
 const DRY_RUN = process.env.DRY_RUN === "1";
 const RUN_DATE = new Date().toISOString().slice(0, 10);
 
 // ── 운영 파라미터 ──────────────────────────────────────
-const MAX_PER_RUN = 12; // 한 회 Claude 호출 상한 (비용 보호)
+const MAX_PER_RUN = 12; // 한 회 Gemini 호출 상한 (비용 보호)
 const LOOKBACK_DAYS = 30; // 이 기간 내 발행 기사만 대상
 const GRADES_ALLOWED = new Set(["긴급", "주요", "주시"]); // 참고 등급 제외
 
@@ -135,35 +135,38 @@ const SYSTEM = `당신은 가전 경쟁사 전략 추적(Competitor Intelligence
 - relevant 가 false 면 나머지 필드는 빈 값이어도 된다.
 JSON 외 어떤 텍스트도 출력 금지.`;
 
-async function callClaude(apiKey, userPrompt, retry = false) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+async function callGemini(apiKey, userPrompt, retry = false) {
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+    {
     method: "POST",
     headers: {
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
+        "x-goog-api-key": apiKey,
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      model: MODEL,
-      max_tokens: 700,
-      system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
-      messages: [{ role: "user", content: userPrompt }],
+        systemInstruction: { parts: [{ text: SYSTEM }] },
+        contents: [{ role: "user", parts: [{ text: userPrompt }] }],
+        generationConfig: {
+          maxOutputTokens: 700,
+          responseMimeType: "application/json",
+        },
     }),
-  });
+    }
+  );
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     if (!retry && (res.status === 429 || res.status >= 500)) {
       await new Promise((r) => setTimeout(r, 1500));
-      return callClaude(apiKey, userPrompt, true);
+      return callGemini(apiKey, userPrompt, true);
     }
-    throw new Error(`Anthropic API ${res.status}: ${body.slice(0, 200)}`);
+    throw new Error(`Gemini API ${res.status}: ${body.slice(0, 200)}`);
   }
 
   const data = await res.json();
-  const text = (data.content || [])
-    .filter((b) => b.type === "text")
-    .map((b) => b.text)
+  const text = (data.candidates?.[0]?.content?.parts || [])
+    .map((part) => part.text || "")
     .join("")
     .trim();
 
@@ -177,13 +180,13 @@ async function callClaude(apiKey, userPrompt, retry = false) {
   } catch (e) {
     if (!retry) {
       await new Promise((r) => setTimeout(r, 800));
-      return callClaude(apiKey, userPrompt, true);
+      return callGemini(apiKey, userPrompt, true);
     }
     throw new Error(`JSON 파싱 실패: ${e.message}`);
   }
 }
 
-// ── 키워드 기반 축 후보 (프롬프트 힌트 + Claude 실패 시 결정적 폴백) ──
+// ── 키워드 기반 축 후보 (프롬프트 힌트 + Gemini 실패 시 결정적 폴백) ──
 // strategies.json 축의 matchHints를 기사(헤드라인·요약·태그)와 대조. 최상위가 유일할 때만 폴백 채택.
 function keywordAxisHits(company, article) {
   const hay = `${article.headline || ""} ${article.summary || ""} ${
@@ -240,9 +243,9 @@ ${article.source?.name || "-"}`;
 async function main() {
   log("=== CI 2차 자동화: mi → evidence 적재 시작 ===");
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!DRY_RUN && !apiKey) {
-    throw new Error("ANTHROPIC_API_KEY 미설정");
+    throw new Error("GEMINI_API_KEY 또는 GOOGLE_API_KEY 미설정");
   }
 
   const strategies = JSON.parse(await readFile(STRATEGIES_PATH, "utf-8"));
@@ -313,7 +316,7 @@ async function main() {
     for (const { art, companyId } of batch) {
       log(`  [DRY] ${companyId} ← ${art.headline}`);
     }
-    log("DRY_RUN: Claude 호출·쓰기 생략");
+    log("DRY_RUN: Gemini 호출·쓰기 생략");
     return;
   }
 
@@ -329,7 +332,7 @@ async function main() {
     const company = companyCtx.get(companyId);
     try {
       log(`매핑 中: [${companyId}] ${art.headline.slice(0, 40)}...`);
-      const r = await callClaude(apiKey, buildUserPrompt(company, art));
+      const r = await callGemini(apiKey, buildUserPrompt(company, art));
 
       if (!r || r.relevant === false) {
         skipped++;
@@ -349,10 +352,10 @@ async function main() {
 
       let axisId =
         r.axisId && company.axisIds.has(r.axisId) ? r.axisId : null;
-      let axisBy = axisId ? "claude" : null;
+      let axisBy = axisId ? "gemini" : null;
 
       if (!axisId) {
-        // 키워드 폴백 — Claude가 축을 못 고른 경우(null), matchHints 최상위가 유일하면 그 축으로 라우팅
+        // 키워드 폴백 — Gemini가 축을 못 고른 경우(null), matchHints 최상위가 유일하면 그 축으로 라우팅
         const hits = keywordAxisHits(company, art);
         if (hits.length && (hits.length === 1 || hits[0].n > hits[1].n)) {
           axisId = hits[0].id;
@@ -390,7 +393,7 @@ async function main() {
           url: art.url || art.source?.url || "",
           tier: 3,
         },
-        interpretationBy: "claude",
+        interpretationBy: "gemini",
         axisBy,
         reviewStatus: "auto",
         origin: "mi",
