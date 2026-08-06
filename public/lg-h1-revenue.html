@@ -65,7 +65,7 @@ footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11p
 <main class="wrap">
   <div class="eyebrow">L1 · 전체 매출 — 반기(상반기) 비교</div>
   <h2>상반기 매출 '21 → '30</h2>
-  <p class="lead">연간 궤적(이노텍 제외·100조 목표)을 <b>반기 단위</b>로 분해. 기본은 <b>연결(이노텍 포함)</b> — 잠정실적이 연결 기준으로만 공시되기 때문. <b>이노텍 제외</b>는 사업본부별 확정실적(실적설명회) 기준으로 전환하며, '26 상반기는 <b>7/30 확정</b> 전까지 산출 불가. '27~'30은 확정 전 축 예약(추정치 미정).</p>
+  <p class="lead">연간 궤적(이노텍 제외·100조 목표)을 <b>반기 단위</b>로 분해. 기본은 <b>연결(이노텍 포함)</b> — 연결 실적이 이노텍을 포함하기 때문. <b>이노텍 제외</b>는 LG전자 연결 매출에서 LG이노텍 상반기 연결 매출을 차감한 기존 산식으로 산출. '27~'30은 확정 전 축 예약(추정치 미정).</p>
 
   <section class="panel">
     <div class="toggle" role="tablist" aria-label="기준 선택">
@@ -80,12 +80,12 @@ footer{border-top:1px solid var(--line-strong);padding:16px 0 40px;font-size:11p
   </section>
 </main>
 
-<footer><div class="wrap">DA 2030 · Competitor Intelligence · 상반기 누적(1Q+2Q) 연결 매출 · 단위 조원 · '26 상반기는 잠정(7/7 공시) · '27~'30은 추정치 미정(빈 칸)</div></footer>
+<footer><div class="wrap">DA 2030 · Competitor Intelligence · 상반기 누적(1Q+2Q) 연결 매출 · 단위 조원 · '26 상반기는 확정 분기 실적 합산(7/30) · '27~'30은 추정치 미정(빈 칸)</div></footer>
 
 <script>
 const DATA = {
   consolidated: {
-    basis: "<b>연결(이노텍 포함)</b> — LG전자 연결 상반기 매출. '26 상반기는 7/7 잠정공시치(점선 테두리). '27~'30은 미확정.",
+    basis: "<b>연결(이노텍 포함)</b> — LG전자 연결 상반기 매출. '26 상반기는 7/30 확정 분기 실적 합산. '27~'30은 미확정.",
     unit: "조원", yMax: 52, gridlines: [25, 50],
     points: [
       { year:2021, value:34.9, kind:'actual',   note:"상반기 연결 34조9,263억 (반기 누적 공시)" },
@@ -93,7 +93,7 @@ const DATA = {
       { year:2023, value:40.4, kind:'estimate', note:"약 40조4천억 (분기 합산 재구성)" },
       { year:2024, value:42.8, kind:'actual',   note:"42조7,968억 (1Q 21.10+2Q 21.70 공시)" },
       { year:2025, value:43.5, kind:'actual',   note:"43조4,750억 (1Q 22.74+2Q 20.74 공시)" },
-      { year:2026, value:47.6, kind:'prelim',   note:"47조5,569억 잠정 · 7/7 공시(YoY +9.4%) · 확정 7/30" },
+      { year:2026, value:47.6, kind:'actual',   note:"47조5,537억 확정 · 1Q 23조7,272억 + 2Q 23조8,265억 합산(YoY +9.4%)" },
       { year:2027, value:null, kind:'future',   note:"추정치 미정" },
       { year:2028, value:null, kind:'future',   note:"추정치 미정" },
       { year:2029, value:null, kind:'future',   note:"추정치 미정" },
@@ -101,7 +101,7 @@ const DATA = {
     ]
   },
   exInnotek: {
-    basis: "<b>이노텍 제외</b> — 연결 상반기 − LG이노텍 상반기(공시). 연간 이노텍-제외 궤적과 동일 산식. '26은 사업본부별 확정(7/30) 전까지 산출 불가. '27~'30은 미확정.",
+    basis: "<b>이노텍 제외</b> — LG전자 연결 상반기 − LG이노텍 상반기 연결 매출(공시). 연간 이노텍-제외 궤적과 동일 산식. '26은 7/30 확정 실적 반영. '27~'30은 미확정.",
     unit: "조원", yMax: 52, gridlines: [25, 50],
     points: [
       { year:2021, value:29.5, kind:'actual',   note:"연결 34.9 − 이노텍 5.42조 (2021 1Q 3.07+2Q 2.35)" },
@@ -109,7 +109,7 @@ const DATA = {
       { year:2023, value:32.1, kind:'estimate', note:"연결 40.4 − 이노텍 8.28조 (2023 1Q 4.38+2Q 3.91)" },
       { year:2024, value:33.9, kind:'actual',   note:"연결 42.8 − 이노텍 8.89조 (2024 1Q 4.33+2Q 4.56)" },
       { year:2025, value:34.6, kind:'actual',   note:"연결 43.5 − 이노텍 8.92조 (2025 1Q 4.98+2Q 3.93)" },
-      { year:2026, value:null, kind:'pending',  note:"잠정엔 이노텍 분리 불가 — 7/30 실적설명회 후 산출·반영 예정" },
+      { year:2026, value:36.5, kind:'actual',   note:"연결 47조5,537억 − 이노텍 11조621억 = 36조4,916억" },
       { year:2027, value:null, kind:'future',   note:"추정치 미정" },
       { year:2028, value:null, kind:'future',   note:"추정치 미정" },
       { year:2029, value:null, kind:'future',   note:"추정치 미정" },
@@ -186,12 +186,12 @@ function render(){
   document.getElementById('chart').innerHTML = chartSVG(ds);
   document.getElementById('cap').innerHTML =
     `<span><i class="sw-act"></i>실적</span><span><i class="sw-est"></i>분기합산 재구성</span>`
-    + (MODE==='consolidated'?`<span><i class="sw-pl"></i>잠정</span>`:``)
+    
     + `<span style="margin-left:auto">전년비 · 단위 ${ds.unit}</span>`;
   document.getElementById('tbl').innerHTML = tableHTML(ds);
   document.getElementById('notes').innerHTML = MODE==='consolidated'
-    ? `<b>연결 기준</b>. '21·'26은 반기 누적/잠정 공시 직접치, '24·'25는 분기(1Q+2Q) 공시 합산, '22·'23은 분기 합산 재구성(태양광 중단영업 재작성 유의). '27~'30은 추정치 미정(빈 칸 예약). 좌측 보드의 연간 궤적은 <b>이노텍 제외</b>라 축이 다름.`
-    : `<b>이노텍 제외 기준</b> = 연결 상반기 − LG이노텍 상반기(공시). 연간 이노텍-제외 궤적과 동일 산식. 상반기 이노텍-제외는 연간의 49~52% 수준으로 정합. '26 상반기는 잠정실적에 이노텍이 분리되지 않아 <b>7/30 확정</b> 후 반영. '27~'30은 추정치 미정(빈 칸 예약).`;
+    ? `<b>연결 기준</b>. '21은 반기 누적 공시 직접치, '24~'26은 분기(1Q+2Q) 확정 공시 합산, '22·'23은 분기 합산 재구성(태양광 중단영업 재작성 유의). '27~'30은 추정치 미정(빈 칸 예약). 좌측 보드의 연간 궤적은 <b>이노텍 제외</b>라 축이 다름.`
+    : `<b>이노텍 제외 기준</b> = 연결 상반기 − LG이노텍 상반기(공시). 연간 이노텍-제외 궤적과 동일 산식. 상반기 이노텍-제외는 연간의 49~52% 수준으로 정합. '26 상반기는 LG전자 확정 분기 매출 합계에서 LG이노텍 상반기 연결 매출을 차감해 반영. '27~'30은 추정치 미정(빈 칸 예약).`;
   document.getElementById('tg-c').classList.toggle('on', MODE==='consolidated');
   document.getElementById('tg-c').setAttribute('aria-selected', MODE==='consolidated');
   document.getElementById('tg-e').classList.toggle('on', MODE==='exInnotek');
