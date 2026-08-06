@@ -2010,6 +2010,125 @@
         "로보틱스",
         "액추에이터"
       ]
+    },
+    {
+      "id": 144,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a1",
+      "event": "LG전자 2026년 2분기 구독 사업 매출 6,600억원으로 전년 동기 대비 5% 증가. 국내 관리서비스 기반 성장을 이어가고 해외 구독 지역을 말레이시아·태국 등 아시아에서 중동으로 확대",
+      "interpretation": "구독 사업의 반복매출과 해외 확장이 계속됐지만 성장률은 '25 연간 +30% 대비 둔화. 해외 인프라 구축 속도와 연간 2.84조원 외부 전망 달성 여부를 분기별로 확인할 필요",
+      "signalType": "Deep",
+      "tags": [
+        "구독",
+        "해외확장",
+        "중동"
+      ]
+    },
+    {
+      "id": 145,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a2",
+      "event": "LG전자 AIDC 냉각솔루션 상반기 수주액 6,000억원 초과. 연말까지 수조원 규모 프로젝트 신규수주 목표를 제시하고 국내외 생산능력 확대 추진. CDU 일부 모델은 엔비디아 인증을 완료했으며 추가 모델 인증 진행 중",
+      "interpretation": "정성적 인증·협의 단계에서 수주 절대액과 일부 인증 완료가 확인된 단계로 진전. AIDC가 A2의 실질 성장동력으로 구체화됐으나 연말 목표는 확정 수주와 구분해 추적",
+      "signalType": "Deep",
+      "tags": [
+        "AIDC",
+        "수주",
+        "CDU",
+        "엔비디아",
+        "생산능력"
+      ]
+    },
+    {
+      "id": 146,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a4",
+      "event": "LG전자 HS본부 2026년 2분기 매출 7조757억원·영업이익 6,859억원. 프리미엄·보급형 투트랙, 원가구조·공급망 최적화와 미국 관세 환급이 수익성 개선에 기여. 전사 일회성 손익 영향은 약 3,000억원",
+      "interpretation": "볼륨존·원가구조 재편의 실적 효과가 확인됐지만 관세 환급이 포함된 일회성 효과가 커, 다음 분기에는 환급 제외 기초수익성 유지 여부가 핵심 검증 포인트",
+      "signalType": "Insight",
+      "tags": [
+        "HS",
+        "투트랙",
+        "원가",
+        "관세환급"
+      ]
+    },
+    {
+      "id": 147,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a5",
+      "event": "LG전자는 2026년 하반기 인도·중국을 제외한 글로벌 가전 수요가 상반기보다 감소할 것으로 전망하고, 글로벌 사우스에서 지역 특화 신제품과 사업 확대를 추진한다고 재확인",
+      "interpretation": "선진시장 수요 둔화에 대응한 지역 포트폴리오 재편이 선언 단계에서 제품·판매 실행 단계로 이어짐. 다만 글로벌 사우스 매출 목표는 여전히 미공표",
+      "signalType": "Deep",
+      "tags": [
+        "글로벌사우스",
+        "지역특화",
+        "수요전망"
+      ]
+    },
+    {
+      "id": 148,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a6",
+      "event": "LG전자 창원공장 로봇 액추에이터 파일럿 생산라인 구축 완료 및 휴머노이드용 초도품 생산. 하반기 잠재고객 수주활동·자동화 설비 투자를 추진하고, 국내 최대 규모 로보틱스 데이터팩토리에 클로이드를 순차 투입할 계획",
+      "interpretation": "조직 신설에서 핵심부품 생산·훈련데이터 인프라 구축으로 실행 깊이가 확대. 외부 고객 수주와 양산 전환 전 단계로, A6 가속 판정을 강화하는 증거",
+      "signalType": "Deep",
+      "tags": [
+        "로보틱스",
+        "액추에이터",
+        "데이터팩토리",
+        "클로이드"
+      ]
     }
   ],
   "inbox": [
@@ -2076,7 +2195,7 @@
     {
       "id": "ib-w-a2-nvidia",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "엔비디아 DSX 인증 로스터 등재 확인. 최종 인증 완료 시점·확정 수주 규모 모니터링 필요. 다음 체크포인트: LG전자 2Q26 실적 발표(예상 7월 말), 엔비디아 공식 파트너 리스트 업데이트, MS 외 추가 빅테크 수주 공시.",
+      "note": "2026-08-06 2Q 컨콜 확인: CDU 일부 모델 엔비디아 인증 완료, 추가 모델 인증 진행 중. 후속 과제는 추가 모델 인증 완료·글로벌 고객 확정 수주 규모·매출 인식 시점 확인.",
       "createdAt": "2026-07-19",
       "origin": "watchlist",
       "watchlistId": "w-a2-nvidia"
@@ -2101,7 +2220,7 @@
     {
       "id": "ib-w-a5-globalsouth",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "2026-07-26 조사: 공개 IR·공시·컨콜 검색 결과 LG전자 글로벌 사우스 2030 매출 목표 구체 수치 미공표 확인. 워치리스트 URL 3건 접근 불가. 차기 실적발표(2026-Q2) 및 IR Day 모니터링 필요.",
+      "note": "2026-08-06 2Q 컨콜 확인: 글로벌 사우스 공략 및 지역 특화 신제품 확대 재확인. 구체적인 2030 매출 목표는 여전히 미공표이므로 차기 IR·연간 실적발표에서 정량 목표 모니터링.",
       "createdAt": "2026-07-26",
       "origin": "watchlist",
       "watchlistId": "w-a5-globalsouth",
@@ -2128,7 +2247,7 @@
     {
       "id": "ib-w-a6-homerobot",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "홈로봇 상업화·액추에이터 양산 진척 — 홈로봇 '28 상업화 목표. 액추에이터 '26 상반기 초도 양산 예정 → 실제 양산 개시·PoC 결과·수주 등 진척 이벤트 추적. [워치리스트 감지 5건: https://www.etnews.com/20260716000170 https://www.thelec.net/news/articleView.html?idxno=12268 https://www.etnews.com/20260713000323]",
+      "note": "2026-08-06 2Q 컨콜 확인: 창원 액추에이터 파일럿 라인 구축 완료·초도품 생산, 하반기 잠재고객 수주활동 및 데이터팩토리 가동 목표 확인. 다음 체크는 외부 수주명·수주액·양산 전환·홈로봇 상업화 일정.",
       "createdAt": "2026-07-27",
       "origin": "watchlist",
       "watchlistId": "w-a6-homerobot",
