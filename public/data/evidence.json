@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-12T00:00:00+09:00",
+  "updatedAt": "2026-08-15T11:30:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -2129,6 +2129,57 @@
         "데이터팩토리",
         "클로이드"
       ]
+    },
+    {
+      "id": 149,
+      "companyId": "lg",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 2026 반기보고서 (DART)",
+        "url": "https://dart.fss.or.kr/",
+        "tier": 1
+      },
+      "interpretationBy": "chatgpt",
+      "reviewStatus": "reviewed",
+      "axisId": "lg-a2",
+      "date": "2026-08-14",
+      "event": "2026 반기보고서에서 ES 상반기 매출 5조5,484억원, 영업이익 4,843억원을 공시. 전년 동기(매출 5조6,986억원·영업이익 6,572억원) 대비 각각 -2.6%, -26.3%. 동시에 칠러·CDU·공기냉각·액침냉각 등 AI 데이터센터 냉각 솔루션 실행 자료를 재확인.",
+      "interpretation": "AIDC 전략 실행은 가속되고 있지만 ES 전체 손익은 아직 성장 궤도에 올라오지 않았다는 공식 공시 근거. '전략 가속'과 '단기 실적 약화'를 분리해 추적해야 함."
+    },
+    {
+      "id": 150,
+      "companyId": "lg",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 2026 반기보고서 (DART)",
+        "url": "https://dart.fss.or.kr/",
+        "tier": 1
+      },
+      "interpretationBy": "chatgpt",
+      "reviewStatus": "reviewed",
+      "axisId": "lg-a4",
+      "date": "2026-08-14",
+      "event": "2026 반기보고서에서 HS 상반기 매출 14조188억원, 영업이익 1조2,556억원을 공시. 전년 동기 대비 각각 +5.4%, +16.1%.",
+      "interpretation": "신사업 확대와 동시에 전통 가전 본업의 이익창출력이 개선되고 있음. LG의 사업 전환을 가전 본업 약화로 해석하기보다 캐시카우 강화와 신사업 투자의 병행 구조로 보는 근거."
+    },
+    {
+      "id": 151,
+      "companyId": "lg",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 2026 반기보고서 (DART)",
+        "url": "https://dart.fss.or.kr/",
+        "tier": 1
+      },
+      "interpretationBy": "chatgpt",
+      "reviewStatus": "reviewed",
+      "axisId": "lg-a6",
+      "date": "2026-06",
+      "event": "Bear Robotics가 Kinisi Industries, Inc.와 Kinisi Industries Limited 지분 100%를 인수해 LG전자 연결대상에 편입. 반기보고서는 Kinisi의 사업을 'Physical AI 및 실시간 인식 기술을 활용한 로봇 개발/판매'로 기재.",
+      "interpretation": "Bear Robotics 인수가 서빙로봇 확대에 그치지 않고 Physical AI·실시간 인식 역량 확보 플랫폼으로 확장되는 증거. 홈로봇·휴머노이드 전략의 소프트웨어/인지 레이어 강화 신호."
     }
   ],
   "inbox": [
