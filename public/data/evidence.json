@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-15T11:30:00+09:00",
+  "updatedAt": "2026-08-15T14:11:51+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -2180,6 +2180,23 @@
       "date": "2026-06",
       "event": "Bear Robotics가 Kinisi Industries, Inc.와 Kinisi Industries Limited 지분 100%를 인수해 LG전자 연결대상에 편입. 반기보고서는 Kinisi의 사업을 'Physical AI 및 실시간 인식 기술을 활용한 로봇 개발/판매'로 기재.",
       "interpretation": "Bear Robotics 인수가 서빙로봇 확대에 그치지 않고 Physical AI·실시간 인식 역량 확보 플랫폼으로 확장되는 증거. 홈로봇·휴머노이드 전략의 소프트웨어/인지 레이어 강화 신호."
+    },
+    {
+      "id": 152,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-07-27",
+      "event": "600kW급 CDU가 엔비디아 최종 품질인증 획득 — 국내 기업 최초. GPU/CPU 콜드플레이트에 냉각수를 순환시키는 D2C(Direct-to-Chip) 방식, 온도제어 정밀도 ±0.25도, 누수감지·원격모니터링 탑재. 1MW·2.5MW·4MW 대용량 라인업으로 순차 인증 확대 계획 발표.",
+      "interpretation": "#138(절차 진행 중)·#136(로스터 등재, 프로토타입) 단계를 넘어 '인증 획득'이 확정된 시점. 엔비디아 액체냉각 공급망 진입이 실제로 완료됐음을 보여주는 1차 마일스톤이며, w-a2-nvidia 워치리스트의 트리거 조건이 충족된 근거. 다만 인증 대상은 600kW 단일 모델이므로 MW급 라인업 인증 완료 시점과 확정 수주·매출 인식 시점은 별도 추적이 필요하다.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 발표(전자신문·ZDNet Korea 인용)",
+        "url": "https://www.etnews.com/20260727000159",
+        "tier": 1
+      },
+      "interpretationBy": "claude",
+      "reviewStatus": "seeded"
     }
   ],
   "inbox": [

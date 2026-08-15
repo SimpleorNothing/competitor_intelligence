@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-15T00:00:00+09:00",
+  "updatedAt": "2026-08-15T14:11:51+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
   "lastScan": "2026-08-15 07:50",
@@ -11,7 +11,7 @@
       "axisId": "lg-a2",
       "axisCode": "A2",
       "question": "엔비디아 벤더 인증 통과 여부",
-      "detail": "현재 미통과. 통과 시 AIDC 냉각(칠러·CDU·액침) 확정 수주 규모 급확대 → A2 별도 축 분리 재검토 트리거.",
+      "detail": "2026-07-27 600kW급 CDU가 국내 최초로 엔비디아 최종 품질인증 획득(D2C 방식, ±0.25도). AIDC 냉각 공급망 진입은 완료 단계로 전환. 잔여 확인 과제는 1MW·2.5MW·4MW 대용량 라인업의 순차 인증 완료 시점, 글로벌 고객 확정 수주 규모, 매출 인식 시점. A2 별도 축 분리 재검토 트리거는 충족.",
       "keywords": [
         "엔비디아",
         "NVIDIA",
@@ -25,8 +25,16 @@
       "status": "signal",
       "createdAt": "2026-07-04",
       "lastChecked": "2026-08-15 07:50",
-      "lastHit": "2026-08-12 07:50",
+      "lastHit": "2026-08-15 14:30",
       "hits": [
+        {
+          "headline": "LG전자, CDU 국내 최초 엔비디아 품질 인증 획득",
+          "url": "https://www.etnews.com/20260727000159",
+          "source": "전자신문",
+          "publishedAt": "2026-07-27T00:00:00.000Z",
+          "score": 5,
+          "seenAt": "2026-08-15 14:30"
+        },
         {
           "headline": "트레인 테크놀로지스, AI 인프라 데이터센터 냉각 기술 조명",
           "url": "https://www.tranetechnologies.com/en/index/blog/solutions-innovation/data-center-cooling-sustainable-ai.html",
