@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-15T14:11:51+09:00",
+  "updatedAt": "2026-08-16T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-08-15 07:50",
+  "lastScan": "2026-08-16 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-08-15 14:30",
       "hits": [
         {
@@ -97,7 +97,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-08-14 07:50",
       "hits": [
         {
@@ -164,7 +164,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-07-22 07:50",
       "hits": [
         {
@@ -227,7 +227,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-08-15 07:50",
       "hits": [
         {
@@ -291,9 +291,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
-      "lastHit": "2026-08-09 07:51",
+      "lastChecked": "2026-08-16 07:50",
+      "lastHit": "2026-08-16 07:50",
       "hits": [
+        {
+          "headline": "LG전자 인도법인, 페스티벌 시즌 대비 생산 확대",
+          "url": "https://www.moneycontrol.com/news/companies/consumer-electronics/lg-electronics-india-sees-resilient-demand-despite-price-hikes-ramps-up-manufacturing-for-festive-demand-exports-14005459.html",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-08-14T06:31:07.000Z",
+          "score": 2,
+          "seenAt": "2026-08-16 07:50"
+        },
         {
           "headline": "LG 인도법인, 장수명 가전은 위협 아닌 기회",
           "url": "https://www.timesnownews.com/technology-science/ditaa-2026-lg-indias-sanjay-chitkara-sees-long-lasting-appliances-as-an-opportunity-not-a-threat-article-155386574",
@@ -325,14 +333,6 @@
           "publishedAt": "2026-06-22T10:20:43.000Z",
           "score": 3,
           "seenAt": "2026-07-30 07:50"
-        },
-        {
-          "headline": "LG전자 인도법인, FY26 순이익 23.5% 하락",
-          "url": "https://scanx.trade/stock-market-news/companies/lg-electronics-india-fy26-results-net-profit-down-23-5-yoy/46899761",
-          "source": "Google News - LG Global",
-          "publishedAt": "2026-07-29T19:46:47.000Z",
-          "score": 2,
-          "seenAt": "2026-07-30 07:50"
         }
       ],
       "routedInboxId": "ib-w-a5-globalsouth",
@@ -356,9 +356,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
-      "lastHit": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
+      "lastHit": "2026-08-16 07:50",
       "hits": [
+        {
+          "headline": "트럼프 관세전, 기존 규제 만료 시점 신규 제재 추진",
+          "url": "https://www.nytimes.com/article/trump-tariffs-trade.html",
+          "source": "Google News - US Trade Policy",
+          "publishedAt": "2026-07-24T13:57:42.000Z",
+          "score": 3,
+          "seenAt": "2026-08-16 07:50"
+        },
         {
           "headline": "트럼프 행정부, 멕시코와 철강 관세 공조 강화",
           "url": "https://www.alphabiz.co.kr/news/articleView.html?idxno=165312",
@@ -390,14 +398,6 @@
           "publishedAt": "2026-08-11T14:20:01.000Z",
           "score": 2,
           "seenAt": "2026-08-13 07:50"
-        },
-        {
-          "headline": "美 행정부, 존스법 면제 90일 재연장 및 건별 심사 도입",
-          "url": "https://www.news1.kr/amp/world/usa-canada/6254799",
-          "source": "Google News - 통상·관세 정책 KR",
-          "publishedAt": "2026-08-10T19:34:58.000Z",
-          "score": 2,
-          "seenAt": "2026-08-11 07:50"
         }
       ],
       "routedInboxId": "ib-w-a5-tariff",
@@ -421,7 +421,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-08-12 07:50",
       "hits": [
         {
@@ -488,7 +488,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-08-07 07:50",
       "hits": [
         {
@@ -628,7 +628,7 @@
           "seenAt": "2026-08-04 07:50"
         }
       ],
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-08-07 07:50",
       "routedInboxId": "ib-w-a1-b2b",
       "routedAt": "2026-08-12 23:38"
@@ -650,7 +650,7 @@
       "priority": "하",
       "status": "resolved",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-15 07:50",
+      "lastChecked": "2026-08-16 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
