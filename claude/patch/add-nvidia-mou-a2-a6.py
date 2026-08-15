@@ -3,7 +3,7 @@
 """
 LG·엔비디아 전략적 사업협력 MOU('26.8.13 현지) 센싱 반영 패치.
 
-대상: public/data/evidence.json 만 수정 (strategies.json 은 별도 PR)
+대상: public/data/evidence.json 만 수정 (strategies.json 은 별도 PR #126)
 
 '26.8.15 판단 반영
   - A2 trajGrade: behind 유지·모니터링 (상향 보류) → 인박스 노트에 근거 기록
@@ -13,8 +13,8 @@ LG·엔비디아 전략적 사업협력 MOU('26.8.13 현지) 센싱 반영 패�
   - ID 동적 부여: max(기존 id) + 1 부터 순차. PR #114/#115/#117/#118 등
     evidence.json 을 동시에 건드리는 PR 들과 어떤 머지 순서로도 충돌하지 않음.
   - 멱등성: event 문자열 선두 32자 기준 중복 검사 → 재실행해도 중복 추가 안 됨.
-  - 인박스: id 리터럴이 아니라 requestedTo 내용으로 매칭 → PR #115 선/후 머지
-    어느 쪽이든 inbox-13 note 갱신 또는 신규 생성으로 안전 동작.
+  - 인박스 매칭: 워치리스트 파생 항목(ib-w-*)은 별도 생명주기이므로 매칭 대상에서 제외.
+    (main 의 ib-w-a2-nvidia 노트에 '엔비디아 인증' 문자열이 있어 오매칭되던 문제 수정)
 """
 import json
 import pathlib
@@ -174,7 +174,8 @@ NOTE_13 = (
     "'등재 ≠ 채택' 단서 해소됨. 남은 미결: ①확정 수주·납품 공시(美 빅테크 1,000~2,000대 추진설은 단독보도·미확인) "
     "②천안 80MW AI팩토리 투자금액·착공 정량 공시. "
     "trajGrade는 '26.8.15 판단으로 behind 유지·모니터링 — 인증은 납품 자격일 뿐 확정 매출이 아니므로 "
-    "①②가 공시로 확인되는 시점에 상향 재검토. → 2건 확인 시 완전 승격."
+    "①②가 공시로 확인되는 시점에 상향 재검토. → 2건 확인 시 완전 승격. "
+    "(워치리스트 파생 ib-w-a2-nvidia 는 컨콜 기반 상시 감시용으로 별도 유지)"
 )
 
 
@@ -203,8 +204,11 @@ def upsert_inbox(match_fn, requested_to, note, label):
 
 
 # 엔비디아 인증 트리거 감시(PR #115의 inbox-13). 미머지면 새로 생성.
+# ib-w-* 워치리스트 파생 항목은 생명주기가 달라 매칭 대상에서 제외.
 upsert_inbox(
-    lambda e: "엔비디아" in str(e.get("requestedTo", "")) or "엔비디아 인증" in str(e.get("note", "")),
+    lambda e: (not str(e.get("id", "")).startswith("ib-w-")
+               and (str(e.get("id")) == "inbox-13"
+                    or "엔비디아" in str(e.get("requestedTo", "")))),
     "A2 엔비디아 인증·수주 확정 추적",
     NOTE_13,
     "A2 엔비디아 트리거",
