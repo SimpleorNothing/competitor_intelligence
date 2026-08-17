@@ -12,8 +12,6 @@
 // wrangler.jsonc의 assets.run_worker_first:true 가 있어야 이 Worker가
 // 정적 자산보다 먼저 모든 요청을 가로챈다.
 
-import { handleWatchlistAction } from "./watchlist-action.js";
-
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -168,7 +166,7 @@ async function handleVersionJson(request, env, ctx) {
 // ── 추가 센싱(/api/sense) ─────────────────────────────────────────────
 // 미분류 인박스 항목의 "추가 센싱하기" 버튼이 호출한다.
 //   1) MI DB: market-insight 뉴스 저장소(news.json)에서 note 키워드 매칭
-//   2) 웹 센싱: ANTHROPIC_API_KEY 시크릿이 있으면 Claude + web_search로 최신 조사
+//   2) 웹 센싱: GEMINI_API_KEY 또는 GOOGLE_API_KEY가 있으면 Gemini + Google Search로 최신 조사
 // 결과는 검토용 후보만 반환하고, 반영은 별도 /api/promote(버튼 확인)로만 수행.
 const MI_NEWS_URL =
   "https://raw.githubusercontent.com/SimpleorNothing/market-insight/main/data/news.json";
@@ -324,7 +322,8 @@ function extractJson(text) {
 }
 
 async function senseWeb(note, env, axes, refs) {
-  if (!env.ANTHROPIC_API_KEY) return null; // 미설정 → 웹 센싱 생략
+  const apiKey = env.GEMINI_API_KEY || env.GOOGLE_API_KEY;
+  if (!apiKey) return null; // 미설정 → 웹 센싱 생략
   try {
     const axisList = (axes || []).map((a) => a.id + "(" + (a.code || "") + " " + (a.title || "") + ")").join(", ");
     let refBlock = "";
@@ -357,25 +356,24 @@ async function senseWeb(note, env, axes, refs) {
       "현재 정의된 값은 \"B2B주거\" 하나뿐 — 건설사 대상 주거 솔루션(빌트인·재건축 특판 구독, 아파트 단지 AI홈 연동, 로봇 친화형 아파트)에 해당할 때만 붙인다. 해당 없으면 빈 배열. " +
       "모든 쟁점이 해소된 완전 승격일 때만 removeFromInbox를 true로. 아무것도 확인 못 하면 items는 빈 배열, verdict '대기'.\n\n" +
       "요청: " + note + refBlock;
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-api-key": env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
+        "x-goog-api-key": apiKey,
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
-        max_tokens: 2048,
-        messages: [{ role: "user", content: prompt }],
-        tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 5 }],
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        tools: [{ googleSearch: {} }],
+        generationConfig: {
+          maxOutputTokens: 2048,
+        },
       }),
     });
     if (!r.ok) return { error: "API " + r.status };
     const data = await r.json();
-    const text = (data.content || [])
-      .filter((b) => b.type === "text")
-      .map((b) => b.text)
+    const text = (data.candidates?.[0]?.content?.parts || [])
+      .map((part) => part.text || "")
       .join("\n")
       .trim();
     const p = extractJson(text);
@@ -637,6 +635,117 @@ async function handleWatchlistScan(request, env, ctx) {
   return json(await scanWatchlist(env, "manual"));
 }
 
+// ── GitHub Contents 헬퍼 (promote/watchlist 공용) ─────────────────────
+const EVIDENCE_PATH = DATA_PATH; // "public/data/evidence.json"
+
+async function ghGetJson(path, gh) {
+  const r = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + path + "?ref=main",
+    { headers: gh });
+  if (!r.ok) return { error: path + " 조회 실패 " + r.status };
+  const meta = await r.json();
+  try { return { meta, data: JSON.parse(b64DecodeUtf8(meta.content)) }; }
+  catch (e) { return { error: path + " 파싱 실패" }; }
+}
+async function ghPutJson(path, data, sha, message, gh) {
+  const r = await fetch(
+    "https://api.github.com/repos/" + DATA_REPO + "/contents/" + path,
+    { method: "PUT", headers: { ...gh, "content-type": "application/json" },
+      body: JSON.stringify({
+        message, content: b64EncodeUtf8(JSON.stringify(data, null, 2) + "\n"),
+        sha, branch: "main" }) });
+  if (!r.ok) { const t = await r.text(); return { error: "커밋 실패 " + r.status + " " + t.slice(0, 160) }; }
+  const out = await r.json();
+  return { commit: (out.commit && out.commit.html_url) || null };
+}
+function kstDate() { return new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10); }
+
+function buildInboxNote(w) {
+  const hits = Array.isArray(w.hits) ? w.hits : [];
+  const urls = hits.slice(0, 3).map((h) => h.url).filter(Boolean).join(" ");
+  let note = w.question + " — " + (w.detail || "");
+  if (hits.length) note += " [워치리스트 감지 " + hits.length + "건" + (urls ? ": " + urls : "") + "]";
+  return note.slice(0, 600);
+}
+
+// ── 워치리스트 액션(/api/watchlist-action) ───────────────────────────
+//   to-inbox : evidence.json inbox[] 센싱 요청 생성 + watchlist 항목에 routedInboxId 표시
+//              → 응답의 inboxItem 을 받아 프런트가 곧바로 /api/sense 자동 실행
+//   resolve  : watchlist status=resolved (cron 스캔 제외) + 종결 사유 기록
+//   reopen   : resolved → watching 복귀
+// 두 파일을 건드리는 to-inbox 는 evidence 를 먼저 커밋(실제 작업 생성)하고
+// watchlist 마커는 그다음. 마커가 실패해도 inbox id 중복검사로 재시도가 안전하다.
+async function handleWatchlistAction(request, env, ctx) {
+  if (!env.GITHUB_TOKEN) return json({ error: "GITHUB_TOKEN 시크릿 필요" }, 501);
+  let body = {};
+  try { body = await request.json(); } catch (e) {}
+  const id = String(body.id || "");
+  const action = String(body.action || "");
+  const reason = String(body.reason || "").slice(0, 200);
+  if (!id || !["to-inbox", "resolve", "reopen"].includes(action))
+    return json({ error: "id·action 필요 (to-inbox|resolve|reopen)" }, 400);
+
+  const gh = {
+    "user-agent": "ci-watchlist-action",
+    accept: "application/vnd.github+json",
+    authorization: "Bearer " + env.GITHUB_TOKEN,
+  };
+
+  const wl = await ghGetJson(WATCHLIST_PATH, gh);
+  if (wl.error) return json({ error: wl.error }, 502);
+  const item = (wl.data.items || []).find((x) => x.id === id);
+  if (!item) return json({ error: "워치리스트 항목 없음: " + id }, 404);
+  const stamp = nowKstStamp();
+
+  // ── resolve / reopen : watchlist 한 파일만 ──
+  if (action === "resolve" || action === "reopen") {
+    if (action === "resolve") {
+      item.status = "resolved"; item.resolvedAt = stamp;
+      if (reason) item.resolution = reason;
+    } else {
+      item.status = "watching"; delete item.resolvedAt; delete item.resolution;
+    }
+    wl.data.updatedAt = kstDate() + "T00:00:00+09:00";
+    const msg = "data: 워치리스트 " + (action === "resolve" ? "종결" : "재개") +
+      " — " + id + (reason ? " (" + reason + ")" : "") + " [skip-log]";
+    const put = await ghPutJson(WATCHLIST_PATH, wl.data, wl.meta.sha, msg, gh);
+    if (put.error) return json({ error: put.error }, 502);
+    return json({ ok: true, action, id, commit: put.commit });
+  }
+
+  // ── to-inbox : evidence 먼저(작업 생성) → watchlist 마커 ──
+  const inboxId = "ib-" + id;
+  const ev = await ghGetJson(EVIDENCE_PATH, gh);
+  if (ev.error) return json({ error: ev.error }, 502);
+  ev.data.inbox = ev.data.inbox || [];
+  let inboxItem = ev.data.inbox.find((x) => x.id === inboxId);
+  if (!inboxItem) {
+    inboxItem = {
+      id: inboxId, requestedTo: "경쟁사 동향 센싱 에이전트",
+      note: buildInboxNote(item), createdAt: kstDate(),
+      origin: "watchlist", watchlistId: id,
+    };
+    ev.data.inbox.push(inboxItem);
+    ev.data.updatedAt = kstDate() + "T00:00:00+09:00";
+    const putE = await ghPutJson(EVIDENCE_PATH, ev.data, ev.meta.sha,
+      "data: 워치리스트→인박스 — " + id, gh);
+    if (putE.error) return json({ error: putE.error }, 502);
+  }
+  // watchlist 마커 (최신 sha 재조회)
+  const wl2 = await ghGetJson(WATCHLIST_PATH, gh);
+  if (!wl2.error) {
+    const it2 = (wl2.data.items || []).find((x) => x.id === id);
+    if (it2 && !it2.routedInboxId) {
+      it2.routedInboxId = inboxId; it2.routedAt = stamp;
+      wl2.data.updatedAt = kstDate() + "T00:00:00+09:00";
+      await ghPutJson(WATCHLIST_PATH, wl2.data, wl2.meta.sha,
+        "data: 워치리스트 인박스 이동표시 — " + id + " [skip-log]", gh);
+    }
+  }
+  // inboxItem 을 함께 반환 → 프런트가 낙관적 렌더 후 /api/sense 자동 실행
+  return json({ ok: true, action, id, inboxId, inboxItem });
+}
+
 async function handleSense(request, env, ctx) {
   let body = {};
   try { body = await request.json(); } catch (e) {}
@@ -719,14 +828,6 @@ export default {
             },
           });
         }
-        // 워치리스트 액션 오버레이 주입 — index.html 이 인라인 커밋 한계(61KB)를
-        // 넘어 직접 수정이 불가하므로 body 끝에 외부 클래식 스크립트를 덧붙인다.
-        // 인라인 <script> 뒤에 실행되어 전역 W·E·render·senseInbox 를 공유한다.
-        rw = rw.on("body", {
-          element(el) {
-            el.append('\n<script src="/watchlist-action.js"></script>\n', { html: true });
-          },
-        });
         return rw.transform(assetRes);
       }
       return env.ASSETS.fetch(request);

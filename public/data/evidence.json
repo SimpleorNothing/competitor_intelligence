@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T00:00:00+09:00",
+  "updatedAt": "2026-08-15T14:11:51+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -2014,22 +2014,189 @@
     {
       "id": 144,
       "companyId": "lg",
-      "axisId": "lg-a3",
-      "date": "2026-07-20",
-      "event": "LG전자, 스마트홈 플랫폼 씽큐(ThinQ)를 챗GPT와 연동하기로 결정. 사용자가 챗GPT 대화 안에서 실내 공기질·온도·가전 상태를 확인하고 자연어 명령으로 가전을 제어 — 앱을 열어 기기별 메뉴를 수동 조작하던 기존 방식을 AI가 의도를 해석하는 대화형으로 전환. LG전자 \"다양한 AI 서비스를 씽큐 앱을 통해 폭넓게 이용하도록 준비\" 입장. 정식 출시 시기 미정",
-      "interpretation": "A3의 핵심 정의인 '생성형 AI 기반 차세대 AI홈'을 외부 LLM 개방·자연어 제어로 처음 구현한 실행 증거. 씽큐 진입 채널을 앱·웹(id86)에서 대화형 인터페이스로 확장. 다만 출시 시기 미정이라 '방침 발표+초기 실행' 경계 — 정식 출시·사용 지표 확인 시 실행 밀도 재평가.",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a1",
+      "event": "LG전자 2026년 2분기 구독 사업 매출 6,600억원으로 전년 동기 대비 5% 증가. 국내 관리서비스 기반 성장을 이어가고 해외 구독 지역을 말레이시아·태국 등 아시아에서 중동으로 확대",
+      "interpretation": "구독 사업의 반복매출과 해외 확장이 계속됐지만 성장률은 '25 연간 +30% 대비 둔화. 해외 인프라 구축 속도와 연간 2.84조원 외부 전망 달성 여부를 분기별로 확인할 필요",
+      "signalType": "Deep",
+      "tags": [
+        "구독",
+        "해외확장",
+        "중동"
+      ]
+    },
+    {
+      "id": 145,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a2",
+      "event": "LG전자 AIDC 냉각솔루션 상반기 수주액 6,000억원 초과. 연말까지 수조원 규모 프로젝트 신규수주 목표를 제시하고 국내외 생산능력 확대 추진. CDU 일부 모델은 엔비디아 인증을 완료했으며 추가 모델 인증 진행 중",
+      "interpretation": "정성적 인증·협의 단계에서 수주 절대액과 일부 인증 완료가 확인된 단계로 진전. AIDC가 A2의 실질 성장동력으로 구체화됐으나 연말 목표는 확정 수주와 구분해 추적",
+      "signalType": "Deep",
+      "tags": [
+        "AIDC",
+        "수주",
+        "CDU",
+        "엔비디아",
+        "생산능력"
+      ]
+    },
+    {
+      "id": 146,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a4",
+      "event": "LG전자 HS본부 2026년 2분기 매출 7조757억원·영업이익 6,859억원. 프리미엄·보급형 투트랙, 원가구조·공급망 최적화와 미국 관세 환급이 수익성 개선에 기여. 전사 일회성 손익 영향은 약 3,000억원",
+      "interpretation": "볼륨존·원가구조 재편의 실적 효과가 확인됐지만 관세 환급이 포함된 일회성 효과가 커, 다음 분기에는 환급 제외 기초수익성 유지 여부가 핵심 검증 포인트",
+      "signalType": "Insight",
+      "tags": [
+        "HS",
+        "투트랙",
+        "원가",
+        "관세환급"
+      ]
+    },
+    {
+      "id": 147,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a5",
+      "event": "LG전자는 2026년 하반기 인도·중국을 제외한 글로벌 가전 수요가 상반기보다 감소할 것으로 전망하고, 글로벌 사우스에서 지역 특화 신제품과 사업 확대를 추진한다고 재확인",
+      "interpretation": "선진시장 수요 둔화에 대응한 지역 포트폴리오 재편이 선언 단계에서 제품·판매 실행 단계로 이어짐. 다만 글로벌 사우스 매출 목표는 여전히 미공표",
+      "signalType": "Deep",
+      "tags": [
+        "글로벌사우스",
+        "지역특화",
+        "수요전망"
+      ]
+    },
+    {
+      "id": 148,
+      "companyId": "lg",
+      "date": "2026-08-06",
+      "confidence": "사실",
+      "source": {
+        "name": "디일렉(THE ELEC) · LG전자 2026년 2분기 컨퍼런스콜",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=60344",
+        "tier": 1
+      },
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "axisId": "lg-a6",
+      "event": "LG전자 창원공장 로봇 액추에이터 파일럿 생산라인 구축 완료 및 휴머노이드용 초도품 생산. 하반기 잠재고객 수주활동·자동화 설비 투자를 추진하고, 국내 최대 규모 로보틱스 데이터팩토리에 클로이드를 순차 투입할 계획",
+      "interpretation": "조직 신설에서 핵심부품 생산·훈련데이터 인프라 구축으로 실행 깊이가 확대. 외부 고객 수주와 양산 전환 전 단계로, A6 가속 판정을 강화하는 증거",
+      "signalType": "Deep",
+      "tags": [
+        "로보틱스",
+        "액추에이터",
+        "데이터팩토리",
+        "클로이드"
+      ]
+    },
+    {
+      "id": 149,
+      "companyId": "lg",
       "signalType": "Deep",
       "confidence": "사실",
       "source": {
-        "name": "전자신문",
-        "url": "https://www.etnews.com/20260720000255",
-        "tier": 2
+        "name": "LG전자 2026 반기보고서 (DART)",
+        "url": "https://dart.fss.or.kr/",
+        "tier": 1
+      },
+      "interpretationBy": "chatgpt",
+      "reviewStatus": "reviewed",
+      "axisId": "lg-a2",
+      "date": "2026-08-14",
+      "event": "2026 반기보고서에서 ES 상반기 매출 5조5,484억원, 영업이익 4,843억원을 공시. 전년 동기(매출 5조6,986억원·영업이익 6,572억원) 대비 각각 -2.6%, -26.3%. 동시에 칠러·CDU·공기냉각·액침냉각 등 AI 데이터센터 냉각 솔루션 실행 자료를 재확인.",
+      "interpretation": "AIDC 전략 실행은 가속되고 있지만 ES 전체 손익은 아직 성장 궤도에 올라오지 않았다는 공식 공시 근거. '전략 가속'과 '단기 실적 약화'를 분리해 추적해야 함."
+    },
+    {
+      "id": 150,
+      "companyId": "lg",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 2026 반기보고서 (DART)",
+        "url": "https://dart.fss.or.kr/",
+        "tier": 1
+      },
+      "interpretationBy": "chatgpt",
+      "reviewStatus": "reviewed",
+      "axisId": "lg-a4",
+      "date": "2026-08-14",
+      "event": "2026 반기보고서에서 HS 상반기 매출 14조188억원, 영업이익 1조2,556억원을 공시. 전년 동기 대비 각각 +5.4%, +16.1%.",
+      "interpretation": "신사업 확대와 동시에 전통 가전 본업의 이익창출력이 개선되고 있음. LG의 사업 전환을 가전 본업 약화로 해석하기보다 캐시카우 강화와 신사업 투자의 병행 구조로 보는 근거."
+    },
+    {
+      "id": 151,
+      "companyId": "lg",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 2026 반기보고서 (DART)",
+        "url": "https://dart.fss.or.kr/",
+        "tier": 1
+      },
+      "interpretationBy": "chatgpt",
+      "reviewStatus": "reviewed",
+      "axisId": "lg-a6",
+      "date": "2026-06",
+      "event": "Bear Robotics가 Kinisi Industries, Inc.와 Kinisi Industries Limited 지분 100%를 인수해 LG전자 연결대상에 편입. 반기보고서는 Kinisi의 사업을 'Physical AI 및 실시간 인식 기술을 활용한 로봇 개발/판매'로 기재.",
+      "interpretation": "Bear Robotics 인수가 서빙로봇 확대에 그치지 않고 Physical AI·실시간 인식 역량 확보 플랫폼으로 확장되는 증거. 홈로봇·휴머노이드 전략의 소프트웨어/인지 레이어 강화 신호."
+    },
+    {
+      "id": 152,
+      "companyId": "lg",
+      "axisId": "lg-a2",
+      "date": "2026-07-27",
+      "event": "600kW급 CDU가 엔비디아 최종 품질인증 획득 — 국내 기업 최초. GPU/CPU 콜드플레이트에 냉각수를 순환시키는 D2C(Direct-to-Chip) 방식, 온도제어 정밀도 ±0.25도, 누수감지·원격모니터링 탑재. 1MW·2.5MW·4MW 대용량 라인업으로 순차 인증 확대 계획 발표.",
+      "interpretation": "#138(절차 진행 중)·#136(로스터 등재, 프로토타입) 단계를 넘어 '인증 획득'이 확정된 시점. 엔비디아 액체냉각 공급망 진입이 실제로 완료됐음을 보여주는 1차 마일스톤이며, w-a2-nvidia 워치리스트의 트리거 조건이 충족된 근거. 다만 인증 대상은 600kW 단일 모델이므로 MW급 라인업 인증 완료 시점과 확정 수주·매출 인식 시점은 별도 추적이 필요하다.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {
+        "name": "LG전자 발표(전자신문·ZDNet Korea 인용)",
+        "url": "https://www.etnews.com/20260727000159",
+        "tier": 1
       },
       "interpretationBy": "claude",
-      "reviewStatus": "reviewed",
-      "tags": [
-        "생성형AI"
-      ]
+      "reviewStatus": "seeded"
     }
   ],
   "inbox": [
@@ -2096,7 +2263,7 @@
     {
       "id": "ib-w-a2-nvidia",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "엔비디아 DSX 인증 로스터 등재 확인. 최종 인증 완료 시점·확정 수주 규모 모니터링 필요. 다음 체크포인트: LG전자 2Q26 실적 발표(예상 7월 말), 엔비디아 공식 파트너 리스트 업데이트, MS 외 추가 빅테크 수주 공시.",
+      "note": "2026-08-06 2Q 컨콜 확인: CDU 일부 모델 엔비디아 인증 완료, 추가 모델 인증 진행 중. 후속 과제는 추가 모델 인증 완료·글로벌 고객 확정 수주 규모·매출 인식 시점 확인.",
       "createdAt": "2026-07-19",
       "origin": "watchlist",
       "watchlistId": "w-a2-nvidia"
@@ -2121,7 +2288,7 @@
     {
       "id": "ib-w-a5-globalsouth",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "2026-07-26 조사: 공개 IR·공시·컨콜 검색 결과 LG전자 글로벌 사우스 2030 매출 목표 구체 수치 미공표 확인. 워치리스트 URL 3건 접근 불가. 차기 실적발표(2026-Q2) 및 IR Day 모니터링 필요.",
+      "note": "2026-08-06 2Q 컨콜 확인: 글로벌 사우스 공략 및 지역 특화 신제품 확대 재확인. 구체적인 2030 매출 목표는 여전히 미공표이므로 차기 IR·연간 실적발표에서 정량 목표 모니터링.",
       "createdAt": "2026-07-26",
       "origin": "watchlist",
       "watchlistId": "w-a5-globalsouth",
@@ -2148,11 +2315,19 @@
     {
       "id": "ib-w-a6-homerobot",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "홈로봇 상업화·액추에이터 양산 진척 — 홈로봇 '28 상업화 목표. 액추에이터 '26 상반기 초도 양산 예정 → 실제 양산 개시·PoC 결과·수주 등 진척 이벤트 추적. [워치리스트 감지 5건: https://www.etnews.com/20260716000170 https://www.thelec.net/news/articleView.html?idxno=12268 https://www.etnews.com/20260713000323]",
+      "note": "2026-08-06 2Q 컨콜 확인: 창원 액추에이터 파일럿 라인 구축 완료·초도품 생산, 하반기 잠재고객 수주활동 및 데이터팩토리 가동 목표 확인. 다음 체크는 외부 수주명·수주액·양산 전환·홈로봇 상업화 일정.",
       "createdAt": "2026-07-27",
       "origin": "watchlist",
       "watchlistId": "w-a6-homerobot",
       "companyId": "lg"
+    },
+    {
+      "id": "ib-w-a1-b2b",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "B2B 주거 솔루션 — A7 중첩축 신설 요건 충족 여부 — 건설사 대상 '구독+AI홈+로봇' 번들이 3개월 내 시퀀스로 진행: '26.4 GS건설 로봇친화형아파트 MOU → '26.7.10 GS건설 차세대 AI홈 공동개발 MOU(류재철 CEO 참석, 씽큐온↔자이 단지인프라, 성수1지구부터 클로이드·서빙배송로봇) → '26.7.19 현대건설 압구정 재건축 2·3·5구역 7,000세대 가전구독. 현재 판정: 별도 축 미신설 — 축은 전략방향으로 정의되는데 B2B 주거는 고객군·채널이고, 증거가 A1(구독)·A3(AI홈)·A6(로봇)로 갈리므로 각 축 귀속 유지 + tags 교차태그로 처리(A2의 AIDC 편입 선례 준용). 분리 트리거 ①계약 세대수 누계 또는 B2B 주거 매출·수주 정량 공표 ②전담조직이 사업본부급 또는 CEO직속 승격(현 한국B2B그룹은 HS 산하 영업조직) ③IR·주총·컨콜에서 독립 성장축으로 명시 — 2개 이상 충족 시 A7 신설. A7은 A1~A6와 배타(a or b) 아님. 중첩축(a이면서 b)으로 신설하며, 증거는 원 축에 남기고 A7은 tags 기반 뷰로 구성한다. [워치리스트 감지 5건: https://www.etnews.com",
+      "createdAt": "2026-08-12",
+      "origin": "watchlist",
+      "watchlistId": "w-a1-b2b"
     }
   ]
 }
