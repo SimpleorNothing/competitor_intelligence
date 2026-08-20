@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-15T14:11:51+09:00",
+  "updatedAt": "2026-08-20T00:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -2328,6 +2328,14 @@
       "createdAt": "2026-08-12",
       "origin": "watchlist",
       "watchlistId": "w-a1-b2b"
+    },
+    {
+      "id": "ib-w-a3-aihome-rev",
+      "requestedTo": "경쟁사 동향 센싱 에이전트",
+      "note": "AI홈 개별 매출목표/실적 공개 여부 — 현재 개별 매출목표 미공표(3대 전환영역 플랫폼 매출로 흡수). IFA 2026·하반기 신제품에서 AI홈 실행·매출 증거 재확인. 미확인 지속 시 우선순위 후퇴 판정. [워치리스트 감지 5건: https://v.daum.net/v/20260624154235758 https://www.etnews.com/20260720000255 https://www.msn.com/en-xl/lifestyle/shopping/lg-electronics-unveils-thinq-on-ai-home-hub/ar-AA249lfN?ocid=finance-verthp-feeds]",
+      "createdAt": "2026-08-20",
+      "origin": "watchlist",
+      "watchlistId": "w-a3-aihome-rev"
     }
   ]
 }
