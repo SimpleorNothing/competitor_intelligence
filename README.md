@@ -16,7 +16,8 @@ ci-site/
 │   ├── index.html          # 보드 전체 (단일 파일, CSS/JS 내장)
 │   ├── data/
 │   │   ├── strategies.json # L1 전략 프레임 + L2 추진전략 축
-│   │   └── evidence.json   # L3 실행 증거 타임라인 + 미분류 인박스
+│   │   ├── evidence.json   # L3 실행 증거 타임라인 + 미분류 인박스
+│   │   └── org-*.json      # LG전자 임원 스냅샷(2023·2024·2025·2026Q1·2026H1) — org.html 소스
 │   └── .nojekyll
 ├── scripts/
 │   └── ingest-from-mi.mjs  # mi 경쟁사 기사 → evidence 자동 적재 (2차 자동화)
@@ -75,6 +76,11 @@ ci-site/
   `추론`/`가설`로 강등하고 인박스에 재검증 요청 기록
 - **분기 검증**: L1·L2가 최신 전략으로 유효한지 총론 재검색 — CEO 교체·조직개편·목표 수치 변경은
   즉시 frame/axes 반영
+- **정기공시 반영**: DART 사업/분기/반기보고서가 나오면 ① 「임원 현황」을 파싱해
+  `public/data/org-<기간>.json` 신규 생성 + `org.html`의 `PERIODS`·`TREND`·원문 팝업 확장,
+  ② 부문별 정보·사업의 개요·사업결합 주석에서 전략 근거를 뽑아 strategies/evidence 갱신,
+  ③ 원문 PDF는 `public/reports/`에 보관. 승진/신규 플래그는 직전 보고서 원문을 같은 파서로
+  재파싱해 비교한다(기존 json과 직접 비교하면 과거 파싱 누락이 '신규'로 잘못 잡힌다).
 
 ## 2차 자동화 (구현됨)
 
