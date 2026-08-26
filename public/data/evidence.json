@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20T00:00:00+09:00",
+  "updatedAt": "2026-08-27T07:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -2197,6 +2197,51 @@
       },
       "interpretationBy": "claude",
       "reviewStatus": "seeded"
+    },
+    {
+      "id": 153,
+      "companyId": "lg",
+      "axisId": "lg-a7",
+      "date": "2025-11-17",
+      "event": "LG전자가 LGE.COM 내 홈스타일을 리빙 브랜드 400개·제품 2만개 규모로 개설하고 가전 3%·리빙 10% 결합할인과 1대1 스타일링 상담을 도입.",
+      "interpretation": "공식몰을 가전 단품 판매 채널에서 공간 큐레이션 접점으로 전환한 출발점. 외부 리빙 브랜드를 한데 모아 가전 구매 전 단계의 취향·공간 데이터를 확보하려는 D2C 확장으로 해석된다.",
+      "signalType": "Insight",
+      "confidence": "사실",
+      "source": {"name": "LG전자 뉴스룸·홈스타일 확대 분석(2026-08-25)", "url": "https://www.lge.co.kr/newsroom", "tier": 1},
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "tags": ["홈스타일", "D2C", "리빙", "크로스셀링"]
+    },
+    {
+      "id": 154,
+      "companyId": "lg",
+      "axisId": "lg-a7",
+      "date": "2026-02-19",
+      "event": "홈스타일 개설 후 3개월간 LGE.COM 신규 방문 120만명을 확보했고, 리빙 제품 구매 고객 5명 중 1명이 가전을 함께 구매했다고 LG전자가 발표.",
+      "interpretation": "홈스타일이 공식몰 신규 유입과 가전 크로스셀링 장치로 작동한다는 초기 증거. 다만 자체 발표 수치이며 홈스타일 단독 매출·기여이익은 공개되지 않아 수익성 검증은 유보한다.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {"name": "LG전자 발표·홈스타일 확대 분석(2026-08-25)", "url": "https://homestyle.lge.co.kr/home", "tier": 1},
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "tags": ["홈스타일", "신규방문", "크로스셀링"]
+    },
+    {
+      "id": 155,
+      "companyId": "lg",
+      "axisId": "lg-a7",
+      "date": "2026-06-25",
+      "event": "LG전자가 홈스타일에 LX하우시스·한샘·MMK 등 인테리어 시공사 25곳과 시공 사례 500건 이상을 입점시키고, 연내 시공사 50곳 확대 목표를 제시. 취급 제품은 3만개로 개설 시점 대비 50% 증가.",
+      "interpretation": "상품 큐레이션에서 시공 중개까지 CEJ 전방을 확장해 이사·리모델링 초기 단계에서 가전 선택을 선점하는 구조가 구체화됐다. 시공사 50곳 도달 여부와 중개 수수료·가전 동반구매율이 다음 검증 지표다.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {"name": "전자신문·홈스타일 확대 분석(2026-08-25)", "url": "https://homestyle.lge.co.kr/home", "tier": 2},
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "tags": ["홈스타일", "인테리어", "시공", "플랫폼"]
     }
   ],
   "inbox": [
@@ -2324,7 +2369,7 @@
     {
       "id": "ib-w-a1-b2b",
       "requestedTo": "경쟁사 동향 센싱 에이전트",
-      "note": "B2B 주거 솔루션 — A7 중첩축 신설 요건 충족 여부 — 건설사 대상 '구독+AI홈+로봇' 번들이 3개월 내 시퀀스로 진행: '26.4 GS건설 로봇친화형아파트 MOU → '26.7.10 GS건설 차세대 AI홈 공동개발 MOU(류재철 CEO 참석, 씽큐온↔자이 단지인프라, 성수1지구부터 클로이드·서빙배송로봇) → '26.7.19 현대건설 압구정 재건축 2·3·5구역 7,000세대 가전구독. 현재 판정: 별도 축 미신설 — 축은 전략방향으로 정의되는데 B2B 주거는 고객군·채널이고, 증거가 A1(구독)·A3(AI홈)·A6(로봇)로 갈리므로 각 축 귀속 유지 + tags 교차태그로 처리(A2의 AIDC 편입 선례 준용). 분리 트리거 ①계약 세대수 누계 또는 B2B 주거 매출·수주 정량 공표 ②전담조직이 사업본부급 또는 CEO직속 승격(현 한국B2B그룹은 HS 산하 영업조직) ③IR·주총·컨콜에서 독립 성장축으로 명시 — 2개 이상 충족 시 A7 신설. A7은 A1~A6와 배타(a or b) 아님. 중첩축(a이면서 b)으로 신설하며, 증거는 원 축에 남기고 A7은 tags 기반 뷰로 구성한다. [워치리스트 감지 5건: https://www.etnews.com",
+      "note": "2026-08-27 판정 갱신 — 홈스타일이 리빙 브랜드 400개·제품 3만개에서 시공사 25곳·사례 500건+까지 확장되고 신규 방문 120만명·가전 동반구매율 20%를 제시함에 따라, B2B 주거 채널 자체가 아니라 '공간 D2C 플랫폼'을 A7 독립축으로 신설. 기존 A1(구독)·A3(AI홈)·A6(로봇) 증거는 원 축에 유지하고 홈스타일·리빙·시공 증거만 A7에 귀속. 다음 체크: 연내 시공사 50곳, 홈스타일 단독 GMV·수수료율·기여이익, 전담조직 규모·해외 전개 공개 여부.",
       "createdAt": "2026-08-12",
       "origin": "watchlist",
       "watchlistId": "w-a1-b2b"
