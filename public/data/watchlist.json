@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-27T00:00:00+09:00",
+  "updatedAt": "2026-08-30T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-08-27 07:50",
+  "lastScan": "2026-08-30 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,9 +24,25 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
-      "lastHit": "2026-08-19 07:50",
+      "lastChecked": "2026-08-30 07:50",
+      "lastHit": "2026-08-30 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 엔비디아와 AI 팩토리 구축 협력",
+          "url": "https://w.media/lg-electronics-and-nvidia-build-ai-factory-to-advance-robotics-and-industrial-ai/",
+          "source": "Google News - Appliance New Business Models",
+          "publishedAt": "2026-08-27T04:00:00.000Z",
+          "score": 1,
+          "seenAt": "2026-08-30 07:50"
+        },
+        {
+          "headline": "트레인과 캐리어, 데이터센터 냉각 솔루션 판매",
+          "url": "https://finance.yahoo.com/technology/ai/articles/data-centers-dont-just-power-183500900.html",
+          "source": "Google News - HVAC Majors",
+          "publishedAt": "2026-08-22T18:35:00.000Z",
+          "score": 1,
+          "seenAt": "2026-08-30 07:50"
+        },
         {
           "headline": "오텍캐리어, 48MW급 데이터센터 냉각 시스템 수주",
           "url": "https://www.etnews.com/20260818000399",
@@ -50,22 +66,6 @@
           "publishedAt": "2026-08-10T07:00:00.000Z",
           "score": 1,
           "seenAt": "2026-08-12 07:50"
-        },
-        {
-          "headline": "존슨콘트롤즈, 흡수식 칠러 레퍼런스 디자인 가이드 공개",
-          "url": "https://www.phcppros.com/articles/23841-johnson-controls-introduces-absorption-chiller-reference-design-guide",
-          "source": "Google News - HVAC Majors",
-          "publishedAt": "2026-07-29T21:48:34.000Z",
-          "score": 1,
-          "seenAt": "2026-08-04 07:50"
-        },
-        {
-          "headline": "오텍캐리어, 글로벌 캐리어와 데이터센터 냉각 협력",
-          "url": "https://www.hankyung.com/article/202607108020i",
-          "source": "한국경제",
-          "publishedAt": "2026-07-10T02:00:00.000Z",
-          "score": 4,
-          "seenAt": "2026-08-02 07:50"
         }
       ],
       "routedInboxId": "ib-w-a2-nvidia",
@@ -89,7 +89,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-08-19 07:50",
       "hits": [
         {
@@ -156,7 +156,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-08-22 07:50",
       "hits": [
         {
@@ -221,7 +221,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-08-20 07:50",
       "hits": [
         {
@@ -285,7 +285,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-08-24 07:50",
       "hits": [
         {
@@ -350,9 +350,25 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
-      "lastHit": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
+      "lastHit": "2026-08-30 07:50",
       "hits": [
+        {
+          "headline": "트럼프 관세전, 기존 규제 만료 시점 신규 제재 추진",
+          "url": "https://www.nytimes.com/article/trump-tariffs-trade.html",
+          "source": "Google News - US Trade Policy",
+          "publishedAt": "2026-07-24T13:57:42.000Z",
+          "score": 3,
+          "seenAt": "2026-08-30 07:50"
+        },
+        {
+          "headline": "미국-캐나다 관세 전쟁 심화, 자동차·주택 등 영향",
+          "url": "https://timesofindia.indiatimes.com/business/international-business/trump-vs-carney-cars-homes-booze-and-more-caught-in-us-canada-tariff-war/articleshow/133615510.cms",
+          "source": "Google News - US Trade Policy",
+          "publishedAt": "2026-08-29T16:12:00.000Z",
+          "score": 2,
+          "seenAt": "2026-08-30 07:50"
+        },
         {
           "headline": "트럼프 행정부, 멕시코와 철강 관세 공조 강화",
           "url": "https://www.alphabiz.co.kr/news/articleView.html?idxno=165312",
@@ -376,22 +392,6 @@
           "publishedAt": "2026-08-24T14:40:44.000Z",
           "score": 2,
           "seenAt": "2026-08-25 07:50"
-        },
-        {
-          "headline": "트럼프 행정부, 캐나다산 제품에 50% 관세 부과 시행",
-          "url": "https://abcnews.com/Business/trumps-proposed-tariffs-canada-hurtle-deadline-amid-trade/story?id=135833861",
-          "source": "Google News - US Trade Policy",
-          "publishedAt": "2026-08-22T12:02:01.000Z",
-          "score": 2,
-          "seenAt": "2026-08-24 07:50"
-        },
-        {
-          "headline": "트럼프, 캐나다에 50% 관세 강행",
-          "url": "http://www.theonetv.kr/news/articleView.html?idxno=252370",
-          "source": "Google News - 통상·관세 정책 KR",
-          "publishedAt": "2026-08-22T05:38:48.000Z",
-          "score": 2,
-          "seenAt": "2026-08-23 07:50"
         }
       ],
       "routedInboxId": "ib-w-a5-tariff",
@@ -415,7 +415,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-08-25 07:50",
       "hits": [
         {
@@ -482,7 +482,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-08-21 07:50",
       "hits": [
         {
@@ -622,7 +622,7 @@
           "seenAt": "2026-08-07 07:50"
         }
       ],
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-08-26 07:50",
       "routedInboxId": "ib-w-a1-b2b",
       "routedAt": "2026-08-12 23:38"
@@ -644,7 +644,7 @@
       "priority": "하",
       "status": "resolved",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-27 07:50",
+      "lastChecked": "2026-08-30 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
