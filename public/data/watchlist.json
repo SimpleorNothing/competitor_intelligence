@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-30T00:00:00+09:00",
+  "updatedAt": "2026-08-31T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-08-30 07:50",
+  "lastScan": "2026-08-31 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,9 +24,25 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
-      "lastHit": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
+      "lastHit": "2026-08-31 07:50",
       "hits": [
+        {
+          "headline": "오텍캐리어, 글로벌 캐리어와 데이터센터 냉각 협력",
+          "url": "https://www.hankyung.com/article/202607108020i",
+          "source": "한국경제",
+          "publishedAt": "2026-07-10T02:00:00.000Z",
+          "score": 4,
+          "seenAt": "2026-08-31 07:50"
+        },
+        {
+          "headline": "오텍캐리어, 수도권 48MW급 데이터센터 냉각 솔루션 수주",
+          "url": "https://www.energykorea.co.kr/news/articleView.html?idxno=66175",
+          "source": "Google News - 캐리어/오텍캐리어 KR",
+          "publishedAt": "2026-08-30T13:48:25.000Z",
+          "score": 1,
+          "seenAt": "2026-08-31 07:50"
+        },
         {
           "headline": "LG전자, 엔비디아와 AI 팩토리 구축 협력",
           "url": "https://w.media/lg-electronics-and-nvidia-build-ai-factory-to-advance-robotics-and-industrial-ai/",
@@ -50,22 +66,6 @@
           "publishedAt": "2026-08-18T07:27:06.000Z",
           "score": 1,
           "seenAt": "2026-08-19 07:50"
-        },
-        {
-          "headline": "LG전자, CDU 국내 최초 엔비디아 품질 인증 획득",
-          "url": "https://www.etnews.com/20260727000159",
-          "source": "전자신문",
-          "publishedAt": "2026-07-27T00:00:00.000Z",
-          "score": 5,
-          "seenAt": "2026-08-15 14:30"
-        },
-        {
-          "headline": "트레인 테크놀로지스, AI 인프라 데이터센터 냉각 기술 조명",
-          "url": "https://www.tranetechnologies.com/en/index/blog/solutions-innovation/data-center-cooling-sustainable-ai.html",
-          "source": "Google News - HVAC Majors",
-          "publishedAt": "2026-08-10T07:00:00.000Z",
-          "score": 1,
-          "seenAt": "2026-08-12 07:50"
         }
       ],
       "routedInboxId": "ib-w-a2-nvidia",
@@ -89,9 +89,17 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
-      "lastHit": "2026-08-19 07:50",
+      "lastChecked": "2026-08-31 07:50",
+      "lastHit": "2026-08-31 07:50",
       "hits": [
+        {
+          "headline": "오텍캐리어, 수도권 48MW급 데이터센터 냉각 솔루션 수주",
+          "url": "https://www.energykorea.co.kr/news/articleView.html?idxno=66175",
+          "source": "Google News - 캐리어/오텍캐리어 KR",
+          "publishedAt": "2026-08-30T13:48:25.000Z",
+          "score": 2,
+          "seenAt": "2026-08-31 07:50"
+        },
         {
           "headline": "오텍캐리어, 48MW급 데이터센터 냉각 시스템 수주",
           "url": "https://www.etnews.com/20260818000399",
@@ -123,14 +131,6 @@
           "publishedAt": "2026-07-30T09:02:14.000Z",
           "score": 2,
           "seenAt": "2026-08-06 07:50"
-        },
-        {
-          "headline": "한편 LG전자, AIDC 냉각 설루션 상반기 6000억 수주",
-          "url": "https://www.news1.kr/industry/general-industry/6246173",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-08-01T21:00:00.000Z",
-          "score": 2,
-          "seenAt": "2026-08-02 07:50"
         }
       ],
       "routedInboxId": "ib-w-a2-ms-contract",
@@ -156,7 +156,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
       "lastHit": "2026-08-22 07:50",
       "hits": [
         {
@@ -221,7 +221,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
       "lastHit": "2026-08-20 07:50",
       "hits": [
         {
@@ -285,7 +285,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
       "lastHit": "2026-08-24 07:50",
       "hits": [
         {
@@ -350,9 +350,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
-      "lastHit": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
+      "lastHit": "2026-08-31 07:50",
       "hits": [
+        {
+          "headline": "인도·중국·캐나다 등 10개국 트럼프 관세 압박 지속",
+          "url": "https://timesofindia.indiatimes.com/business/india-business/india-china-canada-and-more-10-countries-still-under-trumps-tariff-squeeze-and-why/articleshow/133346162.cms",
+          "source": "Google News - US Trade Policy",
+          "publishedAt": "2026-08-30T01:19:00.000Z",
+          "score": 2,
+          "seenAt": "2026-08-31 07:50"
+        },
         {
           "headline": "트럼프 관세전, 기존 규제 만료 시점 신규 제재 추진",
           "url": "https://www.nytimes.com/article/trump-tariffs-trade.html",
@@ -384,14 +392,6 @@
           "publishedAt": "2026-08-25T11:40:15.000Z",
           "score": 2,
           "seenAt": "2026-08-26 07:50"
-        },
-        {
-          "headline": "미국, 내년 1월 캐나다산 자동차·철강 관세 50% 인상 예고",
-          "url": "https://www.mk.co.kr/news/world/12135288",
-          "source": "매일경제 산업",
-          "publishedAt": "2026-08-24T14:40:44.000Z",
-          "score": 2,
-          "seenAt": "2026-08-25 07:50"
         }
       ],
       "routedInboxId": "ib-w-a5-tariff",
@@ -415,7 +415,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
       "lastHit": "2026-08-25 07:50",
       "hits": [
         {
@@ -482,7 +482,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
       "lastHit": "2026-08-21 07:50",
       "hits": [
         {
@@ -622,7 +622,7 @@
           "seenAt": "2026-08-07 07:50"
         }
       ],
-      "lastChecked": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
       "lastHit": "2026-08-26 07:50",
       "routedInboxId": "ib-w-a1-b2b",
       "routedAt": "2026-08-12 23:38"
@@ -644,7 +644,7 @@
       "priority": "하",
       "status": "resolved",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-30 07:50",
+      "lastChecked": "2026-08-31 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
