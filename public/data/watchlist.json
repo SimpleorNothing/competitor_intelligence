@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-31T00:00:00+09:00",
+  "updatedAt": "2026-09-01T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-08-31 07:50",
+  "lastScan": "2026-09-01 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-31 07:50",
       "hits": [
         {
@@ -89,7 +89,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-31 07:50",
       "hits": [
         {
@@ -156,9 +156,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
-      "lastHit": "2026-08-22 07:50",
+      "lastChecked": "2026-09-01 07:50",
+      "lastHit": "2026-09-01 07:50",
       "hits": [
+        {
+          "headline": "LG전자, IFA 2026서 씽큐 클로 및 AI 홈 공개",
+          "url": "https://www.thetechoutlook.com/new-release/software-apps/lg-electronics-introduces-thinq-claw-and-expanded-ai-home-experiences-at-ifa-2026/",
+          "source": "Google News - LG Global",
+          "publishedAt": "2026-08-31T06:35:07.000Z",
+          "score": 4,
+          "seenAt": "2026-09-01 07:50"
+        },
         {
           "headline": "LG전자, 씽큐에 챗GPT 탑재… 오픈형 AI홈 생태계 강화",
           "url": "https://www.hankyung.com/article/202608215055i",
@@ -190,14 +198,6 @@
           "publishedAt": "2026-05-30T06:35:08.000Z",
           "score": 3,
           "seenAt": "2026-07-21 07:50"
-        },
-        {
-          "headline": "LG, 현대차와 AI 가전 구독 서비스 파트너십",
-          "url": "https://www.chosun.com/english/industry-en/2026/07/20/DXA6NMVFWRHNZEOUSSBPZKQMVQ/",
-          "source": "Google News - LG Global",
-          "publishedAt": "2026-07-19T15:37:43.000Z",
-          "score": 2,
-          "seenAt": "2026-07-20 07:50"
         }
       ],
       "routedInboxId": "ib-w-a3-aihome-rev",
@@ -221,7 +221,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-20 07:50",
       "hits": [
         {
@@ -285,7 +285,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-24 07:50",
       "hits": [
         {
@@ -350,7 +350,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-31 07:50",
       "hits": [
         {
@@ -415,7 +415,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-25 07:50",
       "hits": [
         {
@@ -482,7 +482,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-21 07:50",
       "hits": [
         {
@@ -622,7 +622,7 @@
           "seenAt": "2026-08-07 07:50"
         }
       ],
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-08-26 07:50",
       "routedInboxId": "ib-w-a1-b2b",
       "routedAt": "2026-08-12 23:38"
@@ -644,7 +644,7 @@
       "priority": "하",
       "status": "resolved",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-08-31 07:50",
+      "lastChecked": "2026-09-01 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
