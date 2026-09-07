@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-27T07:00:00+09:00",
+  "updatedAt": "2026-09-07T21:00:00+09:00",
   "schemaVersion": "v1",
   "items": [
     {
@@ -2242,6 +2242,51 @@
       "reviewStatus": "reviewed",
       "origin": "manual",
       "tags": ["홈스타일", "인테리어", "시공", "플랫폼"]
+    },
+    {
+      "id": 156,
+      "companyId": "lg",
+      "axisId": "lg-a5",
+      "date": "2026-09-05",
+      "event": "IFA 2026 기자간담회에서 HS 매출 중 B2B 비중이 10%대 초반이라고 공개하고, 빌트인·빌더·상업용 세탁·부품을 확대축으로 제시. 유럽 빌트인은 2030년 매출 10배·톱5 목표와 2026년 말 주요 경쟁사 수준 제품 라인업 확보 계획을 재확인.",
+      "interpretation": "LG가 유럽 B2B를 선언 단계에서 제품·수주영업·설치·배송 인프라 구축 단계로 옮기고 있다. 삼성 DA에는 개별 제품 경쟁보다 유럽 키친 채널·건설사·설치망을 묶은 선점 경쟁이 핵심 위협이다. 다만 B2B 절대 매출과 수주잔고가 없어 목표 달성도는 아직 검증할 수 없다.",
+      "signalType": "Deep",
+      "confidence": "사실",
+      "source": {"name": "중앙경제(IFA 2026 백승태 HS사업본부장 간담회)", "url": "https://v.daum.net/v/VpFVBc6bWY", "tier": 2},
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "tags": ["B2B", "유럽", "빌트인", "빌더", "상업용 세탁", "삼성 위협"]
+    },
+    {
+      "id": 157,
+      "companyId": "lg",
+      "axisId": "lg-a4",
+      "date": "2026-09-05",
+      "event": "중국 가전업체의 저가 공세에 대응해 모터·컴프레서 등 핵심부품 내재화, 공급선 다변화, 장기계약, 12개 글로벌 생산거점의 유연 운영을 추진한다고 설명. 연간 원가절감 압박은 기존 약 3%에서 최근 약 5%로 확대됐다고 언급.",
+      "interpretation": "단순 판가 인하가 아니라 부품·조달·생산을 묶은 구조적 원가 대응이다. 삼성 DA도 중국계와의 가격차만 볼 것이 아니라 핵심부품 자립도, 장기조달 커버리지, 생산 전환 리드타임을 경쟁 KPI로 병행 점검할 필요가 있다.",
+      "signalType": "Insight",
+      "confidence": "사실",
+      "source": {"name": "전자신문(IFA 2026 백승태 HS사업본부장 간담회)", "url": "https://m.etnews.com/20260906000066", "tier": 2},
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "tags": ["중국", "원가", "핵심부품", "공급망", "생산거점"]
+    },
+    {
+      "id": 158,
+      "companyId": "lg",
+      "axisId": "lg-a6",
+      "date": "2026-09-05",
+      "event": "LG전자는 로봇을 변수가 적은 제조현장에 먼저 적용해 학습시킨 뒤 장기적으로 가정으로 적용 범위를 넓히겠다고 밝혔다. 복수 글로벌 빅테크와 액추에이터 공급을 협의 중이며 10월 특정 기업과 기술·생산 준비 상황을 점검할 계획이라고 설명.",
+      "interpretation": "스마트팩토리가 로봇의 초기 수요처이자 학습데이터 확보장으로 기능하고 이후 홈로봇으로 확장되는 단계적 사업화 경로가 구체화됐다. 확정 수주가 아니므로 첫 고객·수주액·양산 CAPA 공개 전까지는 선행 신호로 관리한다.",
+      "signalType": "New",
+      "confidence": "사실",
+      "source": {"name": "전자신문(IFA 2026 백승태 HS사업본부장 간담회)", "url": "https://m.etnews.com/20260906000066", "tier": 2},
+      "interpretationBy": "codex",
+      "reviewStatus": "reviewed",
+      "origin": "manual",
+      "tags": ["로봇", "제조현장", "홈로봇", "액추에이터", "빅테크", "수주협의"]
     }
   ],
   "inbox": [
