@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-09-10T00:00:00+09:00",
+  "updatedAt": "2026-09-11T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-09-10 07:50",
+  "lastScan": "2026-09-11 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,9 +24,17 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
-      "lastHit": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
+      "lastHit": "2026-09-11 07:50",
       "hits": [
+        {
+          "headline": "오텍캐리어, AI 데이터센터 냉각솔루션 공급 본격화",
+          "url": "https://www.kmecnews.co.kr/news/articleView.html?idxno=51747",
+          "source": "Google News - 캐리어/오텍캐리어 KR",
+          "publishedAt": "2026-09-10T03:22:32.000Z",
+          "score": 1,
+          "seenAt": "2026-09-11 07:50"
+        },
         {
           "headline": "오텍캐리어, AI 데이터센터 핵심 장비 'CDU' EPD 인증 획득",
           "url": "https://www.ftoday.co.kr/news/articleView.html?idxno=365115",
@@ -58,14 +66,6 @@
           "publishedAt": "2026-08-30T13:48:25.000Z",
           "score": 1,
           "seenAt": "2026-08-31 07:50"
-        },
-        {
-          "headline": "LG전자, 엔비디아와 AI 팩토리 구축 협력",
-          "url": "https://w.media/lg-electronics-and-nvidia-build-ai-factory-to-advance-robotics-and-industrial-ai/",
-          "source": "Google News - Appliance New Business Models",
-          "publishedAt": "2026-08-27T04:00:00.000Z",
-          "score": 1,
-          "seenAt": "2026-08-30 07:50"
         }
       ],
       "routedInboxId": "ib-w-a2-nvidia",
@@ -89,7 +89,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
       "lastHit": "2026-08-31 07:50",
       "hits": [
         {
@@ -156,7 +156,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
       "lastHit": "2026-09-08 07:50",
       "hits": [
         {
@@ -221,7 +221,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
       "lastHit": "2026-08-20 07:50",
       "hits": [
         {
@@ -285,9 +285,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
-      "lastHit": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
+      "lastHit": "2026-09-11 07:50",
       "hits": [
+        {
+          "headline": "삼성전자, 고효율 HVAC로 인도 시장 공략 가속",
+          "url": "https://www.newsprime.co.kr/news/article/?no=737608",
+          "source": "Google News - 한국 가전 산업",
+          "publishedAt": "2026-06-22T10:20:43.000Z",
+          "score": 3,
+          "seenAt": "2026-09-11 07:50"
+        },
         {
           "headline": "LG전자 인도법인, 영국·홍콩 잇는 대규모 투자 돌입",
           "url": "https://www.theguru.co.kr/news/article.html?no=106854",
@@ -319,14 +327,6 @@
           "publishedAt": "2026-08-21T04:04:10.000Z",
           "score": 2,
           "seenAt": "2026-08-22 07:50"
-        },
-        {
-          "headline": "LG전자 인도 3공장 조기가동 임박…에어컨 470만대 공급 본격화",
-          "url": "https://www.etnews.com/20260715000181",
-          "source": "전자신문",
-          "publishedAt": "2026-07-15T07:00:00.000Z",
-          "score": 4,
-          "seenAt": "2026-08-20 07:50"
         }
       ],
       "routedInboxId": "ib-w-a5-globalsouth",
@@ -350,7 +350,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
       "lastHit": "2026-08-31 07:50",
       "hits": [
         {
@@ -419,7 +419,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
       "lastHit": "2026-09-09 07:50",
       "hits": [
         {
@@ -486,7 +486,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
       "lastHit": "2026-09-10 07:50",
       "hits": [
         {
@@ -593,6 +593,14 @@
       "createdAt": "2026-07-19",
       "hits": [
         {
+          "headline": "엔알비, 이동·재사용 가능한 이축형 모듈러주택 모델 공개",
+          "url": "https://www.mk.co.kr/news/realestate/12149592",
+          "source": "매일경제 산업",
+          "publishedAt": "2026-09-10T08:29:52.000Z",
+          "score": 1,
+          "seenAt": "2026-09-11 07:50"
+        },
+        {
           "headline": "IFA 2026, 韓 AI홈 vs 中 종합가전 맞대결",
           "url": "https://www.etnews.com/20260903000330",
           "source": "전자신문",
@@ -623,18 +631,10 @@
           "publishedAt": "2026-09-07T22:00:04.000Z",
           "score": 1,
           "seenAt": "2026-09-08 07:50"
-        },
-        {
-          "headline": "삼성전자 비스포크 AI 무풍콤보 프로 벽걸이, IFA 최고 혁신상 수상",
-          "url": "https://www.koreareport.co.kr/news/articleView.html?idxno=52650",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-09-06T19:05:52.000Z",
-          "score": 1,
-          "seenAt": "2026-09-07 07:50"
         }
       ],
-      "lastChecked": "2026-09-10 07:50",
-      "lastHit": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
+      "lastHit": "2026-09-11 07:50",
       "routedInboxId": "ib-w-a1-b2b",
       "routedAt": "2026-08-12 23:38"
     },
@@ -655,7 +655,7 @@
       "priority": "하",
       "status": "resolved",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-10 07:50",
+      "lastChecked": "2026-09-11 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
