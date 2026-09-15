@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-09-15T00:00:00+09:00",
+  "updatedAt": "2026-09-16T00:00:00+09:00",
   "schemaVersion": "v1",
   "companyId": "lg",
-  "lastScan": "2026-09-15 07:50",
+  "lastScan": "2026-09-16 07:50",
   "scanReason": "cron",
   "note": "확인 필요 항목(재센싱 트리거)을 상시 감시. daily cron이 MI news.json과 키워드 매칭 → 신규 뉴스 감지 시 status를 watching→signal로 올리고 hits에 기록(검토 대기). 실제 strategies/evidence 반영은 사람이 판단(자동 반영 아님).",
   "items": [
@@ -24,7 +24,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
       "lastHit": "2026-09-12 07:51",
       "hits": [
         {
@@ -89,7 +89,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
       "lastHit": "2026-08-31 07:50",
       "hits": [
         {
@@ -156,7 +156,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
       "lastHit": "2026-09-08 07:50",
       "hits": [
         {
@@ -221,9 +221,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
-      "lastHit": "2026-09-14 07:50",
+      "lastChecked": "2026-09-16 07:50",
+      "lastHit": "2026-09-16 07:50",
       "hits": [
+        {
+          "headline": "삼성전자, 휴머노이드 시장 진출… '원가'가 승부처",
+          "url": "https://v.daum.net/v/VzafLYcnND?f=p",
+          "source": "Google News - 경쟁사 로봇·미래사업 KR",
+          "publishedAt": "2026-09-09T06:39:04.000Z",
+          "score": 1,
+          "seenAt": "2026-09-16 07:50"
+        },
         {
           "headline": "삼성·LG, 구독·리베이트·재활용으로 비용 절감",
           "url": "https://www.chosun.com/english/industry-en/2026/09/14/2VV3DPLWXRDNJKH4Y4FW4A3IIE/",
@@ -255,14 +263,6 @@
           "publishedAt": "2026-08-10T21:40:42.000Z",
           "score": 1,
           "seenAt": "2026-08-11 07:50"
-        },
-        {
-          "headline": "삼성전자 DX, 원가 부담에 2분기 적자 전환",
-          "url": "http://www.topdaily.kr/articles/111289",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-08-04T06:51:00.000Z",
-          "score": 1,
-          "seenAt": "2026-08-05 07:50"
         }
       ],
       "routedInboxId": "ib-w-a4-costtarget",
@@ -285,7 +285,7 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
       "lastHit": "2026-09-12 07:51",
       "hits": [
         {
@@ -350,9 +350,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
-      "lastHit": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
+      "lastHit": "2026-09-16 07:50",
       "hits": [
+        {
+          "headline": "트럼프 관세전, 기존 규제 만료 시점 신규 제재 추진",
+          "url": "https://www.nytimes.com/article/trump-tariffs-trade.html",
+          "source": "Google News - US Trade Policy",
+          "publishedAt": "2026-07-24T13:57:42.000Z",
+          "score": 3,
+          "seenAt": "2026-09-16 07:50"
+        },
         {
           "headline": "트럼프 행정부, 멕시코와 철강 관세 공조 강화",
           "url": "https://www.alphabiz.co.kr/news/articleView.html?idxno=165312",
@@ -384,14 +392,6 @@
           "publishedAt": "2026-09-12T16:32:56.000Z",
           "score": 2,
           "seenAt": "2026-09-13 07:50"
-        },
-        {
-          "headline": "인도·중국·캐나다 등 10개국 트럼프 관세 압박 지속",
-          "url": "https://timesofindia.indiatimes.com/business/india-business/india-china-canada-and-more-10-countries-still-under-trumps-tariff-squeeze-and-why/articleshow/133346162.cms",
-          "source": "Google News - US Trade Policy",
-          "publishedAt": "2026-08-30T01:19:00.000Z",
-          "score": 2,
-          "seenAt": "2026-08-31 07:50"
         }
       ],
       "routedInboxId": "ib-w-a5-tariff",
@@ -419,7 +419,7 @@
       "priority": "상",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
       "lastHit": "2026-09-12 07:51",
       "hits": [
         {
@@ -486,9 +486,17 @@
       "priority": "중",
       "status": "signal",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
-      "lastHit": "2026-09-10 07:50",
+      "lastChecked": "2026-09-16 07:50",
+      "lastHit": "2026-09-16 07:50",
       "hits": [
+        {
+          "headline": "LG전자, 콜센터 품질 3년 연속 종합 1위 및 가전구독 첫 정상",
+          "url": "https://www.ngonews.kr/news/articleView.html?idxno=238222",
+          "source": "Google News - 가전 신사업·비즈모델 KR",
+          "publishedAt": "2026-09-15T05:36:43.000Z",
+          "score": 2,
+          "seenAt": "2026-09-16 07:50"
+        },
         {
           "headline": "가전 판매를 넘어 청소·수납·보증까지 관리 서비스 경쟁 확산",
           "url": "https://v.daum.net/v/20260909154110230",
@@ -520,14 +528,6 @@
           "publishedAt": "2026-07-27T00:50:06.000Z",
           "score": 3,
           "seenAt": "2026-08-20 07:50"
-        },
-        {
-          "headline": "LG전자 가전구독 반기 최대, 연 매출 3조 눈앞",
-          "url": "https://www.mt.co.kr/amp/industry/2026/08/18/2026081814090822841",
-          "source": "Google News - 한국 가전 산업",
-          "publishedAt": "2026-08-18T07:30:00.000Z",
-          "score": 5,
-          "seenAt": "2026-08-19 07:50"
         }
       ],
       "routedInboxId": "ib-w-a1-sub2026",
@@ -593,6 +593,14 @@
       "createdAt": "2026-07-19",
       "hits": [
         {
+          "headline": "IFA 2026, 韓 AI홈 vs 中 종합가전 맞대결",
+          "url": "https://www.etnews.com/20260903000330",
+          "source": "전자신문",
+          "publishedAt": "2026-09-03T08:30:00.000Z",
+          "score": 2,
+          "seenAt": "2026-09-16 07:50"
+        },
+        {
           "headline": "GS건설, 폭우·폭염 대응 미래형 주거 솔루션 연구 착수",
           "url": "https://www.mk.co.kr/news/realestate/12135416",
           "source": "매일경제 산업",
@@ -623,18 +631,10 @@
           "publishedAt": "2026-09-12T19:34:55.000Z",
           "score": 1,
           "seenAt": "2026-09-13 07:50"
-        },
-        {
-          "headline": "삼성전자, IFA 2026 혁신 어워드 다수 수상",
-          "url": "https://news.samsung.com/my/samsung-wins-multiple-honours-at-ifa-innovation-awards-2026",
-          "source": "Google News - US Home Appliances",
-          "publishedAt": "2026-09-11T05:00:00.000Z",
-          "score": 1,
-          "seenAt": "2026-09-12 07:51"
         }
       ],
-      "lastChecked": "2026-09-15 07:50",
-      "lastHit": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
+      "lastHit": "2026-09-16 07:50",
       "routedInboxId": "ib-w-a1-b2b",
       "routedAt": "2026-08-12 23:38"
     },
@@ -655,7 +655,7 @@
       "priority": "하",
       "status": "resolved",
       "createdAt": "2026-07-04",
-      "lastChecked": "2026-09-15 07:50",
+      "lastChecked": "2026-09-16 07:50",
       "lastHit": "2026-07-21 07:50",
       "hits": [
         {
